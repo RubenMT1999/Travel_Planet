@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "reservas")
+@Table(name = "reserva")
 public class Reserva {
 
     @Id
@@ -24,13 +24,14 @@ public class Reserva {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "habitacion_id")
+    @JoinColumn(name = "id_habitacion")
     private Set<Habitacion> habitaciones;
 
-
+    @Column(name = "metodo_pago")
     private EMetodoDePago metodoDePago;
 
     @NotNull

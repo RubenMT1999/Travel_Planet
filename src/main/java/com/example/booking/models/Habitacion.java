@@ -3,6 +3,8 @@ package com.example.booking.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -20,24 +22,28 @@ public class Habitacion {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "")
-    private int numero_habitacion;
+    @Column(name = "num_habitacion")
+    @NotEmpty
+    private int numeroHabitacion;
 
-    @Column(name = "")
-    private String extension_telefonica;
+    @Column(name = "ext_telefonica")
+    @NotEmpty
+    private String extensionTelefonica;
 
     @Column(name = "capacidad")
+    @NotEmpty
     private int capacidad;
 
     @Column(name = "descripcion")
     private String descripcion;
 
     @Column(name = "disponibilidad")
+    @NotNull
     private Boolean disponibilidad;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel")
-    private Hotel id_hotel;
+    private Hotel hotel;
 
     @OneToMany
     @JoinColumn(name = "id_tarifa")
