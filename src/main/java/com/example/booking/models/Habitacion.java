@@ -3,6 +3,7 @@ package com.example.booking.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,13 +35,12 @@ public class Habitacion {
     @Column(name = "disponibilidad")
     private Boolean disponibilidad;
 
-    // Arreglar la relacion
-    @Column(name = "id_hotel")
-    private Integer id_hotel;
-    // Arreglar la relacion
-    @Column(name = "id_tarifa")
-    private Integer id_tarifa;
+    @OneToOne
+    @JoinColumn(name = "id_hotel")
+    private Hotel id_hotel;
 
-
+    @OneToMany
+    @JoinColumn(name = "id_tarifa")
+    private List<Tarifa> id_tarifa;
 
 }
