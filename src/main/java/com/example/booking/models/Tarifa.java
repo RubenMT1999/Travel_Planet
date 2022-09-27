@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Tarifa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_temporada")
@@ -28,8 +28,6 @@ public class Tarifa {
 
     @Column(name = "precio_persona")
     private boolean precioPersona;
-
-
 
 
 }
