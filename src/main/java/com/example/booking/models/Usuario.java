@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +37,7 @@ public class Usuario {
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Past
     private Date fechaNacimiento;
 
     @NotEmpty
@@ -48,14 +50,12 @@ public class Usuario {
     private String telefono;
 
     @NotEmpty
-    @Email
+    @Email(message = "correo con formato incorrecto")
     private String email;
 
     @Column(name = "metodo_de_pago")
-    @NotEmpty
     private EMetodoDePago metodoDePago;
 
-    @NotEmpty
     private boolean registrado;
 
 

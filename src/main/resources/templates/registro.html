@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -25,61 +25,75 @@
             <p class="mx-5 d-flex justify-content-center">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
             
             <div class="d-flex justify-content-center mx-5 ">
-            <form action="#" method="post">
+
+            <form th:action="@{/registrar}" th:object="${usuario}" method="post">
               <div class="form-group mb-3 col-10 ">
                 <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" placeholder="Introduce tu nombre" id="nombre">
+                <input type="text" class="form-control" placeholder="Introduce tu nombre" th:field="*{nombre}" id="nombre">
               </div>
+              <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="alert alert-danger"></div>
+
+
               <div class="form-group mb-3 col-10 ">
                 <label for="apellidos">Apellidos</label>
-                <input type="text" class="form-control" placeholder="Introduce tu apellido" id="apellidos">
+                <input type="text" class="form-control" placeholder="Introduce tu apellido" th:field="*{apellidos}" id="apellidos">
               </div>
+              <div th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" class="alert alert-danger"></div>
+
+
               <div class="form-group  mb-3 col-10">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" placeholder="Correo electrónico" id="email">
+                <input type="email" class="form-control" placeholder="Correo electrónico" th:field="*{email}" id="email">
               </div>
+              <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger"></div>
+
+
 
               <div class="form-group mb-3 col-10">
                 <label for="fechaNacimiento">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="fechaNacimiento">
+                <input type="date" class="form-control" id="fechaNacimiento" th:field="*{fechaNacimiento}" placeholder="yyyy-MM-dd">
               </div>
+              <div th:if="${#fields.hasErrors('fechaNacimiento')}"
+                   th:errors="*{fechaNacimiento}" class="alert alert-danger"></div>
 
               <div class="form-group mb-3 col-10 ">
                 <label for="nacionalidad">Nacionalidad</label>
-                <input type="text" class="form-control" placeholder="Introduce tu nacionalidad" id="nacionalidad">
+                <input type="text" class="form-control" placeholder="Introduce tu nacionalidad" th:field="*{nacionalidad}" id="nacionalidad">
               </div>
+              <div th:if="${#fields.hasErrors('nacionalidad')}" th:errors="*{nacionalidad}" class="alert alert-danger"></div>
+
 
               <div class="form-group mb-3 col-10 ">
                 <label for="dni">Dni</label>
-                <input type="text" class="form-control" placeholder="Documento de identidad" id="dni">
+                <input type="text" class="form-control" placeholder="Documento de identidad" th:field="*{dni}" id="dni">
               </div>
+              <div th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="alert alert-danger"></div>
+
 
 
 
               <div class="form-group mb-3 col-10">
                 <label for="telefono">Número de teléfono</label>
-                <input type="number" class="form-control" placeholder="#34 654544389" id="telefono">
+                <input type="number" class="form-control" placeholder="#34 654544389" th:field="*{telefono}" id="telefono">
               </div>
+              <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="alert alert-danger"></div>
+
 
               <div class="form-group mb-3 col-10">
                 <label for="contrasenia">Contraseña</label>
-                <input type="text" class="form-control" placeholder="Introduce la contraseña" id="contrasenia">
+                <input type="text" class="form-control" placeholder="Introduce la contraseña" th:field="*{contrasenia}" id="contrasenia">
               </div>
-
-              <div class="form-group mb-3 col-10">
-                <label for="contrasenia2">Repite la contraseña</label>
-                <input type="text" class="form-control" placeholder="Repite la contraseña" id="contrasenia2">
-              </div>
+              <div th:if="${#fields.hasErrors('contrasenia')}" th:errors="*{contrasenia}" class="alert alert-danger"></div>
 
 
-              
+
               <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label " for="exampleCheck1">Check me out</label>
                 <a href="#" class="mx-5">Olvidé la contraseña</a>
               </div>
 
-              <input type="submit" value="Log In" class="btn btn-block btn-primary mt-3">
+              <input type="submit" value="Regístrame" class="btn btn-block btn-primary mt-3">
 
             </form>
           </div>
@@ -87,12 +101,13 @@
             
           </div>
 
+          <!--
           <div class="col-md-7 col-lg-6 d-sm-none d-md-block d-none d-sm-block">
             <div class="d-flex justify-content-center portrait">
               <img src="/images/bg_1.jpg" class="img-thumbnail img-fluid" alt="...">
             </div>
           </div>
-
+          -->
 
         </div>
     

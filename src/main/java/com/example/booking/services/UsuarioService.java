@@ -8,16 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements IUsuarioService{
 
     @Autowired
     UsuarioRepository usuarioRepository;
 
 
-    public List<Usuario> getAll(){
-        return usuarioRepository.findAll();
+    @Override
+    public void save(Usuario usuario) {
+        usuarioRepository.save(usuario);
     }
-
-
-
 }
