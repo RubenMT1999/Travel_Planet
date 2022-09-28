@@ -18,12 +18,9 @@ public class Tarifa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_temporada")
+
     private Temporada temporada;
 
-    @ManyToOne
-    @JoinColumn(name = "id_pension")
     private Pension pension;
 
     @Column(name = "precio_persona")

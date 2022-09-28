@@ -27,7 +27,10 @@ public class Usuario {
     private String nombre;
 
     @NotEmpty
-    private String apellido;
+    private String apellidos;
+
+    @NotEmpty
+    private String contrasenia;
 
     @NotNull
     @Column(name = "fecha_nacimiento")

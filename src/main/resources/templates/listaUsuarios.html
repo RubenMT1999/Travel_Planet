@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+    <h1 th:text="${titulo}"></h1>
+
+    <table class="striped">
+        <thead>
+        <tr>
+            <th >Nombre </th>
+            <th>Apellido</th>
+            <th >Dni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u: ${usuarios}">
+            <td th:text="${u.nombre}"></td>
+            <td th:text="${u.apellidos}"></td>
+            <td th:text="${u.dni}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
