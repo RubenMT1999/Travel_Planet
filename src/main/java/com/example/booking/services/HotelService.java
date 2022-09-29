@@ -16,7 +16,13 @@ public class HotelService {
     private List<Hotel> hotelvacio;
     public List<Hotel> listAll(String ciudades, Date fechaInicio, Date fechaFin) {
 
-    }
+                if (ciudades != null && fechaInicio != null && fechaFin != null) {
+                    return hotel.search(ciudades, fechaInicio, fechaFin);
+                }
+                return hotel.findAll();
+            }
 
-}
+        }
+
+
 
