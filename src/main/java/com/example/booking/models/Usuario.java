@@ -56,7 +56,7 @@ public class Usuario {
     @Column(name = "metodo_de_pago")
     private EMetodoDePago metodoDePago;
 
-    private boolean registrado;
+    private Integer registrado;
 
 
     private Integer descuento;

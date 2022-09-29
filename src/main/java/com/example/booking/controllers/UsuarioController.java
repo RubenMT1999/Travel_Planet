@@ -1,6 +1,7 @@
 package com.example.booking.controllers;
 
 import com.example.booking.models.Usuario;
+import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.IUsuarioService;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,28 @@ public class UsuarioController {
 
     @Autowired
     private IUsuarioService usuarioService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+
+
+    @GetMapping("/login/{nombre}/{password}")
+    public String login(@PathVariable String nombre, @PathVariable String password ,Model model){
+        Usuario usuario = new Usuario();
+
+        try{
+            usuario = usuarioRepository.findUserByNameAndPassword(nombre,password);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+
+        model.addAttribute("titulo","Registro - Travel Planet");
+        model.addAttribute("usuario", usuario);
+        return "resultado";
+    }
+
 
 
 
