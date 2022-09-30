@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <title>Planet travel</title>
+    <title th:text="${titulo}"></title>
 </head>
 <body>
 
@@ -66,26 +66,29 @@
 
 
     <div class="container mt-5 p-5">
-
         <div class="row p-4">
 
-            <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
-                <label for="select-place" class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
-                <input type="text" class="form-control" name="" id="select-place" placeholder="Sevilla, Sevilla">
-            </div>
-            <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
-                <label  class="font-weight-bold text-white fw-bold">Check In</label>
-                <form>
-                    <input type="date" class="form-control">
-                </form>
-            </div>
-            <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
-                <label class="font-weight-bold text-white fw-bold">Check Out</label>
-                <form>
-                    <input type="date" class="form-control">
-                </form>
-            </div>
+            <form action="#" th:action="@{/hoteles}" th:object="${hotel}" method="post">
+                <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
+                    <label for="ciudad" class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
+                    <input type="text" class="form-control" placeholder="Sevilla, Sevilla"th:field="*{ciudad}" id="ciudad">
+                </div>
+            </form>
 
+            <form th:action="@{/hoteles}" th:object="${reservas}" method="post">
+                <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
+                    <label  class="font-weight-bold text-white fw-bold">Check In</label>
+                    <form>
+                        <input type="date" class="form-control" id="fecha_inicio" th:field="*{fecha_inicio}" placeholder="yyyy-MM-dd">
+                    </form>
+                </div>
+                <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
+                    <label class="font-weight-bold text-white fw-bold">Check Out</label>
+                    <form>
+                        <input type="date" class="form-control"id="fecha_fin" th:field="*{fecha_fin}" placeholder="yyyy-MM-dd">
+                    </form>
+                </div>
+            </form>
         </div>
 
 
