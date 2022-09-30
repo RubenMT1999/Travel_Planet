@@ -27,7 +27,47 @@ public class UsuarioController {
 
 
 
-    @GetMapping("/login/{nombre}/{password}")
+    @GetMapping("/login")
+    public String inicioSesion(Model model){
+        Usuario usuario = new Usuario();
+        model.addAttribute("titulo","Inicio de Sesión");
+        model.addAttribute("usuario",usuario);
+        return "login";
+    }
+
+
+
+    @PostMapping("/login/{email}/{password}")
+    public String procesarLogin(@PathVariable String email, @PathVariable String password,
+                                @Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
+
+
+        try{
+            usuario = usuarioRepository.findUserByNameAndPassword(email,password);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        if(result.hasErrors() || usuario.getEmail().isEmpty()){
+            model.addAttribute("titulo", "Ha habido algún error");
+            return "login";
+        }
+
+
+
+
+        model.addAttribute("titulo","Inicio de Sesion - Travel Planet");
+        model.addAttribute("usuario", usuario);
+        status.setComplete();
+        return "resultado";
+
+    }
+
+
+
+
+
+   /* @GetMapping("/login/{nombre}/{password}")
     public String login(@PathVariable String nombre, @PathVariable String password ,Model model){
         Usuario usuario = new Usuario();
 
@@ -41,7 +81,7 @@ public class UsuarioController {
         model.addAttribute("titulo","Registro - Travel Planet");
         model.addAttribute("usuario", usuario);
         return "resultado";
-    }
+    }*/
 
 
 
