@@ -68,24 +68,24 @@
     <div class="container mt-5 p-5">
         <div class="row p-4">
 
-            <form action="#" th:action="@{/hoteles}" th:object="${hotel}" method="post">
+            <form action="#" th:action="@{/}" th:object="${hotel}" method="post">
                 <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
                     <label for="ciudad" class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
                     <input type="text" class="form-control" placeholder="Sevilla, Sevilla"th:field="*{ciudad}" id="ciudad">
                 </div>
             </form>
 
-            <form th:action="@{/hoteles}" th:object="${reservas}" method="post">
+            <form th:action="@{/}" th:object="${reservas}" method="post">
                 <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
                     <label  class="font-weight-bold text-white fw-bold">Check In</label>
                     <form>
-                        <input type="date" class="form-control" id="fecha_inicio" th:field="*{fecha_inicio}" placeholder="yyyy-MM-dd">
+                        <input type="date" class="form-control" id="fecha_inicio" th:field="*{fechaInicio}" placeholder="yyyy-MM-dd">
                     </form>
                 </div>
                 <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
                     <label class="font-weight-bold text-white fw-bold">Check Out</label>
                     <form>
-                        <input type="date" class="form-control"id="fecha_fin" th:field="*{fecha_fin}" placeholder="yyyy-MM-dd">
+                        <input type="date" class="form-control"id="fecha_fin" th:field="*{fechaFin}" placeholder="yyyy-MM-dd">
                     </form>
                 </div>
             </form>
@@ -139,7 +139,7 @@
             </div>
 
             <div class="col-md-4 mt-sm-0 mt-md-4">
-                <button class="btn btn-primary btn-block text-white col-12">Buscar</button>
+                <input type="submit" value="Buscar" class="btn btn-primary btn-block text-white col-12">
             </div>
 
 
