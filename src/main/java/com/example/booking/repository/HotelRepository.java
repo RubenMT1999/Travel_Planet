@@ -17,7 +17,9 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
             "FROM Hotel " +
             "JOIN habitacion  ON hotel.id = habitacion.id_hotel " +
             "join reserva on reserva.id_habitacion = habitacion.id " +
-            "where hotel.ciudad = :ciudad and reserva.fecha_inicio = :fecha_inicio and reserva.fecha_fin = :fecha_fin", nativeQuery = true)
+            "where hotel.ciudad = :ciudad and reserva.fecha_inicio " +
+            "between :fecha_inicio and :fecha_fin and reserva.fecha_fin " +
+            "between :fecha_inicio and :fecha_fin", nativeQuery = true)
 
     public List<Hotel> search(@Param("ciudad")String ciudades, @Param("fecha_inicio")Date fechaInicio, @Param("fecha_fin") Date fechaFin);
 

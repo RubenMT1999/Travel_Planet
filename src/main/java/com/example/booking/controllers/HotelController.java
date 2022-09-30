@@ -19,13 +19,10 @@ import java.util.List;
     @Autowired
     private HotelService hotelservice;
 
-
-
-
     @GetMapping("/hotel")
     public String hotel(Model model){
         List<Hotel> hotels = new ArrayList<>();
-        hotels = hotelservice.listAll("Sevilla",Date.valueOf("2022-09-09"), Date.valueOf("2022-10-10"));
+        hotels = hotelservice.listAll("Alcala",Date.valueOf("2022-09-05"), Date.valueOf("2022-10-15"));
         model.addAttribute("titulo","Registro - Travel Planet");
 
         model.addAttribute("hotel", hotels);
