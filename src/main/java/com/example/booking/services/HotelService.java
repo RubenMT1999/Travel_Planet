@@ -14,15 +14,15 @@ public class HotelService {
     @Autowired
     private HotelRepository hotel;
     private List<Hotel> hotelvacio;
-    public List<Hotel> listAll(String ciudades, Date fechaInicio, Date fechaFin) {
+    public List<Hotel> listAll(String ciudades, Date fechaInicio, Date fechaFin, Integer capacidad) {
 
-                if (ciudades != null && fechaInicio != null && fechaFin != null) {
-                    return hotel.search(ciudades, fechaInicio, fechaFin);
+                if (ciudades != null && fechaInicio != null && fechaFin != null && capacidad != null) {
+                    return hotel.search(ciudades, fechaInicio, fechaFin, capacidad);
                 }
                 return hotelvacio;
             }
 
-        }
+}
 
 
 
