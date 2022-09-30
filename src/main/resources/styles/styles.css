@@ -1,11 +1,9 @@
-
-img {
+.prueba {
+    background-image: url('/images/florencia.jpg');
+    background-position: 0% 0px;
+    background-size: cover;
+    background-repeat: no-repeat;
     max-width: 100%;
-    max-height: auto;
-}
+    max-height: 100%;
 
-
-.portrait {
-    height: 650px;
-    width: 100%;
 }

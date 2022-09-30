@@ -122,6 +122,4 @@ public class UsuarioController {
         status.setComplete();
         return "resultado";
     }
-
-
 }
