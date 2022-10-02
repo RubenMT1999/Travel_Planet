@@ -3,7 +3,6 @@ package com.example.booking.controllers;
 import com.example.booking.models.Usuario;
 import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.IUsuarioService;
-import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @SessionAttributes("usuario")
@@ -26,43 +24,12 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
 
+    @GetMapping("/")
+    public String index(Model model){
 
-    @GetMapping("/login")
-    public String inicioSesion(Model model){
-        Usuario usuario = new Usuario();
-        model.addAttribute("titulo","Inicio de Sesión");
-        model.addAttribute("usuario",usuario);
-        return "login";
+        model.addAttribute("titulo", "Página de Inicio");
+        return "index";
     }
-
-
-
-    @PostMapping("/login/{email}/{password}")
-    public String procesarLogin(@PathVariable String email, @PathVariable String password,
-                                @Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
-
-
-        try{
-            usuario = usuarioRepository.findUserByNameAndPassword(email,password);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        if(result.hasErrors() || usuario.getEmail().isEmpty()){
-            model.addAttribute("titulo", "Ha habido algún error");
-            return "login";
-        }
-
-
-
-
-        model.addAttribute("titulo","Inicio de Sesion - Travel Planet");
-        model.addAttribute("usuario", usuario);
-        status.setComplete();
-        return "resultado";
-
-    }
-
 
 
 

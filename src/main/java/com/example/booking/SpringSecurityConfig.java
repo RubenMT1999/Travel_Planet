@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +19,22 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    //Configuracion de quien puede visitar cada url
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //definimos quien va a poder acceder a las distintas direccioens
+        http.authorizeRequests().antMatchers("/","/styles/**","/images/**","/login").permitAll()
+                .antMatchers("/registrar/**").hasAnyRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/login")
+                .permitAll()
+                .and()
+                .logout().permitAll();
+
+
+
+    }
 
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception{
@@ -30,7 +47,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //el password se va a encriptar con el passwordEncoder.
         builder.inMemoryAuthentication().withUser(users.username("admin").password("12345").roles("ADMIN","USER"))
-                .withUser(users.username("usuario").password("12345").roles("USER"));
+                .withUser(users.username("usuario@gmail.com").password("12345").roles("USER"));
 
     }
 
