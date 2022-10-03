@@ -26,7 +26,7 @@ import java.util.List;
     @Autowired
     private HotelService hotelService;
 
-    @GetMapping("/")
+   /* @GetMapping("/")
     public String hotel(Model model){
         Hotel hotels = new Hotel();
         Reserva reserva = new Reserva();
@@ -34,7 +34,7 @@ import java.util.List;
         model.addAttribute("hotel", hotels);
         model.addAttribute("reservas", reserva);
         return "index";
-    }
+    }*/
 
     @PostMapping("/")
     public String procesarBusqueda(String ciudades, java.util.Date fechaInicio, Date fechaFin) {
