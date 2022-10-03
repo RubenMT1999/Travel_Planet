@@ -19,7 +19,7 @@
 
             <nav class="navbar">
                 <div class="col-3 p-2">
-                    <a href="#" class="text-white fw-bold fs-4 text-decoration-none ml-5">
+                    <a href="#" class="fw-bold fs-4 text-decoration-none ml-5">
                         PLANET TRAVEL
                     </a>
                 </div>
@@ -28,14 +28,13 @@
                     <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary float-end m-2">Iniciar sesion</a>
                     <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-primary float-end m-2">Registrarse</a>
 
-                    <div class="dropleft float-end" sec:authorize="isAuthenticated()">
+                    <div class="dropdown float-end" sec:authorize="isAuthenticated()">
                         <a class="btn btn-secondary dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <span sec:authentication="name"></span>
                         </a>
-
                         <ul class="dropdown-menu">
-                            <span class="dropdown-item" sec:authentication="name"></span>
-                            <span class="dropdown-item" sec:authentication="principal.authorities"></span>
+                            <span class="dropdown-item-text" sec:authentication="name"></span>
+                            <span class="dropdown-item-text" sec:authentication="principal.authorities"></span>
                             <form id="logoutForm" th:action="@{/logout}" method="post">
                                 <button class="dropdown-item"
                                         onclick="document.getElementById('logoutForm').submit();"

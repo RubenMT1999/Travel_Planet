@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <header th:replace="header/header :: header"></header>
+
+    <div class="container py-4">
+        <div class="card bg-danger text-white">
+            <div class="card-header">Error: Acesso Denegado</div>
+            <div class="card-body">
+                <!-- El remoteUser sería el usuario que está logeado. También podemos usar el authentication como en el login -->
+                <h5 class="card-title">Lo sentimos <span th:text="${#httpServletRequest.remoteUser}"></span>, NO tienes permisos para acceder a este recurso. </h5>
+                <a th:href="@{/}" class="btn btn-outline-light" role="button">Ir al inicio</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

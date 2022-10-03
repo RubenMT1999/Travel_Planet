@@ -30,7 +30,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login")
                 .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/error_403");
 
 
 
@@ -47,7 +49,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //el password se va a encriptar con el passwordEncoder.
         builder.inMemoryAuthentication().withUser(users.username("admin").password("12345").roles("ADMIN","USER"))
-                .withUser(users.username("usuario@gmail.com").password("12345").roles("USER"));
+                .withUser(users.username("usuario").password("12345").roles("USER"));
 
     }
 
