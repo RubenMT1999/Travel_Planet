@@ -21,7 +21,7 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
             "not between :fecha_inicio and :fecha_fin and reserva.fecha_fin " +
             "not between :fecha_inicio and :fecha_fin and habitacion.capacidad = :capacidad", nativeQuery = true)
 
-    List<Hotel> search(@Param("ciudad")String ciudades, @Param("fecha_inicio")Date fechaInicio, @Param("fecha_fin") Date fechaFin, @Param("personas") Integer capacidad);
+    List<Hotel> search(@Param("ciudad")String ciudades, @Param("fecha_inicio")Date fechaInicio, @Param("fecha_fin") Date fechaFin, @Param("capacidad") Integer capacidad);
 
 }
 

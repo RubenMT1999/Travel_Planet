@@ -22,31 +22,42 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-
-@SessionAttributes("hotel")
     public class HotelController {
     @Autowired
     private HotelService hotelService;
-    private HotelRepository hotelRepository;
 
+
+   /* @Controller
+    public class AppController {
+        @Autowired
+        private ProductService service;
+        @RequestMapping("/")
+        public String viewHomePage(Model model, @Param("keyword") String keyword) {
+            List<Product> listProducts = service.listAll(keyword);
+            model.addAttribute("listProducts", listProducts);
+            model.addAttribute("keyword", keyword);
+            return "index";
+        }
+    */
     @GetMapping("/")
-    public String hotel(Model model){
+    public String hotel(Model model, @Param("hoteles") String hoteles, java.util.Date fechaInicio, Date fechaFin, Integer capacidad){
         Hotel hotels = new Hotel();
+        List<Hotel> listHoteles = hotelService.listAll(hoteles, fechaInicio, fechaFin, capacidad );
         Reserva reserva = new Reserva();
-        Habitacion capacidad = new Habitacion();
+        Habitacion capacidades = new Habitacion();
         model.addAttribute("titulo","Registro - Travel Planet");
+        model.addAttribute("listahoteles", listHoteles);
         model.addAttribute("hotel", hotels);
-        model.addAttribute("Sevilla", "Cádiz");
         model.addAttribute("reservas", reserva);
-        model.addAttribute("capacidad", capacidad);
+        model.addAttribute("capacidad", capacidades);
         return "index";
     }
 
-    @PostMapping("/")
+  /*  @PostMapping("/")
     public String procesarBusqueda(String ciudades, java.util.Date fechaInicio, Date fechaFin, Integer capacidad) {
 
-        if (hotelRepository.search(ciudades, fechaInicio, fechaFin, capacidad) != null) {
-            return "/";
+       if (hotelRepository.search(ciudades, fechaInicio, fechaFin, capacidad) != null) {
+       return "/";
         }
         return "redirect:/disponible";
     }
@@ -62,5 +73,7 @@ import java.util.List;
         model.addAttribute("hotel", hotels);
         return "resultado1";
     }
+
+   */
 
 }
