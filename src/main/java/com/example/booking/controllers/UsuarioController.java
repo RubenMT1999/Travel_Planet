@@ -69,11 +69,7 @@ public class UsuarioController {
             model.addAttribute("titulo", "Ha habido algún error");
             return "registro";
         }
-
-
-
         return "redirect:/ver";
-
     }
 
     @GetMapping("/ver")

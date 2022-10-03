@@ -19,7 +19,7 @@ public class HotelService {
                 if (ciudades != null && fechaInicio != null && fechaFin != null) {
                     return hotel.search(ciudades, fechaInicio, fechaFin);
                 }
-                return hotel.findAll();
+                return hotelvacio;
             }
 
         }
