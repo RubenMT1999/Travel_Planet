@@ -24,7 +24,7 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
 
-    @GetMapping("/")
+ /*   @GetMapping("/")
     public String index(Model model){
 
         model.addAttribute("titulo", "Página de Inicio");

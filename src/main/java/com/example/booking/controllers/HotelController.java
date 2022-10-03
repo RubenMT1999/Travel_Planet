@@ -26,41 +26,30 @@ import java.util.List;
     @Autowired
     private HotelService hotelService;
 
-   /* @GetMapping("/")
+    @GetMapping("/")
     public String hotel(Model model){
-        Hotel hotels = new Hotel();
-        List<Hotel> listHoteles = hotelService.listAll(hoteles, fechaInicio, fechaFin, capacidad );
-        Reserva reserva = new Reserva();
-        Habitacion capacidades = new Habitacion();
-        model.addAttribute("titulo","Registro - Travel Planet");
-        model.addAttribute("listahoteles", listHoteles);
-        model.addAttribute("hotel", hotels);
-        model.addAttribute("reservas", reserva);
-        model.addAttribute("capacidad", capacidades);
+        Hotel hotel = new Hotel();
+        model.addAttribute("titulo","Buscar - Travel Planet");
+        model.addAttribute("hotel", hotel);
         return "index";
-    }*/
+    }
 
-  /*  @PostMapping("/")
-    public String procesarBusqueda(String ciudades, java.util.Date fechaInicio, Date fechaFin, Integer capacidad) {
-
-       if (hotelRepository.search(ciudades, fechaInicio, fechaFin, capacidad) != null) {
-       return "/";
+  @PostMapping("/probar")
+    public String procesarBusqueda(Model model, String ciudades) {
+        if(ciudades == null){
+            model.addAttribute("titulo", "ha habido un error en la busqueda");
+            return "index";
         }
         return "redirect:/disponible";
     }
 
     @GetMapping("/disponible")
-    public String hotelreserva(Model model, @Param("Ciudad") String ciudades,
-                               @Param("Fecha inicio") Date fecha_inicio,
-                               @Param("Fecha Fin") Date fecha_fin,
-                               @Param("Capacidad") Integer capacidad){
-        List<Hotel> hotels = new ArrayList<>();
-        hotels = hotelService.listAll(ciudades, fecha_inicio, fecha_fin, capacidad);
-        model.addAttribute("titulo","Registro - Travel Planet");
-        model.addAttribute("hotel", hotels);
+    public String hotelreserva(Model model, Hotel hotel){
+
+
         return "resultado1";
     }
 
-   */
+
 
 }
