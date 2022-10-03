@@ -4,6 +4,7 @@ import com.example.booking.models.Usuario;
 import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,7 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
 
+    @Secured("ROLE_USER")
     @GetMapping("/")
     public String index(Model model){
 

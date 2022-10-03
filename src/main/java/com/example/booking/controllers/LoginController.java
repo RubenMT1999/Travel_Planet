@@ -1,6 +1,10 @@
 package com.example.booking.controllers;
 
 import com.example.booking.models.Usuario;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.Collection;
 
 @Controller
 public class LoginController {
@@ -38,5 +43,28 @@ public class LoginController {
         model.addAttribute("titulo","Inicio de Sesión");
         return "login";
     }
+
+
+
+
+    /* Obtener el role del autenticado */
+//    private boolean hasRole(String role){
+//        SecurityContext context = SecurityContextHolder.getContext();
+//
+//        if (context == null){
+//            return false;
+//        }
+//
+//        Authentication auth = context.getAuthentication();
+//
+//        if (auth == null){
+//            return false;
+//        }
+//
+//        Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+//
+//        return authorities.contains(new SimpleGrantedAuthority(role));
+//    }
+
 
 }

@@ -26,15 +26,15 @@ import java.util.List;
     @Autowired
     private HotelService hotelService;
 
-    @GetMapping("/")
-    public String hotel(Model model){
-        Hotel hotels = new Hotel();
-        Reserva reserva = new Reserva();
-        model.addAttribute("titulo","Registro - Travel Planet");
-        model.addAttribute("hotel", hotels);
-        model.addAttribute("reservas", reserva);
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String hotel(Model model){
+//        Hotel hotels = new Hotel();
+//        Reserva reserva = new Reserva();
+//        model.addAttribute("titulo","Registro - Travel Planet");
+//        model.addAttribute("hotel", hotels);
+//        model.addAttribute("reservas", reserva);
+//        return "index";
+//    }
 
     @PostMapping("/")
     public String procesarBusqueda(String ciudades, java.util.Date fechaInicio, Date fechaFin) {
