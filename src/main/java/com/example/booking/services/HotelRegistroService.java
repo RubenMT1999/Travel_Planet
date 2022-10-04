@@ -15,4 +15,11 @@ public class HotelRegistroService {
         registroHotelRepository.save(hotel);
     }
 
+//    public String hotelYaRegistrado(Hotel hotel){
+//        if (hotel.getNombre() == registroHotelRepository.getHotelByNombre()){
+//
+//        }
+//        return "Este hotel ya existe";
+//    }
+
 }

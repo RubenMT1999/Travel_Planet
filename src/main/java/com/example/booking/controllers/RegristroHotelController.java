@@ -24,7 +24,6 @@ public class RegristroHotelController {
     @PostMapping("/hotel-registrado")
     public String mensajeGuardarHotel(@RequestBody Hotel hotel){
         hotelRegistroService.guardarRegistroHotel(hotel);
-
         return "Hotel Registrado correctamente";
     }
 
