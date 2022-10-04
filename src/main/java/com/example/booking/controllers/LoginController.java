@@ -65,6 +65,7 @@ public class LoginController {
 //
 //        return authorities.contains(new SimpleGrantedAuthority(role));
 //    }
-
+// para obtener el usuario autenticado usar Authentication como parámetro en el metodo request.
+// luego: Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 }

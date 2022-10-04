@@ -56,10 +56,15 @@ public class Usuario {
     @Column(name = "metodo_de_pago")
     private EMetodoDePago metodoDePago;
 
-    private Integer registrado;
+    private boolean registrado;
 
 
     private Integer descuento;
+
+    private ERoles rol;
+
+    @NotEmpty
+    private Integer enabled;
 
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reservas;

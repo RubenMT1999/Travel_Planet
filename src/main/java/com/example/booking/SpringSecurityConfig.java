@@ -5,17 +5,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
+//enableGlobalMehtodSecurity para permitir las anotaciones Secured
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LoginSuccessHandler successHandler;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
     public static BCryptPasswordEncoder passwordEncoder(){
@@ -31,6 +39,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                    .usernameParameter("nombre")
+                    .passwordParameter("contrasenia")
                         .successHandler(successHandler)
                         .loginPage("/login")
                 .permitAll()
@@ -46,15 +56,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception{
 
-        PasswordEncoder encoder = passwordEncoder();
-        //por cada vez que registramos un usuario se genera un evento que encripta la contraseña
-        User.UserBuilder users = User.builder().passwordEncoder(password ->{
-            return encoder.encode(password);
-        });
-
-        //el password se va a encriptar con el passwordEncoder.
-        builder.inMemoryAuthentication().withUser(users.username("admin").password("12345").roles("ADMIN","USER"))
-                .withUser(users.username("usuario").password("12345").roles("USER"));
+        builder.jdbcAuthentication()
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder())
+                .usersByUsernameQuery("select nombre, contrasenia, enabled from usuario where nombre=?")
+                .authoritiesByUsernameQuery("select * from authorities a inne where ")
 
     }
 
