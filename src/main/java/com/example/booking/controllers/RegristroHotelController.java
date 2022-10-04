@@ -1,19 +1,32 @@
 package com.example.booking.controllers;
 
 import com.example.booking.models.Hotel;
+import com.example.booking.repository.RegistroHotelRepository;
+import com.example.booking.services.HotelRegistroService;
+import com.example.booking.services.HotelService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Controller
 public class RegristroHotelController {
 
-    @GetMapping("/registrar-hotel")
-    public String registroHotel(Model model){
-        Hotel nuevoHotel = new Hotel();
-        model.addAttribute("titulo", "Registro de Hotel - Travel Planet");
-        model.addAttribute("nuevoHotel", nuevoHotel);
-        return "registro-Hotel";
+    @Autowired
+    private  HotelRegistroService hotelRegistroService;
+
+    @Autowired
+    private RegistroHotelRepository registroHotelRepository;
+    @PostMapping("/registrar-hotel")
+    public void registroHotel(@RequestBody Hotel hotel){
+
+        registroHotelRepository.save(hotel);
     }
+
+
 
 }

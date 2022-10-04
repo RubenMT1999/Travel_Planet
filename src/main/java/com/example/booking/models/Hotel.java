@@ -5,7 +5,9 @@ import net.bytebuddy.implementation.bind.annotation.Empty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -55,7 +57,7 @@ public class Hotel {
     private int cif;
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Habitacion> habitaciones;
+    private Set<Habitacion> habitaciones = new HashSet<>(0);
 
     public void addHabitacion(Habitacion habitacion){
         this.habitaciones.add(habitacion);
