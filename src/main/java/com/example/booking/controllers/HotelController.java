@@ -36,14 +36,14 @@ import java.util.List;
 //        return "index";
 //    }
 
-    @PostMapping("/")
-    public String procesarBusqueda(String ciudades, java.util.Date fechaInicio, Date fechaFin) {
-
-        if (hotelService.listAll(ciudades, fechaInicio, fechaFin) == null) {
-            return "/";
-        }
-        return "redirect:/disponible";
-    }
+//    @PostMapping("/")
+//    public String procesarBusqueda(String ciudades, java.util.Date fechaInicio, Date fechaFin) {
+//
+//        if (hotelService.listAll(ciudades, fechaInicio, fechaFin) == null) {
+//            return "/";
+//        }
+//        return "redirect:/disponible";
+//    }
 
     @GetMapping("/disponible")
     public String hotelreserva(Model model){

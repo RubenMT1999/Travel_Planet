@@ -34,13 +34,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //definimos quien va a poder acceder a las distintas direccioens
-        http.authorizeRequests().antMatchers("/","/styles/**","/images/**","/login").permitAll()
-                .antMatchers("/registrar/**").hasAnyRole("ADMIN")
+        http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login").permitAll()
+//                .antMatchers("/registrar/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    .usernameParameter("nombre")
-                    .passwordParameter("contrasenia")
                         .successHandler(successHandler)
                         .loginPage("/login")
                 .permitAll()
@@ -59,8 +57,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         builder.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("select nombre, contrasenia, enabled from usuario where nombre=?")
-                .authoritiesByUsernameQuery("select * from authorities a inne where ")
+                .usersByUsernameQuery("select username, password, enabled from users where username=?")
+                .authoritiesByUsernameQuery("select u.username, a.authority from authorities a inner join users u on (a.user_id=u.id) where u.username=?");
 
     }
 

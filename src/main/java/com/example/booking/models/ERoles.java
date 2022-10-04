@@ -2,5 +2,5 @@ package com.example.booking.models;
 
 public enum ERoles {
 
-    Usuario, Admin
+    ROLE_USER, ROLE_ADMIN
 }

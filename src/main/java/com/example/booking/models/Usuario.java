@@ -61,10 +61,6 @@ public class Usuario {
 
     private Integer descuento;
 
-    private ERoles rol;
-
-    @NotEmpty
-    private Integer enabled;
 
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reservas;
