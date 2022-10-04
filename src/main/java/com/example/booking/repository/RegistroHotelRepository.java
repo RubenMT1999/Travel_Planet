@@ -13,6 +13,6 @@ import java.util.List;
 @Repository
 public interface RegistroHotelRepository extends JpaRepository<Hotel, Integer> {
 
-    ;
+
 
 }

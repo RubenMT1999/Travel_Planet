@@ -7,13 +7,12 @@ import com.example.booking.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/registro-hotel")
 public class RegristroHotelController {
 
     @Autowired
@@ -21,10 +20,12 @@ public class RegristroHotelController {
 
     @Autowired
     private RegistroHotelRepository registroHotelRepository;
-    @PostMapping("/registrar-hotel")
-    public void registroHotel(@RequestBody Hotel hotel){
 
-        registroHotelRepository.save(hotel);
+    @PostMapping("/hotel-registrado")
+    public String mensajeGuardarHotel(@RequestBody Hotel hotel){
+        hotelRegistroService.guardarRegistroHotel(hotel);
+
+        return "Hotel Registrado correctamente";
     }
 
 

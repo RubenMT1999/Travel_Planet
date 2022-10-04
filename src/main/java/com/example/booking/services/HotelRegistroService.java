@@ -11,6 +11,8 @@ public class HotelRegistroService {
     @Autowired
     private RegistroHotelRepository registroHotelRepository;
 
-
+    public void guardarRegistroHotel(Hotel hotel){
+        registroHotelRepository.save(hotel);
+    }
 
 }
