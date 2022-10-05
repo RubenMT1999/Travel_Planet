@@ -1,9 +1,16 @@
 package com.example.booking.controllers;
 
+import com.example.booking.models.Authorities;
+import com.example.booking.models.ERoles;
+import com.example.booking.models.UserAuth;
 import com.example.booking.models.Usuario;
+import com.example.booking.repository.AuthoritiesRepository;
+import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +29,16 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UserAuthRepository userAuthRepository;
+
+    @Autowired
+    private AuthoritiesRepository authoritiesRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 
 
  /* @GetMapping("/")
@@ -63,27 +80,34 @@ public class UsuarioController {
     }
 
     @PostMapping("/registrar")
-    public String procesar(@Valid Usuario usuario, BindingResult result, Model model){
+    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
 
         if(result.hasErrors()){
             model.addAttribute("titulo", "Ha habido algún error");
             return "registro";
         }
 
-        return "redirect:/ver";
-    }
+        String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
+        usuario.setContrasenia(bcryptPassword);
 
-    @GetMapping("/ver")
-    public String ver(@SessionAttribute(name="usuario", required = false) Usuario usuario, Model model, SessionStatus status) {
+        UserAuth auth = new UserAuth();
+        auth.setUsername(usuario.getNombre());
+        auth.setPassword(usuario.getContrasenia());
+        auth.setEnabled(1);
+        userAuthRepository.save(auth);
 
-        if(usuario == null) {
-            return "redirect:/registrar";
-        }
+        Authorities authorities = new Authorities();
+        authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
+        authorities.setUser(auth);
+
+
+        authoritiesRepository.save(authorities);
 
         model.addAttribute("titulo", "Resultado form");
-
         usuarioService.save(usuario);
         status.setComplete();
         return "resultado";
     }
+
+
 }
