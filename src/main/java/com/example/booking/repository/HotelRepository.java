@@ -14,11 +14,13 @@ import java.util.List;
 @Repository
 
 public interface HotelRepository extends JpaRepository<Hotel,Integer> {
-    @Query(value = "SELECT *" +
+   @Query(value = "SELECT *" +
             "FROM Hotel " +
             "where hotel.ciudad = :ciudad", nativeQuery = true)
 
-    List<Hotel> search();
+
+
+    List<Hotel> findHotelByCiudad(Hotel ciudad);
 
 }
 

@@ -13,8 +13,8 @@ public class HotelService {
 
     @Autowired
     private HotelRepository hotel;
-    public List<Hotel> Buscar(String ciudades) {
-        return hotel.findAll();
+    public List<Hotel> Buscar(Hotel ciudades) {
+        return hotel.findHotelByCiudad(ciudades);
 
             }
 

@@ -32,7 +32,7 @@ import java.util.List;
     @GetMapping("/")
     public String hotel(Model model){
         Hotel hotel = new Hotel();
-        model.addAttribute("titulo","Buscar - Travel Planet");
+        model.addAttribute("titulo","Inicio - Travel Planet");
         model.addAttribute("hotel", hotel);
         return "index";
     }
@@ -44,10 +44,13 @@ import java.util.List;
 
     */
 
-  @PostMapping("/buscar")
-    public String procesarBusqueda(@RequestParam String ciudades) {
-            List<Hotel> variable = hotelService.Buscar(ciudades);
+  @PostMapping ("/listar")
+    public String procesarBusqueda(@RequestParam Hotel ciudades, Model model) {
+      List<Hotel> hotel = hotelService.Buscar(ciudades);
+      model.addAttribute("titulo","Buscar - Travel Planet");
+      model.addAttribute("hotel", hotel);
             return "resultado1";
+
         }
 
 }

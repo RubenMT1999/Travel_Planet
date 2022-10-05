@@ -23,19 +23,15 @@ public class Hotel {
     private Integer id;
 
     @Column(name = "nombre")
-    @NotEmpty
     private String nombre;
 
     @Column(name = "num_habitaciones")
-    @NotEmpty
     private int numero_habitaciones;
 
     @Column(name = "telefono")
-    @NotEmpty
     private String telefono;
 
     @Column(name = "pais")
-    @NotEmpty
     private String pais;
 
     @Column(name = "ciudad")
@@ -43,15 +39,12 @@ public class Hotel {
     private String ciudad;
 
     @Column(name = "poblacion")
-    @NotEmpty
     private String poblacion;
 
     @Column(name = "localidad")
-    @NotEmpty
     private String localidad;
 
     @Column(name = "cif")
-    @NotEmpty
     private int cif;
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
