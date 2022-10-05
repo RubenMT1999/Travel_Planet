@@ -23,6 +23,12 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
     List<Hotel> search(@Param("ciudad")String ciudades, @Param("fecha_inicio")Date fechaInicio, @Param("fecha_fin") Date fechaFin, @Param("capacidad") Integer capacidad);
 
+
+    @Query(value = "SELECT * from hotel  WHERE ciudad = ?1",
+            nativeQuery = true)
+    List<Hotel> buscarHoteles(String ciudad);
+
+
 }
 
 

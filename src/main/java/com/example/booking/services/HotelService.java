@@ -22,6 +22,11 @@ public class HotelService {
         return hotel.findAll();
             }
 
+
+    public List<Hotel> obtenerHoteles(String ciudad){
+        return hotel.buscarHoteles(ciudad);
+    }
+
 }
 
 
