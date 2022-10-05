@@ -18,10 +18,10 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
             "JOIN habitacion  ON hotel.id = habitacion.id_hotel " +
             "join reserva on reserva.id_habitacion = habitacion.id " +
             "where hotel.ciudad = :ciudad and reserva.fecha_inicio " +
-            " :betweenfecha_inicio and :fecha_fin and reserva.fecha_fin " +
-            "between :fecha_inicio and :fecha_fin", nativeQuery = true)
+            "not between :fecha_inicio and :fecha_fin and reserva.fecha_fin " +
+            "not between :fecha_inicio and :fecha_fin and habitacion.capacidad = :capacidad", nativeQuery = true)
 
-    public List<Hotel> search(@Param("ciudad")String ciudades, @Param("fecha_inicio")Date fechaInicio, @Param("fecha_fin") Date fechaFin);
+    List<Hotel> search(@Param("ciudad")String ciudades, @Param("fecha_inicio")Date fechaInicio, @Param("fecha_fin") Date fechaFin, @Param("capacidad") Integer capacidad);
 
 }
 
