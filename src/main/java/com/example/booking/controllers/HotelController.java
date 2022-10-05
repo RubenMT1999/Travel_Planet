@@ -5,6 +5,7 @@ import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
 import com.example.booking.models.Usuario;
 import com.example.booking.repository.HotelRepository;
+import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import java.util.List;
     public class HotelController {
     @Autowired
     private HotelService hotelService;
+    @Autowired
+    private HotelRepository hotelRepository;
 
     @GetMapping("/")
     public String hotel(Model model){
@@ -34,22 +37,17 @@ import java.util.List;
         return "index";
     }
 
-  @PostMapping("/probar")
-    public String procesarBusqueda(Model model, String ciudades) {
-        if(ciudades == null){
-            model.addAttribute("titulo", "ha habido un error en la busqueda");
-            return "index";
+   /* @GetMapping("/listar")
+    public List<Hotel> listarHoteles(){
+        return hotelService.Buscar();
+    }
+
+    */
+
+  @PostMapping("/buscar")
+    public String procesarBusqueda(@RequestParam String ciudades) {
+            List<Hotel> variable = hotelService.Buscar(ciudades);
+            return "resultado1";
         }
-        return "redirect:/disponible";
-    }
-
-    @GetMapping("/disponible")
-    public String hotelreserva(Model model, Hotel hotel){
-
-
-        return "resultado1";
-    }
-
-
 
 }

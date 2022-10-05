@@ -13,12 +13,9 @@ public class HotelService {
 
     @Autowired
     private HotelRepository hotel;
-    public List<Hotel> listAll(String ciudades, Date fechaInicio, Date fechaFin, Integer capacidad) {
-
-                if (ciudades != null && fechaInicio != null && fechaFin != null && capacidad != null) {
-                    return hotel.search(ciudades, fechaInicio, fechaFin, capacidad);
-                }
+    public List<Hotel> Buscar(String ciudades) {
         return hotel.findAll();
+
             }
 
 }
