@@ -16,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Path;
 import javax.validation.Valid;
 
 @Controller
@@ -26,9 +28,6 @@ public class UsuarioController {
 
     @Autowired
     private IUsuarioService usuarioService;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private UserAuthRepository userAuthRepository;
@@ -43,31 +42,9 @@ public class UsuarioController {
 
     @GetMapping("/")
     public String index(Model model){
-
         model.addAttribute("titulo", "Página de Inicio");
         return "index";
     }
-
-
-
-
-   /* @GetMapping("/login/{nombre}/{password}")
-    public String login(@PathVariable String nombre, @PathVariable String password ,Model model){
-        Usuario usuario = new Usuario();
-
-        try{
-            usuario = usuarioRepository.findUserByNameAndPassword(nombre,password);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-
-        model.addAttribute("titulo","Registro - Travel Planet");
-        model.addAttribute("usuario", usuario);
-        return "resultado";
-    }*/
-
-
 
 
 
@@ -86,6 +63,7 @@ public class UsuarioController {
             model.addAttribute("titulo", "Ha habido algún error");
             return "registro";
         }
+
 
         String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);
