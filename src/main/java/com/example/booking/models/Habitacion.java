@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-
 @Entity
 @Table(name = "habitacion")
 public class Habitacion {

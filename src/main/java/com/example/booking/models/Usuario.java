@@ -1,5 +1,6 @@
 package com.example.booking.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -61,12 +62,13 @@ public class Usuario {
 
     private Integer descuento;
 
-    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Reserva> reservas;
 
 
     public void addReserva(Reserva reserva){
         this.reservas.add(reserva);
     }
+
 
 }
