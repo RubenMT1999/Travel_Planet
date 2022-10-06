@@ -23,9 +23,6 @@ public class HotelService {
             }
 
 
-    public List<Hotel> obtenerHoteles(String ciudad){
-        return hotel.buscarHoteles(ciudad);
-    }
 
 }
 
