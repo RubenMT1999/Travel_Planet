@@ -17,10 +17,7 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
    @Query(value = "SELECT *" +
             "FROM Hotel " +
             "where hotel.ciudad = :ciudad", nativeQuery = true)
-
-
-
-    List<Hotel> findHotelByCiudad(Hotel ciudad);
+    List<Hotel> findHotelByCiudadLike(String ciudad);
 
 }
 

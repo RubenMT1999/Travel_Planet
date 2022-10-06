@@ -45,7 +45,7 @@ import java.util.List;
     */
 
   @PostMapping ("/listar")
-    public String procesarBusqueda(@RequestParam Hotel ciudades, Model model) {
+    public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades, Model model) {
       List<Hotel> hotel = hotelService.Buscar(ciudades);
       model.addAttribute("titulo","Buscar - Travel Planet");
       model.addAttribute("hotel", hotel);
