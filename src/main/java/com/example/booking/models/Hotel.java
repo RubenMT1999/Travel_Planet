@@ -11,8 +11,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-
 @Entity
 @Table(name = "hotel")
 public class Hotel {
@@ -52,14 +50,14 @@ public class Hotel {
 
     @Column(name = "cif")
     @NotEmpty
-    private int cif;
+    private String cif;
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Habitacion> habitaciones;
 
-    public void addHabitacion(Habitacion habitacion){
-        this.habitaciones.add(habitacion);
-    }
+//    public void addHabitacion(Habitacion habitacion){
+//        this.habitaciones.add(habitacion);
+//    }
 
 
 }
