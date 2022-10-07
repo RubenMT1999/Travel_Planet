@@ -13,8 +13,6 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-
 @Entity
 @Table(name = "hotel")
 public class Hotel {
@@ -25,19 +23,15 @@ public class Hotel {
     private Integer id;
 
     @Column(name = "nombre")
-    @NotEmpty
     private String nombre;
 
     @Column(name = "num_habitaciones")
-    @NotEmpty
     private int numero_habitaciones;
 
     @Column(name = "telefono")
-    @NotEmpty
     private String telefono;
 
     @Column(name = "pais")
-    @NotEmpty
     private String pais;
 
     @Column(name = "ciudad")
@@ -45,23 +39,20 @@ public class Hotel {
     private String ciudad;
 
     @Column(name = "poblacion")
-    @NotEmpty
     private String poblacion;
 
     @Column(name = "localidad")
-    @NotEmpty
     private String localidad;
 
     @Column(name = "cif")
-    @NotEmpty
-    private int cif;
+    private String cif;
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Habitacion> habitaciones = new HashSet<>(0);
 
-    public void addHabitacion(Habitacion habitacion){
-        this.habitaciones.add(habitacion);
-    }
+//    public void addHabitacion(Habitacion habitacion){
+//        this.habitaciones.add(habitacion);
+//    }
 
 
 }

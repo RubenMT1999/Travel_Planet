@@ -1,12 +1,15 @@
 package com.example.booking.controllers;
 
+import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
 import com.example.booking.models.Usuario;
 import com.example.booking.repository.HotelRepository;
+import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.validation.BindingResult;
@@ -20,43 +23,40 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-
-@SessionAttributes("hotel")
     public class HotelController {
     @Autowired
     private HotelService hotelService;
 
+
     @GetMapping("/")
-    public String hotel(Model model){
-        Hotel hotels = new Hotel();
+    public String hotel(Model model, Model model1){
+        Hotel hotel = new Hotel();
         Reserva reserva = new Reserva();
-        model.addAttribute("titulo","Registro - Travel Planet");
-        model.addAttribute("hotel", hotels);
-        model.addAttribute("reservas", reserva);
+        model.addAttribute("titulo","Inicio - Travel Planet");
+        model.addAttribute("hotel", hotel);
+        model1.addAttribute("reserva", reserva);
         return "index";
     }
 
-    @PostMapping("/")
-    public String procesarBusqueda(String ciudades, java.util.Date fechaInicio, Date fechaFin) {
+   /* @GetMapping("/listar")
+    public List<Hotel> listarHoteles(){
+        return hotelService.Buscar();
+    }
 
-        if (hotelService.listAll(ciudades, fechaInicio, fechaFin) == null) {
-            return "/";
+    */
+
+  @GetMapping ("/listar")
+    public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
+                                   @RequestParam(name = "fecha_inicio") Date fecha_inicio,
+                                   @RequestParam(name = "fecha_fin") Date fecha_fin,
+                                   Model model, Model model1) {
+      List<Hotel> hotel = hotelService.Buscar(ciudades, fecha_inicio, fecha_fin);
+      //Reserva reserva = hotelService.search(fecha_inicio, fecha_fin);
+      model.addAttribute("titulo","Buscar - Travel Planet");
+      model.addAttribute("hotel", hotel);
+     // model1.addAttribute("reserva", reserva);
+            return "resultado1";
+
         }
-        return "redirect:/disponible";
-    }
-
-    @GetMapping("/disponible")
-    public String hotelreserva(Model model){
-        List<Hotel> hotels = new ArrayList<>();
-        model.addAttribute("titulo","Registro - Travel Planet");
-        model.addAttribute("hotel", hotels);
-        return "resultado1";
-    }
-
-
-
-
-
-
 
 }

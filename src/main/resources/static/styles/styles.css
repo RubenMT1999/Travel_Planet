@@ -1,9 +1,13 @@
 .prueba {
-    background-image: url('/images/florencia.jpg');
+    background-image: url('/static/images/florencia.jpg');
     background-position: 0% 0px;
     background-size: cover;
     background-repeat: no-repeat;
     max-width: 100%;
     height: 500px;
 
+}
+
+.navbar.transparent.navbar-inverse .navbar-inner {
+    background: rgba(0,0,0,0.4);
 }
