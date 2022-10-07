@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Getter
+
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class Hotel {
     @NotEmpty
     private String nombre;
 
-    @Column(name = "num_habitaciones")
+    @Column(name = "num_hab")
     @NotEmpty
     private int numero_habitaciones;
 
@@ -60,4 +60,39 @@ public class Hotel {
 //    }
 
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getNumero_habitaciones() {
+        return numero_habitaciones;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getPoblacion() {
+        return poblacion;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public String getCif() {
+        return cif;
+    }
 }
