@@ -45,9 +45,7 @@ public class Habitacion {
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
 
-    @OneToMany
 
-    private List<Tarifa> id_tarifa;
 
     @ManyToOne()
     @JoinColumn(name = "id_habitacion")
