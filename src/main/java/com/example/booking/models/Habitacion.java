@@ -45,6 +45,8 @@ public class Habitacion {
     @NotNull
     private Boolean disponibilidad;
 
+    private String imagen;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "id_hotel")
@@ -73,6 +75,10 @@ public class Habitacion {
 
     public int getCapacidad() {
         return capacidad;
+    }
+
+    public String getImagen() {
+        return imagen;
     }
 
     public String getDescripcion() {
