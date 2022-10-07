@@ -1,6 +1,7 @@
 package com.example.booking.repository;
 
 import com.example.booking.models.Hotel;
+import com.example.booking.models.Reserva;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,10 +15,11 @@ import java.util.List;
 @Repository
 
 public interface HotelRepository extends JpaRepository<Hotel,Integer> {
-   @Query(value = "SELECT *" +
-            "FROM Hotel " +
-            "where hotel.ciudad = :ciudad", nativeQuery = true)
-    List<Hotel> findHotelByCiudadLike(String ciudad);
+    @Query(value = "select * from vistabuscador where ciudad = :ciudad " +
+            "and fecha_inicio not between :fecha_inicio and :fecha_fin " +
+            "and fecha_fin not between :fecha_inicio and :fecha_fin", nativeQuery = true)
+    List<Hotel> findHotelsByCiudadLike(String ciudad, Date fecha_inicio, Date fecha_fin);
+   // Reserva buscar(Date fecha_inicio, Date fecha_fin);
 
 }
 

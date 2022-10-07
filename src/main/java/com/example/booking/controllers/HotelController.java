@@ -26,14 +26,15 @@ import java.util.List;
     public class HotelController {
     @Autowired
     private HotelService hotelService;
-    @Autowired
-    private HotelRepository hotelRepository;
+
 
     @GetMapping("/")
-    public String hotel(Model model){
+    public String hotel(Model model, Model model1){
         Hotel hotel = new Hotel();
+        Reserva reserva = new Reserva();
         model.addAttribute("titulo","Inicio - Travel Planet");
         model.addAttribute("hotel", hotel);
+        model1.addAttribute("reserva", reserva);
         return "index";
     }
 
@@ -44,11 +45,16 @@ import java.util.List;
 
     */
 
-  @PostMapping ("/listar")
-    public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades, Model model) {
-      List<Hotel> hotel = hotelService.Buscar(ciudades);
+  @GetMapping ("/listar")
+    public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
+                                   @RequestParam(name = "fecha_inicio") Date fecha_inicio,
+                                   @RequestParam(name = "fecha_fin") Date fecha_fin,
+                                   Model model, Model model1) {
+      List<Hotel> hotel = hotelService.Buscar(ciudades, fecha_inicio, fecha_fin);
+      //Reserva reserva = hotelService.search(fecha_inicio, fecha_fin);
       model.addAttribute("titulo","Buscar - Travel Planet");
       model.addAttribute("hotel", hotel);
+     // model1.addAttribute("reserva", reserva);
             return "resultado1";
 
         }

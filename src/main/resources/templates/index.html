@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -7,52 +7,59 @@
     <title th:text="${titulo}"></title>
 </head>
 <body>
-    <header th:replace="header/header :: header"></header>
-    <form action="#" th:action="@{/listar}" th:object="${hotel}" method="post">
-        <div class="container mt-5 p-5">
-            <div class="row p-1">
-                <div class="row p-4">
-                   <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 mb-2">
-                                     <label class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
+     <header th:replace="header/header :: header"></header>
+
+     <form action="#" th:action="@{/listar}" th:object="${hotel}" method="get">
+          <div class="container mt-5 p-5">
+              <div class="row p-1">
+                  <div class="row p-4">
+                     <div class="col-md-4 mb-3 mb-md-0">
+                          <div class="container">
+                              <div class="row">
+                                  <div class="col-md-12 mb-2">
+                                       <label class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
                                         <select name="" id="localizacion" class="form-select mb-3" th:field="*{ciudad}">
-                                            <option th:value="Sevilla" th:text="Sevilla"></option>
-                                            <option th:value="Sevilla" th:text="Sevilla"></option>
-                                            <option th:value="Sevilla" th:text="Sevilla"></option>
-                                            <option th:value="Sevilla" th:text="Sevilla"></option>
-                                            <option th:value="Sevilla" th:text="Sevilla"></option>
-                                            <option th:value="Sevilla" th:text="Sevilla"></option>
-                                        </select>
+                                              <option th:value="Sevilla" th:text="Sevilla">Sevilla</option>
+                                              <option th:value="Granada" th:text="Granada">Granada</option>
+                                              <option th:value="Huelva" th:text="Huelva">Huelva</option>
+                                              <option th:value="Cadiz" th:text="Cadiz">Cádiz</option>
+                                              <option th:value="Almeria" th:text="Almeria">Almería</option>
+                                              <option th:value="Cordoba" th:text="Cordoba">Cordoba</option>
+                                          </select>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 <!-- <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
-                         <label for="ciudad" class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
-                         <input type="text" class="form-control" placeholder="Sevilla, Sevilla"th:field="*{ciudad}" id="ciudad">
 
-                </div>-->
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                   <!-- <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
+                           <label for="ciudad" class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
+                           <input type="text" class="form-control" placeholder="Sevilla, Sevilla"th:field="*{ciudad}" id="ciudad">
+
+                  </div>-->
+                      <form action="#" th:action="@{/listar}" th:object="${reserva}" method="get">
                 <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
 
-                   <!-- <form action="#" th:action="@{/}" th:object="${reservas}" method="post"> -->
                         <label  class="font-weight-bold text-white fw-bold">Check In</label>
                         <form>
-                            <input type="date" class="form-control" id="fecha_inicio"  placeholder="yyyy-MM-dd">
+                            <input type="date" class="form-control"id="fecha_inicio" th:datetime-local="*{fechaInicio}" placeholder="yyyy-MM-dd">
                         </form>
 
                 </div>
+
                 <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
 
                     <!-- <form action="#" th:action="@{/}" th:object="${reservas}" method="post"> -->
                         <label class="font-weight-bold text-white fw-bold">Check Out</label>
                         <form>
-                            <input type="date" class="form-control"id="fecha_fin"   placeholder="yyyy-MM-dd">
+                            <input type="date" class="form-control" id="fecha_fin"th:field="*{fechaFin}" placeholder="yyyy-MM-dd">
                         </form>
-
+                    <div class="col-md-4 mt-sm-0 mt-md-4">
+                        <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-12">
+                    </div>
                 </div>
+                      </form>
             </div>
 
 
@@ -73,22 +80,21 @@
                                         <option value="3">3</option>
                                         <option value="4">4 +</option>
                                     </select>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mt-sm-0 mt-md-4">
-                <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-12">
-            </div>
+
         </div>
     </div>
-    </div>
+    </form>
 
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    </form>
+    </form:form>
     </body>
     </html>
 
