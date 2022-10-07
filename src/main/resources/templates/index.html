@@ -43,17 +43,15 @@
 
                         <label  class="font-weight-bold text-white fw-bold">Check In</label>
                         <form>
-                            <input type="date" class="form-control"id="fecha_inicio" th:datetime-local="*{fechaInicio}" placeholder="yyyy-MM-dd">
+                            <input type="date" class="form-control" id="fecha_inicio" th:field="*{fechaInicio}" placeholder="yyyy-MM-dd">
                         </form>
 
                 </div>
 
                 <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
-
-                    <!-- <form action="#" th:action="@{/}" th:object="${reservas}" method="post"> -->
                         <label class="font-weight-bold text-white fw-bold">Check Out</label>
                         <form>
-                            <input type="date" class="form-control" id="fecha_fin"th:field="*{fechaFin}" placeholder="yyyy-MM-dd">
+                            <input type="date" class="form-control" id="fecha_fin" th:field="*{fechaFin}" placeholder="yyyy-MM-dd">
                         </form>
                     <div class="col-md-4 mt-sm-0 mt-md-4">
                         <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-12">

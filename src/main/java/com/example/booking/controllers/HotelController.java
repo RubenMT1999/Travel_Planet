@@ -47,9 +47,9 @@ import java.util.List;
 
   @GetMapping ("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
-                                   @RequestParam(name = "fecha_inicio") Date fecha_inicio,
-                                   @RequestParam(name = "fecha_fin") Date fecha_fin,
-                                   Model model, Model model1) {
+                                   @RequestParam(name = "fechaInicio") String fecha_inicio,
+                                   @RequestParam(name = "fechaFin") String fecha_fin,
+                                   Model model) {
       List<Hotel> hotel = hotelService.Buscar(ciudades, fecha_inicio, fecha_fin);
       //Reserva reserva = hotelService.search(fecha_inicio, fecha_fin);
       model.addAttribute("titulo","Buscar - Travel Planet");
