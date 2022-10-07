@@ -1,6 +1,7 @@
 package com.example.booking.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,8 +16,8 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -63,7 +64,7 @@ public class Usuario {
     private Integer descuento;
 
 
-    @OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reservas;
 
 
@@ -71,5 +72,51 @@ public class Usuario {
         this.reservas.add(reserva);
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public String getNacionalidad() {
+        return nacionalidad;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public EMetodoDePago getMetodoDePago() {
+        return metodoDePago;
+    }
+
+    public boolean isRegistrado() {
+        return registrado;
+    }
+
+    public Integer getDescuento() {
+        return descuento;
+    }
 }
