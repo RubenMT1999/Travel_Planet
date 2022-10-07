@@ -26,8 +26,8 @@ public class Reserva {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_habitacion")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reserva")
+
     private Set<Habitacion> habitaciones;
 
     @Column(name = "metodo_pago")

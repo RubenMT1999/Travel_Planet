@@ -14,6 +14,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Entity
 @Table(name = "habitacion")
+
 public class Habitacion {
 
     @Id
@@ -45,7 +46,12 @@ public class Habitacion {
     private Hotel hotel;
 
     @OneToMany
-    @JoinColumn(name = "id_tarifa")
+
     private List<Tarifa> id_tarifa;
+
+    @ManyToOne()
+    @JoinColumn(name = "id_habitacion")
+    private Reserva reserva;
+
 
 }
