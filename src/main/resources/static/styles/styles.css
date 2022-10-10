@@ -7,6 +7,16 @@
     height: 500px;
 
 }
+.caruosel-1{
+    z-index: 3;
+}
+.caruosel-2{
+    z-index: 2;
+}
+.buscador{
+    z-index: 1;
+    position: absolute;
+}
 
 .navbar.transparent.navbar-inverse .navbar-inner {
     background: rgba(0,0,0,0.4);

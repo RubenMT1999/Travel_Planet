@@ -36,22 +36,17 @@ import java.util.List;
         Reserva reserva = new Reserva();
         model.addAttribute("titulo","Inicio - Travel Planet");
         model.addAttribute("hotel", hotel);
-        model1.addAttribute("reserva", reserva);
+        model.addAttribute("reserva", reserva);
         return "index";
     }
 
-   /* @GetMapping("/listar")
-    public List<Hotel> listarHoteles(){
-        return hotelService.Buscar();
-    }
-
-    */
 
   @GetMapping ("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
                                    Model model) throws ParseException {
+
       SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
       Date fechaInicio = formato.parse(fecha_inicio);
       Date fecha_Fin = formato.parse(fecha_fin);
@@ -59,7 +54,6 @@ import java.util.List;
       List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin);
       model.addAttribute("titulo","Buscar - Travel Planet");
       model.addAttribute("hotel", hotel);
-     // model1.addAttribute("reserva", reserva);
             return "resultado1";
 
         }

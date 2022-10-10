@@ -15,6 +15,7 @@ public class HotelService {
     @Autowired
     private HotelRepository hotel;
     public List<Hotel> Buscar(String ciudades, Date fecha_inicio, Date fecha_fin) {
+
         return hotel.buscador(ciudades, fecha_inicio, fecha_fin);
             }
  /* public Reserva search(Date fecha_inicio, Date fecha_fin){

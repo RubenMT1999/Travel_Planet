@@ -23,7 +23,7 @@ public class Hotel {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "num_hab")
+    @Column(name = "num_habitaciones")
     private int numero_habitaciones;
 
     @Column(name = "telefono")

@@ -15,9 +15,21 @@ import java.util.List;
 @Repository
 
 public interface HotelRepository extends JpaRepository<Hotel,Integer> {
+    /*@Query(value = "SELECT *" +
+            "FROM Hotel " +
+            "JOIN habitacion  ON hotel.id = habitacion.id_hotel " +
+            "join reserva on reserva.id_habitacion = habitacion.id " +
+            "where hotel.ciudad = :ciudad and reserva.fecha_inicio " +
+            "not between :fecha_inicio and :fecha_fin and reserva.fecha_fin " +
+            "not between :fecha_inicio and :fecha_fin", nativeQuery = true)
+
+     */
     @Query(value = "select * from vistabuscador where ciudad = :ciudad " +
             "and fecha_inicio not between :fecha_inicio and :fecha_fin " +
             "and fecha_fin not between :fecha_inicio and :fecha_fin", nativeQuery = true)
+
+
+
     List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin);
    // Reserva buscar(Date fecha_inicio, Date fecha_fin);
 
