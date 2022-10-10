@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,9 +51,12 @@ import java.util.List;
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
-                                   Model model) {
-      List<Hotel> hotel = hotelService.Buscar(ciudades, fecha_inicio, fecha_fin);
-      //Reserva reserva = hotelService.search(fecha_inicio, fecha_fin);
+                                   Model model) throws ParseException {
+      SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+      Date fechaInicio = formato.parse(fecha_inicio);
+      Date fecha_Fin = formato.parse(fecha_fin);
+
+      List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin);
       model.addAttribute("titulo","Buscar - Travel Planet");
       model.addAttribute("hotel", hotel);
      // model1.addAttribute("reserva", reserva);

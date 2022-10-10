@@ -42,26 +42,27 @@
                 <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
 
                         <label  class="font-weight-bold text-white fw-bold">Check In</label>
-                        <form>
+
                             <input type="date" class="form-control" id="fecha_inicio" th:field="*{fechaInicio}" placeholder="yyyy-MM-dd">
-                        </form>
+
 
                 </div>
-
+                          <form action="#" th:action="@{/listar}" th:object="${reserva}" method="get">
                 <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
                         <label class="font-weight-bold text-white fw-bold">Check Out</label>
-                        <form>
+
                             <input type="date" class="form-control" id="fecha_fin" th:field="*{fechaFin}" placeholder="yyyy-MM-dd">
-                        </form>
+
                     <div class="col-md-4 mt-sm-0 mt-md-4">
-                        <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-12">
+                        <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
                     </div>
                 </div>
+                      </form>
                       </form>
             </div>
 
 
-            <div class="row p-4">
+          <!--  <div class="row p-4">
 
                 <div class="col-md-4 mb-3 mb-md-0">
 
@@ -70,7 +71,7 @@
                         <div class="row">
 
                             <div class="col-md-12 mb-2">
-                              <!--  <form th:action="@{/}" th:object="${capacidad}" method="post"> -->
+                               <form th:action="@{/}" th:object="${capacidad}" method="post">
                                     <label class="font-weight-bold text-white fw-bold">Numeros de personas</label>
                                     <select name="" id="adultos" class="form-select mb-3" >
                                         <option value="1">1</option>
@@ -83,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>

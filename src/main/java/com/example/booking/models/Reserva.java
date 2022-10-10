@@ -36,16 +36,16 @@ public class Reserva {
 
     @NotNull
     @Column(name = "fecha_inicio")
-  //  @Temporal(TemporalType.DATE)
-    //@DateTimeFormat(pattern="yyyy-MM-dd")
-    private String fechaInicio;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date fechaInicio;
 
 
     @NotNull
     @Column(name = "fecha_fin")
-    //@Temporal(TemporalType.DATE)
-    //@DateTimeFormat(pattern="yyyy-MM-dd")
-    private String fechaFin;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date fechaFin;
 
 
 
