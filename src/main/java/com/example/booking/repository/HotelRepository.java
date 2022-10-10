@@ -21,6 +21,8 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin);
    // Reserva buscar(Date fecha_inicio, Date fecha_fin);
 
+
+
 }
 
 

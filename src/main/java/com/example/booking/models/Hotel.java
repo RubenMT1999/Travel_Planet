@@ -7,12 +7,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Getter
+
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-
 @Entity
 @Table(name = "hotel")
 public class Hotel {
@@ -25,7 +23,7 @@ public class Hotel {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "num_habitaciones")
+    @Column(name = "num_hab")
     private int numero_habitaciones;
 
     @Column(name = "telefono")
@@ -45,14 +43,49 @@ public class Hotel {
     private String localidad;
 
     @Column(name = "cif")
-    private int cif;
+    private String cif;
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Habitacion> habitaciones;
 
-    public void addHabitacion(Habitacion habitacion){
-        this.habitaciones.add(habitacion);
+//    public void addHabitacion(Habitacion habitacion){
+//        this.habitaciones.add(habitacion);
+//    }
+
+
+    public Integer getId() {
+        return id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
 
+    public int getNumero_habitaciones() {
+        return numero_habitaciones;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getPoblacion() {
+        return poblacion;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public String getCif() {
+        return cif;
+    }
 }

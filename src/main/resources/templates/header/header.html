@@ -13,20 +13,20 @@
 
 <div class="prueba" th:fragment="header">
 
-    <div class="container-fluid d-none d-sm-block p-3">
+    <div class="container-fluid bg-dark d-none d-sm-block p-3">
 
         <div class="row">
 
-            <nav class="navbar">
-                <div class="col-3 p-2">
-                    <a href="#" class="fw-bold fs-4 text-decoration-none ml-5">
+            <nav class="navbar navbar-dark ">
+                <div class="col-4 p-2">
+                    <a th:href="@{/}" class="fw-bold fs-4 text-decoration-none ml-5 text-danger">
                         PLANET TRAVEL
                     </a>
                 </div>
-                <div class="col-9 p-2 d-inline">
+                <div class="col-8 p-2 d-inline">
 
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-primary float-end m-2">Iniciar sesion</a>
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-primary float-end m-2">Registrarse</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-outline-danger float-end m-2">Iniciar sesion</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-outline-danger float-end m-2">Registrarse</a>
 
                     <div class="dropdown float-end" sec:authorize="isAuthenticated()">
                         <a class="btn btn-secondary dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,6 +35,7 @@
                         <ul class="dropdown-menu">
                             <span class="dropdown-item-text" sec:authentication="name"></span>
                             <span class="dropdown-item-text" sec:authentication="principal.authorities"></span>
+                            <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}">Mis reservas</a>
                             <form id="logoutForm" th:action="@{/logout}" method="post">
                                 <button class="dropdown-item"
                                         onclick="document.getElementById('logoutForm').submit();"
@@ -44,74 +45,60 @@
                     </div>
                 </div>
             </nav>
-            <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
-            <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
-            <div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
-            <div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
-
 
         </div>
+
 
     </div>
 
+    <div class="alert alert-success d-none d-sm-block" th:if="${success != null}" th:text="${success}"></div>
+    <div class="alert alert-danger d-none d-sm-block" th:if="${error != null}" th:text="${error}"></div>
+    <div class="alert alert-warning d-none d-sm-block" th:if="${warning != null}" th:text="${warning}"></div>
+    <div class="alert alert-info d-none d-sm-block" th:if="${info != null}" th:text="${info}"></div>
 
 
-    <nav class="navbar navbar-expand-lg navbar-dark d-block d-sm-none">
 
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top d-block d-sm-none">
         <div class="container-fluid">
-
-<!--            <a class="navbar-brand" href="#">-->
-<!--                <img src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="Bootstrap" width="30" height="24">-->
-<!--            </a>-->
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand text-danger fs-4" th:href="@{/}">Planet Travel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse mt-3" id="navbarTogglerDemo01">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Registrase</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Iniciar sesion</a>
-                    </li>
-                </ul>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" sec:authorize="isAuthenticated()" sec:authentication="name"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item" sec:authorize="isAuthenticated()">
+                            <form id="logout" th:action="@{/logout}" method="post">
+                                <button class="btn btn-dark text-danger fs-4" onclick="document.getElementById('logout').submit();"
+                                        type="submit">Cerrar Sesión</button>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-dark text-danger fs-4">Iniciar sesion</a>
+                        </li>
+                        <div sec:authorize="!isAuthenticated()">
+                            <hr>
+                        </div>
+                        <li sec:authorize="!isAuthenticated()" class="nav-item dropdown">
+                            <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-dark text-danger fs-4">Registrarse</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                            <a sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}" class="btn btn-dark text-danger fs-4">Mis Reservas</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
         </div>
-
     </nav>
 
 
 
 
-
-<!--    <div class="container mt-5 p-5">-->
-<!--        <div class="row p-4">-->
-
-<!--            <form action="#" th:action="@{/hoteles}" th:object="${hotel}" method="post">-->
-<!--                <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">-->
-<!--                    <label for="ciudad" class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>-->
-<!--                    <input type="text" class="form-control" placeholder="Sevilla, Sevilla"th:field="*{ciudad}" id="ciudad">-->
-<!--                </div>-->
-<!--            </form>-->
-
-<!--            <form th:action="@{/hoteles}" th:object="${reservas}" method="post">-->
-<!--                <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">-->
-<!--                    <label  class="font-weight-bold text-white fw-bold">Check In</label>-->
-<!--                    <form>-->
-<!--                        <input type="date" class="form-control" id="fecha_inicio" th:field="*{fecha_inicio}" placeholder="yyyy-MM-dd">-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--                <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">-->
-<!--                    <label class="font-weight-bold text-white fw-bold">Check Out</label>-->
-<!--                    <form>-->
-<!--                        <input type="date" class="form-control"id="fecha_fin" th:field="*{fecha_fin}" placeholder="yyyy-MM-dd">-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
 
 
 <!--        <div class="row p-4">-->
