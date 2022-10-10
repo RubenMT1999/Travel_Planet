@@ -40,7 +40,7 @@ public class UsuarioController {
 
 
 
-    @GetMapping("/")
+ /* @GetMapping("/")
     public String index(Model model){
         model.addAttribute("titulo", "Página de Inicio");
         return "index";
