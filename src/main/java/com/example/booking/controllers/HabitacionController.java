@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -19,10 +20,9 @@ public class HabitacionController {
     @Autowired
     HabitacionService habitacionService;
 
-    @GetMapping("/listar")
-    public String listar(Model model, Authentication auth){
-        auth = SecurityContextHolder.getContext().getAuthentication();
-        List<Habitacion> habitaciones = habitacionService.listarHabitaciones(auth.getName());
+    @GetMapping("/listar/{id}")
+    public String listar(Model model, @PathVariable Integer id){
+        List<Habitacion> habitaciones = habitacionService.listarHabitaciones(id);
         model.addAttribute("habitaciones",habitaciones);
         return "habitaciones";
     }
