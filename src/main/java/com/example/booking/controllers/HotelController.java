@@ -3,24 +3,15 @@ package com.example.booking.controllers;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
-import com.example.booking.models.Usuario;
-import com.example.booking.repository.HotelRepository;
-import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.HotelService;
-import com.example.booking.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
-import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -54,8 +45,10 @@ import java.util.List;
       List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin);
       model.addAttribute("titulo","Buscar - Travel Planet");
       model.addAttribute("hotel", hotel);
-            return "resultado1";
+            return "busquedahoteles";
 
         }
+
+
 
 }

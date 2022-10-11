@@ -26,7 +26,7 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
      */
     @Query(value = "select * from vistabuscador where ciudad = :ciudad " +
             "and fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin", nativeQuery = true)
+            "and fecha_fin not between :fecha_inicio and :fecha_fin group by nombre", nativeQuery = true)
 
 
 

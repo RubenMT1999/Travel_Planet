@@ -39,11 +39,22 @@ public class Hotel {
     @Column(name = "poblacion")
     private String poblacion;
 
+    @Column(name = "lugar")
+    private String lugar;
+
     @Column(name = "localidad")
     private String localidad;
 
+    @Column(name = "precio")
+    private String precio;
+
+    @Column(name = "comentario")
+    private String comentario;
+
     @Column(name = "cif")
     private String cif;
+
+    private String imagen;
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Habitacion> habitaciones;
@@ -52,13 +63,18 @@ public class Hotel {
 //        this.habitaciones.add(habitacion);
 //    }
 
-
+    public String getImagen() {
+        return imagen;
+    }
     public Integer getId() {
         return id;
     }
 
     public String getNombre() {
         return nombre;
+    }
+    public String getComentario() {
+        return comentario;
     }
 
     public int getNumero_habitaciones() {
@@ -80,6 +96,10 @@ public class Hotel {
     public String getPoblacion() {
         return poblacion;
     }
+    public String getLugar() {
+        return lugar;
+    }
+
 
     public String getLocalidad() {
         return localidad;
@@ -87,5 +107,9 @@ public class Hotel {
 
     public String getCif() {
         return cif;
+    }
+
+    public String getPrecio() {
+        return precio;
     }
 }
