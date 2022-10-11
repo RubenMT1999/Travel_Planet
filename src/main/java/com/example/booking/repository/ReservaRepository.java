@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface ReservaRepository  extends JpaRepository<Reserva,Integer> {
 
-//    //SQL NATIVO
-//     @Query(name = "select * from reserva", nativeQuery = true)
-//     List<Reserva> findAllQuery();
+
+    @Query("SELECT r FROM Reserva r WHERE r.usuario.nombre = ?1")
+    List<Reserva> reservasPorNombre(String nombre);
 
 }

@@ -47,7 +47,7 @@ public class Habitacion {
 
     private String imagen;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
@@ -89,5 +89,7 @@ public class Habitacion {
         return disponibilidad;
     }
 
-
+    public Hotel getHotel() {
+        return hotel;
+    }
 }
