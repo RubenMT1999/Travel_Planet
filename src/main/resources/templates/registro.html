@@ -82,7 +82,7 @@
 
               <div class="form-group mb-3 col-10">
                 <label for="contrasenia">Contraseña</label>
-                <input type="text" class="form-control" placeholder="Introduce la contraseña" th:field="*{contrasenia}" id="contrasenia">
+                <input type="password" class="form-control" placeholder="Introduce la contraseña" th:field="*{contrasenia}" id="contrasenia">
               </div>
               <div th:if="${#fields.hasErrors('contrasenia')}" th:errors="*{contrasenia}" class="alert alert-danger"></div>
 
