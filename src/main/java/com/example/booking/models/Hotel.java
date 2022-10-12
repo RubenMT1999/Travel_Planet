@@ -43,6 +43,19 @@ public class Hotel {
     @Column(name = "cif")
     private String cif;
 
+    @Column(name = "comentario")
+    private String comentario;
+
+    @Column(name = "puntuacion")
+    private String puntuacion;
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    @Column(name = "precio")
+    private String precio;
+
     public String getComentario() {
         return comentario;
     }
@@ -51,11 +64,7 @@ public class Hotel {
         return puntuacion;
     }
 
-    @Column(name = "comentario")
-    private String comentario;
 
-    @Column(name = "puntuacion")
-    private String puntuacion;
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Habitacion> habitaciones;
