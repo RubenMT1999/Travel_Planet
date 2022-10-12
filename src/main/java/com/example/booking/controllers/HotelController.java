@@ -10,19 +10,23 @@ import com.example.booking.services.HotelService;
 import com.example.booking.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Controller
+    @Controller
+    @RequestMapping("/hoteles")
     public class HotelController {
     @Autowired
     private HotelService hotelService;
@@ -38,13 +42,15 @@ import java.util.List;
 //        return "index";
 //    }
 
+
+
    /* @GetMapping("/listar")
     public List<Hotel> listarHoteles(){
         return hotelService.Buscar();
     }
 
     */
-
+/*
   @GetMapping ("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
                                    @RequestParam(name = "fecha_inicio") Date fecha_inicio,
@@ -58,5 +64,20 @@ import java.util.List;
             return "resultado1";
 
         }
+        */
+//   @GetMapping("/ver")
+//    public String verHoteles(Model model){
+//      Hotel hotel = hotelService.getClass();
+//
+//   }
+
+
+    @GetMapping("/listarHoteles")
+ public String hoteles(Model model){
+        List<Hotel> hoteles = hotelService.verTodosHoteles();
+        model.addAttribute("hoteles", hoteles);
+    return "hoteles";
+    }
+
 
 }

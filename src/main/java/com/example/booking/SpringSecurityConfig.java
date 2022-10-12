@@ -40,7 +40,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //definimos quien va a poder acceder a las distintas direccioens
-        http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/listar").permitAll()
+        http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/listar","/reserva/ver","/hoteles/listarHoteles").permitAll()
 //                .antMatchers("/registrar/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

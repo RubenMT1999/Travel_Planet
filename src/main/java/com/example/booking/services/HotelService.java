@@ -13,10 +13,11 @@ import java.util.List;
 public class HotelService {
 
     @Autowired
-    private HotelRepository hotel;
-    public List<Hotel> Buscar(String ciudades, Date fecha_inicio, Date fecha_fin) {
-        return hotel.findHotelsByCiudadLike(ciudades, fecha_inicio, fecha_fin);
-            }
+    private HotelRepository hotelRepository;
+//
+//    public List<Hotel> Buscar(String ciudades, Date fecha_inicio, Date fecha_fin) {
+//        return hotelRepository.findHotelsByCiudadLike(ciudades, fecha_inicio, fecha_fin);
+//            }
  /* public Reserva search(Date fecha_inicio, Date fecha_fin){
         return hotel.buscar(fecha_inicio, fecha_fin);
    }
@@ -24,6 +25,12 @@ public class HotelService {
   */
 
 
+
+
+    public List<Hotel> verTodosHoteles(){
+        Hotel hotelNuevo = new Hotel();
+        return hotelRepository.findAll();
+    }
 
 
 }

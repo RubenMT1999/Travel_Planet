@@ -29,18 +29,16 @@ public class Hotel {
     @Column(name = "telefono")
     private String telefono;
 
-    @Column(name = "pais")
-    private String pais;
 
     @Column(name = "ciudad")
     @NotEmpty
     private String ciudad;
 
-    @Column(name = "poblacion")
-    private String poblacion;
+    @Column(name = "lugar")
+    private String lugar;
 
-    @Column(name = "localidad")
-    private String localidad;
+    @Column(name ="imagen")
+    private String imagen;
 
     @Column(name = "cif")
     private String cif;
@@ -74,23 +72,21 @@ public class Hotel {
         return telefono;
     }
 
-    public String getPais() {
-        return pais;
-    }
+
 
     public String getCiudad() {
         return ciudad;
     }
 
-    public String getPoblacion() {
-        return poblacion;
-    }
-
-    public String getLocalidad() {
-        return localidad;
+    public String getLugar() {
+        return lugar;
     }
 
     public String getCif() {
         return cif;
+    }
+
+    public String getImagen() {
+        return imagen;
     }
 }
