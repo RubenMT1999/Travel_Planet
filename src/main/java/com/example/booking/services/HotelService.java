@@ -31,8 +31,10 @@ public class HotelService {
         Hotel hotelNuevo = new Hotel();
         return hotelRepository.findAll();
     }
+    public List<Hotel> hotelPorCiudad(String ciudad) {
 
-
+        return hotelRepository.hotelesPorCiudad(ciudad);
+    }
 }
 
 

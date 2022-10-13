@@ -79,5 +79,10 @@ import java.util.List;
     return "hoteles";
     }
 
-
+    @GetMapping("/BuscarPorCiudad/{ciudad}")
+    public String hotelPorCiudad(@PathVariable String ciudad, Model model){
+    List<Hotel> hoteles = hotelService.hotelPorCiudad(ciudad);
+    model.addAttribute("hoteles", hoteles);
+    return "hotelesCiudad";
+    }
 }

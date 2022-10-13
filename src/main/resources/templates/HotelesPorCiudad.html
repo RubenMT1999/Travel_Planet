@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <title>Listado de Hoteles</title>
+</head>
+<body>
+<header th:replace="header/header :: header"></header>
+<div class="container">
+    <div class="container">
+        <div class="row">
+            <h1>Lista de hoteles</h1>
+        </div>
+
+        <div class="card" style="width: 18rem;" th:each="hotel :${hoteles}">
+            <img th:src="${hotel.imagen}" class="card-img-top" alt="..." >
+            <div class="card-body" >
+                <h5 class="card-title" th:text="${hotel.nombre}">Card title</h5>
+                <p>Ciudad</p>
+                <p class="card-text" th:text="${hotel.ciudad}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p>Lugar</p>
+                <p class="card-text" th:text="${hotel.lugar}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" th:text="${hotel.precio}">An item</li>
+                <li class="list-group-item" th:text="${hotel.comentario}">A second item</li>
+                <li class="list-group-item" th:text="${hotel.puntuacion}">A third item</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+</body>
+</html>
