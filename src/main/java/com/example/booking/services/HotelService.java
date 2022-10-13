@@ -35,6 +35,14 @@ public class HotelService {
 
         return hotelRepository.hotelesPorCiudad(ciudad);
     }
+
+    public Hotel hotelID(int id){
+        return hotelRepository.findById(id).orElse(null);
+    }
+
+    public Hotel hotelGuardar(Hotel hotel){
+        return hotelRepository.save(hotel);
+    }
 }
 
 

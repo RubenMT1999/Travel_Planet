@@ -11,22 +11,22 @@
 <div class="container">
     <div class="container">
         <div class="row">
-            <h1>Lista de hoteles</h1>
+            <h1>Hotel Seleccionado</h1>
         </div>
 
-        <div class="card" style="width: 18rem;" th:each="hotel :${hotelesCiudad}">
-            <img th:src="${hotel.imagen}" class="card-img-top" alt="..." >
+        <div class="card" style="width: 18rem;">
+            <img th:src="${hotelesId.getImagen()}" class="card-img-top" alt="..." >
             <div class="card-body" >
-                <h5 class="card-title" th:text="${hotel.nombre}">Card title</h5>
+                <h5 class="card-title" th:text="${hotelesId.getNombre()}">Card title</h5>
                 <p>Ciudad</p>
-                <p class="card-text" th:text="${hotel.ciudad}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text" th:text="${hotelesId.getCiudad()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <p>Lugar</p>
-                <p class="card-text" th:text="${hotel.lugar}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text" th:text="${hotelesId.getLugar()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" th:text="${hotel.precio}">An item</li>
-                <li class="list-group-item" th:text="${hotel.comentario}">A second item</li>
-                <li class="list-group-item" th:text="${hotel.puntuacion}">A third item</li>
+                <li class="list-group-item" th:text="${hotelesId.getPrecio()}">An item</li>
+                <li class="list-group-item" th:text="${hotelesId.getComentario()}">A second item</li>
+                <li class="list-group-item" th:text="${hotelesId.getPuntuacion()}">A third item</li>
             </ul>
         </div>
     </div>

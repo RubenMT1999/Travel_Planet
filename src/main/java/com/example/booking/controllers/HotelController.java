@@ -79,10 +79,24 @@ import java.util.List;
     return "hoteles";
     }
 
-    @GetMapping("/BuscarPorCiudad/{ciudad}")
-    public String hotelPorCiudad(@PathVariable String ciudad, Model model){
-    List<Hotel> hoteles = hotelService.hotelPorCiudad(ciudad);
-    model.addAttribute("hoteles", hoteles);
-    return "hotelesCiudad";
+    @RequestMapping("/BuscarPorCiudad/{ciudad}")
+    public String hotelPorCiudad(Model model, @PathVariable String ciudad){
+    List<Hotel> hotelesCiudad = hotelService.hotelPorCiudad(ciudad);
+    model.addAttribute("hotelesCiudad", hotelesCiudad);
+    return "HotelesPorCiudad";
     }
+
+        @RequestMapping("/BuscarPorId/{id}")
+        public String hotelPorId(Model model, @PathVariable int id){
+            Hotel hotelesId = hotelService.hotelID(id);
+            model.addAttribute("hotelesId", hotelesId);
+            return "HotelesId";
+        }
+
+        @RequestMapping("/nuevo")
+        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel){
+        hotelService.hotelGuardar(hotel);
+        return "hotelNuevo";
+
+        }
 }
