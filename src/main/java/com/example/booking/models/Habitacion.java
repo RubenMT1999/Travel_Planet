@@ -27,22 +27,21 @@ public class Habitacion {
     private Integer id;
 
     @Column(name = "num_habitacion")
-    @NotEmpty
+    @NotNull
     private int numeroHabitacion;
 
     @Column(name = "ext_telefonica")
-    @NotEmpty
+    @NotNull
     private String extensionTelefonica;
 
     @Column(name = "capacidad")
-    @NotEmpty
+    @NotNull
     private int capacidad;
 
     @Column(name = "descripcion")
     private String descripcion;
 
     @Column(name = "disponibilidad")
-    @NotNull
     private Boolean disponibilidad;
 
     private String imagen;
@@ -52,9 +51,9 @@ public class Habitacion {
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
 
-    @JsonIgnore
-    @OneToMany
-    private List<Tarifa> id_tarifa;
+//    @JsonIgnore
+//    @OneToMany
+//    private List<Tarifa> id_tarifa;
 
 
     @OneToMany(mappedBy = "habitacion",fetch = FetchType.LAZY, cascade = CascadeType.ALL)

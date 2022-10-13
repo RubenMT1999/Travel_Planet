@@ -18,6 +18,9 @@ public class HabitacionService {
         return habitacionRepository.listarHabitaciones(id);
     }
 
+    public void guardarHabitacion(Habitacion habitacion){
+        habitacionRepository.save(habitacion);
+    }
 
 
 }
