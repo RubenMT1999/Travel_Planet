@@ -3,6 +3,7 @@ package com.example.booking.controllers;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
+import com.example.booking.services.DetalleHotelService;
 import com.example.booking.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ import java.util.List;
     @Autowired
     private HotelService hotelService;
 
+    private DetalleHotelService detalleHotelService;
+
 
     @GetMapping("/")
     public String hotel(Model model, Model model1){
@@ -29,6 +32,12 @@ import java.util.List;
         model.addAttribute("hotel", hotel);
         model.addAttribute("reserva", reserva);
         return "index";
+    }
+    @GetMapping("/hotel/{id}")
+    public String hotelid(@PathVariable(name = "id") Integer id, Model model){
+        Hotel hotel = detalleHotelService.buscarporid(id);
+        model.addAttribute("hotel", hotel);
+        return "hoteldetalle";
     }
 
 
@@ -48,6 +57,10 @@ import java.util.List;
             return "busquedahoteles";
 
         }
+
+
+
+
 
 
 

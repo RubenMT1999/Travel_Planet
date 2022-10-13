@@ -24,7 +24,7 @@
                 <p class="card-text "><span th:text="${hoteles.ciudad}"></span>, <span th:text="${hoteles.lugar}"></span></p>
                 <p class="card-text "><span th:text="${hoteles.precio}"></span></p>
                 <div class="card-body text-end">
-                <a href="#" class="btn btn-primary">Ver disponibilidad</a>
+                <a th:href="@{'/hotel/' + ${hoteles.id}}" class="btn btn-primary">Ver disponibilidad</a>
             </div>
 
             </div>

@@ -10,24 +10,13 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class HotelService {
-
+public class DetalleHotelService {
     @Autowired
-    private HotelRepository hotel;
     private DetalleHotelRepository detallehotel;
-    public List<Hotel> Buscar(String ciudades, Date fecha_inicio, Date fecha_fin) {
 
-        return hotel.buscador(ciudades, fecha_inicio, fecha_fin);
-            }
-
-   }
-
-
-
-
-
-
-
-
-
+    public Hotel buscarporid(Integer id) {
+        Hotel hotel = detallehotel.buscarporid(id);
+        return hotel;
+    }
+}
 
