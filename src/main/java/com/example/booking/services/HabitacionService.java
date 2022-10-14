@@ -30,14 +30,6 @@ public class HabitacionService {
         habitacionRepository.delete(habitacion);
     }
 
-    public Habitacion encontrarPorId(Integer id){
-        return habitacionRepository.findById(id).get();
-    }
-
-
-    public void borrarHabitacion(Habitacion habitacion){
-        habitacionRepository.delete(habitacion);
-    }
 
 
 }
