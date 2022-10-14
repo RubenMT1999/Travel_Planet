@@ -27,34 +27,34 @@ public class Habitacion {
     private Integer id;
 
     @Column(name = "num_habitacion")
-    @NotNull
+    @NotEmpty
     private int numeroHabitacion;
 
     @Column(name = "ext_telefonica")
-    @NotNull
+    @NotEmpty
     private String extensionTelefonica;
 
     @Column(name = "capacidad")
-    @NotNull
+    @NotEmpty
     private int capacidad;
 
     @Column(name = "descripcion")
     private String descripcion;
 
     @Column(name = "disponibilidad")
+    @NotNull
     private Boolean disponibilidad;
 
     private String imagen;
 
 
-//  He tenido que usar cascade merge para hacer el save de habitacion en el crud
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
 
-//    @JsonIgnore
-//    @OneToMany
-//    private List<Tarifa> id_tarifa;
+    @OneToMany
+
+    private List<Tarifa> id_tarifa;
 
 
     @OneToMany(mappedBy = "habitacion",fetch = FetchType.LAZY, cascade = CascadeType.ALL)

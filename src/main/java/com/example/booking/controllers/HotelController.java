@@ -7,17 +7,23 @@ import com.example.booking.services.DetalleHotelService;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@Controller
+    @Controller
+    @RequestMapping("/hoteles")
     public class HotelController {
     @Autowired
     private HotelService hotelService;
@@ -87,4 +93,42 @@ import java.util.List;
     }
 
     */
+
+
+
+    @GetMapping("/listarHoteles")
+ public String hoteles(Model model){
+        List<Hotel> hoteles = hotelService.verTodosHoteles();
+        model.addAttribute("hoteles", hoteles);
+    return "hoteles";
+    }
+
+    @RequestMapping("/BuscarPorCiudad/{ciudad}")
+    public String hotelPorCiudad(Model model, @PathVariable String ciudad){
+    List<Hotel> hotelesCiudad = hotelService.hotelPorCiudad(ciudad);
+    model.addAttribute("hotelesCiudad", hotelesCiudad);
+    return "HotelesPorCiudad";
+    }
+
+        @RequestMapping("/BuscarPorId/{id}")
+        public String hotelPorId(Model model, @PathVariable int id){
+            Hotel hotelesId = hotelService.hotelID(id);
+            model.addAttribute("hotelesId", hotelesId);
+            return "HotelesId";
+        }
+
+        @GetMapping("/nuevo")
+        public String mostrarHotelNuevo(Model model){
+        Hotel hotel = new Hotel();
+        model.addAttribute("hotel",hotel);
+        return "hotelNuevo";
+
+        }
+
+        @PostMapping("/nuevo")
+        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel){
+        hotelService.hotelGuardar(hotel);
+        return "redirect:/hoteles/listarHoteles";
+
+        }
 }

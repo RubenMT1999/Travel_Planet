@@ -48,9 +48,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/registrar")
-    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
+    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("titulo", "Ha habido algún error");
             return "registro";
         }
@@ -76,7 +76,25 @@ public class UsuarioController {
         usuarioService.save(usuario);
         status.setComplete();
         return "resultado";
+
     }
 
 
-}
+
+
+    @GetMapping("/")
+    public String index(Model model){
+        model.addAttribute("titulo", "Página de Inicio");
+        return "index";
+    }
+
+
+
+    @GetMapping("/registrar")
+    public String registro(Model model){
+        Usuario usuario = new Usuario();
+        model.addAttribute("titulo","Registro - Travel Planet");
+        model.addAttribute("usuario", usuario);
+        return "registro";
+    }
+    }
