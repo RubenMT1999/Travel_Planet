@@ -32,16 +32,16 @@ import java.util.List;
     private HotelService hotelService;
 
 
-    @GetMapping("/")
-    public String hotel(Model model, Model model1){
-        Hotel hotel = new Hotel();
-        Reserva reserva = new Reserva();
-        model.addAttribute("titulo","Inicio - Travel Planet");
-        model.addAttribute("hotel", hotel);
-        model1.addAttribute("reserva", reserva);
-        return "index";
-    }
-
+//    @GetMapping("/")
+//    public String hotel(Model model, Model model1){
+//        Hotel hotel = new Hotel();
+//        Reserva reserva = new Reserva();
+//        model.addAttribute("titulo","Inicio - Travel Planet");
+//        model.addAttribute("hotel", hotel);
+//        model1.addAttribute("reserva", reserva);
+//        return "index";
+//    }
+//
 
 
 

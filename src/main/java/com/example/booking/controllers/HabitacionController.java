@@ -53,15 +53,43 @@ public class HabitacionController {
         }
         habitacionService.guardarHabitacion(habitacion);
         status.setComplete();
+        model.addAttribute("success","La habitación ha sido creada con éxito!");
         return "index";
     }
 
 
 
-//    @GetMapping("/editar/{id}")
-//    public String editar(Model model, @PathVariable Integer id){
-//
-//    }
+    @GetMapping("/editar/{id}")
+    public String editar(Model model, @PathVariable Integer id){
+        Habitacion habitacion = habitacionService.encontrarPorId(id);
+        model.addAttribute("habitacion",habitacion);
+        model.addAttribute("titulo","Editar Habitación");
+        return "editarHabitacion";
+    }
+
+
+    @PostMapping("/editar")
+    public String postEditar(@Valid Habitacion habitacion, BindingResult result, Model model, SessionStatus status){
+        if(result.hasErrors()){
+            model.addAttribute("titulo", "Ha habido algún error");
+            return "editarHabitacion";
+        }
+
+        habitacionService.guardarHabitacion(habitacion);
+        status.setComplete();
+        model.addAttribute("success","La habitación ha sido actualizada con éxito!");
+        return "index";
+    }
+
+
+
+    @GetMapping("/borrar/{id}")
+    public String borrar(@PathVariable("id") Integer id, Model model){
+        Habitacion habitacion = habitacionService.encontrarPorId(id);
+        habitacionService.borrarHabitacion(habitacion);
+        model.addAttribute("success","Habitación borrada con éxito!");
+        return "index";
+    }
 
 
 

@@ -20,7 +20,7 @@
 
             <div class="d-flex justify-content-center mx-5 ">
 
-                <form th:action="@{/habitaciones/crear}" th:object="${habitacion}" method="post">
+                <form th:action="@{/habitaciones/editar}" th:object="${habitacion}" method="post">
                     <div class="form-group mb-3 col-10 ">
                         <label for="numero">Número de habitación</label>
                         <input type="number" class="form-control" placeholder="Introduce el número" th:field="*{numeroHabitacion}" id="numero">
