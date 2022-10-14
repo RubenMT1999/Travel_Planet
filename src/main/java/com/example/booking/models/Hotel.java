@@ -23,7 +23,7 @@ public class Hotel {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "num_habitaciones")
+    @Column(name = "num_hab")
     private int numero_habitaciones;
 
     @Column(name = "telefono")
@@ -66,6 +66,7 @@ public class Hotel {
     public String getImagen() {
         return imagen;
     }
+
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;

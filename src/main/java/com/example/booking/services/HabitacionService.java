@@ -14,12 +14,21 @@ public class HabitacionService {
     HabitacionRepository habitacionRepository;
 
 
+
     public List<Habitacion> listarHabitaciones(Integer id){
         return habitacionRepository.listarHabitaciones(id);
     }
 
     public void guardarHabitacion(Habitacion habitacion){
         habitacionRepository.save(habitacion);
+    }
+
+
+
+    public List<Habitacion> buscarporoidHabitacion(Integer id_hotel) {
+        List<Habitacion> habitacion = habitacionRepository.buscarporidhab(id_hotel);
+        return habitacion;
+
     }
 
 

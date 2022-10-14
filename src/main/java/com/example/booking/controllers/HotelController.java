@@ -3,10 +3,9 @@ package com.example.booking.controllers;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
-import com.example.booking.services.DetalleHabitacionService;
 import com.example.booking.services.DetalleHotelService;
+import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
-import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +24,7 @@ import java.util.List;
     @Autowired
     private DetalleHotelService detalleHotelService;
     @Autowired
-    private DetalleHabitacionService detalleHabitacionService;
+    private HabitacionService habitacionService;
 
 
 
@@ -42,7 +40,7 @@ import java.util.List;
 
     @GetMapping("/hotel/{id}")
     public String hotelid(@PathVariable(name = "id") Integer id, Model model) {
-        List<Habitacion> habitacions = detalleHabitacionService.buscarporoidHabitacion(id);
+        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id);
         Hotel hotel = detalleHotelService.buscarporid(id);
         model.addAttribute("hotel", hotel);
         model.addAttribute("habitacions", habitacions);
