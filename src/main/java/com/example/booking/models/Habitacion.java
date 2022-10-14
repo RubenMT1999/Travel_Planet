@@ -41,6 +41,9 @@ public class Habitacion {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "descuento")
+    private String descuento;
+
     @Column(name = "disponibilidad")
     @NotNull
     private Boolean disponibilidad;
@@ -71,6 +74,9 @@ public class Habitacion {
 
     public String getExtensionTelefonica() {
         return extensionTelefonica;
+    }
+    public String getDescuento() {
+        return descuento;
     }
 
     public int getCapacidad() {

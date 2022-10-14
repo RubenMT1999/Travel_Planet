@@ -1,7 +1,6 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Hotel;
-import com.example.booking.repository.DetalleHotelRepository;
 import com.example.booking.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,18 +15,8 @@ public class HotelService {
     private HotelRepository hotelRepository;
 
     public List<Hotel> Buscar(String ciudades, Date fecha_inicio, Date fecha_fin) {
-
-
-
         return hotelRepository.buscador(ciudades, fecha_inicio, fecha_fin);
             }
-
-   }
-
-
-
-
-
 
     public List<Hotel> verTodosHoteles(){
         Hotel hotelNuevo = new Hotel();

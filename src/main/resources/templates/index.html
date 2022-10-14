@@ -11,22 +11,14 @@
 
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-
-
             <div class="carousel-item active " data-bs-interval="10000">
-
                 <img th:src="@{/images/banner2.jpg}" class="d-block w-100" style="opacity: 0.85" alt="...">
-
             </div>
-
-
             <div class="carousel-item " data-bs-interval="2000">
                 <img th:src="@{/images/banner3.jpg}" class="d-block w-100" style="opacity: 0.85" alt="...">
-
             </div>
-            <div class="carousel-caption d-none d-md-block mb-5">
-                <div class="buscador">
-                    <form action="#" th:action="@{/listar}" th:object="${hotel}" method="get">
+                <div class="carousel-caption d-none d-md-block mb-5">
+                 <form action="#" th:action="@{/hoteles/listar}" th:object="${hotel}" method="get">
                         <div class="container mt-5 p-5">
                             <div class="row p-1">
                                 <div class="row p-4">
@@ -34,8 +26,8 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-md-12 mb-2">
-                                                    <label class="font-weight-bold text-white fw-bold" >¿A dónde vas?</label>
-                                                    <select name="" id="ubicacion" class="form-select mb-3" th:field="*{ciudad}">
+                                                    <label class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
+                                                    <select name="" id="lugar" class="form-select mb-3" th:field="*{ciudad}" >
                                                         <option th:value="Sevilla" th:text="Sevilla">Sevilla</option>
                                                         <option th:value="Granada" th:text="Granada">Granada</option>
                                                         <option th:value="Huelva" th:text="Huelva">Huelva</option>
@@ -45,28 +37,20 @@
                                                         <option th:value="Jaen" th:text="Jaen">Jaén</option>
                                                         <option th:value="Malaga" th:text="Malaga">Málaga</option>
                                                     </select>
-
-
-
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
-                                            <label for="ciudad" class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
-                                            <input type="text" class="form-control" placeholder="Sevilla, Sevilla"th:field="*{ciudad}" id="ciudad">
-
-                                   </div>-->
-                                    <form action="#" th:action="@{/listar}" th:object="${reserva}" method="get">
+                                     <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}" method="get">
                                         <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
 
                                             <label  class="font-weight-bold text-white fw-bold">Check In</label>
 
-                                            <input type="date" class="form-control" id="fechainicio" th:field="*{fechaInicio}" placeholder="yyyy-MM-dd" required>
+                                            <input type="date" class="form-control" id="fechainicio" th:field="*{fechaInicio}"  placeholder="yyyy-MM-dd" required>
 
 
                                         </div>
-                                        <form action="#" th:action="@{/listar}" th:object="${reserva}" method="get">
+                                        <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}" method="get">
                                             <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
                                                 <label class="font-weight-bold text-white fw-bold">Check Out</label>
 
@@ -109,7 +93,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+        </div>
 
 
 

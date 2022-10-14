@@ -79,22 +79,4 @@ public class UsuarioController {
 
     }
 
-
-
-
-    @GetMapping("/")
-    public String index(Model model){
-        model.addAttribute("titulo", "Página de Inicio");
-        return "index";
-    }
-
-
-
-    @GetMapping("/registrar")
-    public String registro(Model model){
-        Usuario usuario = new Usuario();
-        model.addAttribute("titulo","Registro - Travel Planet");
-        model.addAttribute("usuario", usuario);
-        return "registro";
-    }
     }

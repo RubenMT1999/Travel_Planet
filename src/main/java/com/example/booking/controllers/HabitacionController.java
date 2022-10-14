@@ -1,8 +1,10 @@
 package com.example.booking.controllers;
 
 import com.example.booking.models.Habitacion;
+import com.example.booking.models.Hotel;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HabitacionService;
+import com.example.booking.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ public class HabitacionController {
 
     @Autowired
     HotelRepository hotelRepository;
+    @Autowired
+    HotelService hotelService;
 
     @GetMapping("/listar/{id}")
     public String listar(Model model, @PathVariable Integer id){
@@ -30,7 +34,14 @@ public class HabitacionController {
         model.addAttribute("habitaciones",habitaciones);
         return "habitaciones";
     }
-
+    @GetMapping("/habitacion/{id}")
+    public String hotelid(@PathVariable(name = "id") Integer id, Model model) {
+        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id);
+        Hotel hotel = hotelService.hotelID(id);
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("habitacions", habitacions);
+        return "hoteldetalle";
+    }
 
 
     @GetMapping("/crear/{id}")

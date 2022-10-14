@@ -3,19 +3,13 @@ package com.example.booking.controllers;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
-import com.example.booking.services.DetalleHotelService;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,31 +22,7 @@ import java.util.List;
     @Autowired
     private HotelService hotelService;
     @Autowired
-    private DetalleHotelService detalleHotelService;
-    @Autowired
     private HabitacionService habitacionService;
-
-
-
-    @GetMapping("/")
-    public String hotel(Model model) {
-        Hotel hotel = new Hotel();
-        Reserva reserva = new Reserva();
-        model.addAttribute("titulo", "Inicio - Travel Planet");
-        model.addAttribute("hotel", hotel);
-        model.addAttribute("reserva", reserva);
-        return "index";
-    }
-
-    @GetMapping("/hotel/{id}")
-    public String hotelid(@PathVariable(name = "id") Integer id, Model model) {
-        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id);
-        Hotel hotel = detalleHotelService.buscarporid(id);
-        model.addAttribute("hotel", hotel);
-        model.addAttribute("habitacions", habitacions);
-        return "hoteldetalle";
-    }
-
 
     @GetMapping("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
@@ -93,8 +63,6 @@ import java.util.List;
     }
 
     */
-
-
 
     @GetMapping("/listarHoteles")
  public String hoteles(Model model){
