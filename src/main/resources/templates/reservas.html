@@ -10,7 +10,7 @@
 
     <header th:replace="header/header :: header"></header>
 
-    <div class="container mt-5">
+    <div class="container mt-5" th:if="${reservas != null}">
         <div class="card text-center" th:each="reserva: ${reservas}">
             <div class="card-header">
                 <h3>Reservas en el hotel <span th:text="${reserva.habitacion.hotel.nombre}"></span></h3>
@@ -20,7 +20,7 @@
                 <div class="col-sm-4">
                     <span th:text="${reserva.habitacion.imagen}"></span>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" >
                     <h3>Datos de la habitación:</h3>
 
                         <h5 class="d-inline">Fecha de inicio: </h5><span class="d-inline" th:text="${reserva.fechaInicio}"></span>
@@ -44,6 +44,10 @@
             </div>
             </div>
         </div>
+    </div>
+
+    <div th:if="${reservas.isEmpty()}">
+        <h1>No hay reservas pendientes</h1>
     </div>
 
     <!-- JavaScript Bundle with Popper -->

@@ -55,6 +55,7 @@ public class Usuario {
     @Email(message = "correo con formato incorrecto")
     private String email;
 
+    @JsonIgnore
     @Column(name = "metodo_de_pago")
     private EMetodoDePago metodoDePago;
 
@@ -66,6 +67,9 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reservas;
+
+    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Hotel> hoteles;
 
 
     public void addReserva(Reserva reserva){

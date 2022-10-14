@@ -66,6 +66,12 @@ public class Hotel {
     public String getImagen() {
         return imagen;
     }
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
+
+
     public Integer getId() {
         return id;
     }
