@@ -20,7 +20,7 @@
 
             <div class="d-flex justify-content-center mx-5 ">
 
-                <form th:action="@{/habitaciones/crear}" th:object="${habitacion}" method="post">
+                <form th:action="@{/habitaciones/crear}" th:object="${habitacion}" method="post" enctype="multipart/form-data">
                     <div class="form-group mb-3 col-10 ">
                         <label for="numero">Número de habitación</label>
                         <input type="number" class="form-control" placeholder="Introduce el número" th:field="*{numeroHabitacion}" id="numero">
@@ -51,7 +51,7 @@
 
                     <div class="form-group mb-3 col-10 ">
                         <label for="imagen">Imagen</label>
-                        <input type="text" class="form-control" placeholder="Introduce una imagen" th:field="*{imagen}" id="imagen">
+                        <input type="file" name="file" class="form-control" placeholder="Introduce una imagen" th:name="imagen" id="imagen">
                     </div>
                     <div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}" class="alert alert-danger"></div>
 
@@ -60,6 +60,7 @@
                     <input type="submit" value="Crear" class="btn btn-block btn-primary mt-3">
 
                 </form>
+
             </div>
 
 
