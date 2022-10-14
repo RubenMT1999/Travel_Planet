@@ -55,7 +55,7 @@ public class Usuario {
     @Email(message = "correo con formato incorrecto")
     private String email;
 
-    @Column(name = "metodo_de_pago")
+    @Column(name = "forma_pago")
     private EMetodoDePago metodoDePago;
 
     private boolean registrado;

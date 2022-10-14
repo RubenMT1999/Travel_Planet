@@ -17,7 +17,7 @@ import java.util.List;
 
 public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
-   /*
+
     @Query(value = " select h from hotel h order by h.id")
     List<Hotel> obtenerHoteles(String nombre);
 
@@ -30,7 +30,7 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
      @Query("SELECT h FROM Habitacion h where h.hotel.usuario.nombre = ?1")
     List<Habitacion> listarHabitaciones();
-*/
+
 
 
     @Query("select h from Hotel h where h.ciudad = ?1")

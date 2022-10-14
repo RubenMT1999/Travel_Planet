@@ -32,25 +32,19 @@ import java.util.List;
     private HotelService hotelService;
 
 
-//    @GetMapping("/")
-//    public String hotel(Model model, Model model1){
-//        Hotel hotel = new Hotel();
-//        Reserva reserva = new Reserva();
-//        model.addAttribute("titulo","Inicio - Travel Planet");
-//        model.addAttribute("hotel", hotel);
-//        model1.addAttribute("reserva", reserva);
-//        return "index";
-//    }
-
-
-
-   /* @GetMapping("/listar")
-    public List<Hotel> listarHoteles(){
-        return hotelService.Buscar();
+    @GetMapping("/")
+    public String hotel(Model model, Model model1){
+        Hotel hotel = new Hotel();
+        Reserva reserva = new Reserva();
+        model.addAttribute("titulo","Inicio - Travel Planet");
+        model.addAttribute("hotel", hotel);
+        model1.addAttribute("reserva", reserva);
+        return "index";
     }
 
-    */
-/*
+
+
+
   @GetMapping ("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
                                    @RequestParam(name = "fecha_inicio") Date fecha_inicio,
@@ -64,12 +58,8 @@ import java.util.List;
             return "resultado1";
 
         }
-        */
-//   @GetMapping("/ver")
-//    public String verHoteles(Model model){
-//      Hotel hotel = hotelService.getClass();
-//
-//   }
+
+
 
 
     @GetMapping("/listarHoteles")
@@ -93,10 +83,18 @@ import java.util.List;
             return "HotelesId";
         }
 
-        @RequestMapping("/nuevo")
+        @GetMapping("/nuevo")
+        public String mostrarHotelNuevo(Model model){
+        Hotel hotel = new Hotel();
+        model.addAttribute("hotel",hotel);
+        return "hotelNuevo";
+
+        }
+
+        @PostMapping("/nuevo")
         public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel){
         hotelService.hotelGuardar(hotel);
-        return "hotelNuevo";
+        return "redirect:/hoteles/listarHoteles";
 
         }
 }
