@@ -28,10 +28,7 @@ public class HotelService {
         Hotel hotelNuevo = new Hotel();
         return hotelRepository.findAll();
     }
-    public List<Hotel> hotelPorCiudad(String ciudad) {
-
-        return hotelRepository.hotelesPorCiudad(ciudad);
-    }
+    public List<Hotel> hotelPorCiudad(String ciudad) {return hotelRepository.hotelesPorCiudad(ciudad);}
 
     public Hotel hotelID(int id){
         return hotelRepository.findById(id).orElse(null);
@@ -41,8 +38,13 @@ public class HotelService {
     public Hotel hotelGuardar(Hotel hotel){
         return hotelRepository.save(hotel);
     }
-}
 
+
+    public Hotel hotelEditar(Hotel hotel){return hotelRepository.save(hotel);}
+
+    public void hotelEliminar(int id){ hotelRepository.deleteById(id);}
+
+}
 
 
 

@@ -97,4 +97,36 @@ import java.util.List;
         return "redirect:/hoteles/listarHoteles";
 
         }
+
+        @GetMapping("/editar/{id}")
+        public String mostrarFormrHotelEditar(@PathVariable int id, Model model){
+        model.addAttribute("hotel", hotelService.hotelID(id));
+        return "hotelEditar";
+        }
+
+        @PostMapping("/editar/{id}")
+        public String mostrarHotelEditar(@PathVariable int id, @ModelAttribute("hotel") Hotel hotel,Model model){
+        Hotel hotelEditar = hotelService.hotelID(id);
+        hotelEditar.setId(id);
+        hotelEditar.setNombre(hotel.getNombre());
+            hotelEditar.setCiudad(hotel.getCiudad());
+            hotelEditar.setLugar(hotel.getLugar());
+            hotelEditar.setNumero_habitaciones(hotel.getNumero_habitaciones());
+            hotelEditar.setPrecio(hotel.getPrecio());
+            hotelEditar.setImagen(hotel.getImagen());
+            hotelEditar.setTelefono(hotel.getTelefono());
+            hotelEditar.setCif(hotel.getCif());
+            hotelEditar.setComentario(hotel.getComentario());
+            hotelEditar.setPuntuacion(hotel.getPuntuacion());
+
+            hotelService.hotelEditar(hotelEditar);
+        return "redirect:/hoteles/listarHoteles";
+        }
+
+        @RequestMapping("/eliminarPorId/{id}")
+        public String eliminarPorId( @PathVariable int id){
+           hotelService.hotelEliminar(id);
+
+            return "redirect:/hoteles/listarHoteles";
+        }
 }

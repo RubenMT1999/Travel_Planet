@@ -12,9 +12,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 cl-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center">Registro de Hotel</h1>
+            <h1 class="text-center">Editar Hotel</h1>
                 <div class="card-body">
-                  <form th:action="@{/hoteles/nuevo}" th:object="${hotel}" method="POST">
+                  <form th:action="@{/hoteles/editar/{id}(id=${hotel.id})}" th:object="${hotel}" method="POST">
                       <div class="form-group">
                           <label>Nombre: </label>
                           <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Ponga aquí el nombre"  required>
@@ -57,7 +57,7 @@
                       </div>
                       <br>
                       <div class="box-footer">
-                          <button class="btn btn-success">Crear</button>
+                          <button class="btn btn-success">Editar</button>
                       </div>
                   </form>
                 </div>
