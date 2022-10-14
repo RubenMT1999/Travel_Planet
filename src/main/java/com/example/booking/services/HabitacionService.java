@@ -26,10 +26,10 @@ public class HabitacionService {
         return habitacionRepository.findById(id).get();
     }
 
+
     public void borrarHabitacion(Habitacion habitacion){
         habitacionRepository.delete(habitacion);
     }
-
 
 
 }

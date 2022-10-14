@@ -15,7 +15,7 @@
 
     <div class="row align-items-center ">
         <div class="col-lg-6 col-md-5">
-            <strong class="mt-5 fs-3 d-flex justify-content-center" th:text="${titulo}"></strong>
+            <strong class="mt-5 fs-3 d-flex justify-content-center">Editar Habitación</strong>
             <h3 class="d-flex justify-content-center">Planet Travel</h3>
 
             <div class="d-flex justify-content-center mx-5 ">
@@ -39,7 +39,7 @@
                         <label for="capacidad">Capacidad</label>
                         <input type="number" class="form-control" placeholder="Capacidad de la habitación" th:field="*{capacidad}" id="capacidad">
                     </div>
-                    <div th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}" class="alert alert-danger"></div>
+
 
 
 

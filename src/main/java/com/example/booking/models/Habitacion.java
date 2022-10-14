@@ -27,15 +27,15 @@ public class Habitacion {
     private Integer id;
 
     @Column(name = "num_habitacion")
-    @NotEmpty
+    @NotNull
     private int numeroHabitacion;
 
     @Column(name = "ext_telefonica")
-    @NotEmpty
+    @NotNull
     private String extensionTelefonica;
 
     @Column(name = "capacidad")
-    @NotEmpty
+    @NotNull
     private int capacidad;
 
     @Column(name = "descripcion")
