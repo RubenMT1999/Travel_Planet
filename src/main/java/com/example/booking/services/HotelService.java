@@ -13,21 +13,38 @@ import java.util.List;
 public class HotelService {
 
     @Autowired
-    private HotelRepository hotel;
+    private HotelRepository hotelRepository;
+
     public List<Hotel> Buscar(String ciudades, Date fecha_inicio, Date fecha_fin) {
-        return hotel.findHotelsByCiudadLike(ciudades, fecha_inicio, fecha_fin);
+        return hotelRepository.findHotelsByCiudadLike(ciudades, fecha_inicio, fecha_fin);
             }
- /* public Reserva search(Date fecha_inicio, Date fecha_fin){
-        return hotel.buscar(fecha_inicio, fecha_fin);
-   }
-
-  */
 
 
 
+
+
+
+    public List<Hotel> verTodosHoteles(){
+        Hotel hotelNuevo = new Hotel();
+        return hotelRepository.findAll();
+    }
+    public List<Hotel> hotelPorCiudad(String ciudad) {return hotelRepository.hotelesPorCiudad(ciudad);}
+
+    public Hotel hotelID(int id){
+        return hotelRepository.findById(id).orElse(null);
+    }
+
+
+    public Hotel hotelGuardar(Hotel hotel){
+        return hotelRepository.save(hotel);
+    }
+
+
+    public Hotel hotelEditar(Hotel hotel){return hotelRepository.save(hotel);}
+
+    public void hotelEliminar(int id){ hotelRepository.deleteById(id);}
 
 }
-
 
 
 

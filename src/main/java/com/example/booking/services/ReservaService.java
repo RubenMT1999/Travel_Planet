@@ -23,6 +23,7 @@ public class ReservaService {
     private HabitacionRepository habitacionRepository;
 
     public List<Reserva> listar(){
+        Reserva reserva = new Reserva();
         return reservaRepository.findAll();
     }
 

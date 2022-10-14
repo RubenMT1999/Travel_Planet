@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <title>Listado de Hoteles</title>
+</head>
+<body>
+<header th:replace="header/header :: header"></header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 cl-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center">Registro de Hotel</h1>
+                <div class="card-body">
+                  <form th:action="@{/hoteles/nuevo}" th:object="${hotel}" method="POST">
+                      <div class="form-group">
+                          <label>Nombre: </label>
+                          <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Ponga aquí el nombre"  required>
+                          <br>
+                          <label>Ciudad: </label>
+                          <select class="form-select" name="ciudad"  placeholder="Escoja la ciudad" th:field="*{ciudad}" required>
+                              <option value="Sevilla">Sevilla</option>
+                              <option value="Cádiz" >Cádiz</option>
+                              <option value="Huelva">Huelva</option>
+                              <option value="Granada">Granada</option>
+                              <option value="Córdoba">Córdoba</option>
+                              <option value="Málaga">Málaga</option>
+                              <option value="Almería">Almería</option>
+                              <option value="Jaén">Jaén</option>
+                          </select>
+                          <br>
+                          <label>Lugar: </label>
+                          <input type="text" name="lugar" th:field="*{lugar}" class="form-control" placeholder="Ponga aquí el lugar" required>
+                          <br>
+                          <label>Habitaciones: </label>
+                          <input type="number" name="habitacion" th:field="*{numero_habitaciones}" class="form-control" placeholder="Ponga aquí el numero de habitaciones" required>
+                          <br>
+                          <label>Precio: </label>
+                          <input type="text" name="precio" th:field="*{precio}" class="form-control" placeholder="Ponga aquí el precio de una noche" required>
+                          <br>
+                          <label>Imágen: </label>
+                          <input type="text" name="imagen" th:field="*{imagen}" class="form-control" placeholder="Ponga aquí la url" required>
+                          <br>
+                          <label>Teléfono: </label>
+                          <input type="text" name="telefono" th:field="*{telefono}" class="form-control" placeholder="Ponga aquí el teléfono" required>
+                          <br>
+                          <label>CIF: </label>
+                          <input type="text" name="cif" th:field="*{cif}" class="form-control" placeholder="Ponga aquí el CIF" required>
+                          <br>
+                          <label>Comentario: </label>
+                          <input type="text" name="comentario" th:field="*{comentario}" class="form-control" placeholder="Ponga aquí un comentario" required>
+                          <br>
+                          <label>Puntuación: </label>
+                          <input type="text" name="puntuacion" th:field="*{puntuacion}" class="form-control" placeholder="Que puntuación piensa que tiene" required>
+                      </div>
+                      <br>
+                      <div class="box-footer">
+                          <button class="btn btn-success">Crear</button>
+                      </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+</body>
+</html>
