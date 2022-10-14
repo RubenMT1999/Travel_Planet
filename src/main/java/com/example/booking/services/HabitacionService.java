@@ -14,10 +14,13 @@ public class HabitacionService {
     HabitacionRepository habitacionRepository;
 
 
-    public List<Habitacion> listarHabitaciones(String nombre){
-        return habitacionRepository.listarHabitaciones(nombre);
+    public List<Habitacion> listarHabitaciones(Integer id){
+        return habitacionRepository.listarHabitaciones(id);
     }
 
+    public void guardarHabitacion(Habitacion habitacion){
+        habitacionRepository.save(habitacion);
+    }
 
 
 }

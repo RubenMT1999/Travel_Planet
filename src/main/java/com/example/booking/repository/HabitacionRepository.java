@@ -13,8 +13,8 @@ import java.util.List;
 public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> {
 
 
-    @Query("SELECT h FROM Habitacion h where h.hotel.usuario.nombre = ?1")
-    List<Habitacion> listarHabitaciones(String nombre);
+    @Query("SELECT h FROM Habitacion h where h.hotel.id = ?1")
+    List<Habitacion> listarHabitaciones(Integer id);
 
 
 }

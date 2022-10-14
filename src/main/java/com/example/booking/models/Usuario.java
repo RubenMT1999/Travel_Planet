@@ -55,7 +55,8 @@ public class Usuario {
     @Email(message = "correo con formato incorrecto")
     private String email;
 
-    @Column(name = "forma_pago")
+    @JsonIgnore
+    @Column(name = "metodo_de_pago")
     private EMetodoDePago metodoDePago;
 
     private boolean registrado;
