@@ -67,6 +67,9 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reservas;
 
+    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Hotel> hoteles;
+
 
     public void addReserva(Reserva reserva){
         this.reservas.add(reserva);

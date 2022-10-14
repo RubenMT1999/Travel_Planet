@@ -27,5 +27,8 @@ public class ReservaService {
     }
 
 
+    public List<Reserva> reservasPorNombre(String nombre) {
+        return reservaRepository.reservasPorNombre(nombre);
+    }
 
 }

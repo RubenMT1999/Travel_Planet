@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Getter
+
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +25,7 @@ public class Hotel {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "num_habitaciones")
+    @Column(name = "num_hab")
     private int numero_habitaciones;
 
     @Column(name = "telefono")
@@ -54,5 +54,45 @@ public class Hotel {
 //        this.habitaciones.add(habitacion);
 //    }
 
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getNumero_habitaciones() {
+        return numero_habitaciones;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getPoblacion() {
+        return poblacion;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public String getCif() {
+        return cif;
+    }
 }
