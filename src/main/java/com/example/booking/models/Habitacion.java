@@ -47,7 +47,8 @@ public class Habitacion {
     private String imagen;
 
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//  He tenido que usar cascade merge para hacer el save de habitacion en el crud
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
 
