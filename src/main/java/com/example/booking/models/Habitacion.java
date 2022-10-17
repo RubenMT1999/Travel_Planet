@@ -46,7 +46,7 @@ public class Habitacion {
 
     private String imagen;
 
-
+    //tuve que quitar el cascade para que no me diera fallo al crear habitacion
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
