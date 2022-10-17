@@ -14,7 +14,7 @@
 <div class="container mt-5">
     <div class="d-inline">
         <h1 class="text-secondary d-inline">Listado de Habitaciones</h1>
-        <a th:href="@{/habitaciones/crear/{id}(id=${habitaciones.get(0).getHotel().getId()})}" class="btn btn-success float-end">Crear</a>
+        <a th:href="@{/habitaciones/crear/{id}(id=${id})}" class="btn btn-success float-end">Crear</a>
     </div>
 
     <table class="table mt-5">

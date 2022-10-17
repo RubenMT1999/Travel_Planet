@@ -32,4 +32,10 @@ public class HabitacionService {
     }
 
 
+    public void guardarPersonalizado(Integer idHotel,Integer numHab,String extTel, Integer capacidad,
+                                     String imagen, String descripcion){
+        habitacionRepository.guardarPersonalizado(idHotel,numHab,extTel,capacidad,imagen,descripcion);
+    }
+
+
 }

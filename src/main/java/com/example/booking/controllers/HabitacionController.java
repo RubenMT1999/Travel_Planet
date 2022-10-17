@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequestMapping("/habitaciones")
 @Controller
-@SessionAttributes("habitacion")
+@SessionAttributes({"habitacion","id"})
 public class HabitacionController {
 
     @Autowired
@@ -24,10 +24,11 @@ public class HabitacionController {
     @Autowired
     HotelRepository hotelRepository;
 
-    @GetMapping("/listar/{id}")
+    @GetMapping({"/listar/{id}"})
     public String listar(Model model, @PathVariable Integer id){
         List<Habitacion> habitaciones = habitacionService.listarHabitaciones(id);
         model.addAttribute("habitaciones",habitaciones);
+        model.addAttribute("id",id);
         return "habitaciones";
     }
 
@@ -45,16 +46,17 @@ public class HabitacionController {
 
 
     @PostMapping("/crear")
-    public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, SessionStatus status){
+    public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, SessionStatus status,
+                           @ModelAttribute("id") Integer idHotel){
 
-        if(result.hasErrors()){
-            model.addAttribute("titulo", "Ha habido algún error");
-            return "crearHabitacion";
-        }
-        habitacionService.guardarHabitacion(habitacion);
-        status.setComplete();
+//        if(result.hasErrors()){
+//            model.addAttribute("titulo", "Ha habido algún error");
+//            return "crearHabitacion";
+//        }
+        habitacionService.guardarPersonalizado(habitacion.getHotel().getId(),habitacion.getNumeroHabitacion(),habitacion.getExtensionTelefonica(),
+                habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion());
         model.addAttribute("success","La habitación ha sido creada con éxito!");
-        return "index";
+        return "redirect:/habitaciones/listar/"+idHotel;
     }
 
 
@@ -69,26 +71,25 @@ public class HabitacionController {
 
 
     @PostMapping("/editar")
-    public String postEditar(@Valid Habitacion habitacion, BindingResult result, Model model, SessionStatus status){
+    public String postEditar(@Valid Habitacion habitacion, BindingResult result, Model model, SessionStatus status,
+                             @ModelAttribute("id") Integer idHotel){
         if(result.hasErrors()){
             model.addAttribute("titulo", "Ha habido algún error");
             return "editarHabitacion";
         }
-
         habitacionService.guardarHabitacion(habitacion);
-        status.setComplete();
         model.addAttribute("success","La habitación ha sido actualizada con éxito!");
-        return "index";
+        return "redirect:/habitaciones/listar/"+idHotel;
     }
 
 
 
     @GetMapping("/borrar/{id}")
-    public String borrar(@PathVariable("id") Integer id, Model model){
+    public String borrar(@PathVariable("id") Integer id, Model model, @ModelAttribute("id") Integer idHotel){
         Habitacion habitacion = habitacionService.encontrarPorId(id);
         habitacionService.borrarHabitacion(habitacion);
         model.addAttribute("success","Habitación borrada con éxito!");
-        return "index";
+        return "redirect:/habitaciones/listar/"+idHotel;
     }
 
 

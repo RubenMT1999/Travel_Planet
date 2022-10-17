@@ -42,13 +42,12 @@ public class Habitacion {
     private String descripcion;
 
     @Column(name = "disponibilidad")
-    @NotNull
     private Boolean disponibilidad;
 
     private String imagen;
 
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
 
