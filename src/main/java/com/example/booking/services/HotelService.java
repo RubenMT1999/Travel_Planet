@@ -1,7 +1,6 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Hotel;
-import com.example.booking.models.Reserva;
 import com.example.booking.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +42,13 @@ public class HotelService {
     public Hotel hotelEditar(Hotel hotel){return hotelRepository.save(hotel);}
 
     public void hotelEliminar(int id){ hotelRepository.deleteById(id);}
+
+
+    public List<Hotel> hotelesMail (String auth) { return hotelRepository.hotelPorMail(auth);}
+
+    public void crearHotel(String nombre, String puntuacion, String precio, String comentario, String imagen, String lugar, String telefono, String cif, Integer num_hab, String ciudad, Integer id_usuario){
+        hotelRepository.crearHotel(nombre, puntuacion, precio, comentario, imagen, lugar, telefono, cif, num_hab, ciudad, id_usuario);
+    }
 
 }
 

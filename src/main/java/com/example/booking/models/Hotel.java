@@ -66,18 +66,21 @@ public class Hotel {
 
 
 
-    @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY)
     private List<Habitacion> habitaciones;
 
 //    public void addHabitacion(Habitacion habitacion){
 //        this.habitaciones.add(habitacion);
 //    }
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
     public Integer getId() {
         return id;

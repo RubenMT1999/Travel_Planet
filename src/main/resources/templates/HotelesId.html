@@ -28,6 +28,12 @@
                 <li class="list-group-item" th:text="${hotelesId.getComentario()}">A second item</li>
                 <li class="list-group-item" th:text="${hotelesId.getPuntuacion()}">A third item</li>
             </ul>
+            <br>
+            <div class="box-footer">
+                <a th:href="@{/habitaciones/listar/{id}(id=${hotelesId.getId()})}" class="btn btn-success">Habitaciones</a>
+            </div>
+            <br>
+            <br>
         </div>
     </div>
 

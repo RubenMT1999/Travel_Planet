@@ -8,6 +8,7 @@ import com.example.booking.repository.HotelRepository;
 import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.IUsuarioService;
+import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
@@ -30,6 +31,9 @@ import java.util.List;
     public class HotelController {
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
 
     @GetMapping("/")
@@ -87,16 +91,33 @@ import java.util.List;
         public String mostrarHotelNuevo(Model model){
         Hotel hotel = new Hotel();
         model.addAttribute("hotel",hotel);
-        return "hotelNuevo";
+            return "hotelNuevo";
 
         }
 
         @PostMapping("/nuevo")
-        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel){
+        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth){
+        hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
         hotelService.hotelGuardar(hotel);
-        return "redirect:/hoteles/listarHoteles";
+        return "redirect:/hoteles/verHotelesUsuarios";
 
         }
+
+//        @GetMapping("/nuevo/{id}")
+//        public String mostrarHotelNuevo(Model model, @PathVariable Integer id){
+//            Hotel hotel = new Hotel();
+//            hotel.setUsuario( usuarioRepository.findById(id).get());
+//
+//            model.addAttribute("hotel",hotel);
+//            return "hotelNuevo";
+//
+//        }
+//
+//        @PostMapping("/nuevo")
+//        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel){
+//            hotelService.crearHotel(hotel.getNombre(),hotel.getPuntuacion(), hotel.getPrecio(),hotel.getComentario(),hotel.getImagen(),hotel.getLugar(),hotel.getTelefono(),hotel.getCif(),hotel.getNumero_habitaciones(),hotel.getCiudad(), hotel.getUsuario().getId());
+//            return "redirect:/hoteles/verHotelesUsuarios";
+//        }
 
         @GetMapping("/editar/{id}")
         public String mostrarFormrHotelEditar(@PathVariable int id, Model model){
@@ -120,13 +141,23 @@ import java.util.List;
             hotelEditar.setPuntuacion(hotel.getPuntuacion());
 
             hotelService.hotelEditar(hotelEditar);
-        return "redirect:/hoteles/listarHoteles";
+            return "redirect:/hoteles/verHotelesUsuarios";
         }
+
+
 
         @RequestMapping("/eliminarPorId/{id}")
         public String eliminarPorId( @PathVariable int id){
            hotelService.hotelEliminar(id);
 
-            return "redirect:/hoteles/listarHoteles";
+            return "redirect:/hoteles/verHotelesUsuarios";
+        }
+
+        @GetMapping("/verHotelesUsuarios")
+        public String listarHotelesUsuario(Model model, Authentication auth){
+            auth = SecurityContextHolder.getContext().getAuthentication();
+            List<Hotel> hoteles = hotelService.hotelesMail(auth.getName());
+            model.addAttribute("hoteles",hoteles);
+            return "hotelesUsuario";
         }
 }
