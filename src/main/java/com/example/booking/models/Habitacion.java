@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class Habitacion {
     private int numeroHabitacion;
 
     @Column(name = "ext_telefonica")
-    @NotNull
+    @NotEmpty
     private String extensionTelefonica;
 
     @Column(name = "capacidad")
@@ -52,7 +53,6 @@ public class Habitacion {
     private Hotel hotel;
 
     @OneToMany
-
     private List<Tarifa> id_tarifa;
 
 

@@ -9,8 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RequestMapping("/habitaciones")
@@ -46,13 +52,30 @@ public class HabitacionController {
 
 
     @PostMapping("/crear")
-    public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, SessionStatus status,
-                           @ModelAttribute("id") Integer idHotel){
+    public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, @RequestParam(value = "imagen") MultipartFile imagen,
+                           SessionStatus status, @ModelAttribute("id") Integer idHotel, RedirectAttributes flash){
 
-//        if(result.hasErrors()){
-//            model.addAttribute("titulo", "Ha habido algún error");
-//            return "crearHabitacion";
-//        }
+        if(result.hasErrors()){
+            model.addAttribute("titulo", "Ha habido algún error");
+            return "crearHabitacion";
+        }
+
+        if(!imagen.isEmpty()){
+            Path directorioRecursos = Paths.get("src/main/resources/static/uploads");
+            String rootPath = directorioRecursos.toFile().getAbsolutePath();
+            try {
+                byte[] bytes = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rootPath+"//"+imagen.getOriginalFilename());
+                Files.write(rutaCompleta,bytes);
+                flash.addFlashAttribute("info","Has subido correctamente '"+ imagen.getOriginalFilename()+"'");
+
+                habitacion.setImagen(imagen.getOriginalFilename());
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }
+
         habitacionService.guardarPersonalizado(habitacion.getHotel().getId(),habitacion.getNumeroHabitacion(),habitacion.getExtensionTelefonica(),
                 habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion());
         model.addAttribute("success","La habitación ha sido creada con éxito!");

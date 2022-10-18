@@ -47,7 +47,7 @@ public class UsuarioController {
         usuario.setContrasenia(bcryptPassword);
 
         UserAuth auth = new UserAuth();
-        auth.setUsername(usuario.getNombre());
+        auth.setUsername(usuario.getEmail());
         auth.setPassword(usuario.getContrasenia());
         auth.setEnabled(1);
         userAuthRepository.save(auth);
