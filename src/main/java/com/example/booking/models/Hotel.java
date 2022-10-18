@@ -30,23 +30,35 @@ public class Hotel {
 
     @Column(name = "telefono")
     private String telefono;
+    @Column(name = "precio")
+    private String precio;
+
+    @Column(name = "puntuacion")
+    private String puntuacion;
 
     @Column(name = "pais")
     private String pais;
 
     @Column(name = "ciudad")
-    @NotEmpty
+   // @NotEmpty
     private String ciudad;
 
     @Column(name = "poblacion")
     private String poblacion;
+
+    @Column(name = "imagen")
+    private String imagen;
+
+    @Column(name = "comentario")
+    private String comentario;
 
     @Column(name = "localidad")
     private String localidad;
 
     @Column(name = "cif")
     private String cif;
-
+    @Column(name = "lugar")
+    private String lugar;
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Habitacion> habitaciones = new HashSet<>(0);
 
@@ -58,7 +70,45 @@ public class Hotel {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
+    public String getPrecio() {
+        return precio;
+    }
 
+    public String getComentario() {
+        return comentario;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    public String getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(String puntuacion) {
+        this.puntuacion = puntuacion;
+    }
 
     public Integer getId() {
         return id;
@@ -94,5 +144,13 @@ public class Hotel {
 
     public String getCif() {
         return cif;
+    }
+
+    public Set<Habitacion> getHabitaciones() {
+        return habitaciones;
+    }
+
+    public void setHabitaciones(Set<Habitacion> habitaciones) {
+        this.habitaciones = habitaciones;
     }
 }

@@ -22,6 +22,11 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
    // Reserva buscar(Date fecha_inicio, Date fecha_fin);
 
 
+    @Query(value = "SELECT id FROM Hotel", nativeQuery = true)
+    List<Integer> obtenerIdHotel();
+
+    @Query(value = "select * from hotel", nativeQuery = true)
+    List<Hotel> obtenerTodoshoteles();
 
 }
 

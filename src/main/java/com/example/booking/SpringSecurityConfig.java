@@ -40,18 +40,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //definimos quien va a poder acceder a las distintas direccioens
-        http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/listar","habitaciones/**","reserva/**").permitAll()
-//                .antMatchers("/registrar/**").hasAnyRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                        .successHandler(successHandler)
-                        .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout().permitAll()
-                .and()
-                .exceptionHandling().accessDeniedPage("/error_403");
+//        http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/listar","habitaciones/**","reserva/**").permitAll()
+////                .antMatchers("/registrar/**").hasAnyRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                        .successHandler(successHandler)
+//                        .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout().permitAll()
+//                .and()
+//                .exceptionHandling().accessDeniedPage("/error_403");
 
 
 
