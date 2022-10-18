@@ -111,8 +111,10 @@ public class HabitacionController {
                     habitacion.setId(contadorIdHabitacion);
                     habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
                     hotel.getHabitaciones().add(habitacion);
+
                 }
-                hotelRepository.save(hotel);
+               // hotelRepository.save(hotel);
+                 habitacionService.guardarHabitacion(habitacion);
 
         }
 
