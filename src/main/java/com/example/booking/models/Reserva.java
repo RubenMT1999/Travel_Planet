@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
@@ -36,6 +37,7 @@ public class Reserva {
     private EMetodoDePago metodoDePago;
 
     @NotNull
+    @FutureOrPresent
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -43,6 +45,7 @@ public class Reserva {
 
 
     @NotNull
+    @FutureOrPresent
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
