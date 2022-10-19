@@ -17,5 +17,6 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     @Query("SELECT h FROM Habitacion h where h.hotel.id = ?1")
     List<Habitacion> listarHabitaciones(Integer id);
 
-
+    @Query(value = "SELECT id_hotel from Habitacion ", nativeQuery = true)
+    List<Integer> totalIdHotelesHabitacion ();
 }

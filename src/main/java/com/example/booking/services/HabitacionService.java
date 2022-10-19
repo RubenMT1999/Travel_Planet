@@ -22,5 +22,7 @@ public class HabitacionService {
         habitacionRepository.save(habitacion);
     }
 
+    public void listarIdHotelesPorHabitacion() { habitacionRepository.totalIdHotelesHabitacion(); }
+
 
 }
