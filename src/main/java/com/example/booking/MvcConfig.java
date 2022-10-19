@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.file.Paths;
+
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
@@ -20,7 +22,15 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        WebMvcConfigurer.super.addResourceHandlers(registry);
 
-
-
+        //registrar ruta externa para cargar imagen
+        //addResourceHandler para declararla como estática y poder verla en la vista
+        //con toUri le agrega el file:/
+        String resourcePath = Paths.get("uploads").toAbsolutePath().toUri().toString();
+        registry.addResourceHandler("/uploads/**")
+                .addResourceLocations(resourcePath);
+    }
 }

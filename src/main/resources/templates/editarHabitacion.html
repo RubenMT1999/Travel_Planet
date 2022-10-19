@@ -13,14 +13,14 @@
 <div class="container">
 
 
-    <div class="row align-items-center ">
+    <div class="row align-items-center">
         <div class="col-lg-6 col-md-5">
             <strong class="mt-5 fs-3 d-flex justify-content-center">Editar Habitación</strong>
             <h3 class="d-flex justify-content-center">Planet Travel</h3>
 
             <div class="d-flex justify-content-center mx-5 ">
 
-                <form th:action="@{/habitaciones/editar}" th:object="${habitacion}" method="post">
+                <form th:action="@{/habitaciones/editar}" th:object="${habitacion}" method="post" enctype="multipart/form-data">
                     <div class="form-group mb-3 col-10 ">
                         <label for="numero">Número de habitación</label>
                         <input type="number" class="form-control" placeholder="Introduce el número" th:field="*{numeroHabitacion}" id="numero">
@@ -50,30 +50,24 @@
                     <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class="alert alert-danger"></div>
 
                     <div class="form-group mb-3 col-10 ">
-                        <label for="imagen">Imagen</label>
-                        <input type="text" class="form-control" placeholder="Introduce una imagen" th:field="*{imagen}" id="imagen">
+                        <label>Imagen</label>
+                        <img th:if="${#strings.length(habitacion.imagen)>0}" class="img-thumbnail rounded float-end " th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
+                        <input type="file" name="file" class="form-control">
                     </div>
-                    <div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}" class="alert alert-danger"></div>
+<!--                    <div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}" class="alert alert-danger"></div>-->
 
 
 
-                    <input type="submit" value="Crear" class="btn btn-block btn-primary mt-3">
+                    <input type="submit" value="Editar" class="btn btn-block btn-primary mt-3">
 
                 </form>
             </div>
-
-
         </div>
-
-        <!--
-        <div class="col-md-7 col-lg-6 d-sm-none d-md-block d-none d-sm-block">
-          <div class="d-flex justify-content-center portrait">
-            <img src="/images/bg_1.jpg" class="img-thumbnail img-fluid" alt="...">
-          </div>
-        </div>
-        -->
-
     </div>
+
+
+
+
 
 </div>
 

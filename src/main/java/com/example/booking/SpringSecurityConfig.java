@@ -34,6 +34,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/scripts/**");
         web.ignoring().antMatchers("/images/**");
+        web.ignoring().antMatchers("/uploads/**");
     }
 
     //Configuracion de quien puede visitar cada url
