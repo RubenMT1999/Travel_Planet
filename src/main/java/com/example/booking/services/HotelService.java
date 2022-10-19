@@ -1,5 +1,6 @@
 package com.example.booking.services;
 
+import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,9 @@ import java.util.List;
 public class HotelService {
 
     @Autowired
-    private HotelRepository hotel;
+     HotelRepository hotelRepository;
     public List<Hotel> Buscar(String ciudades, Date fecha_inicio, Date fecha_fin) {
-        return hotel.findHotelsByCiudadLike(ciudades, fecha_inicio, fecha_fin);
+        return hotelRepository.findHotelsByCiudadLike(ciudades, fecha_inicio, fecha_fin);
             }
 
  /* public Reserva search(Date fecha_inicio, Date fecha_fin){
@@ -22,6 +23,10 @@ public class HotelService {
    }
 
   */
+
+    public void guardarHotel(Hotel hotel){
+        hotelRepository.save(hotel);
+    }
 
 
 
