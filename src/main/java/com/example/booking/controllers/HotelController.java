@@ -10,6 +10,9 @@ import com.example.booking.services.HotelService;
 import com.example.booking.services.IUsuarioService;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -67,9 +70,11 @@ import java.util.List;
 
 
     @GetMapping("/listarHoteles")
- public String hoteles(Model model){
-        List<Hotel> hoteles = hotelService.verTodosHoteles();
-        model.addAttribute("hoteles", hoteles);
+ public String hoteles(@RequestParam(name="page", defaultValue = "0") int page, Model model){
+//        List<Hotel> hoteles = hotelService.verTodosHoteles();
+        Pageable pageRequest = PageRequest.of(page, 5);
+        Page<Hotel> hotel = hotelService.findAll(pageRequest);
+        model.addAttribute("hoteles", hotel);
     return "hoteles";
     }
 
