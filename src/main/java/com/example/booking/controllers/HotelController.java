@@ -9,15 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-    @Controller
+@Controller
     @RequestMapping("/hoteles")
+    @SessionAttributes({"habitacion","reserva"})
+
     public class HotelController {
     @Autowired
     private HotelService hotelService;
@@ -28,41 +32,43 @@ import java.util.List;
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
+                                   @RequestParam(name = "capacidad") Integer capacidad,
                                    Model model) throws ParseException {
+        //Para utilizar el SessionAtribute para capacidad.
+        Habitacion habitacion = new Habitacion();
+        habitacion.setCapacidad(capacidad);
+        model.addAttribute("habitacion", habitacion);
 
+        model.addAttribute("titulo", "Buscar - Travel Planet");
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaInicio = formato.parse(fecha_inicio);
         Date fecha_Fin = formato.parse(fecha_fin);
 
-        List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin);
-        model.addAttribute("titulo", "Buscar - Travel Planet");
+        //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
+        Reserva reserva = new Reserva();
+        reserva.setFechaInicio(fechaInicio);
+        reserva.setFechaFin(fecha_Fin);
+        model.addAttribute("reserva", reserva);
+
+        List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
+
         model.addAttribute("hotel", hotel);
         return "busquedahoteles";
 
     }
-
-   /* @GetMapping("/generar")
-    public void generarhabitacionesAleatorio() {
-        Faker faker = new Faker();
-        List<Habitacion> habitacionList = new ArrayList<>();
-        Habitacion habitacion = new Habitacion();
-        for (int i = 0; i < 100; i++) {
-            habitacion.setNumeroHabitacion(faker.number().randomDigitNotZero());
-            habitacion.setExtensionTelefonica(faker.number().toString());
-            habitacion.setCapacidad(faker.number().numberBetween(1, 9));
-            habitacion.setDescripcion(faker.lorem().toString());
-            habitacion.setDisponibilidad(faker.bool().bool());
-            habitacion.setHotel();
-            habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
-            habitacion.guardar();
-        }
-        {
-        }
-
-
+    @GetMapping("/habitacion/{id}")
+    public String hotelid(@PathVariable(name = "id") Integer id,
+                          @ModelAttribute("habitacion") Habitacion capacidad,
+                          @ModelAttribute("reserva") Reserva fecha_inicio,
+                          @ModelAttribute("habitacion") Reserva fecha_fin,Model model) {
+        model.addAttribute("titulo", "Buscar - Travel Planet");
+        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id, capacidad.getCapacidad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin());
+        Hotel hotel = hotelService.hotelID(id);
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("habitacions", habitacions);
+        return "hoteldetalle";
     }
 
-    */
 
     @GetMapping("/listarHoteles")
  public String hoteles(Model model){

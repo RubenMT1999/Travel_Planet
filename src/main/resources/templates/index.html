@@ -17,7 +17,8 @@
             <div class="carousel-item " data-bs-interval="2000">
                 <img th:src="@{/images/banner3.jpg}" class="d-block w-100" style="opacity: 0.85" alt="...">
             </div>
-                <div class="carousel-caption d-none d-md-block mb-5">
+
+              <div class="carousel-caption d-none d-md-block mb-5">
                  <form action="#" th:action="@{/hoteles/listar}" th:object="${hotel}" method="get">
                         <div class="container mt-5 p-5">
                             <div class="row p-1">
@@ -55,39 +56,42 @@
                                                 <label class="font-weight-bold text-white fw-bold">Check Out</label>
 
                                                 <input type="date" class="form-control" id="fechafin" min="fechaInicio" th:field="*{fechaFin}" placeholder="yyyy-MM-dd" required>
+                                            </div>
+                                            <form th:action="@{/hoteles/listar}" th:object="${capacidad}" method="get">
+                                            <div class="row p-4">
 
-                                                <div class="col-md-4 mt-sm-0 mt-md-4">
-                                                    <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
+                                                <div class="col-md-4 mb-3 mb-md-0">
+
+                                                    <div class="container">
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-12 mb-2">
+
+                                                                    <label class="font-weight-bold text-white fw-bold">Numeros de personas</label>
+                                                                    <select name="" id="adultos" class="form-select mb-3" th:field="*{capacidad}" >
+                                                                        <option th:value=1 th:text="1">1</option>
+                                                                        <option th:value=2 th:text="2">2</option>
+                                                                        <option th:value=3 th:text="3">3</option>
+                                                                        <option th:value=4 th:text="4">4</option>
+
+                                                                    </select>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-4 mt-sm-0 mt-md-4">
+                                                <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
+                                            </div>
                                         </form>
-                                    </form>
+                                    </form></form>
                                 </div>
 
 
-                                <!--  <div class="row p-4">
-
-                                      <div class="col-md-4 mb-3 mb-md-0">
-
-                                          <div class="container">
-
-                                              <div class="row">
-
-                                                  <div class="col-md-12 mb-2">
-                                                     <form th:action="@{/}" th:object="${capacidad}" method="post">
-                                                          <label class="font-weight-bold text-white fw-bold">Numeros de personas</label>
-                                                          <select name="" id="adultos" class="form-select mb-3" >
-                                                              <option value="1">1</option>
-                                                              <option value="2">2</option>
-                                                              <option value="3">3</option>
-                                                              <option value="4">4 +</option>
-                                                          </select>
-
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div> -->
+                                <!--  -->
 
                             </div>
                         </div>

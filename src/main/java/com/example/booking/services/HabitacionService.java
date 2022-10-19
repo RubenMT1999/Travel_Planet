@@ -5,6 +5,7 @@ import com.example.booking.repository.HabitacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,8 +26,8 @@ public class HabitacionService {
 
 
 
-    public List<Habitacion> buscarporoidHabitacion(Integer id_hotel) {
-        List<Habitacion> habitacion = habitacionRepository.buscarporidhab(id_hotel);
+    public List<Habitacion> buscarporoidHabitacion(Integer id_hotel, Integer capacidad, Date fecha_inicio, Date fecha_fin) {
+        List<Habitacion> habitacion = habitacionRepository.buscarporidhab(id_hotel, capacidad, fecha_inicio, fecha_fin);
         return habitacion;
 
     }

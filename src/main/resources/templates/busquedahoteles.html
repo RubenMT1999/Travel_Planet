@@ -9,8 +9,9 @@
 <body>
 <header th:replace="header/header :: header"></header>
 
-<div class="card mb-3" style="max-width: 100%;">
+<div class="card mb-3" style="max-width: 100%;" >
     <div class="row g-0 " th:each="hoteles: ${hotel}">
+
         <div class="card-header text-center">
             <span th:text="${hoteles.nombre}"> </span>
         </div>
@@ -24,7 +25,7 @@
                 <p class="card-text "><span th:text="${hoteles.ciudad}"></span>, <span th:text="${hoteles.lugar}"></span></p>
                 <p class="card-text "><span th:text="${hoteles.precio}"></span></p>
                 <div class="card-body text-end">
-                <a th:href="@{'/habitaciones/habitacion/' + ${hoteles.id}}" class="btn btn-primary">Ver disponibilidad</a>
+                <a th:href="@{'/hoteles/habitacion/' + ${hoteles.id}}" class="btn btn-primary">Ver disponibilidad</a>
             </div>
 
             </div>

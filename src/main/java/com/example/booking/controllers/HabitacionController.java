@@ -12,7 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/habitaciones")
@@ -34,14 +38,20 @@ public class HabitacionController {
         model.addAttribute("habitaciones",habitaciones);
         return "habitaciones";
     }
+    /*@ModelAttribute("capacidad")
     @GetMapping("/habitacion/{id}")
-    public String hotelid(@PathVariable(name = "id") Integer id, Model model) {
+    public String hotelid(@PathVariable(name = "id") Integer id,
+                          SessionStatus status, Model model) {
+        model.addAttribute("titulo", "Buscar - Travel Planet");
+        status.setComplete();
         List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id);
         Hotel hotel = hotelService.hotelID(id);
         model.addAttribute("hotel", hotel);
         model.addAttribute("habitacions", habitacions);
         return "hoteldetalle";
     }
+
+     */
 
 
     @GetMapping("/crear/{id}")
