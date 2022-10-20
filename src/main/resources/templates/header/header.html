@@ -36,6 +36,7 @@
                             <span class="dropdown-item-text" sec:authentication="name"></span>
                             <span class="dropdown-item-text" sec:authentication="principal.authorities"></span>
                             <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}">Mis reservas</a>
+                            <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/hoteles/verHotelesUsuarios}">Mis hoteles</a>
                             <form id="logoutForm" th:action="@{/logout}" method="post">
                                 <button class="dropdown-item"
                                         onclick="document.getElementById('logoutForm').submit();"

@@ -2,7 +2,6 @@ package com.example.booking.repository;
 
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
-import com.example.booking.models.Reserva;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,5 +35,20 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     @Query("select h from Hotel h where h.ciudad = ?1")
         List<Hotel> hotelesPorCiudad(String ciudad);
 
+    @Query("SELECT r FROM Hotel r WHERE r.usuario.nombre= ?1")
+    List<Hotel> hotelPorNombre(String nombre);
+
+    @Query("SELECT r FROM Hotel r WHERE r.usuario.email= ?1")
+    List<Hotel> hotelPorMail(String nombre);
+
+    @Transactional
+    @Modifying
+    @Query(value = "insert into hotel (nombre, puntuacion, precio, comentario,imagen, lugar, telefono, cif, num_hab, ciudad, id_usuario) values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11)",nativeQuery = true )
+    void crearHotel(@Param("nombre") String nombre, @Param("puntuacion") String puntuacion,
+                    @Param("comentario") String comentario, @Param("imagen") String imagen
+            , @Param("lugar") String lugar, @Param("telefono") String telefono, @Param("cif") String cif, String s, @Param("num_hab") Integer num_hab, @Param("ciudad") String ciudad, @Param("id_usuario") Integer id_usuario);
+
 
 }
+
+

@@ -13,7 +13,11 @@
     <div class="row">
       <h1>Lista de hoteles</h1>
     </div>
-
+    <br>
+    <div class="box-footer">
+      <a th:href="@{/hoteles/nuevo}" class="btn btn-success">Crear Hotel</a>
+    </div>
+    <br>
     <div class="card" style="width: 18rem;" th:each="hotel :${hoteles}">
       <img th:src="${hotel.imagen}" class="card-img-top" alt="..." >
       <div class="card-body" >
@@ -31,6 +35,9 @@
       <br>
       <div class="box-footer">
         <a th:href="@{/habitaciones/listar/{id}(id=${hotel.getId()})}" class="btn btn-success">Habitaciones</a>
+        <a th:href="@{/hoteles/editar/{id}(id=${hotel.getId()})}" class="btn btn-warning">Editar</a>
+        <a th:href="@{/hoteles/eliminarPorId/{id}(id=${hotel.getId()})}" class="btn btn-danger">Eliminar</a>
+
       </div>
       <br>
       <br>

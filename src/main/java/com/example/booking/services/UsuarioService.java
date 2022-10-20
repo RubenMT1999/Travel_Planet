@@ -17,6 +17,10 @@ public class UsuarioService implements IUsuarioService{
         usuarioRepository.save(usuario);
     }
 
+    public Usuario usuarioPorId(Integer id){return usuarioRepository.findById(id).orElse(null);}
+
+    public Usuario buscarPorMail(String mail){return usuarioRepository.buscarPormail(mail);}
+
 
 
 
