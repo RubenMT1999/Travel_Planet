@@ -1,11 +1,12 @@
 package com.example.booking.services;
-
+import com.example.booking.models.Hotel;
 import com.example.booking.models.Habitacion;
 import com.example.booking.repository.HabitacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class HabitacionService {
@@ -21,6 +22,7 @@ public class HabitacionService {
     public void guardarHabitacion(Habitacion habitacion){
         habitacionRepository.save(habitacion);
     }
+
 
     public void listarIdHotelesPorHabitacion() { habitacionRepository.totalIdHotelesHabitacion(); }
 

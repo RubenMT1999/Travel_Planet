@@ -124,13 +124,13 @@ public class HabitacionController {
     public void generarhabitacionesAleatorio() {
 
         Faker faker = new Faker();
-        Habitacion habitacion = new Habitacion();
-        Integer contadorHabitacion = 1;
-        Integer contadorIdHotel = 1;
+        Integer contadorHabitacion = 528;
 
         for (Hotel h : hotelRepository.obtenerTodoshoteles()){
+
             Set<Habitacion> habitaciones = new HashSet<>();
             for (int x = 0; x < 10; x ++){
+                Habitacion habitacion = new Habitacion();
                 habitacion.setId(contadorHabitacion);
                 habitacion.setHotel(h);
                 habitacion.setNumeroHabitacion(faker.number().numberBetween(1,500));
@@ -146,7 +146,6 @@ public class HabitacionController {
             }
             hotelRepository.save(h);
         }
-
 
     }
 
