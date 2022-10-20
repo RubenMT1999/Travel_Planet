@@ -121,3 +121,21 @@ import java.util.*;
 
         }
 
+
+
+        @RequestMapping("/eliminarPorId/{id}")
+        public String eliminarPorId( @PathVariable int id){
+           hotelService.hotelEliminar(id);
+
+            return "redirect:/hoteles/verHotelesUsuarios";
+        }
+
+        @GetMapping("/verHotelesUsuarios")
+        public String listarHotelesUsuario(Model model, Authentication auth){
+            auth = SecurityContextHolder.getContext().getAuthentication();
+            List<Hotel> hoteles = hotelService.hotelesMail(auth.getName());
+            model.addAttribute("hoteles",hoteles);
+
+            return "hotelesUsuario";
+        }
+}
