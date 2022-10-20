@@ -163,6 +163,7 @@ import java.util.List;
             auth = SecurityContextHolder.getContext().getAuthentication();
             List<Hotel> hoteles = hotelService.hotelesMail(auth.getName());
             model.addAttribute("hoteles",hoteles);
+
             return "hotelesUsuario";
         }
 }
