@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class HabitacionService {
 
     @Autowired
     HabitacionRepository habitacionRepository;
+
 
 
     public List<Habitacion> listarHabitaciones(Integer id){
@@ -74,6 +76,14 @@ public class HabitacionService {
         if(archivo.length() >0 && archivo.canRead()){
             archivo.delete();
         }
+    }
+
+
+
+    public List<Habitacion> buscarporoidHabitacion(Integer id_hotel, Integer capacidad, Date fecha_inicio, Date fecha_fin) {
+        List<Habitacion> habitacion = habitacionRepository.buscarporidhab(id_hotel, capacidad, fecha_inicio, fecha_fin);
+        return habitacion;
+
     }
 
 

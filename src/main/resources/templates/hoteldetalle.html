@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+<header th:replace="header/header :: header"></header>
+<main>
+    <div class="col-lg-6 col-md-8 mx-auto" >
+        <h1 class="fw-light text-center" th:text="${hotel.nombre}"></h1>
+    </div>
+    <div class="album py-5 bg-light" >
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col"th:each="habitacion: ${habitacions}" >
+                    <div class="card shadow-sm" >
+                        <img th:src="${habitacion.imagen}" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title></title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+                        <div class="card-body" >
+                            <p class="card-text" th:text="${habitacion.descripcion}"></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Reservar</button>
+                                </div>
+                                <small class="text-muted" th:text="${habitacion.numeroHabitacion}"></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

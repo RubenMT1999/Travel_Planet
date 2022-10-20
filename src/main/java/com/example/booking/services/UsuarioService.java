@@ -13,8 +13,7 @@ public class UsuarioService implements IUsuarioService{
 
 
     @Override
-    public void save(Usuario usuario) {
-        usuarioRepository.save(usuario);
+    public void save(Usuario usuario) { usuarioRepository.save(usuario);
     }
 
     public Usuario usuarioPorId(Integer id){return usuarioRepository.findById(id).orElse(null);}
