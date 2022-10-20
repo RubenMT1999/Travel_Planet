@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -110,9 +111,13 @@ public class HabitacionController {
 
 
     @GetMapping("/borrar/{id}")
-    public String borrar(@PathVariable("id") Integer id, Model model, @ModelAttribute("id") Integer idHotel){
+    public String borrar(@PathVariable("id") Integer id, Model model, @ModelAttribute("id") Integer idHotel,
+                         RedirectAttributes flash){
+
         Habitacion habitacion = habitacionService.encontrarPorId(id);
+        habitacionService.borrarImagen(habitacion);
         habitacionService.borrarHabitacion(habitacion);
+        flash.addFlashAttribute("success","Habitación eliminada con éxito!");
         model.addAttribute("success","Habitación borrada con éxito!");
         return "redirect:/habitaciones/listar/"+idHotel;
     }

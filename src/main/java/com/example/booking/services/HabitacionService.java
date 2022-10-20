@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,6 +63,16 @@ public class HabitacionService {
             }catch (IOException e){
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    public void borrarImagen(Habitacion habitacion){
+        Path rootPath = Paths.get("uploads").resolve(habitacion.getImagen()).toAbsolutePath();
+        File archivo = rootPath.toFile();
+
+        if(archivo.length() >0 && archivo.canRead()){
+            archivo.delete();
         }
     }
 
