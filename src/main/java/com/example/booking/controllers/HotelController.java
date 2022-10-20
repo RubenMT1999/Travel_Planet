@@ -60,7 +60,7 @@ import java.util.*;
     public String hotelid(@PathVariable(name = "id") Integer id,
                           @ModelAttribute("habitacion") Habitacion capacidad,
                           @ModelAttribute("reserva") Reserva fecha_inicio,
-                          @ModelAttribute("habitacion") Reserva fecha_fin,Model model) {
+                          @ModelAttribute("reserva") Reserva fecha_fin,Model model) {
         model.addAttribute("titulo", "Buscar - Travel Planet");
         List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id, capacidad.getCapacidad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin());
         Hotel hotel = hotelService.hotelID(id);
