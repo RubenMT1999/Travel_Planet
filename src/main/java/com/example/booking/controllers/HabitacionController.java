@@ -93,61 +93,35 @@ public class HabitacionController {
     }
 
 
-    // GENERAR HABITACIONES RANDOMS
+//  CUIDADO CON ESTO, ES PARA GENERAR 10 HABITACIONES POR CADA HOTEL
 //    @GetMapping("/generar")
 //    public void generarhabitacionesAleatorio() {
 //
 //        Faker faker = new Faker();
-//        Habitacion habitacion = new Habitacion();
-//        Integer contadorIdHabitacion = 1;
-//        Integer contadorIdHotel = 1;
+//        Integer contadorHabitacion = 528;
 //
-//        for (Hotel h: hotelRepository.obtenerTodoshoteles()){
+//        for (Hotel h : hotelRepository.obtenerTodoshoteles()){
 //
-//            habitacion.setHotel(h);
-//            habitacion.setNumeroHabitacion(faker.number().numberBetween(1,500));
-//            habitacion.setExtensionTelefonica(valueOf(faker.number().numberBetween(100,999)));
-//            habitacion.setCapacidad(faker.number().numberBetween(1, 9));
-//            habitacion.setDescripcion(faker.lorem().fixedString(100));
-//            habitacion.setDisponibilidad(faker.bool().bool());
-//            habitacion.setId(contadorIdHabitacion);
-//            contadorIdHabitacion ++;
-//            habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
-//            h.getHabitaciones().add(habitacion);
-//
-//            habitacionService.guardarHabitacion(habitacion);
-//
+//            Set<Habitacion> habitaciones = new HashSet<>();
+//            for (int x = 0; x < 10; x ++){
+//                Habitacion habitacion = new Habitacion();
+//                habitacion.setId(contadorHabitacion);
+//                habitacion.setHotel(h);
+//                habitacion.setNumeroHabitacion(faker.number().numberBetween(1,500));
+//                habitacion.setExtensionTelefonica(valueOf(faker.number().numberBetween(100,999)));
+//                habitacion.setCapacidad(faker.number().numberBetween(1, 9));
+//                habitacion.setDescripcion(faker.lorem().fixedString(100));
+//                habitacion.setDisponibilidad(faker.bool().bool());
+//                habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
+//                contadorHabitacion ++;
+//                habitacionService.guardarHabitacion(habitacion);
+//                habitaciones.add(habitacion);
+//                h.setHabitaciones(habitaciones);
+//            }
+//            hotelRepository.save(h);
 //        }
+//
 //    }
-
-    @GetMapping("/generar")
-    public void generarhabitacionesAleatorio() {
-
-        Faker faker = new Faker();
-        Integer contadorHabitacion = 528;
-
-        for (Hotel h : hotelRepository.obtenerTodoshoteles()){
-
-            Set<Habitacion> habitaciones = new HashSet<>();
-            for (int x = 0; x < 10; x ++){
-                Habitacion habitacion = new Habitacion();
-                habitacion.setId(contadorHabitacion);
-                habitacion.setHotel(h);
-                habitacion.setNumeroHabitacion(faker.number().numberBetween(1,500));
-                habitacion.setExtensionTelefonica(valueOf(faker.number().numberBetween(100,999)));
-                habitacion.setCapacidad(faker.number().numberBetween(1, 9));
-                habitacion.setDescripcion(faker.lorem().fixedString(100));
-                habitacion.setDisponibilidad(faker.bool().bool());
-                habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
-                contadorHabitacion ++;
-                habitacionService.guardarHabitacion(habitacion);
-                habitaciones.add(habitacion);
-                h.setHabitaciones(habitaciones);
-            }
-            hotelRepository.save(h);
-        }
-
-    }
 
 
 
