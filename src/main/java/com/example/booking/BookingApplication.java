@@ -1,5 +1,6 @@
 package com.example.booking;
 
+import com.example.booking.services.HabitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @SpringBootApplication
-public class BookingApplication {
+public class BookingApplication implements CommandLineRunner {
 
 
 
@@ -20,6 +21,9 @@ public class BookingApplication {
         SpringApplication.run(BookingApplication.class, args);
     }
 
+
+    @Autowired
+    HabitacionService habitacionService;
 
     //para el message.properties
     @Bean
@@ -37,4 +41,8 @@ public class BookingApplication {
         return bean;
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+        habitacionService.init();
+    }
 }
