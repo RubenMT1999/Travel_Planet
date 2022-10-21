@@ -73,9 +73,9 @@ import java.util.List;
     @GetMapping("/listarHoteles")
  public String hoteles(@RequestParam(name="page", defaultValue = "0") int page, Model model){
 //        List<Hotel> hoteles = hotelService.verTodosHoteles();
-        Pageable pageRequest = PageRequest.of(page, 10);
+        Pageable pageRequest = PageRequest.of(page, 5);
         Page<Hotel> hotel = hotelService.findAll(pageRequest);
-        PageRender<Hotel> pageRender = new PageRender<>("/listarHoteles",hotel);
+        PageRender<Hotel> pageRender = new PageRender<>("/hoteles/listarHoteles",hotel);
         model.addAttribute("hoteles", hotel);
         model.addAttribute("page",pageRender);
     return "hoteles";

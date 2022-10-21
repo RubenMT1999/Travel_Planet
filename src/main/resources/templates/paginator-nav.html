@@ -2,26 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <nav th:fragment="paginator">
-    <ul>
-        <l1>
-            <span th:if="${page.first}">primera</span>
-            <a  th:if="${not page.first}" th:href="@{${page.url}(page=0)}">primera</a>
+    <ul class="pagination">
+        <l1 th:class="page-item">
+            <span th:class="page-link" th:if="${page.first}">Primera</span>
+            <a th:class="page-link" th:if="${not page.first}" th:href="@{${page.url}(page=0)}">Primera</a>
         </l1>
-        <l1>
-            <span th:if="${not page.hasPrevious}">anterior</span>
-            <a  th:if="${page.hasPrevious}" th:href="@{${page.url}(page=${page.totalPaginas-2})}">anterior</a>
+        <l1 th:class="page-item">
+            <span th:class="page-link" th:if="${not page.hasPrevious}">&laquo;</span>
+            <a th:class="page-link" th:if="${page.hasPrevious}" th:href="@{${page.url}(page=${page.paginaActual-2})}">&laquo;</a>
         </l1>
-        <l1 th:each="item : ${page.paginas}">
-            <span th:if="${item.actual}" th:text="item.numero"> </span>
-            <a th:if="${not item.actual}" th:href="@{${page.url}(page=${item.numero-1})}" th:text="item.numero"></a>
+        <l1 th:class="page-item" th:each="item : ${page.paginas}">
+            <span th:class="page-link" th:if="${item.actual}" th:text="${item.numero}"> </span>
+            <a th:class="page-link" th:if="${not item.actual}" th:href="@{${page.url}(page=${item.numero-1})}" th:text="${item.numero}"></a>
         </l1>
-        <l1>
-            <span th:if="${not page.hasnext}">siguiente</span>
-            <a  th:if="${page.hasnext}" th:href="@{${page.url}(page=${page.paginaActual})}">siguiente</a>
+        <l1 th:class="page-item">
+            <span th:class="page-link" th:if="${not page.hasnext}">&raquo;</span>
+            <a th:class="page-link" th:if="${page.hasnext}" th:href="@{${page.url}(page=${page.paginaActual})}">&raquo;</a>
         </l1>
-        <l1>
-            <span th:if="${page.last}">ultimo</span>
-            <a  th:if="${not page.last}" th:href="@{${page.url}(page=${page.totalPaginas-1})}">ultimo</a>
+        <l1 th:class="page-item">
+            <span th:class="page-link" th:if="${page.last}">&Uacute;ltima</span>
+            <a th:class="page-link" th:if="${not page.last}" th:href="@{${page.url}(page=${page.totalPaginas-1})}">&Uacute;ltima</a>
         </l1>
     </ul>
 
