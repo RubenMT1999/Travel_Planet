@@ -34,24 +34,26 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/scripts/**");
         web.ignoring().antMatchers("/images/**");
+        web.ignoring().antMatchers("/uploads/**");
     }
 
     //Configuracion de quien puede visitar cada url
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //definimos quien va a poder acceder a las distintas direccioens
-//        http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/listar","habitaciones/**","reserva/**").permitAll()
-////                .antMatchers("/registrar/**").hasAnyRole("ADMIN")
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                        .successHandler(successHandler)
-//                        .loginPage("/login")
-//                .permitAll()
-//                .and()
-//                .logout().permitAll()
-//                .and()
-//                .exceptionHandling().accessDeniedPage("/error_403");
+        http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/listar", "resultado/ver", "/hotel/**", "/generar","habitaciones/**","reserva/**"
+                ).permitAll()
+//                .antMatchers("/registrar/**").hasAnyRole("ADMIN")
+                //.anyRequest().authenticated()
+                .and()
+                .formLogin()
+                        .successHandler(successHandler)
+                        .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout().permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/error_403");
 
 
 

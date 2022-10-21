@@ -30,37 +30,55 @@ public class Hotel {
 
     @Column(name = "telefono")
     private String telefono;
-    @Column(name = "precio")
-    private String precio;
-
-    @Column(name = "puntuacion")
-    private String puntuacion;
 
     @Column(name = "pais")
     private String pais;
 
     @Column(name = "ciudad")
-   // @NotEmpty
+    @NotEmpty
     private String ciudad;
 
     @Column(name = "poblacion")
     private String poblacion;
 
-    @Column(name = "imagen")
-    private String imagen;
+    @Column(name = "lugar")
+    private String lugar;
 
-    @Column(name = "comentario")
-    private String comentario;
+    @Column(name ="imagen")
+    private String imagen;
 
     @Column(name = "localidad")
     private String localidad;
 
     @Column(name = "cif")
     private String cif;
-    @Column(name = "lugar")
-    private String lugar;
-    @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Habitacion> habitaciones = new HashSet<>(0);
+
+
+    @Column(name = "comentario")
+    private String comentario;
+
+    @Column(name = "puntuacion")
+    private String puntuacion;
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    @Column(name = "precio")
+    private String precio;
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public String getPuntuacion() {
+        return puntuacion;
+    }
+
+
+
+    @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY)
+    private List<Habitacion> habitaciones;
 
 //    public void addHabitacion(Habitacion habitacion){
 //        this.habitaciones.add(habitacion);
@@ -102,12 +120,8 @@ public class Hotel {
         this.precio = precio;
     }
 
-    public String getPuntuacion() {
-        return puntuacion;
-    }
-
-    public void setPuntuacion(String puntuacion) {
-        this.puntuacion = puntuacion;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     public Integer getId() {
@@ -117,6 +131,7 @@ public class Hotel {
     public String getNombre() {
         return nombre;
     }
+
 
     public int getNumero_habitaciones() {
         return numero_habitaciones;
@@ -137,6 +152,10 @@ public class Hotel {
     public String getPoblacion() {
         return poblacion;
     }
+    public String getLugar() {
+        return lugar;
+    }
+
 
     public String getLocalidad() {
         return localidad;
@@ -144,6 +163,10 @@ public class Hotel {
 
     public String getCif() {
         return cif;
+    }
+
+    public String getImagen() {
+        return imagen;
     }
 
     public Set<Habitacion> getHabitaciones() {

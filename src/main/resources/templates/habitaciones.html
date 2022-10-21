@@ -14,7 +14,7 @@
 <div class="container mt-5">
     <div class="d-inline">
         <h1 class="text-secondary d-inline">Listado de Habitaciones</h1>
-        <a th:href="@{/habitaciones/crear/{id}(id=${habitaciones.get(0).getHotel().getId()})}" class="btn btn-success float-end">Crear</a>
+        <a th:href="@{/habitaciones/crear/{id}(id=${id})}" class="btn btn-success float-end">Crear</a>
     </div>
 
     <table class="table mt-5">
@@ -37,7 +37,7 @@
                 <td th:text="${habitacion.imagen}"></td>
                 <td th:text="${habitacion.disponibilidad}"></td>
                 <td><a th:href="@{/habitaciones/editar/{id}(id=${habitacion.getId()})}" class="btn btn-primary">Editar</a></td>
-                <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+                <td><a th:href="@{/habitaciones/borrar/{id}(id=${habitacion.getId()})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a></td>
 
             </tr>
       </tbody>

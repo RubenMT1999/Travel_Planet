@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class Habitacion {
     private int numeroHabitacion;
 
     @Column(name = "ext_telefonica")
-    @NotNull
+    @NotEmpty
     private String extensionTelefonica;
 
     @Column(name = "capacidad")
@@ -41,20 +42,21 @@ public class Habitacion {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "descuento")
+    private String descuento;
+
     @Column(name = "disponibilidad")
     private Boolean disponibilidad;
 
     private String imagen;
 
-
-//  He tenido que usar cascade merge para hacer el save de habitacion en el crud
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    //tuve que quitar el cascade para que no me diera fallo al crear habitacion
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
 
-//    @JsonIgnore
-//    @OneToMany
-//    private List<Tarifa> id_tarifa;
+    @OneToMany
+    private List<Tarifa> id_tarifa;
 
 
     @OneToMany(mappedBy = "habitacion",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -71,6 +73,9 @@ public class Habitacion {
 
     public String getExtensionTelefonica() {
         return extensionTelefonica;
+    }
+    public String getDescuento() {
+        return descuento;
     }
 
     public int getCapacidad() {

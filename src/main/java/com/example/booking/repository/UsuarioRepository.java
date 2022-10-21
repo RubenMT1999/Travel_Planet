@@ -14,4 +14,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     Usuario findUserByNameAndPassword(@Param("nombre") String nombre, @Param("contrasenia") String contrasenia);
 
 
+
+    @Query("select u from Usuario u where u.email = ?1")
+    Usuario buscarPormail(String mail);
+
+
+
+
 }
