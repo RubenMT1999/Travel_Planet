@@ -58,12 +58,13 @@ public class Hotel {
     @Column(name = "puntuacion")
     private String puntuacion;
 
-    public String getPrecio() {
-        return precio;
-    }
+
 
     @Column(name = "precio")
     private String precio;
+    public String getPrecio() {
+        return precio;
+    }
 
     public String getComentario() {
         return comentario;

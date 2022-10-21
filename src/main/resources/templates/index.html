@@ -9,6 +9,11 @@
 <body>
      <header th:replace="header/header :: header"></header>
 
+     <div th:classappend="'' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+          th:text="${mensaje}"
+          class="alert alert-danger">
+     </div>
+
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active " data-bs-interval="10000">
@@ -90,8 +95,6 @@
                                     </form></form>
                                 </div>
 
-
-                                <!--  -->
 
                             </div>
                         </div>

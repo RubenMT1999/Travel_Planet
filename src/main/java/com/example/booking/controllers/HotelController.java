@@ -20,13 +20,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
-    @Controller
+@Controller
     @RequestMapping("/hoteles")
     @SessionAttributes({"habitacion","reserva"})
 
@@ -40,10 +43,15 @@ import java.util.*;
 
     @GetMapping("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
+                                   @Valid Reserva reserva1, BindingResult result,
+                                   RedirectAttributes flash,
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
                                    @RequestParam(name = "capacidad") Integer capacidad,
                                    Model model) throws ParseException {
+
+
+
         //Para utilizar el SessionAtribute para capacidad.
         Habitacion habitacion = new Habitacion();
         habitacion.setCapacidad(capacidad);
@@ -53,6 +61,22 @@ import java.util.*;
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaInicio = formato.parse(fecha_inicio);
         Date fecha_Fin = formato.parse(fecha_fin);
+
+
+        long tiempo = fecha_Fin.getTime() - fechaInicio.getTime();
+        TimeUnit time = TimeUnit.DAYS;
+        long diffrence = time.convert(tiempo, TimeUnit.MILLISECONDS);
+        Integer diferencia = (int) (long) diffrence;
+
+
+        if(result.hasErrors() || diferencia > 30 || diferencia < 1){
+            flash
+                    .addFlashAttribute("mensaje", "Error en la Fecha")
+                    .addFlashAttribute("clase", "success");
+
+            return "redirect:/";
+        }
+
 
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
         Reserva reserva = new Reserva();
