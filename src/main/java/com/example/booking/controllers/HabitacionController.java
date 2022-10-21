@@ -135,6 +135,7 @@ public class HabitacionController {
     public String borrar(@PathVariable("id") Integer id, Model model, @ModelAttribute("id") Integer idHotel,
                          RedirectAttributes flash){
 
+
         Habitacion habitacion = habitacionService.encontrarPorId(id);
         habitacionService.borrarImagen(habitacion);
         habitacionService.borrarHabitacion(habitacion);
