@@ -1,5 +1,6 @@
 package Paginador;
 
+
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
@@ -62,18 +63,14 @@ public class PageRender<T> {
     public List<PageItem> getPaginas() {
         return paginas;
     }
-    public boolean isFirst(){
-        return  page.isFirst();
-    }
+    public boolean isFirst(){return  page.isFirst();}
     public boolean isLast(){
         return  page.isLast();
     }
     public boolean isHasnext(){
         return page.hasNext();
     }
-    public boolean isHasPrevious(){
-        return page.hasPrevious();
-    }
+    public boolean isHasPrevious(){return page.hasPrevious();}
 }
 
 

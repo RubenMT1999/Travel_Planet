@@ -1,5 +1,6 @@
 package com.example.booking.controllers;
 
+import Paginador.PageRender;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
@@ -85,7 +86,9 @@ import java.util.*;
 //        List<Hotel> hoteles = hotelService.verTodosHoteles();
         Pageable pageRequest = PageRequest.of(page, 5);
         Page<Hotel> hotel = hotelService.findAll(pageRequest);
+        PageRender<Hotel> pageRender = new PageRender<>("/hoteles/listarHoteles",hotel);
         model.addAttribute("hoteles", hotel);
+        model.addAttribute("page",pageRender);
     return "hoteles";
     }
 
