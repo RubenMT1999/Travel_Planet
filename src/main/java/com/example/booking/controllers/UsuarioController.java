@@ -14,9 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Path;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @SessionAttributes("usuario")
@@ -64,7 +67,13 @@ public class UsuarioController {
         userAuthRepository.save(auth);
 
         Authorities authorities = new Authorities();
-        authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
+
+        if(usuario.getEsHotelero() == true){
+            authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
+        }else {
+            authorities.setAuthority(ERoles.ROLE_USER.toString());
+        }
+
         authorities.setUser(auth);
 
 

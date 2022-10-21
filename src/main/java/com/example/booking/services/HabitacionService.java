@@ -4,6 +4,7 @@ import com.example.booking.models.Habitacion;
 import com.example.booking.repository.HabitacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -77,6 +78,17 @@ public class HabitacionService {
         if(archivo.length() >0 && archivo.canRead()){
             archivo.delete();
         }
+    }
+
+
+
+    public void init() throws IOException{
+
+        if(Files.notExists(Paths.get("uploads"))){
+            Files.createDirectory(Paths.get("uploads"));
+        }
+
+
     }
 
 

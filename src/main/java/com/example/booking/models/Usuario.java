@@ -65,6 +65,9 @@ public class Usuario {
     private Integer descuento;
 
 
+    private Boolean esHotelero;
+
+
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reservas;
 
@@ -122,5 +125,18 @@ public class Usuario {
 
     public Integer getDescuento() {
         return descuento;
+    }
+
+
+    public Boolean getEsHotelero() {
+        return esHotelero;
+    }
+
+    public Set<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public Set<Hotel> getHoteles() {
+        return hoteles;
     }
 }
