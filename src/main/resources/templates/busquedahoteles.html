@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+<header th:replace="header/header :: header"></header>
+
+<div class="card mb-3" style="max-width: 100%;" >
+    <div class="row g-0 " th:each="hoteles: ${hotel}">
+
+        <div class="card-header text-center">
+            <span th:text="${hoteles.nombre}"> </span>
+        </div>
+        <div class="col-md-4">
+            <img th:src="${hoteles.imagen}" width="75%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title></title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">Puntuación: <span th:text="${hoteles.comentario}"></span></h5>
+
+                <p class="card-text "><span th:text="${hoteles.ciudad}"></span>, <span th:text="${hoteles.lugar}"></span></p>
+                <p class="card-text "><span th:text="${hoteles.precio}"></span></p>
+                <div class="card-body text-end">
+                <a th:href="@{'/hoteles/habitacion/' + ${hoteles.id}}" class="btn btn-primary">Ver disponibilidad</a>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

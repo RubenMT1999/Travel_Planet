@@ -29,10 +29,15 @@ public class Hotel {
     @Column(name = "telefono")
     private String telefono;
 
+    @Column(name = "pais")
+    private String pais;
 
     @Column(name = "ciudad")
     @NotEmpty
     private String ciudad;
+
+    @Column(name = "poblacion")
+    private String poblacion;
 
     @Column(name = "lugar")
     private String lugar;
@@ -40,8 +45,12 @@ public class Hotel {
     @Column(name ="imagen")
     private String imagen;
 
+    @Column(name = "localidad")
+    private String localidad;
+
     @Column(name = "cif")
     private String cif;
+
 
     @Column(name = "comentario")
     private String comentario;
@@ -90,6 +99,7 @@ public class Hotel {
         return nombre;
     }
 
+
     public int getNumero_habitaciones() {
         return numero_habitaciones;
     }
@@ -98,14 +108,24 @@ public class Hotel {
         return telefono;
     }
 
-
+    public String getPais() {
+        return pais;
+    }
 
     public String getCiudad() {
         return ciudad;
     }
 
+    public String getPoblacion() {
+        return poblacion;
+    }
     public String getLugar() {
         return lugar;
+    }
+
+
+    public String getLocalidad() {
+        return localidad;
     }
 
     public String getCif() {

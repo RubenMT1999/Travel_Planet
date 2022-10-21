@@ -35,6 +35,15 @@ public class UsuarioController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+
+    @GetMapping("/registrar")
+    public String registro(Model model){
+        Usuario usuario = new Usuario();
+        model.addAttribute("titulo","Registro - Travel Planet");
+        model.addAttribute("usuario", usuario);
+        return "registro";
+    }
+
     @PostMapping("/registrar")
     public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status) {
 
@@ -64,22 +73,4 @@ public class UsuarioController {
 
     }
 
-
-
-
-    @GetMapping("/")
-    public String index(Model model){
-        model.addAttribute("titulo", "Página de Inicio");
-        return "index";
-    }
-
-
-
-    @GetMapping("/registrar")
-    public String registro(Model model){
-        Usuario usuario = new Usuario();
-        model.addAttribute("titulo","Registro - Travel Planet");
-        model.addAttribute("usuario", usuario);
-        return "registro";
-    }
     }

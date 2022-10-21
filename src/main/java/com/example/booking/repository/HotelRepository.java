@@ -15,17 +15,14 @@ import java.util.List;
 @Repository
 
 public interface HotelRepository extends JpaRepository<Hotel,Integer> {
-
-
-    @Query(value = " select h from Hotel h order by h.id")
+    @Query(value = " select h from Hotel h order by h.id", nativeQuery = true)
     List<Hotel> obtenerHoteles(String nombre);
 
+    @Query(value = "select * from vistabuscador where ciudad = :ciudad and capacidad = :capacidad" +
+            " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
+            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) group by nombre", nativeQuery = true)
 
-    @Query(value = "select * from vistabuscador where ciudad = :ciudad " +
-            "and fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin", nativeQuery = true)
-    List<Hotel> findHotelsByCiudadLike(String ciudad, Date fecha_inicio, Date fecha_fin);
-   // Reserva buscar(Date fecha_inicio, Date fecha_fin);
+    List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
 
      @Query("SELECT h FROM Habitacion h where h.hotel.usuario.nombre = ?1")
     List<Habitacion> listarHabitaciones();
@@ -50,5 +47,3 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
 
 }
-
-

@@ -3,9 +3,7 @@ package com.example.booking.controllers;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
-import com.example.booking.models.Usuario;
-import com.example.booking.repository.HotelRepository;
-import com.example.booking.repository.UsuarioRepository;
+import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.IUsuarioService;
 import com.example.booking.services.UsuarioService;
@@ -18,55 +16,68 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
     @Controller
     @RequestMapping("/hoteles")
+    @SessionAttributes({"habitacion","reserva"})
+
     public class HotelController {
     @Autowired
     private HotelService hotelService;
-
+    @Autowired
+    private HabitacionService habitacionService;
     @Autowired
     private UsuarioService usuarioService;
 
-
-//    @GetMapping("/")
-//    public String hotel(Model model, Model model1){
-//        Hotel hotel = new Hotel();
-//        Reserva reserva = new Reserva();
-//        model.addAttribute("titulo","Inicio - Travel Planet");
-//        model.addAttribute("hotel", hotel);
-//        model1.addAttribute("reserva", reserva);
-//        return "index";
-//    }
-//
-
-
-
-  @GetMapping ("/listar")
+    @GetMapping("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
-                                   @RequestParam(name = "fecha_inicio") Date fecha_inicio,
-                                   @RequestParam(name = "fecha_fin") Date fecha_fin,
-                                   Model model, Model model1) {
-      List<Hotel> hotel = hotelService.Buscar(ciudades, fecha_inicio, fecha_fin);
-      //Reserva reserva = hotelService.search(fecha_inicio, fecha_fin);
-      model.addAttribute("titulo","Buscar - Travel Planet");
-      model.addAttribute("hotel", hotel);
-     // model1.addAttribute("reserva", reserva);
-            return "resultado1";
+                                   @RequestParam(name = "fechaInicio") String fecha_inicio,
+                                   @RequestParam(name = "fechaFin") String fecha_fin,
+                                   @RequestParam(name = "capacidad") Integer capacidad,
+                                   Model model) throws ParseException {
+        //Para utilizar el SessionAtribute para capacidad.
+        Habitacion habitacion = new Habitacion();
+        habitacion.setCapacidad(capacidad);
+        model.addAttribute("habitacion", habitacion);
 
-        }
+        model.addAttribute("titulo", "Buscar - Travel Planet");
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaInicio = formato.parse(fecha_inicio);
+        Date fecha_Fin = formato.parse(fecha_fin);
 
+        //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
+        Reserva reserva = new Reserva();
+        reserva.setFechaInicio(fechaInicio);
+        reserva.setFechaFin(fecha_Fin);
+        model.addAttribute("reserva", reserva);
 
+        List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
+
+        model.addAttribute("hotel", hotel);
+        return "busquedahoteles";
+
+    }
+    @GetMapping("/habitacion/{id}")
+    public String hotelid(@PathVariable(name = "id") Integer id,
+                          @ModelAttribute("habitacion") Habitacion capacidad,
+                          @ModelAttribute("reserva") Reserva fecha_inicio,
+                          @ModelAttribute("reserva") Reserva fecha_fin,Model model) {
+        model.addAttribute("titulo", "Buscar - Travel Planet");
+        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id, capacidad.getCapacidad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin());
+        Hotel hotel = hotelService.hotelID(id);
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("habitacions", habitacions);
+        return "hoteldetalle";
+    }
 
 
     @GetMapping("/listarHoteles")
@@ -163,6 +174,7 @@ import java.util.List;
             auth = SecurityContextHolder.getContext().getAuthentication();
             List<Hotel> hoteles = hotelService.hotelesMail(auth.getName());
             model.addAttribute("hoteles",hoteles);
+
             return "hotelesUsuario";
         }
 }
