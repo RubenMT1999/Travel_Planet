@@ -60,16 +60,8 @@ public class Hotel {
     @Column(name = "puntuacion")
     private String puntuacion;
 
-    public String getPrecio() {
-        return precio;
-    }
-
     @Column(name = "precio")
     private String precio;
-
-    public String getComentario() {
-        return comentario;
-    }
 
     public String getPuntuacion() {
         return puntuacion;
@@ -96,16 +88,9 @@ public class Hotel {
         return comentario;
     }
 
-    public String getLugar() {
-        return lugar;
-    }
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
-    }
-
-    public String getImagen() {
-        return imagen;
     }
 
     public void setImagen(String imagen) {
@@ -169,11 +154,5 @@ public class Hotel {
         return imagen;
     }
 
-    public Set<Habitacion> getHabitaciones() {
-        return habitaciones;
-    }
 
-    public void setHabitaciones(Set<Habitacion> habitaciones) {
-        this.habitaciones = habitaciones;
-    }
 }
