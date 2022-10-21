@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<nav th:fragment="">
+<nav th:fragment="paginator">
     <ul>
         <l1>
-            <span th:if="${Paginador.PageRender.first}">primera</span>
-            <a  th:if="${not Paginador.PageRender.first}" th:href="@{${Paginador.PageRender.url}(page=0)}">primera</a>
+            <span th:if="${page.first}">primera</span>
+            <a  th:if="${not page.first}" th:href="@{${page.url}(page=0)}">primera</a>
         </l1>
         <l1>
-            <span th:if="${not Paginador.PageRender.hasPrevious}">anterior</span>
-            <a  th:if="${Paginador.PageRender.hasPrevious}" th:href="@{${Paginador.PageRender.url}(page=${Paginador.PageRender.totalPaginas - 2})}">anterior</a>
+            <span th:if="${not page.hasPrevious}">anterior</span>
+            <a  th:if="${page.hasPrevious}" th:href="@{${page.url}(page=${page.totalPaginas-2})}">anterior</a>
         </l1>
-        <l1></l1>
-        <l1>
-            <span th:if="${not Paginador.PageRender.hasnext}">siguiente</span>
-            <a  th:if="${Paginador.PageRender.hasnext}" th:href="@{${Paginador.PageRender.url}(page=${Paginador.PageRender.totalPaginas - 2})}">siguiente</a>
+        <l1 th:each="item : ${page.paginas}">
+            <span th:if="${item.actual}" th:text="item.numero"> </span>
+            <a th:if="${not item.actual}" th:href="@{${page.url}(page=${item.numero-1})}" th:text="item.numero"></a>
         </l1>
         <l1>
-            <span th:if="${Paginador.PageRender.last}">ultimo</span>
-            <a  th:if="${not Paginador.PageRender.last}" th:href="@{${Paginador.PageRender.url}(page=${Paginador.PageRender.totalPaginas - 1})}">ultimo</a>
+            <span th:if="${not page.hasnext}">siguiente</span>
+            <a  th:if="${page.hasnext}" th:href="@{${page.url}(page=${page.paginaActual})}">siguiente</a>
+        </l1>
+        <l1>
+            <span th:if="${page.last}">ultimo</span>
+            <a  th:if="${not page.last}" th:href="@{${page.url}(page=${page.totalPaginas-1})}">ultimo</a>
         </l1>
     </ul>
 
