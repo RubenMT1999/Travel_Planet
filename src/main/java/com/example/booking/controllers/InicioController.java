@@ -14,6 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,9 +39,9 @@ public class InicioController {
         model.addAttribute("hotel", hotel);
         model.addAttribute("reserva", reserva);
         model.addAttribute("capacidad", habitacion);
-        if(result.hasErrors()) {
-            return "index";
-        }
+        //Para la fecha de hoy de los calendarios de buscador.
+        LocalDate now = LocalDate.now();
+        model.addAttribute("now", now);
 
         return "index";
     }
