@@ -28,6 +28,10 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     List<Habitacion> listarHabitaciones();
 
 
+    @Query(value = "select * from hotel", nativeQuery = true)
+    List<Hotel> obtenerTodoshoteles();
+
+
 
     @Query("select h from Hotel h where h.ciudad = ?1")
         List<Hotel> hotelesPorCiudad(String ciudad);
