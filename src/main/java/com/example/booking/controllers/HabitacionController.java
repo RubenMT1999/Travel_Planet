@@ -150,17 +150,17 @@ public class HabitacionController {
     public void generarhabitacionesAleatorio() {
 
         Faker faker = new Faker();
-        Integer contadorHabitacion = 528;
+        Integer contadorHabitacion = 1;
 
         for (Hotel h : hotelRepository.obtenerTodoshoteles()){
             List<Habitacion> habitaciones = new ArrayList<>();
-            for (int x = 0; x < 10; x ++){
+            for (int x = 0; x < 20; x ++){
                 Habitacion habitacion = new Habitacion();
                 habitacion.setId(contadorHabitacion);
                 habitacion.setHotel(h);
                 habitacion.setNumeroHabitacion(faker.number().numberBetween(1,500));
                 habitacion.setExtensionTelefonica(valueOf(faker.number().numberBetween(100,999)));
-                habitacion.setCapacidad(faker.number().numberBetween(1, 4));
+                habitacion.setCapacidad(faker.number().numberBetween(1, 9));
                 habitacion.setDescripcion(faker.lorem().fixedString(100));
                 habitacion.setDisponibilidad(faker.bool().bool());
                 habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");

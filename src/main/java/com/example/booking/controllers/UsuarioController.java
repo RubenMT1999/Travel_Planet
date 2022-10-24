@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Path;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,11 @@ public class UsuarioController {
         Usuario usuario = new Usuario();
         model.addAttribute("titulo","Registro - Travel Planet");
         model.addAttribute("usuario", usuario);
+        long anios = 16;
+        LocalDate maximo = LocalDate.now();
+        maximo = maximo.minusYears(anios);
+        model.addAttribute("maximo", maximo);
+
         return "registro";
     }
 
