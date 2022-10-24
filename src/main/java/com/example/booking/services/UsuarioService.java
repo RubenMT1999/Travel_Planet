@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioService implements IUsuarioService{
+public class UsuarioService{
 
     @Autowired
     UsuarioRepository usuarioRepository;
 
 
-    @Override
+
     public void save(Usuario usuario) { usuarioRepository.save(usuario);
     }
 
@@ -20,6 +20,14 @@ public class UsuarioService implements IUsuarioService{
 
     public Usuario buscarPorMail(String mail){return usuarioRepository.buscarPormail(mail);}
 
+    public Usuario usuarioPorNombre(String nombre){
+        return usuarioRepository.usuarioPorNombre(nombre);
+    }
+
+
+    public String validarEmail(String email){
+        return usuarioRepository.validarEmail(email);
+    }
 
 
 

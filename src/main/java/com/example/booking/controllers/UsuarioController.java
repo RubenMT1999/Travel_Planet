@@ -6,7 +6,7 @@ import com.example.booking.models.UserAuth;
 import com.example.booking.models.Usuario;
 import com.example.booking.repository.AuthoritiesRepository;
 import com.example.booking.repository.UserAuthRepository;
-import com.example.booking.services.IUsuarioService;
+import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,12 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Path;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @SessionAttributes("usuario")
@@ -27,7 +23,7 @@ public class UsuarioController {
 
 
     @Autowired
-    private IUsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     @Autowired
     private UserAuthRepository userAuthRepository;
@@ -55,6 +51,11 @@ public class UsuarioController {
             return "registro";
         }
 
+        if (usuarioService.validarEmail(usuario.getEmail()) != null){
+            model.addAttribute("error","El correo electrónico ya está en uso.");
+            return "registro";
+        }
+
         String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);
 
@@ -78,7 +79,7 @@ public class UsuarioController {
         model.addAttribute("titulo", "Resultado form");
         usuarioService.save(usuario);
         status.setComplete();
-        return "resultado";
+        return "redirect:/";
 
     }
 

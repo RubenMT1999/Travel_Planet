@@ -65,6 +65,7 @@ public class Usuario {
     private Integer descuento;
 
 
+    @Column(name = "es_hotelero")
     private Boolean esHotelero;
 
 

@@ -13,12 +13,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Query("SELECT u FROM Usuario u WHERE u.nombre = :nombre and u.contrasenia = :contrasenia")
     Usuario findUserByNameAndPassword(@Param("nombre") String nombre, @Param("contrasenia") String contrasenia);
 
-
-
     @Query("select u from Usuario u where u.email = ?1")
     Usuario buscarPormail(String mail);
 
+    @Query("select u from Usuario u where u.nombre = ?1")
+    Usuario usuarioPorNombre(String nombre);
 
+
+    @Query("select u.email from Usuario u where u.email = ?1")
+    String validarEmail(String email);
 
 
 }

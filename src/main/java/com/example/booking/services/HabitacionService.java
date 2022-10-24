@@ -4,7 +4,6 @@ import com.example.booking.models.Habitacion;
 import com.example.booking.repository.HabitacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,7 +22,9 @@ public class HabitacionService {
     @Autowired
     HabitacionRepository habitacionRepository;
 
-
+    public Habitacion findById(Integer id){
+        return habitacionRepository.findById(id).orElse(null);
+    }
 
     public List<Habitacion> listarHabitaciones(Integer id){
         return habitacionRepository.listarHabitaciones(id);
@@ -97,6 +98,8 @@ public class HabitacionService {
         return habitacion;
 
     }
+
+
 
 
 }
