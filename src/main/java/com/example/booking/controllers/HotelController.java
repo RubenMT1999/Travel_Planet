@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -110,9 +112,9 @@ import java.util.*;
         }
 
         @PostMapping("/nuevo")
-        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth){
+        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth, @RequestParam(value = "file") MultipartFile imagen,  RedirectAttributes flash){
         hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
-        hotelService.hotelGuardar(hotel);
+        hotelService.hotelGuardar(imagen, flash, hotel);
         return "redirect:/hoteles/verHotelesUsuarios";
 
         }
@@ -140,7 +142,7 @@ import java.util.*;
         }
 
         @PostMapping("/editar/{id}")
-        public String mostrarHotelEditar(@PathVariable int id, @ModelAttribute("hotel") Hotel hotel,Model model){
+        public String mostrarHotelEditar(@PathVariable int id, @ModelAttribute("hotel") Hotel hotel,Model model,  @RequestParam(value = "file") MultipartFile imagen,  RedirectAttributes flash){
         Hotel hotelEditar = hotelService.hotelID(id);
         hotelEditar.setId(id);
         hotelEditar.setNombre(hotel.getNombre());
@@ -154,7 +156,7 @@ import java.util.*;
             hotelEditar.setComentario(hotel.getComentario());
             hotelEditar.setPuntuacion(hotel.getPuntuacion());
 
-            hotelService.hotelEditar(hotelEditar);
+            hotelService.hotelEditar(imagen,flash,hotelEditar);
             return "redirect:/hoteles/verHotelesUsuarios";
         }
 

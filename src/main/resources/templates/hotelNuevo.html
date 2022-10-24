@@ -14,7 +14,7 @@
             <div class="col-lg-6 cl-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center">Registro de Hotel</h1>
                 <div class="card-body">
-                  <form th:action="@{/hoteles/nuevo}" th:object="${hotel}" method="POST">
+                  <form th:action="@{/hoteles/nuevo}" th:object="${hotel}" method="POST", enctype="multipart/form-data">
                       <div class="form-group">
                           <label>Nombre: </label>
                           <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Ponga aquí el nombre"  required>
@@ -40,9 +40,6 @@
                           <label>Precio: </label>
                           <input type="text" name="precio" th:field="*{precio}" class="form-control" placeholder="Ponga aquí el precio de una noche" required>
                           <br>
-                          <label>Imágen: </label>
-                          <input type="text" name="imagen" th:field="*{imagen}" class="form-control" placeholder="Ponga aquí la url" required>
-                          <br>
                           <label>Teléfono: </label>
                           <input type="text" name="telefono" th:field="*{telefono}" class="form-control" placeholder="Ponga aquí el teléfono" required>
                           <br>
@@ -54,6 +51,11 @@
                           <br>
                           <label>Puntuación: </label>
                           <input type="text" name="puntuacion" th:field="*{puntuacion}" class="form-control" placeholder="Que puntuación piensa que tiene" required>
+
+                      </div>
+                      <div class="form-group mb-3 col-10 ">
+                          <label>Imagen</label>
+                          <input type="file" name="file" class="form-control">
                       </div>
                       <br>
                       <div class="box-footer">
