@@ -88,7 +88,7 @@ public class HabitacionController {
 
     @PostMapping("/crear")
     public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, @RequestParam(value = "file") MultipartFile imagen,
-                           SessionStatus status, @ModelAttribute("id") Integer idHotel, RedirectAttributes flash){
+                           @ModelAttribute("id") Integer idHotel, RedirectAttributes flash){
 
         if(result.hasErrors()){
             model.addAttribute("titulo", "Ha habido algún error");
