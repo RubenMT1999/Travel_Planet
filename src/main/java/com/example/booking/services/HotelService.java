@@ -55,6 +55,8 @@ public class HotelService {
     
     public Page<Hotel> findAll(Pageable pageable) {return pageRepository.findAll(pageable);}
 
+
+
 }
 
 

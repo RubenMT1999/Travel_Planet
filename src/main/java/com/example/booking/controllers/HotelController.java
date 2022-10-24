@@ -16,11 +16,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
     @Controller
     @RequestMapping("/hoteles")
@@ -36,10 +44,13 @@ import java.util.*;
 
     @GetMapping("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
+                                   @Valid Reserva reserva1, BindingResult result,
+                                   RedirectAttributes flash,
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
                                    @RequestParam(name = "capacidad") Integer capacidad,
                                    Model model) throws ParseException {
+
         //Para utilizar el SessionAtribute para capacidad.
         Habitacion habitacion = new Habitacion();
         habitacion.setCapacidad(capacidad);
@@ -50,6 +61,24 @@ import java.util.*;
         Date fechaInicio = formato.parse(fecha_inicio);
         Date fecha_Fin = formato.parse(fecha_fin);
 
+        //Para utilizar tener un minimo de dias y maximo de dias que se puede pedir un hotel.
+        long tiempo = fecha_Fin.getTime() - fechaInicio.getTime();
+        TimeUnit time = TimeUnit.DAYS;
+        long diffrence = time.convert(tiempo, TimeUnit.MILLISECONDS);
+        Integer diferencia = (int) (long) diffrence;
+        //Errores de buscador por la fecha.
+        if(diferencia < 0){
+            flash
+                    .addFlashAttribute("mensaje", "La fecha fin es anterior a la fecha inicial")
+                    .addFlashAttribute("clase", "success");
+            return "redirect:/";
+        } else if (diferencia > 30) {
+            flash
+                    .addFlashAttribute("mensaje", "La fecha fin excede los 30 días")
+                    .addFlashAttribute("clase", "success");
+            return "redirect:/";
+        }
+
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
         Reserva reserva = new Reserva();
         reserva.setFechaInicio(fechaInicio);
@@ -57,7 +86,6 @@ import java.util.*;
         model.addAttribute("reserva", reserva);
 
         List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
-
         model.addAttribute("hotel", hotel);
         return "busquedahoteles";
 

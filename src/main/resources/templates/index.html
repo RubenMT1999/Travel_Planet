@@ -9,6 +9,11 @@
 <body>
      <header th:replace="header/header :: header"></header>
 
+     <div th:classappend="'' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+          th:text="${mensaje}"
+          class="alert alert-danger">
+     </div>
+
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active " data-bs-interval="10000">
@@ -23,7 +28,7 @@
                         <div class="container mt-5 p-5">
                             <div class="row p-1">
                                 <div class="row p-4">
-                                    <div class="col-md-4 mb-3 mb-md-0">
+                                    <div class="col-md-4 mb-4 mb-md-0">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-md-12 mb-2">
@@ -46,16 +51,12 @@
                                         <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
 
                                             <label  class="font-weight-bold text-white fw-bold">Check In</label>
-
-                                            <input type="date" class="form-control" id="fechainicio" th:field="*{fechaInicio}"  placeholder="yyyy-MM-dd" required>
-
-
+                                            <input type="date" class="form-control" id="fechainicio" th:field="*{fechaInicio}" th:min="${now}" placeholder="yyyy-MM-dd" required>
                                         </div>
-                                        <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}" method="get">
+                                        <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}"  method="get">
                                             <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
                                                 <label class="font-weight-bold text-white fw-bold">Check Out</label>
-
-                                                <input type="date" class="form-control" id="fechafin" min="fechaInicio" th:field="*{fechaFin}" placeholder="yyyy-MM-dd" required>
+                                                <input type="date" class="form-control" id="fechafin" min="fechainicio" th:field="*{fechaFin}" th:min="${now}" placeholder="yyyy-MM-dd" required>
                                             </div>
                                             <form th:action="@{/hoteles/listar}" th:object="${capacidad}" method="get">
                                             <div class="row p-4">
@@ -67,33 +68,28 @@
                                                         <div class="row">
 
                                                             <div class="col-md-12 mb-2">
-
-                                                                    <label class="font-weight-bold text-white fw-bold">Numeros de personas</label>
+                                                                    <label class="font-weight-bold text-white fw-bold">Número de personas</label>
                                                                     <select name="" id="adultos" class="form-select mb-3" th:field="*{capacidad}" >
                                                                         <option th:value=1 th:text="1">1</option>
                                                                         <option th:value=2 th:text="2">2</option>
                                                                         <option th:value=3 th:text="3">3</option>
                                                                         <option th:value=4 th:text="4">4</option>
-                                                                        <option th:value=5 th:text="5">4</option>
-                                                                        <option th:value=6 th:text="6">4</option>
-                                                                        <option th:value=7 th:text="7">4</option>
+                                                                        <option th:value=2 th:text="5">5</option>
+                                                                        <option th:value=3 th:text="6">6</option>
+                                                                        <option th:value=4 th:text="7">7</option>
                                                                     </select>
-
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-4 mt-sm-0 mt-md-4">
+                                            <div class="col-md-0 mt-sm-0 mt-md-4">
                                                 <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
                                             </div>
                                         </form>
                                     </form></form>
                                 </div>
 
-
-                                <!--  -->
 
                             </div>
                         </div>

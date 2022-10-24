@@ -5,6 +5,7 @@ import com.example.booking.models.Hotel;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -22,14 +23,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+
+import static java.lang.String.valueOf;
 
 @RequestMapping("/habitaciones")
 @Controller
@@ -142,6 +144,34 @@ public class HabitacionController {
         flash.addFlashAttribute("success","Habitación eliminada con éxito!");
         model.addAttribute("success","Habitación borrada con éxito!");
         return "redirect:/habitaciones/listar/"+idHotel;
+    }
+
+    @GetMapping("/generar")
+    public void generarhabitacionesAleatorio() {
+
+        Faker faker = new Faker();
+        Integer contadorHabitacion = 1;
+
+        for (Hotel h : hotelRepository.obtenerTodoshoteles()){
+            List<Habitacion> habitaciones = new ArrayList<>();
+            for (int x = 0; x < 20; x ++){
+                Habitacion habitacion = new Habitacion();
+                habitacion.setId(contadorHabitacion);
+                habitacion.setHotel(h);
+                habitacion.setNumeroHabitacion(faker.number().numberBetween(1,500));
+                habitacion.setExtensionTelefonica(valueOf(faker.number().numberBetween(100,999)));
+                habitacion.setCapacidad(faker.number().numberBetween(1, 9));
+                habitacion.setDescripcion(faker.lorem().fixedString(100));
+                habitacion.setDisponibilidad(faker.bool().bool());
+                habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
+                contadorHabitacion ++;
+                habitacionService.guardarHabitacion(habitacion);
+                habitaciones.add(habitacion);
+                h.setHabitaciones(habitaciones);
+            }
+            hotelRepository.save(h);
+        }
+
     }
 
 
