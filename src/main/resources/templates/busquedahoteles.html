@@ -11,6 +11,68 @@
     <header th:replace="header/header :: header"></header>
 
 <div class="card mb-3" style="max-width: 100%;" >
+    <div class="card text-center">
+        <div class="card-body">
+            <p class="fw-bolder">Tu presupuesto: </p>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1"> 0€ - 50€</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2"> 50€ - 100€</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                <label class="form-check-label" for="inlineRadio3"> 100€ - 150€</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option3">
+                <label class="form-check-label" for="inlineRadio3"> 150€ - 200€</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option3">
+                <label class="form-check-label" for="inlineRadio3"> + 200€</label>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="fw-bolder">Puntuación: </p>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion4" value="option3">
+                <label class="form-check-label" for="inlineRadio3">Muy bien: 3 o más</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion5" value="option3">
+                <label class="form-check-label" for="inlineRadio3">Fantástico: 4 o más </label>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="fw-bolder">Instalaciones: </p>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="instalacion" value="option1">
+                <label class="form-check-label" for="inlineRadio1"> WiFi</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="instalacion1" value="option2">
+                <label class="form-check-label" for="inlineRadio2"> Parking</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions3" id="instalacion2" value="option3">
+                <label class="form-check-label" for="inlineRadio3"> Piscina</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions4" id="instalacion3" value="option3">
+                <label class="form-check-label" for="inlineRadio3"> Gimnasio</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions5" id="instalacion4" value="option3">
+                <label class="form-check-label" for="inlineRadio3"> Restaurante</label>
+            </div>
+        </div>
+        <div class="col-md-0 mt-sm-0 mt-md-3">
+            <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
+        </div>
+    </div>
     <div class="row g-0 " th:each="hoteles: ${hotel}">
 
         <div class="card-header text-center">
