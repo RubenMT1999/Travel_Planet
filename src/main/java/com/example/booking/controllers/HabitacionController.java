@@ -1,5 +1,6 @@
 package com.example.booking.controllers;
 
+import Paginador.PageRender;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.repository.HotelRepository;
@@ -7,6 +8,9 @@ import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -45,12 +49,16 @@ public class HabitacionController {
     HotelService hotelService;
 
     @GetMapping({"/listar/{id}"})
-    public String listar(Model model, @PathVariable Integer id){
-        List<Habitacion> habitaciones = habitacionService.listarHabitaciones(id);
+    public String listar(Model model, @PathVariable Integer id ,@RequestParam(name="page", defaultValue = "0") int page){
+        Pageable pageRequest = PageRequest.of(page, 5);
+        Page<Habitacion> habitaciones = habitacionService.listarHabitacionesPages(pageRequest,id);
+        PageRender<Habitacion> pageRender = new PageRender<>("/habitaciones/listar/"+id,habitaciones);
+        model.addAttribute("page",pageRender);
         model.addAttribute("habitaciones",habitaciones);
         model.addAttribute("id",id);
         return "habitaciones";
     }
+
     /*@ModelAttribute("capacidad")
     @GetMapping("/habitacion/{id}")
     public String hotelid(@PathVariable(name = "id") Integer id,

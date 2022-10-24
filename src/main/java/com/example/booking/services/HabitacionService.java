@@ -1,8 +1,13 @@
 package com.example.booking.services;
 
 import com.example.booking.models.Habitacion;
+import com.example.booking.models.Hotel;
 import com.example.booking.repository.HabitacionRepository;
+import com.example.booking.repository.IPageRepositoryHab;
+import com.example.booking.repository.PageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,6 +26,9 @@ public class HabitacionService {
 
     @Autowired
     HabitacionRepository habitacionRepository;
+
+    @Autowired
+    IPageRepositoryHab pageRepositoryHab;
 
     public Habitacion findById(Integer id){
         return habitacionRepository.findById(id).orElse(null);
@@ -97,6 +105,10 @@ public class HabitacionService {
         List<Habitacion> habitacion = habitacionRepository.buscarporidhab(id_hotel, capacidad, fecha_inicio, fecha_fin);
         return habitacion;
 
+    }
+
+    public Page<Habitacion> listarHabitacionesPages(Pageable pageable,Integer id) {
+        return pageRepositoryHab.listarHabitacionesPages(pageable,id);
     }
 
 
