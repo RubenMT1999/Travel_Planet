@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @SessionAttributes("usuario")
@@ -40,6 +43,11 @@ public class UsuarioController {
         Usuario usuario = new Usuario();
         model.addAttribute("titulo","Registro - Travel Planet");
         model.addAttribute("usuario", usuario);
+        long anios = 16;
+        LocalDate maximo = LocalDate.now();
+        maximo = maximo.minusYears(anios);
+        model.addAttribute("maximo", maximo);
+
         return "registro";
     }
 

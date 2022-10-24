@@ -8,9 +8,15 @@ import com.example.booking.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -24,7 +30,8 @@ public class InicioController {
     HotelService hotelService;
 
     @GetMapping("/")
-    public String hotel(Model model) {
+    public String hotel(Model model, @Valid Reserva reserva1, BindingResult result,
+                        RedirectAttributes flash) {
         Hotel hotel = new Hotel();
         Reserva reserva = new Reserva();
         Habitacion habitacion = new Habitacion();
@@ -32,6 +39,10 @@ public class InicioController {
         model.addAttribute("hotel", hotel);
         model.addAttribute("reserva", reserva);
         model.addAttribute("capacidad", habitacion);
+        //Para la fecha de hoy de los calendarios de buscador.
+        LocalDate now = LocalDate.now();
+        model.addAttribute("now", now);
+
         return "index";
     }
 
