@@ -20,80 +20,63 @@
 
               <div class="carousel-caption d-none d-md-block mb-5">
                  <form action="#" th:action="@{/hoteles/listar}" th:object="${hotel}" method="get">
-                        <div class="container mt-5 p-5">
-                            <div class="row p-1">
-                                <div class="row p-4">
-                                    <div class="col-md-4 mb-3 mb-md-0">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-12 mb-2">
-                                                    <label class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
-                                                    <select name="" id="lugar" class="form-select mb-3" th:field="*{ciudad}" >
-                                                        <option th:value="Sevilla" th:text="Sevilla">Sevilla</option>
-                                                        <option th:value="Granada" th:text="Granada">Granada</option>
-                                                        <option th:value="Huelva" th:text="Huelva">Huelva</option>
-                                                        <option th:value="Cadiz" th:text="Cadiz">Cádiz</option>
-                                                        <option th:value="Almeria" th:text="Almeria">Almería</option>
-                                                        <option th:value="Cordoba" th:text="Cordoba">Cordoba</option>
-                                                        <option th:value="Jaen" th:text="Jaen">Jaén</option>
-                                                        <option th:value="Malaga" th:text="Malaga">Málaga</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="container-fluid mt-5">
+                                <div class="row">
+                                    <div class="col-md-3 mb-3 mb-md-0">
+                                        <label class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
+                                        <select name="" id="lugar" class="form-select mb-3" th:field="*{ciudad}" >
+                                            <option th:value="Sevilla" th:text="Sevilla">Sevilla</option>
+                                            <option th:value="Granada" th:text="Granada">Granada</option>
+                                            <option th:value="Huelva" th:text="Huelva">Huelva</option>
+                                            <option th:value="Cadiz" th:text="Cadiz">Cádiz</option>
+                                            <option th:value="Almeria" th:text="Almeria">Almería</option>
+                                            <option th:value="Cordoba" th:text="Cordoba">Cordoba</option>
+                                            <option th:value="Jaen" th:text="Jaen">Jaén</option>
+                                            <option th:value="Malaga" th:text="Malaga">Málaga</option>
+                                        </select>
                                     </div>
                                      <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}" method="get">
-                                        <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
+                                         <div class="col-md-3 mb-2 mb-lg-0">
 
-                                            <label  class="font-weight-bold text-white fw-bold">Check In</label>
+                                             <label  class="font-weight-bold text-white fw-bold">Check In</label>
 
-                                            <input type="date" class="form-control" id="fechainicio" th:field="*{fechaInicio}"  placeholder="yyyy-MM-dd" required>
+                                             <input type="date" class="form-control" id="fechainicio" th:field="*{fechaInicio}"  placeholder="yyyy-MM-dd" required>
 
 
-                                        </div>
-                                        <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}" method="get">
-                                            <div class="col-md-4 mb-2 mb-lg-0 col-lg-4">
-                                                <label class="font-weight-bold text-white fw-bold">Check Out</label>
+                                         </div>
+                                         <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}" method="get">
+                                             <div class="col-md-3 mb-2 mb-lg-0">
+                                                 <label class="font-weight-bold text-white fw-bold">Check Out</label>
 
-                                                <input type="date" class="form-control" id="fechafin" min="fechaInicio" th:field="*{fechaFin}" placeholder="yyyy-MM-dd" required>
-                                            </div>
-                                            <form th:action="@{/hoteles/listar}" th:object="${capacidad}" method="get">
-                                            <div class="row p-4">
+                                                 <input type="date" class="form-control" id="fechafin" min="fechaInicio" th:field="*{fechaFin}" placeholder="yyyy-MM-dd" required>
+                                             </div>
+                                             <form th:action="@{/hoteles/listar}" th:object="${capacidad}" method="get">
 
-                                                <div class="col-md-4 mb-3 mb-md-0">
+                                                     <div class="col-md-3 mb-3 mb-md-0">
 
-                                                    <div class="container">
+                                                         <label class="font-weight-bold text-white fw-bold">Numeros de personas</label>
+                                                         <select name="" id="adultos" class="form-select mb-3" th:field="*{capacidad}" >
+                                                             <option th:value=1 th:text="1">1</option>
+                                                             <option th:value=2 th:text="2">2</option>
+                                                             <option th:value=3 th:text="3">3</option>
+                                                             <option th:value=4 th:text="4">4</option>
 
-                                                        <div class="row">
+                                                         </select>
 
-                                                            <div class="col-md-12 mb-2">
+                                                     </div>
 
-                                                                    <label class="font-weight-bold text-white fw-bold">Numeros de personas</label>
-                                                                    <select name="" id="adultos" class="form-select mb-3" th:field="*{capacidad}" >
-                                                                        <option th:value=1 th:text="1">1</option>
-                                                                        <option th:value=2 th:text="2">2</option>
-                                                                        <option th:value=3 th:text="3">3</option>
-                                                                        <option th:value=4 th:text="4">4</option>
 
-                                                                    </select>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 mt-sm-0 mt-md-4">
-                                                <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
-                                            </div>
-                                        </form>
-                                    </form></form>
+                                             </form>
+                                         </form>
+                                     </form>
                                 </div>
-
-
-                                <!--  -->
-
+                            <div class="row">
+                                <div class="col-md-4 mt-sm-0 mt-md-4">
+                                    <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
+                                </div>
                             </div>
+
+
                         </div>
                     </form>
                 </div>
