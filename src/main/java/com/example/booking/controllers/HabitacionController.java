@@ -3,6 +3,8 @@ package com.example.booking.controllers;
 import Paginador.PageRender;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
+import com.example.booking.models.Hotel;
+import com.example.booking.repository.HabitacionRepository;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
@@ -90,7 +92,7 @@ public class HabitacionController {
 
     @PostMapping("/crear")
     public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, @RequestParam(value = "file") MultipartFile imagen,
-                           @ModelAttribute("id") Integer idHotel, RedirectAttributes flash){
+                           SessionStatus status, @ModelAttribute("id") Integer idHotel, RedirectAttributes flash){
 
         if(result.hasErrors()){
             model.addAttribute("titulo", "Ha habido algún error");
