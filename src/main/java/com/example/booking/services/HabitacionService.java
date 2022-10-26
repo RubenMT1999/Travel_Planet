@@ -1,5 +1,5 @@
 package com.example.booking.services;
-
+import com.example.booking.models.Hotel;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.repository.HabitacionRepository;
@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.Set;
 
 @Service
 public class HabitacionService {
@@ -120,5 +121,8 @@ public class HabitacionService {
 //        }
 //
 //    }
+
+    public void listarIdHotelesPorHabitacion() { habitacionRepository.totalIdHotelesHabitacion(); }
+
 
 }

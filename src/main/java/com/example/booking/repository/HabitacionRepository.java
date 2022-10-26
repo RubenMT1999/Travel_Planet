@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -32,4 +33,6 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     List<Habitacion> buscarporidhab(Integer id, Integer capacidad, Date fecha_inicio, Date fecha_fin);
 
 
+    @Query(value = "SELECT id_hotel from Habitacion ", nativeQuery = true)
+    List<Integer> totalIdHotelesHabitacion ();
 }

@@ -60,7 +60,6 @@ public class Hotel {
     private String puntuacion;
 
 
-
     @Column(name = "precio")
     private String precio;
     public String getPrecio() {
@@ -80,9 +79,9 @@ public class Hotel {
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY)
     private List<Habitacion> habitaciones;
 
-    //public void addHabitacion(Habitacion habitacion){
-     // this.habitaciones.add(habitacion);
-    //}
+//    public void addHabitacion(Habitacion habitacion){
+//        this.habitaciones.add(habitacion);
+//    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")

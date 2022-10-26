@@ -20,8 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-
-
 public class InicioController {
     @Autowired
     HabitacionService habitacionService;
