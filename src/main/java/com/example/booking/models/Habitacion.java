@@ -68,7 +68,7 @@ public class Habitacion {
     private boolean wifi;
 
     @Column(name = "precio_base")
-    private Integer precioBase;
+    private Double precioBase;
 
     //tuve que quitar el cascade para que no me diera fallo al crear habitacion
     @ManyToOne(fetch = FetchType.LAZY)
@@ -147,7 +147,7 @@ public class Habitacion {
         return wifi;
     }
 
-    public Integer getPrecioBase() {
+    public Double getPrecioBase() {
         return precioBase;
     }
 

@@ -88,6 +88,9 @@ public class Hotel {
     private Usuario usuario;
 
 
+    @OneToOne(mappedBy = "hotelTarifa")
+    private Tarifa tarifa;
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -143,5 +146,9 @@ public class Hotel {
 
     public void setHabitaciones(List<Habitacion> habitaciones) {
         this.habitaciones = habitaciones;
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
     }
 }

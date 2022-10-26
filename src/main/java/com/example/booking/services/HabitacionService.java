@@ -54,7 +54,7 @@ public class HabitacionService {
 
 
     public void guardarPersonalizado(Integer idHotel,Integer numHab,String extTel, Integer capacidad,
-                                     String imagen, String descripcion, Integer precioBase){
+                                     String imagen, String descripcion, Double precioBase){
         habitacionRepository.guardarPersonalizado(idHotel,numHab,extTel,capacidad,imagen,descripcion,precioBase);
     }
 
@@ -114,13 +114,32 @@ public class HabitacionService {
 
 
 
-//    public Integer establecerPrecioHabitacion(Integer precioBase, Habitacion habitacion){
-//
-//        if (habitacion.isCajaFuerte() == true){
-//            precioBase +=
-//        }
-//
-//    }
+    public Double establecerPrecioHabitacion(Double precioBase, Habitacion habitacion){
+
+        if (habitacion.isCajaFuerte() == true){
+            precioBase += habitacion.getHotel().getTarifa().getPrecioCajaFuerte();
+        }
+        if (habitacion.isTv() == true){
+            precioBase += habitacion.getHotel().getTarifa().getPrecioTV();
+        }
+        if (habitacion.isCocina() == true){
+            precioBase += habitacion.getHotel().getTarifa().getPrecioCocina();
+        }
+        if (habitacion.isTerraza() == true){
+            precioBase += habitacion.getHotel().getTarifa().getPrecioTerraza();
+        }
+        if (habitacion.isBanioPrivado() == true){
+            precioBase += habitacion.getHotel().getTarifa().getPrecioBanio();
+        }
+        if (habitacion.isWifi() == true){
+            precioBase += habitacion.getHotel().getTarifa().getPrecioWifi();
+        }
+        if (habitacion.isAireAcondicionado() == true){
+            precioBase += habitacion.getHotel().getTarifa().getPrecioAire();
+        }
+
+        return precioBase;
+    }
 
     public void listarIdHotelesPorHabitacion() { habitacionRepository.totalIdHotelesHabitacion(); }
 
