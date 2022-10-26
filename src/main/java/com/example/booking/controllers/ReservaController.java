@@ -11,11 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,16 +41,24 @@ public class ReservaController {
     }
 
 
-//    @GetMapping("/crear/{id}")
-//    public String crearReserva(Model model, @PathVariable Integer id, Authentication auth){
-//        auth= SecurityContextHolder.getContext().getAuthentication();
-//        Reserva reserva = new Reserva();
-//        Habitacion habitacion = habitacionService.findById(id);
-//        reserva.setHabitacion(habitacion);
-//        reserva.setUsuario(usuarioService.usuarioPorNombre(auth.getName()));
-//        model.addAttribute("titulo","Crear Reserva");
-//        model.addAttribute("reserva",reserva);
-//        return "crearReserva";
+    @GetMapping("/crear/{id}")
+    public String crearReserva(Model model, @PathVariable Integer id, Authentication auth){
+        auth= SecurityContextHolder.getContext().getAuthentication();
+        Reserva reserva = new Reserva();
+        Habitacion habitacion = habitacionService.findById(id);
+        reserva.setHabitacion(habitacion);
+        reserva.setUsuario(usuarioService.usuarioPorNombre(auth.getName()));
+        model.addAttribute("titulo","Crear Reserva");
+        model.addAttribute("reserva",reserva);
+        return "crearReserva";
+    }
+
+
+//    @PostMapping("/crear")
+//    public String procesarReserva(Model model, @Valid Reserva reserva, BindingResult result){
+//
 //    }
+
+
 
 }

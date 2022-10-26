@@ -24,7 +24,7 @@
                             <p class="card-text" th:text="${habitacion.descripcion}"></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Reservar</button>
+                                    <a th:href="@{/reserva/crear/{id}(id=${habitacion.getId()})}" class="btn btn-primary">Reservar</a>
                                 </div>
                                 <small class="text-muted" th:text="${habitacion.numeroHabitacion}"></small>
                             </div>

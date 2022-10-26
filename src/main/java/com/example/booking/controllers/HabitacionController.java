@@ -97,10 +97,11 @@ public class HabitacionController {
             return "crearHabitacion";
         }
 
+
         habitacionService.cargarImagen(imagen,flash,habitacion);
 
         habitacionService.guardarPersonalizado(habitacion.getHotel().getId(),habitacion.getNumeroHabitacion(),habitacion.getExtensionTelefonica(),
-                habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion());
+                habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion(),habitacion.getPrecioBase());
         model.addAttribute("success","La habitación ha sido creada con éxito!");
         return "redirect:/habitaciones/listar/"+idHotel;
     }

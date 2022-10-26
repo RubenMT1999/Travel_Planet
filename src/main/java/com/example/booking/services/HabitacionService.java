@@ -53,8 +53,8 @@ public class HabitacionService {
 
 
     public void guardarPersonalizado(Integer idHotel,Integer numHab,String extTel, Integer capacidad,
-                                     String imagen, String descripcion){
-        habitacionRepository.guardarPersonalizado(idHotel,numHab,extTel,capacidad,imagen,descripcion);
+                                     String imagen, String descripcion, Integer precioBase){
+        habitacionRepository.guardarPersonalizado(idHotel,numHab,extTel,capacidad,imagen,descripcion,precioBase);
     }
 
 
@@ -113,5 +113,12 @@ public class HabitacionService {
 
 
 
+//    public Integer establecerPrecioHabitacion(Integer precioBase, Habitacion habitacion){
+//
+//        if (habitacion.isCajaFuerte() == true){
+//            precioBase +=
+//        }
+//
+//    }
 
 }
