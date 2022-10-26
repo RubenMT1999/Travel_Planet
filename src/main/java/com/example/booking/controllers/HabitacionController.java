@@ -137,7 +137,7 @@ public class HabitacionController {
 
 
         Habitacion habitacion = habitacionService.encontrarPorId(id);
-
+        habitacionService.borrarImagen(habitacion);
         habitacionService.borrarHabitacion(habitacion);
         flash.addFlashAttribute("success","Habitación eliminada con éxito!");
         model.addAttribute("success","Habitación borrada con éxito!");
