@@ -66,6 +66,10 @@ public class HotelService {
         return hotelRepository.save(hotel);
     }
 
+    public String imagenHotel (Integer id){
+        return hotelRepository.imagenHotel(id);
+    }
+
 
     public Hotel hotelEditar(MultipartFile imagen, RedirectAttributes flash,Hotel hotel){
         if(!imagen.isEmpty()){

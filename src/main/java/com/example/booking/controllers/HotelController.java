@@ -156,15 +156,28 @@ import java.util.*;
             hotelEditar.setComentario(hotel.getComentario());
             hotelEditar.setPuntuacion(hotel.getPuntuacion());
 
-            hotelService.hotelEditar(imagen,flash,hotelEditar);
+
+            hotelService.cargarImagen(imagen, flash, hotel);
+
+            if (hotel.getImagen() == null) {
+                hotelEditar.setImagen(hotelService.imagenHotel(hotel.getId()));
+                hotelService.hotelEditar(imagen,flash,hotelEditar);
+            }else {
+                hotelService.hotelEditar(imagen,flash,hotelEditar);
+            }
+
+
+
             return "redirect:/hoteles/verHotelesUsuarios";
         }
 
 
 
         @RequestMapping("/eliminarPorId/{id}")
-        public String eliminarPorId( @PathVariable int id){
+        public String eliminarPorId( @PathVariable int id,RedirectAttributes flash,Model model){
            hotelService.hotelEliminar(id);
+            flash.addFlashAttribute("success","Hotel eliminado con éxito!");
+            model.addAttribute("success","Hotel borrado con éxito!");
 
             return "redirect:/hoteles/verHotelesUsuarios";
         }

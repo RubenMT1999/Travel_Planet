@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,9 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     void crearHotel(@Param("nombre") String nombre, @Param("puntuacion") String puntuacion,
                     @Param("comentario") String comentario, @Param("imagen") String imagen
             , @Param("lugar") String lugar, @Param("telefono") String telefono, @Param("cif") String cif, String s, @Param("num_hab") Integer num_hab, @Param("ciudad") String ciudad, @Param("id_usuario") Integer id_usuario);
+
+    @Query(value = "select r.imagen from Hotel r where r.id= ?1")
+    String imagenHotel(Integer id);
 
 
 }
