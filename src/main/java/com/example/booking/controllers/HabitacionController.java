@@ -175,6 +175,14 @@ public class HabitacionController {
                 habitacion.setDescripcion(faker.lorem().fixedString(100));
                 habitacion.setDisponibilidad(faker.bool().bool());
                 habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
+                habitacion.setCajaFuerte(faker.bool().bool());
+                habitacion.setCocina(faker.bool().bool());
+                habitacion.setBanioPrivado(faker.bool().bool());
+                habitacion.setAireAcondicionado(faker.bool().bool());
+                habitacion.setTv(faker.bool().bool());
+                habitacion.setTerraza(faker.bool().bool());
+                habitacion.setWifi(faker.bool().bool());
+                habitacion.setPrecioBase(faker.number().numberBetween(50,400));
                 contadorHabitacion ++;
                 habitacionService.guardarHabitacion(habitacion);
                 habitaciones.add(habitacion);
@@ -182,6 +190,8 @@ public class HabitacionController {
             }
             hotelRepository.save(h);
         }
+
+
 
     }
 

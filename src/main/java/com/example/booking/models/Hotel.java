@@ -62,6 +62,10 @@ public class Hotel {
 
     @Column(name = "precio")
     private String precio;
+
+    @OneToOne(mappedBy = "hotelTarifa")
+    private Tarifa tarifa;
+
     public String getPrecio() {
         return precio;
     }

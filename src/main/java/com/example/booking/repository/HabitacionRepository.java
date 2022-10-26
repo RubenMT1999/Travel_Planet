@@ -1,6 +1,7 @@
 package com.example.booking.repository;
 
 import com.example.booking.models.Habitacion;
+import com.example.booking.models.Hotel;
 import com.example.booking.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,4 +36,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
 
     @Query(value = "SELECT id_hotel from Habitacion ", nativeQuery = true)
     List<Integer> totalIdHotelesHabitacion ();
+
+    @Query(value = "select * from habitacion", nativeQuery = true)
+    List<Habitacion> obtenertodaslashabitaciones();
 }

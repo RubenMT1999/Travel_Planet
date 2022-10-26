@@ -40,6 +40,7 @@ public class HabitacionService {
     }
 
     public void guardarHabitacion(Habitacion habitacion){
+
         habitacionRepository.save(habitacion);
     }
 

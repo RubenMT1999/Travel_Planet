@@ -52,7 +52,5 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     @Query(value = "SELECT id FROM Hotel", nativeQuery = true)
     List<Integer> obtenerIdHotel();
 
-    @Query(value = "select * from hotel", nativeQuery = true)
-    List<Hotel> obtenerTodoshoteles();
 
 }

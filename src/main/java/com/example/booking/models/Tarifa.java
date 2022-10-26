@@ -22,26 +22,33 @@ public class Tarifa {
 
     private Pension pension;
 
-    @Column(name = "precio_persona")
+   /* @Column(name = "precio_persona")
     private boolean precioPersona;
-
-    @Column(name = "precioWifi")
+    */
+    @Column(name = "precio_wifi")
     private Double precioWifi;
 
-    @Column(name = "precioCajaFuerte")
+    @Column(name = "precio_caja_fuerte")
     private Double precioCajaFuerte;
 
-    @Column(name = "precioCocina")
+    @Column(name = "precio_cocina")
     private Double precioCocina;
 
-    @Column(name = "precioBaño")
+    @Column(name = "precio_aire")
     private Double precioAire;
 
-    @Column(name = "precioTV")
+    @Column(name = "precio_tv")
     private Double precioTV;
 
-    @Column(name = "precioTerraza")
+    @Column(name = "precio_terraza")
     private Double precioTerraza;
+
+    @Column(name = "precio_baño")
+    private Double precioBanio;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_hotel", referencedColumnName = "id")
+    private Hotel hotelTarifa;
 
     public Integer getId() {
         return id;
@@ -55,9 +62,9 @@ public class Tarifa {
         return pension;
     }
 
-    public boolean isPrecioPersona() {
-        return precioPersona;
-    }
+   // public boolean isPrecioPersona() {
+    //    return precioPersona;
+    //}
 
     public Double getPrecioWifi() {
         return precioWifi;
