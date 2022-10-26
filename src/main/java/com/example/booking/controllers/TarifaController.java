@@ -34,7 +34,6 @@ public class TarifaController {
     public void generarhabitacionesAleatorio() {
 
         Faker faker = new Faker();
-        Integer contadorHabitacion = 1;
 
         for (Habitacion h : habitacionRepository.obtenertodaslashabitaciones()) {
             Tarifa tarifa = new Tarifa();

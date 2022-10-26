@@ -45,7 +45,7 @@
 
                                              <label  class="font-weight-bold text-white fw-bold">Check In</label>
 
-                                             <input type="date" class="form-control" id="fechainicio" th:field="*{fechaInicio}"  placeholder="yyyy-MM-dd" required>
+                                             <input type="date" class="form-control" id="fechainicio" th:min="${now}" th:field="*{fechaInicio}"  placeholder="yyyy-MM-dd" required>
 
 
                                          </div>
@@ -53,7 +53,7 @@
                                              <div class="col-md-3 mb-2 mb-lg-0">
                                                  <label class="font-weight-bold text-white fw-bold">Check Out</label>
 
-                                                 <input type="date" class="form-control" id="fechafin" min="fechaInicio" th:field="*{fechaFin}" placeholder="yyyy-MM-dd" required>
+                                                 <input type="date" class="form-control" id="fechafin" th:min="${now}"  th:field="*{fechaFin}" placeholder="yyyy-MM-dd" required>
                                              </div>
                                              <form th:action="@{/hoteles/listar}" th:object="${capacidad}" method="get">
 
