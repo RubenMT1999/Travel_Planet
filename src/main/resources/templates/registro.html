@@ -47,7 +47,7 @@
 
               <div class="col-md-6 mt-2">
                 <label for="fecha-usuario">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" th:field="*{fechaNacimiento}" id="fecha-usuario" required>
+                <input type="date" class="form-control" th:field="*{fechaNacimiento}" th:max="${maximo}" id="fecha-usuario" required>
               </div>
               <div th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" class="alert alert-danger"></div>
 

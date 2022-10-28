@@ -50,6 +50,26 @@ public class Habitacion {
 
     private String imagen;
 
+    @Column(name = "caja_fuerte")
+    private boolean cajaFuerte;
+
+    private boolean cocina;
+
+    @Column(name = "banio_privado")
+    private boolean banioPrivado;
+
+    @Column(name = "aire_acondicionado")
+    private boolean aireAcondicionado;
+
+    private boolean tv;
+
+    private boolean terraza;
+
+    private boolean wifi;
+
+    @Column(name = "precio_base")
+    private Double precioBase;
+
     //tuve que quitar el cascade para que no me diera fallo al crear habitacion
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel")
@@ -96,5 +116,46 @@ public class Habitacion {
 
     public Hotel getHotel() {
         return hotel;
+    }
+
+
+    public boolean isCajaFuerte() {
+        return cajaFuerte;
+    }
+
+    public boolean isCocina() {
+        return cocina;
+    }
+
+    public boolean isBanioPrivado() {
+        return banioPrivado;
+    }
+
+    public boolean isAireAcondicionado() {
+        return aireAcondicionado;
+    }
+
+    public boolean isTv() {
+        return tv;
+    }
+
+    public boolean isTerraza() {
+        return terraza;
+    }
+
+    public boolean isWifi() {
+        return wifi;
+    }
+
+    public Double getPrecioBase() {
+        return precioBase;
+    }
+
+    public List<Tarifa> getId_tarifa() {
+        return id_tarifa;
+    }
+
+    public Set<Reserva> getReserva() {
+        return reserva;
     }
 }

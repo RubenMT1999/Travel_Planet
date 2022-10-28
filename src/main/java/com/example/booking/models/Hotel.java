@@ -6,6 +6,7 @@ import net.bytebuddy.implementation.bind.annotation.Empty;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Set;
 
 
 @Setter
@@ -58,12 +59,12 @@ public class Hotel {
     @Column(name = "puntuacion")
     private String puntuacion;
 
-    public String getPrecio() {
-        return precio;
-    }
 
     @Column(name = "precio")
     private String precio;
+    public String getPrecio() {
+        return precio;
+    }
 
     public String getComentario() {
         return comentario;
@@ -86,6 +87,9 @@ public class Hotel {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
+
+    @OneToOne(mappedBy = "hotelTarifa")
+    private Tarifa tarifa;
 
     public Usuario getUsuario() {
         return usuario;
@@ -134,5 +138,17 @@ public class Hotel {
 
     public String getImagen() {
         return imagen;
+    }
+
+    public List<Habitacion> getHabitaciones() {
+        return habitaciones;
+    }
+
+    public void setHabitaciones(List<Habitacion> habitaciones) {
+        this.habitaciones = habitaciones;
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
     }
 }
