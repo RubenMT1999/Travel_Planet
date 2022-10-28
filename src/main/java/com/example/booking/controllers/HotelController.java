@@ -114,14 +114,13 @@ import java.util.concurrent.TimeUnit;
                                        @ModelAttribute("reserva") Reserva fecha_inicio,
                                        @ModelAttribute("reserva") Reserva fecha_fin,
                                        Habitacion habitacion,
-                                       RedirectAttributes redirectAttributes) throws ParseException {
+                                       Model model) throws ParseException {
             List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin(),
                     capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
                     habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte());
 
-            redirectAttributes.addAttribute("filtro", true);
-            redirectAttributes.addAttribute("hotel", hotels);
-            return  "redirect:/hoteles/listar";
+            model.addAttribute("hotel", hotels);
+            return  "hotelesporfiltros";
         }
 
 
