@@ -5,6 +5,7 @@ import com.example.booking.models.Hotel;
 import com.example.booking.models.Pension;
 import com.example.booking.models.Tarifa;
 import com.example.booking.repository.HabitacionRepository;
+import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.TarifaService;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -24,7 +25,7 @@ import static java.lang.String.valueOf;
 @Controller
 public class TarifaController {
     @Autowired
-    HabitacionRepository habitacionRepository;
+    HotelRepository hotelRepository;
     @Autowired
     TarifaService tarifaService;
 
@@ -35,44 +36,16 @@ public class TarifaController {
 
         Faker faker = new Faker();
 
-        for (Habitacion h : habitacionRepository.obtenertodaslashabitaciones()) {
+        for (Hotel h : hotelRepository.obtenerTodoshoteles()) {
             Tarifa tarifa = new Tarifa();
-            if (h.isWifi()) {
                 tarifa.setPrecioWifi(faker.number().randomDouble(1, 5, 20));
-            }else{
-                tarifa.setPrecioWifi(0.0);
-            }
-            if (h.isCajaFuerte()) {
                 tarifa.setPrecioCajaFuerte(faker.number().randomDouble(1, 5, 20));
-            }else{
-                tarifa.setPrecioCajaFuerte(0.0);
-            }
-            if (h.isCocina()) {
                 tarifa.setPrecioCocina(faker.number().randomDouble(1, 5, 20));
-            }else{
-                tarifa.setPrecioCocina(0.0);
-            }
-            if (h.isAireAcondicionado()){
                 tarifa.setPrecioAire(faker.number().randomDouble(1, 5, 20));
-            }else{
-                tarifa.setPrecioAire(0.0);
-            }
-            if (h.isTv()) {
                 tarifa.setPrecioTV(faker.number().randomDouble(1, 5, 20));
-            }else{
-                tarifa.setPrecioTV(0.0);
-            }
-            if (h.isTerraza()) {
                 tarifa.setPrecioTerraza(faker.number().randomDouble(1, 5, 20));
-            }else{
-                tarifa.setPrecioTerraza(0.0);
-            }
-            if (h.isBanioPrivado()) {
                 tarifa.setPrecioBanio(faker.number().randomDouble(1, 5, 20));
-            }else{
-                tarifa.setPrecioBanio(0.0);
-            }
-            tarifa.setHotelTarifa(h.getHotel());
+            tarifa.setHotelTarifa(h);
             tarifaService.guardarTarifa(tarifa);
 }
     }
