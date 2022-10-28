@@ -26,6 +26,13 @@ public class HotelService {
         return hotelRepository.buscador(ciudades, fecha_inicio, fecha_fin, capacidad);
             }
 
+    public List<Hotel> buscarPorFiltros(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi,
+                                        boolean terraza, boolean tv, boolean aire, boolean banio_privado, boolean cocina,
+                                        boolean caja_fuerte) {
+        return hotelRepository.buscarfiltros(ciudad, fecha_inicio, fecha_fin, capacidad, wifi, terraza, tv, aire,
+                                             banio_privado, cocina, caja_fuerte);
+    }
+
     public List<Hotel> verTodosHoteles(){
         Hotel hotelNuevo = new Hotel();
         return hotelRepository.findAll();

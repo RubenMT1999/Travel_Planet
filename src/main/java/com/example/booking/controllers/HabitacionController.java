@@ -157,7 +157,8 @@ public class HabitacionController {
         return "redirect:/habitaciones/listar/"+idHotel;
     }
 
-    @GetMapping("/generar")
+    //Faker para generar habitaciones aleatorio.
+   /* @GetMapping("/generar")
     public void generarhabitacionesAleatorio() {
 
         Faker faker = new Faker();
@@ -194,6 +195,8 @@ public class HabitacionController {
 
 
     }
+
+    */
 
 
 

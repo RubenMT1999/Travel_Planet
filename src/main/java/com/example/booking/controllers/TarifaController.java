@@ -30,8 +30,9 @@ public class TarifaController {
     TarifaService tarifaService;
 
 
+    //Faker para generar tarifas aleatorios.
 
-    @GetMapping("/generar")
+   /* @GetMapping("/generar")
     public void generarhabitacionesAleatorio() {
 
         Faker faker = new Faker();
@@ -49,4 +50,6 @@ public class TarifaController {
             tarifaService.guardarTarifa(tarifa);
 }
     }
+
+    */
 }

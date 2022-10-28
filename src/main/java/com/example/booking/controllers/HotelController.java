@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 
     @Controller
     @RequestMapping("/hoteles")
-    @SessionAttributes({"habitacion","reserva"})
+    @SessionAttributes({"habitacion","reserva", "hoteles"})
 
     public class HotelController {
     @Autowired
@@ -50,12 +50,11 @@ import java.util.concurrent.TimeUnit;
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
                                    @RequestParam(name = "capacidad") Integer capacidad,
-                                   Model model) throws ParseException {
+                                   Model model,
+                                   @RequestParam(name = "filtro", required = false) Boolean filtro,
+                                   @RequestParam(name = "hoteles", required = false) List<Hotel> hotelesFiltro) throws ParseException {
 
-        //Para utilizar el SessionAtribute para capacidad.
-        Habitacion habitacion = new Habitacion();
-        habitacion.setCapacidad(capacidad);
-        model.addAttribute("habitacion", habitacion);
+
 
         model.addAttribute("titulo", "Buscar - Travel Planet");
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -81,16 +80,52 @@ import java.util.concurrent.TimeUnit;
         }
 
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
+        Hotel hoteles = new Hotel();
+        hoteles.setCiudad(ciudades);
+
+        if(filtro!=null && filtro){
+            model.addAttribute("hoteles", hotelesFiltro);
+        }else{
+            model.addAttribute("hoteles", hoteles);
+        }
+
+
+
+
+        //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
         Reserva reserva = new Reserva();
         reserva.setFechaInicio(fechaInicio);
         reserva.setFechaFin(fecha_Fin);
         model.addAttribute("reserva", reserva);
 
+        //Para utilizar el SessionAtribute para capacidad.
+        Habitacion habitacion = new Habitacion();
+        habitacion.setCapacidad(capacidad);
+        model.addAttribute("habitacion", habitacion);
+
         List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
         model.addAttribute("hotel", hotel);
         return "busquedahoteles";
-
     }
+
+        @PostMapping("/listarPorFiltros")
+        public String procesarBusqueda(@ModelAttribute("hoteles") Hotel ciudad,
+                                       @ModelAttribute("habitacion") Habitacion capacidad,
+                                       @ModelAttribute("reserva") Reserva fecha_inicio,
+                                       @ModelAttribute("reserva") Reserva fecha_fin,
+                                       Habitacion habitacion,
+                                       RedirectAttributes redirectAttributes) throws ParseException {
+            List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin(),
+                    capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
+                    habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte());
+
+            redirectAttributes.addAttribute("filtro", true);
+            redirectAttributes.addAttribute("hotel", hotels);
+            return  "redirect:/hoteles/listar";
+        }
+
+
+
     @GetMapping("/habitacion/{id}")
     public String hotelid(@PathVariable(name = "id") Integer id,
                           @ModelAttribute("habitacion") Habitacion capacidad,
