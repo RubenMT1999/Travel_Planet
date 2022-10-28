@@ -63,20 +63,15 @@ public class Hotel {
     @Column(name = "precio")
     private String precio;
 
-    @OneToOne(mappedBy = "hotelTarifa")
+   @OneToOne(mappedBy = "hotelTarifa")
     private Tarifa tarifa;
 
-    public String getPrecio() {
-        return precio;
-    }
+   /*
 
-    public String getComentario() {
-        return comentario;
-    }
+    @OneToMany(mappedBy = "hotelTarifa",fetch = FetchType.LAZY)
+    private List<Tarifa> tarifa;
 
-    public String getPuntuacion() {
-        return puntuacion;
-    }
+    */
 
 
 
@@ -92,10 +87,6 @@ public class Hotel {
     private Usuario usuario;
 
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -103,7 +94,6 @@ public class Hotel {
     public String getNombre() {
         return nombre;
     }
-
 
     public int getNumero_habitaciones() {
         return numero_habitaciones;
@@ -124,10 +114,14 @@ public class Hotel {
     public String getPoblacion() {
         return poblacion;
     }
+
     public String getLugar() {
         return lugar;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
 
     public String getLocalidad() {
         return localidad;
@@ -137,15 +131,27 @@ public class Hotel {
         return cif;
     }
 
-    public String getImagen() {
-        return imagen;
+    public String getComentario() {
+        return comentario;
+    }
+
+    public String getPuntuacion() {
+        return puntuacion;
+    }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
     }
 
     public List<Habitacion> getHabitaciones() {
         return habitaciones;
     }
 
-    public void setHabitaciones(List<Habitacion> habitaciones) {
-        this.habitaciones = habitaciones;
+    public Usuario getUsuario() {
+        return usuario;
     }
 }

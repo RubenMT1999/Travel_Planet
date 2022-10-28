@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tarifa")
@@ -46,9 +47,19 @@ public class Tarifa {
     @Column(name = "precio_baño")
     private Double precioBanio;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
+   /* @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_hotel")
+    private Hotel hotel;
+
+
+
+   */ @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_hotel", referencedColumnName = "id")
     private Hotel hotelTarifa;
+
+
+
 
     public Integer getId() {
         return id;
@@ -61,10 +72,6 @@ public class Tarifa {
     public Pension getPension() {
         return pension;
     }
-
-   // public boolean isPrecioPersona() {
-    //    return precioPersona;
-    //}
 
     public Double getPrecioWifi() {
         return precioWifi;
@@ -88,6 +95,14 @@ public class Tarifa {
 
     public Double getPrecioTerraza() {
         return precioTerraza;
+    }
+
+    public Double getPrecioBanio() {
+        return precioBanio;
+    }
+
+    public Hotel getHotelTarifa() {
+        return hotelTarifa;
     }
 }
 

@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 
     @Controller
     @RequestMapping("/hoteles")
-    @SessionAttributes({"habitacion","reserva", "hoteles"})
+    @SessionAttributes({"habitacion","reserva", "hoteles", "habfiltro"})
 
     public class HotelController {
     @Autowired
@@ -119,6 +119,7 @@ import java.util.concurrent.TimeUnit;
                     capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
                     habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte());
 
+            model.addAttribute("habfiltro", habitacion);
             model.addAttribute("hotel", hotels);
             return  "hotelesporfiltros";
         }
@@ -129,7 +130,8 @@ import java.util.concurrent.TimeUnit;
     public String hotelid(@PathVariable(name = "id") Integer id,
                           @ModelAttribute("habitacion") Habitacion capacidad,
                           @ModelAttribute("reserva") Reserva fecha_inicio,
-                          @ModelAttribute("reserva") Reserva fecha_fin,Model model) {
+                          @ModelAttribute("reserva") Reserva fecha_fin,
+                          Model model) {
         model.addAttribute("titulo", "Buscar - Travel Planet");
         List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id, capacidad.getCapacidad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin());
         Hotel hotel = hotelService.hotelID(id);
@@ -137,6 +139,20 @@ import java.util.concurrent.TimeUnit;
         model.addAttribute("habitacions", habitacions);
         return "hoteldetalle";
     }
+
+        @GetMapping("/habitacionfiltro/{id}")
+        public String habitacionfiltro(@PathVariable(name = "id") Integer id,
+                              @ModelAttribute("habitacion") Habitacion capacidad,
+                              @ModelAttribute("reserva") Reserva fecha_inicio,
+                              @ModelAttribute("reserva") Reserva fecha_fin,@ModelAttribute("habfiltro") Habitacion habitacion ,Model model) {
+            model.addAttribute("titulo", "Buscar - Travel Planet");
+            List<Habitacion> habitacions = habitacionService.habitacionfiltro(id, fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin(), capacidad.getCapacidad(),habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado()
+            , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte());
+            Hotel hotel = hotelService.hotelID(id);
+            model.addAttribute("hotel", hotel);
+            model.addAttribute("habitacions", habitacions);
+            return "hoteldetalle";
+        }
 
 
     @GetMapping("/listarHoteles")

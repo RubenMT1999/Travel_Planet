@@ -25,7 +25,7 @@ import java.util.Set;
 @Service
 public class HabitacionService {
 
-    @Autowired
+   @Autowired
     HabitacionRepository habitacionRepository;
 
     @Autowired
@@ -109,6 +109,13 @@ public class HabitacionService {
 
     }
 
+    public List<Habitacion> habitacionfiltro(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi,
+                                        boolean terraza, boolean tv, boolean aire, boolean banio_privado, boolean cocina,
+                                        boolean caja_fuerte) {
+        return habitacionRepository.buscarfiltros(id_hotel, fecha_inicio, fecha_fin, capacidad, wifi, terraza, tv, aire,
+                banio_privado, cocina, caja_fuerte);
+    }
+
     public Page<Habitacion> listarHabitacionesPages(Pageable pageable,Integer id) {
         return pageRepositoryHab.listarHabitacionesPages(pageable,id);
     }
@@ -124,6 +131,7 @@ public class HabitacionService {
 //    }
 
     public void listarIdHotelesPorHabitacion() { habitacionRepository.totalIdHotelesHabitacion(); }
+
 
 
 }

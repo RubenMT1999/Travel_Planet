@@ -12,9 +12,11 @@ public class TarifaService {
     @Autowired
     TarifaRepository tarifaRepository;
 
-    public void guardarTarifa(Tarifa tarifa){
+    /*public void guardarTarifa(Tarifa tarifa){
 
         tarifaRepository.save(tarifa);
     }
+
+     */
 
 }
