@@ -41,6 +41,8 @@ public class UsuarioController {
     private BCryptPasswordEncoder passwordEncoder;
 
 
+
+
     @GetMapping("/registrar")
     public String registro(Model model){
         Usuario usuario = new Usuario();
@@ -86,12 +88,14 @@ public class UsuarioController {
         usuarioService.save(usuario);
         status.setComplete();
 
-//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(usuario.getEmail(),
-//                usuario.getContrasenia(), Collections.singletonList(new SimpleGrantedAuthority(ERoles.ROLE_ADMIN.toString())));
-//
-//        authToken.setDetails(new WebAuthenticationDetails(request));
-//
-//        SecurityContextHolder.getContext().setAuthentication(authToken);
+
+
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(auth.getUsername(),
+                auth.getPassword(), Collections.singletonList(new SimpleGrantedAuthority(ERoles.ROLE_ADMIN.toString())));
+
+        authToken.setDetails(new WebAuthenticationDetails(request));
+
+        SecurityContextHolder.getContext().setAuthentication(authToken);
 
         return "redirect:/";
 
