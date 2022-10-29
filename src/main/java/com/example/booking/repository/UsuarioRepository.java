@@ -23,5 +23,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Query("select u.email from Usuario u where u.email = ?1")
     String validarEmail(String email);
 
+    @Query("SELECT u FROM Usuario u where u.email = ?1")
+    Usuario datosUsuario(String nombre);
+
 
 }

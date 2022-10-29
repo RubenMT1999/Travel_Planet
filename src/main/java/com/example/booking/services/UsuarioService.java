@@ -29,7 +29,7 @@ public class UsuarioService{
         return usuarioRepository.validarEmail(email);
     }
 
-
+    public Usuario datosUsuario(String auth){return usuarioRepository.datosUsuario(auth);}
 
 
 }
