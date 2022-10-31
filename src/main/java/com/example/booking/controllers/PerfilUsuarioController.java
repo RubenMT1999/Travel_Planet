@@ -22,7 +22,10 @@ public class PerfilUsuarioController {
         auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario datosUsuario = usuarioService.datosUsuario(auth.getName());
         model.addAttribute("datosUsuario", datosUsuario);
+        model.addAttribute("titulo", "Perfil de Usuario");
         return "perfilUsuario";
     }
+
+
 
 }

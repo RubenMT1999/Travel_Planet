@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -60,16 +60,20 @@
             </ul>
             <hr>
             <div class="dropdown">
-                <a href="#" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <a href="#" th:text="${datosUsuario.nombre}" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://w7.pngwing.com/pngs/659/667/png-transparent-computer-icons-user-profile-blog-others-miscellaneous-rectangle-logo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                     <strong>mdo</strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
                     <li><a class="dropdown-item" href="#">Settings</a></li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li>
+                        <form id="logout" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                            <a onclick="document.getElementById('logout').submit();" class="dropdown-item p-2"
+                                    type="submit">Cerrar Sesión</a>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -77,9 +81,37 @@
     </div>
 
 
-    <div class="col-10">
+    <div class="col-10 p-5">
 
-        <h1 th:text="${datosUsuario.nombre}"></h1>
+        <h1 th:text="${titulo}" class="mt-4"></h1>
+        <div class="container border border-primary bg-light rounded p-3 shadow mt-4">
+
+            <div class="row">
+                <div class="col-md-6 col"><span class="fs-3 fw-semibold">Nombre</span></div>
+                <div class="col-md-6 col"><span class="fs-3 fw-semibold">Apellidos</span></div>
+                <div class="col-md-6 col"><span th:text="${datosUsuario.nombre}" class="fs-4"></span></div>
+                <div class="col-md-6 col"><span th:text="${datosUsuario.apellidos}" class="fs-4"></span></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6 col"><span class="fs-3 fw-semibold">Correo Electrónico</span></div>
+                <div class="col-md-6 col"><span class="fs-3 fw-semibold">Teléfono</span></div>
+                <div class="col-md-6 col"><span th:text="${datosUsuario.email}" class="fs-4"></span></div>
+                <div class="col-md-6 col"><span th:text="${datosUsuario.telefono}" class="fs-4"></span></div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6 col"><span class="fs-3 fw-semibold">Nacionalidad</span></div>
+                <div class="col-md-6 col"><span class="fs-3 fw-semibold">DNI</span></div>
+                <div class="col-md-6 col"><span th:text="${datosUsuario.nacionalidad}" class="fs-4"></span></div>
+                <div class="col-md-6 col"><span th:text="${datosUsuario.dni}" class="fs-4"></span></div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <a class="btn btn-primary">Editar Perfil</a>
+                </div>
+            </div>
+
+        </div>
+
 
     </div>
 
