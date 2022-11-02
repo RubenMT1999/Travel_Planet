@@ -8,7 +8,11 @@ import com.example.booking.repository.AuthoritiesRepository;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,8 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Path;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +46,8 @@ public class UsuarioController {
     private BCryptPasswordEncoder passwordEncoder;
 
 
+
+
     @GetMapping("/registrar")
     public String registro(Model model){
         Usuario usuario = new Usuario();
@@ -54,7 +62,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/registrar")
-    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status) {
+    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status, HttpServletRequest request) {
 
         if (result.hasErrors()) {
             model.addAttribute("titulo", "Ha habido algún error");
@@ -89,6 +97,16 @@ public class UsuarioController {
         model.addAttribute("titulo", "Resultado form");
         usuarioService.save(usuario);
         status.setComplete();
+
+
+
+//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(auth.getUsername(),
+//                auth.getPassword(), Collections.singletonList(new SimpleGrantedAuthority(ERoles.ROLE_ADMIN.toString())));
+//
+//        authToken.setDetails(new WebAuthenticationDetails(request));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authToken);
+
         return "redirect:/";
 
     }
