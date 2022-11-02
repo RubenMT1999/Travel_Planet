@@ -3,6 +3,7 @@ package com.example.booking.controllers;
 
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Reserva;
+import com.example.booking.models.Usuario;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.ReservaService;
 import com.example.booking.services.UsuarioService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -41,17 +43,7 @@ public class ReservaController {
     }
 
 
-    @GetMapping("/crear/{id}")
-    public String crearReserva(Model model, @PathVariable Integer id, Authentication auth){
-        auth= SecurityContextHolder.getContext().getAuthentication();
-        Reserva reserva = new Reserva();
-        Habitacion habitacion = habitacionService.findById(id);
-        reserva.setHabitacion(habitacion);
-        reserva.setUsuario(usuarioService.usuarioPorNombre(auth.getName()));
-        model.addAttribute("titulo","Crear Reserva");
-        model.addAttribute("reserva",reserva);
-        return "crearReserva";
-    }
+
 
 
 //    @PostMapping("/crear")

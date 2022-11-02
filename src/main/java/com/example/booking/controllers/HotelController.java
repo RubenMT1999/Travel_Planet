@@ -4,6 +4,7 @@ import Paginador.PageRender;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
+import com.example.booking.models.Usuario;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.UsuarioService;
@@ -26,13 +27,16 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
     @Controller
-    @RequestMapping("/hoteles")
+
     @SessionAttributes({"habitacion","reserva"})
 
     public class HotelController {
@@ -43,7 +47,7 @@ import java.util.concurrent.TimeUnit;
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/listar")
+    @GetMapping("/hoteles/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
                                    @Valid Reserva reserva1, BindingResult result,
                                    RedirectAttributes flash,
@@ -91,7 +95,7 @@ import java.util.concurrent.TimeUnit;
         return "busquedahoteles";
 
     }
-    @GetMapping("/habitacion/{id}")
+    @GetMapping("/hoteles/habitacion/{id}")
     public String hotelid(@PathVariable(name = "id") Integer id,
                           @ModelAttribute("habitacion") Habitacion capacidad,
                           @ModelAttribute("reserva") Reserva fecha_inicio,
@@ -105,7 +109,7 @@ import java.util.concurrent.TimeUnit;
     }
 
 
-    @GetMapping("/listarHoteles")
+    @GetMapping("/hoteles/listarHoteles")
  public String hoteles(@RequestParam(name="page", defaultValue = "0") int page, Model model){
 //        List<Hotel> hoteles = hotelService.verTodosHoteles();
         Pageable pageRequest = PageRequest.of(page, 5);
@@ -116,21 +120,21 @@ import java.util.concurrent.TimeUnit;
     return "hoteles";
     }
 
-    @RequestMapping("/BuscarPorCiudad/{ciudad}")
+    @RequestMapping("/hoteles/BuscarPorCiudad/{ciudad}")
     public String hotelPorCiudad(Model model, @PathVariable String ciudad){
     List<Hotel> hotelesCiudad = hotelService.hotelPorCiudad(ciudad);
     model.addAttribute("hotelesCiudad", hotelesCiudad);
     return "HotelesPorCiudad";
     }
 
-        @RequestMapping("/BuscarPorId/{id}")
+        @RequestMapping("/hoteles/BuscarPorId/{id}")
         public String hotelPorId(Model model, @PathVariable int id){
             Hotel hotelesId = hotelService.hotelID(id);
             model.addAttribute("hotelesId", hotelesId);
             return "HotelesId";
         }
 
-        @GetMapping("/nuevo")
+        @GetMapping("/hoteles/nuevo")
         public String mostrarHotelNuevo(Model model){
         Hotel hotel = new Hotel();
         model.addAttribute("hotel",hotel);
@@ -138,7 +142,7 @@ import java.util.concurrent.TimeUnit;
 
         }
 
-        @PostMapping("/nuevo")
+        @PostMapping("/hoteles/nuevo")
         public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth){
         hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
         hotelService.hotelGuardar(hotel);
@@ -162,13 +166,13 @@ import java.util.concurrent.TimeUnit;
 //            return "redirect:/hoteles/verHotelesUsuarios";
 //        }
 
-        @GetMapping("/editar/{id}")
+        @GetMapping("/hoteles/editar/{id}")
         public String mostrarFormrHotelEditar(@PathVariable int id, Model model){
         model.addAttribute("hotel", hotelService.hotelID(id));
         return "hotelEditar";
         }
 
-        @PostMapping("/editar/{id}")
+        @PostMapping("/hoteles/editar/{id}")
         public String mostrarHotelEditar(@PathVariable int id, @ModelAttribute("hotel") Hotel hotel,Model model){
         Hotel hotelEditar = hotelService.hotelID(id);
         hotelEditar.setId(id);
@@ -189,19 +193,56 @@ import java.util.concurrent.TimeUnit;
 
 
 
-        @RequestMapping("/eliminarPorId/{id}")
+        @RequestMapping("/hoteles/eliminarPorId/{id}")
         public String eliminarPorId( @PathVariable int id){
            hotelService.hotelEliminar(id);
 
             return "redirect:/hoteles/verHotelesUsuarios";
         }
 
-        @GetMapping("/verHotelesUsuarios")
+        @GetMapping("/hoteles/verHotelesUsuarios")
         public String listarHotelesUsuario(Model model, Authentication auth){
             auth = SecurityContextHolder.getContext().getAuthentication();
             List<Hotel> hoteles = hotelService.hotelesMail(auth.getName());
             model.addAttribute("hoteles",hoteles);
 
             return "hotelesUsuario";
+        }
+
+
+
+        @GetMapping("/reserva/crear/{id}")
+        public String crearReserva(Model model, @PathVariable Integer id, Authentication auth,
+                                   @ModelAttribute("reserva") Reserva fecha){
+
+//            if (!model.containsAttribute("reserva")){
+//                return "index";
+//            }
+
+            auth= SecurityContextHolder.getContext().getAuthentication();
+            Reserva reserva = new Reserva();
+            Habitacion habitacion = habitacionService.findById(id);
+            reserva.setHabitacion(habitacion);
+            Usuario usuario = usuarioService.usuarioPorNombre(auth.getName());
+            reserva.setUsuario(usuario);
+
+            long diasBuscados = 0;
+            try {
+                long fechaInicio = fecha.getFechaInicio().getTime();
+                long fechaFin = fecha.getFechaFin().getTime();
+                long timeDiff = Math.abs(fechaInicio - fechaFin);
+                diasBuscados = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS) + 1;
+            }catch (NullPointerException e){
+                e.printStackTrace();
+            }
+
+
+
+            model.addAttribute("titulo","Crear Reserva");
+            model.addAttribute("reserva",reserva);
+            model.addAttribute("habitacion",habitacion);
+            model.addAttribute("usuario",usuario);
+            model.addAttribute("dias",diasBuscados);
+            return "crearReserva";
         }
 }

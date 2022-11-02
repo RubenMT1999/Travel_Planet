@@ -27,7 +27,7 @@ public class Habitacion {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "num_habitacion")
+    @Column(name = "num_habitacion",unique = true)
     @NotNull
     private int numeroHabitacion;
 
@@ -68,6 +68,7 @@ public class Habitacion {
     private boolean wifi;
 
     @Column(name = "precio_base")
+    @NotNull
     private Double precioBase;
 
     //tuve que quitar el cascade para que no me diera fallo al crear habitacion

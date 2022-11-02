@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -54,8 +55,11 @@ public class HabitacionService {
 
 
     public void guardarPersonalizado(Integer idHotel,Integer numHab,String extTel, Integer capacidad,
-                                     String imagen, String descripcion, Double precioBase){
-        habitacionRepository.guardarPersonalizado(idHotel,numHab,extTel,capacidad,imagen,descripcion,precioBase);
+                                     String imagen, String descripcion, Double precioBase,Boolean cajaFuerte,
+                                     Boolean cocina,Boolean banioPrivado,Boolean aireAcondicionado,Boolean tv,
+                                     Boolean terraza,Boolean wifi){
+        habitacionRepository.guardarPersonalizado(idHotel,numHab,extTel,capacidad,imagen,descripcion,precioBase,
+                cajaFuerte,cocina,banioPrivado,aireAcondicionado,tv,terraza,wifi);
     }
 
 
@@ -77,15 +81,22 @@ public class HabitacionService {
                 e.printStackTrace();
             }
         }
+
+        if(imagen.isEmpty()){
+            habitacion.setImagen("https://t3.ftcdn.net/jpg/01/06/85/86/360_F_106858608_EuOWeiATyMOD6b9cXNzcJDSZufLbojQs.jpg");
+        }
     }
 
 
     public void borrarImagen(Habitacion habitacion){
-        Path rootPath = Paths.get("uploads").resolve(habitacion.getImagen()).toAbsolutePath();
-        File archivo = rootPath.toFile();
 
-        if(archivo.length() >0 && archivo.canRead()){
-            archivo.delete();
+        try{
+            Path rootPath = Paths.get("uploads").resolve(habitacion.getImagen()).toAbsolutePath();
+            File archivo = rootPath.toFile();
+            if(archivo.length() >0 && archivo.canRead()){
+                archivo.delete();
+            }
+        }catch (InvalidPathException e){
         }
     }
 
@@ -118,30 +129,43 @@ public class HabitacionService {
 
         if (habitacion.isCajaFuerte() == true){
             precioBase += habitacion.getHotel().getTarifa().getPrecioCajaFuerte();
+            habitacion.setCajaFuerte(true);
         }
         if (habitacion.isTv() == true){
             precioBase += habitacion.getHotel().getTarifa().getPrecioTV();
+            habitacion.setTv(true);
         }
         if (habitacion.isCocina() == true){
             precioBase += habitacion.getHotel().getTarifa().getPrecioCocina();
+            habitacion.setCocina(true);
         }
         if (habitacion.isTerraza() == true){
             precioBase += habitacion.getHotel().getTarifa().getPrecioTerraza();
+            habitacion.setTerraza(true);
         }
         if (habitacion.isBanioPrivado() == true){
             precioBase += habitacion.getHotel().getTarifa().getPrecioBanio();
+            habitacion.setBanioPrivado(true);
         }
         if (habitacion.isWifi() == true){
             precioBase += habitacion.getHotel().getTarifa().getPrecioWifi();
+            habitacion.setWifi(true);
         }
         if (habitacion.isAireAcondicionado() == true){
             precioBase += habitacion.getHotel().getTarifa().getPrecioAire();
+            habitacion.setAireAcondicionado(true);
         }
 
         return precioBase;
     }
 
     public void listarIdHotelesPorHabitacion() { habitacionRepository.totalIdHotelesHabitacion(); }
+
+
+    public Integer comprobarNumHab(Integer numHab){
+        return habitacionRepository.comprobarNumHab(numHab);
+    }
+
 
 
 }

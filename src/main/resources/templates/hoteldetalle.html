@@ -18,9 +18,11 @@
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col"th:each="habitacion: ${habitacions}" >
-                    <div class="card shadow-sm" >
-                        <img th:src="${habitacion.imagen}" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title></title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text>
-                        <div class="card-body" >
+                    <div class="card shadow-sm">
+                        <div>
+                            <img th:if="${#strings.length(habitacion.imagen)>0} and ${!habitacion.imagen.contains('https')}" class="card-img-top"  th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
+                            <img th:if="${habitacion.imagen.contains('https')}" th:src="${habitacion.imagen}" class="card-img-top" alt="..." >
+                        </div>                        <div class="card-body" >
                             <p class="card-text" th:text="${habitacion.descripcion}"></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">

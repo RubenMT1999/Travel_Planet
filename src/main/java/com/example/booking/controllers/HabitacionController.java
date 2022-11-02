@@ -46,7 +46,6 @@ public class HabitacionController {
 
     @Autowired
     HabitacionService habitacionService;
-
     @Autowired
     HotelRepository hotelRepository;
     @Autowired
@@ -94,8 +93,11 @@ public class HabitacionController {
     public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, @RequestParam(value = "file") MultipartFile imagen,
                            SessionStatus status, @ModelAttribute("id") Integer idHotel, RedirectAttributes flash){
 
-        if(result.hasErrors()){
+        Integer comprobarNumHab = habitacionService.comprobarNumHab(habitacion.getNumeroHabitacion());
+
+        if(result.hasErrors() || comprobarNumHab != null){
             model.addAttribute("titulo", "Ha habido algún error");
+            model.addAttribute("comprobarNumHab",comprobarNumHab);
             return "crearHabitacion";
         }
 
@@ -105,7 +107,9 @@ public class HabitacionController {
         habitacionService.cargarImagen(imagen,flash,habitacion);
 
         habitacionService.guardarPersonalizado(habitacion.getHotel().getId(),habitacion.getNumeroHabitacion(),habitacion.getExtensionTelefonica(),
-                habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion(),habitacion.getPrecioBase());
+                habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion(),habitacion.getPrecioBase(),habitacion.isCajaFuerte(),
+                habitacion.isCocina(),habitacion.isBanioPrivado(),habitacion.isAireAcondicionado(),habitacion.isTv(),habitacion.isTerraza(),
+                habitacion.isWifi());
         model.addAttribute("success","La habitación ha sido creada con éxito!");
         return "redirect:/habitaciones/listar/"+idHotel;
     }
