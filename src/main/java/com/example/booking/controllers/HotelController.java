@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -143,9 +144,9 @@ import java.util.concurrent.TimeUnit;
         }
 
         @PostMapping("/hoteles/nuevo")
-        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth){
+        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
         hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
-        hotelService.hotelGuardar(hotel);
+        hotelService.hotelGuardar(imagen,flash,hotel);
         return "redirect:/hoteles/verHotelesUsuarios";
 
         }
@@ -173,7 +174,7 @@ import java.util.concurrent.TimeUnit;
         }
 
         @PostMapping("/hoteles/editar/{id}")
-        public String mostrarHotelEditar(@PathVariable int id, @ModelAttribute("hotel") Hotel hotel,Model model){
+        public String mostrarHotelEditar(@PathVariable int id, @ModelAttribute("hotel") Hotel hotel,Model model, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
         Hotel hotelEditar = hotelService.hotelID(id);
         hotelEditar.setId(id);
         hotelEditar.setNombre(hotel.getNombre());
@@ -185,9 +186,16 @@ import java.util.concurrent.TimeUnit;
             hotelEditar.setTelefono(hotel.getTelefono());
             hotelEditar.setCif(hotel.getCif());
             hotelEditar.setComentario(hotel.getComentario());
-            hotelEditar.setPuntuacion(hotel.getPuntuacion());
+            hotelEditar.setEstrellas(hotel.getEstrellas());
 
-            hotelService.hotelEditar(hotelEditar);
+            hotelService.cargarImagen(imagen, flash, hotel);
+
+            if(hotel.getImagen() == null){
+                hotelEditar.setImagen(hotelService.imagenHotel(hotel.getId()));
+                hotelService.hotelEditar(imagen, flash, hotelEditar);
+            }else {
+                hotelService.hotelEditar(imagen, flash, hotelEditar);
+            }
             return "redirect:/hoteles/verHotelesUsuarios";
         }
 

@@ -19,7 +19,9 @@
     </div>
     <br>
     <div class="card" style="width: 18rem;" th:each="hotel :${hoteles}">
-      <img th:src="${hotel.imagen}" class="card-img-top" alt="..." >
+      <img th:if="${#strings.length(hotel.imagen)>0} and ${!hotel.imagen.contains('https')}" class="img-thumbnail rounded float-end " th:src="@{'/uploads/' + ${hotel.imagen}}" th:alt="${hotel.imagen}"/>
+      <img th:if="${hotel.imagen.contains('https')}" th:src="${hotel.imagen}" class="card-img-top" alt="..." >
+
       <div class="card-body" >
         <h5 class="card-title" th:text="${hotel.nombre}">Card title</h5>
         <p>Ciudad</p>
@@ -30,13 +32,14 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item" th:text="${hotel.precio}">An item</li>
         <li class="list-group-item" th:text="${hotel.comentario}">A second item</li>
-        <li class="list-group-item" th:text="${hotel.puntuacion}">A third item</li>
+        <li class="list-group-item" th:text="${hotel.estrellas}">A third item</li>
       </ul>
       <br>
       <div class="box-footer">
         <a th:href="@{/habitaciones/listar/{id}(id=${hotel.getId()})}" class="btn btn-success">Habitaciones</a>
         <a th:href="@{/hoteles/editar/{id}(id=${hotel.getId()})}" class="btn btn-warning">Editar</a>
-        <a th:href="@{/hoteles/eliminarPorId/{id}(id=${hotel.getId()})}" class="btn btn-danger">Eliminar</a>
+        <a th:href="@{/tarifa/nuevo/{id}(id=${hotel.getId()})}" class="btn btn-warning">Tarifa</a>
+        <a th:href="@{/hoteles/eliminarPorId/{id}(id=${hotel.getId()})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a>
 
       </div>
       <br>

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -45,13 +46,12 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     @Transactional
     @Modifying
     @Query(value = "insert into hotel (nombre, puntuacion, precio, comentario,imagen, lugar, telefono, cif, num_hab, ciudad, id_usuario) values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11)",nativeQuery = true )
-    void crearHotel(@Param("nombre") String nombre, @Param("puntuacion") String puntuacion,
+    void crearHotel(@Param("nombre") String nombre, @Param("estrellas") Integer estrellas,
                     @Param("comentario") String comentario, @Param("imagen") String imagen
             , @Param("lugar") String lugar, @Param("telefono") String telefono, @Param("cif") String cif, String s, @Param("num_hab") Integer num_hab, @Param("ciudad") String ciudad, @Param("id_usuario") Integer id_usuario);
 
-    @Query(value = "SELECT id FROM Hotel", nativeQuery = true)
-    List<Integer> obtenerIdHotel();
-
+    @Query(value = "select r.imagen from Hotel r where r.id= ?1")
+    String imagenHotel(Integer id);
 
 
 }
