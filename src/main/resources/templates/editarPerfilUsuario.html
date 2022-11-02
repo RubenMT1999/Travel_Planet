@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <title>Title</title>
+  <style type="text/css">
+    html, body {
+      margin:0px;
+      height:100%;
+    }
+  </style>
+</head>
+<body>
+
+<header th:replace="header/header :: header"></header>
+
+<div class="container-fluid px-0">
+  <div class="row me-0">
+
+    <div class="col-2">
+
+      <div class="d-flex flex-column flex-shrink-0 p-3 px-0 bg-light" style="height:100vh;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-4">Sidebar</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+              Orders
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+              Products
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+              Customers
+            </a>
+          </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+          <a href="#" th:text="${editarPerfil.nombre}" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://w7.pngwing.com/pngs/659/667/png-transparent-computer-icons-user-profile-blog-others-miscellaneous-rectangle-logo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong>mdo</strong>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <form id="logout" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                <a onclick="document.getElementById('logout').submit();" class="dropdown-item p-2"
+                   type="submit">Cerrar Sesión</a>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-10 p-5">
+
+      <div class="container border border-primary bg-light rounded p-3 shadow mt-4">
+
+        <h1 th:text="${titulo}" class="mt-4"></h1>
+
+        <form th:action="@{/perfil/editar-perfil}" th:object="${editarPerfil}" method="post">
+
+          <div class="row">
+            <div class="col-md-6 col">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" id="name" th:field="*{nombre}" class="form-control">
+            </div>
+            <div class="col-md-6 col">
+              <label for="apellido" class="form-label">Apellidos</label>
+              <input type="text" id="apellido" th:field="*{apellidos}" class="form-control">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-6 col">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" id="email" th:field="*{email}" class="form-control">
+            </div>
+            <div class="col-md-6 col">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="tel" id="telefono" th:field="*{telefono}" class="form-control">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-6 col">
+              <label for="nacionalidad" class="form-label">Nacionalidad</label>
+              <input type="text" id="nacionalidad" th:field="*{nacionalidad}" class="form-control">
+            </div>
+            <div class="col-md-6 col">
+              <label for="dni" class="form-label">DNI</label>
+              <input type="text" id="dni" th:field="*{dni}" class="form-control">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-6 col">
+              <label for="password" class="form-label">Contraseña Nueva
+                <small>(Si no deseeas cambiarla, deje el espacio en blanco)</small>
+              </label>
+              <input type="password" id="password" th:field="*{contrasenia}" class="form-control">
+            </div>
+          </div>
+
+          <div class="row m-4">
+            <div class="col-md-4 col">
+              <input type="submit" value="Guardar" class="btn btn-primary">
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>

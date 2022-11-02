@@ -4,10 +4,12 @@ import Paginador.PageRender;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Hotel;
+import com.example.booking.models.Usuario;
 import com.example.booking.repository.HabitacionRepository;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
+import com.example.booking.services.UsuarioService;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -186,6 +190,7 @@ public class HabitacionController {
         }
 
     }
+
 
 
 
