@@ -45,7 +45,6 @@ import java.util.concurrent.TimeUnit;
 
     @GetMapping("/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
-                                   @Valid Reserva reserva1, BindingResult result,
                                    RedirectAttributes flash,
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
@@ -114,7 +113,9 @@ import java.util.concurrent.TimeUnit;
                                        @ModelAttribute("reserva") Reserva fecha_inicio,
                                        @ModelAttribute("reserva") Reserva fecha_fin,
                                        Habitacion habitacion,
-                                       Model model) throws ParseException {
+                                       Model model) {
+
+
             List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin(),
                     capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
                     habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte());
