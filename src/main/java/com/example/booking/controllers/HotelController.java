@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 
     @Controller
     @RequestMapping("/hoteles")
-    @SessionAttributes({"habitacion","reserva"})
+    @SessionAttributes({"habitacion","reserva","tarifa"})
 
     public class HotelController {
     @Autowired

@@ -38,6 +38,7 @@
       <div class="box-footer">
         <a th:href="@{/habitaciones/listar/{id}(id=${hotel.getId()})}" class="btn btn-success">Habitaciones</a>
         <a th:href="@{/hoteles/editar/{id}(id=${hotel.getId()})}" class="btn btn-warning">Editar</a>
+        <a th:href="@{/tarifa/nuevo/{id}(id=${hotel.getId()})}" class="btn btn-warning">Tarifa</a>
         <a th:href="@{/hoteles/eliminarPorId/{id}(id=${hotel.getId()})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a>
 
       </div>
