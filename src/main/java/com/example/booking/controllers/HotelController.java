@@ -183,7 +183,7 @@ import java.util.concurrent.TimeUnit;
             hotelEditar.setTelefono(hotel.getTelefono());
             hotelEditar.setCif(hotel.getCif());
             hotelEditar.setComentario(hotel.getComentario());
-            hotelEditar.setPuntuacion(hotel.getPuntuacion());
+            hotelEditar.setEstrellas(hotel.getEstrellas());
 
 
             hotelService.cargarImagen(imagen, flash, hotel);

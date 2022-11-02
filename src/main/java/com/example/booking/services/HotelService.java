@@ -97,8 +97,8 @@ public class HotelService {
     public List<Hotel> hotelesMail (String auth) { return hotelRepository.hotelPorMail(auth);}
 
 
-    public void crearHotel(String nombre, String puntuacion, String precio, String comentario, String imagen, String lugar, String telefono, String cif, Integer num_hab, String ciudad, Integer id_usuario){
-        hotelRepository.crearHotel(nombre, puntuacion, precio, comentario, imagen, lugar, telefono, cif, num_hab, ciudad, id_usuario);
+    public void crearHotel(String nombre, Integer estrellas, String precio, String comentario, String imagen, String lugar, String telefono, String cif, Integer num_hab, String ciudad, Integer id_usuario){
+        hotelRepository.crearHotel(nombre, estrellas, precio, comentario, imagen, lugar, telefono, cif, num_hab, ciudad, id_usuario);
     }
 
     public Page<Hotel> findAll(Pageable pageable) {return pageRepository.findAll(pageable);}
