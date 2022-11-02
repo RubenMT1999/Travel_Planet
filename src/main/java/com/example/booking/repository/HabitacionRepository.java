@@ -33,7 +33,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
 
     List<Habitacion> buscarporidhab(Integer id, Integer capacidad, Date fecha_inicio, Date fecha_fin);
 
-    @Query(value = "select * from vistahabfiltro where id_hotel = :id_hotel and capacidad = :capacidad" +
+    @Query(value = "select * from vistahabitacion where id_hotel = :id_hotel and capacidad = :capacidad" +
             " and tv = :tv and aire_acondicionado = :aire and banio_privado = :banio_privado and cocina = :cocina and" +
             " caja_fuerte = :caja_fuerte and wifi = :wifi and terraza = :terraza" +
             " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
