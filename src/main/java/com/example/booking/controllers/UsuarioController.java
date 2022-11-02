@@ -100,12 +100,12 @@ public class UsuarioController {
 
 
 
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(auth.getUsername(),
-                auth.getPassword(), Collections.singletonList(new SimpleGrantedAuthority(ERoles.ROLE_ADMIN.toString())));
-
-        authToken.setDetails(new WebAuthenticationDetails(request));
-
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(auth.getUsername(),
+//                auth.getPassword(), Collections.singletonList(new SimpleGrantedAuthority(ERoles.ROLE_ADMIN.toString())));
+//
+//        authToken.setDetails(new WebAuthenticationDetails(request));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authToken);
 
         return "redirect:/";
 
