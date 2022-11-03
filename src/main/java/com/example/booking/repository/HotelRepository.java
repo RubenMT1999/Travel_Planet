@@ -29,15 +29,15 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
 
     @Query(value = "select * from vistafiltro where ciudad = :ciudad and capacidad = :capacidad" +
-            " and tv = :tv and aire_acondicionado = :aire and banio_privado = :banio_privado and cocina = :cocina and" +
-            " caja_fuerte = :caja_fuerte and wifi = :wifi and terraza = :terraza" +
+            " and (tv in :tv and aire_acondicionado in :aire and banio_privado in :banio_privado and cocina in :cocina and" +
+            " caja_fuerte in :caja_fuerte and wifi in :wifi and terraza in :terraza and precio_base between :preciobase and :precioFinal)" +
             " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
             "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null)" +
             " group by nombre", nativeQuery = true)
 
-    List<Hotel>buscarfiltros(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi,
-                              boolean terraza, boolean tv, boolean aire, boolean banio_privado, boolean cocina,
-                              boolean caja_fuerte);
+    List<Hotel>buscarfiltros(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad, List<Integer> wifi,
+                             List<Integer> terraza,List<Integer> tv, List<Integer> aire, List<Integer> banio_privado, List<Integer> cocina,
+                             List<Integer> caja_fuerte, Integer preciobase, Integer precioFinal);
 
      @Query("SELECT h FROM Habitacion h where h.hotel.usuario.nombre = ?1")
     List<Habitacion> listarHabitaciones();

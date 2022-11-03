@@ -114,11 +114,9 @@ import java.util.concurrent.TimeUnit;
                                        @ModelAttribute("reserva") Reserva fecha_fin,
                                        Habitacion habitacion,
                                        Model model) {
-
-
             List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin(),
                     capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
-                    habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte());
+                    habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase());
 
             model.addAttribute("habfiltro", habitacion);
             model.addAttribute("hotel", hotels);

@@ -17,10 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class HabitacionService {
@@ -109,12 +106,62 @@ public class HabitacionService {
 
     }
 
-    public List<Habitacion> habitacionfiltro(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi,
-                                        boolean terraza, boolean tv, boolean aire, boolean banio_privado, boolean cocina,
+    public List<Habitacion> habitacionfiltro(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi1,
+                                        boolean terraza1, boolean tv1, boolean aire1, boolean banio_privado, boolean cocina1,
                                         boolean caja_fuerte) {
-        return habitacionRepository.buscarfiltros(id_hotel, fecha_inicio, fecha_fin, capacidad, wifi, terraza, tv, aire,
-                banio_privado, cocina, caja_fuerte);
+        List<Integer> wifi = new ArrayList<>();
+        List<Integer> terraza = new ArrayList<>();
+        List<Integer> tv = new ArrayList<>();
+        List<Integer> cocina = new ArrayList<>();
+        List<Integer> aire = new ArrayList<>();
+        List<Integer> banio = new ArrayList<>();
+        List<Integer> caja = new ArrayList<>();
+        if(!wifi1){
+            wifi.add(0);
+            wifi.add(1);
+        }else{
+            wifi.add(1);
+        }
+        if(!terraza1){
+            terraza.add(0);
+            terraza.add(1);
+        }else{
+            terraza.add(1);
+        }
+        if(!tv1){
+            tv.add(0);
+            tv.add(1);
+        }else{
+            tv.add(1);
+        }
+        if(!cocina1){
+            cocina.add(0);
+            cocina.add(1);
+        }else{
+            cocina.add(1);
+        }
+        if(!aire1){
+            aire.add(0);
+            aire.add(1);
+        }else{
+            aire.add(1);
+        }
+        if(!banio_privado){
+            banio.add(0);
+            banio.add(1);
+        }else{
+            banio.add(1);
+        }
+        if(!caja_fuerte){
+            caja.add(0);
+            caja.add(1);
+        }else{
+            caja.add(1);
+        }
+        return habitacionRepository.buscarfiltrosid(id_hotel, fecha_inicio, fecha_fin, capacidad, wifi, terraza, tv, aire,
+                banio, cocina, caja);
     }
+
 
     public Page<Habitacion> listarHabitacionesPages(Pageable pageable,Integer id) {
         return pageRepositoryHab.listarHabitacionesPages(pageable,id);

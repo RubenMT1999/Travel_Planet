@@ -19,23 +19,23 @@
                             <div class="card-body">
                                 <p class="fw-bolder">Tu presupuesto: </p>
                                 <div class="form-check ">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" th:field="*{precioBase}" th:value=0>
                                     <label class="form-check-label" for="inlineRadio1"> 0€ - 50€</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" th:field="*{precioBase}" th:value=50>
                                     <label class="form-check-label" for="inlineRadio2"> 50€ - 100€</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" th:field="*{precioBase}" th:value=100>
                                     <label class="form-check-label" for="inlineRadio3"> 100€ - 150€</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" th:field="*{precioBase}" th:value=150>
                                     <label class="form-check-label" for="inlineRadio3"> 150€ - 200€</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option3">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" th:field="*{precioBase}" th:value=200>
                                     <label class="form-check-label" for="inlineRadio3"> + 200€</label>
                                 </div>
                             </div>
