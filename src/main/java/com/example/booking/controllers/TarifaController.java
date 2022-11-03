@@ -5,6 +5,7 @@ import com.example.booking.models.Tarifa;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.TarifaService;
+import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/tarifa")
@@ -22,19 +25,25 @@ public class TarifaController {
     HotelRepository hotelRepository;
     @Autowired
     HotelService hotelService;
+    @Autowired
+    UsuarioService usuarioService;
 
     @GetMapping("/nuevo/{id}")
-    public String mostrarTarifaNueva(@PathVariable int id, Model model){
+    public String mostrarTarifaNueva(@PathVariable Integer id, Model model){
         Tarifa tarifa = new Tarifa();
-        tarifa.setHotelTarifa(hotelRepository.findById(id).get());
+        Integer id_hotel = id;
+
         model.addAttribute("tarifa",tarifa);
+        model.addAttribute("id_hotel", id_hotel);
         return "tarifaNueva";
 
     }
 
     @PostMapping("/nuevo")
-    public String hotelNuevo(@ModelAttribute("hotel") Tarifa tarifa, Authentication auth){
-        tarifaService.tarifaNueva(tarifa);
+    public String tarifaNueva(@Valid Tarifa tarifa, Model model,@RequestParam ("id_hotel")Integer id_hotel){
+
+        tarifaService.guardarTarifa(tarifa.getPrecioBanio(),tarifa.getPrecioCajaFuerte(),tarifa.getPrecioCocina(),tarifa.getPrecioTV(),tarifa.getPrecioTerraza(),tarifa.getPrecioWifi(),tarifa.getPrecioAire(),id_hotel);
+
         return "redirect:/hoteles/verHotelesUsuarios";
 
     }
