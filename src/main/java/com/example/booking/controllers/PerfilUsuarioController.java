@@ -1,6 +1,9 @@
 package com.example.booking.controllers;
 
+import com.example.booking.models.UserAuth;
 import com.example.booking.models.Usuario;
+import com.example.booking.repository.UserAuthRepository;
+import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,6 +24,8 @@ public class PerfilUsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private UserAuthRepository userAuthRepository;
 
     @GetMapping("/datos")
     public String datosUsuario(Model model, Authentication auth){
@@ -41,21 +46,18 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/editar-perfil")
-    public String guardarDatos(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model, Authentication auth){
-        auth = SecurityContextHolder.getContext().getAuthentication();
-        Usuario editarPerfilUsuario = usuarioService.datosUsuario(auth.getName());
+    public String guardarDatos(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model){
 
-        usuario.setFechaNacimiento(usuario.getFechaNacimiento());
         if (usuario.getContrasenia() == null){
             usuario.setContrasenia(usuario.getContrasenia());
         }
 
         if (result.hasErrors()){
-            return "perfilUsuario";
+            return "redirect:/perfil/datos";
         }
+        usuarioService.guardarUsuario(usuario);
 
-        usuarioService.save(usuario);
-        return "perfilUsuario";
+        return "reditect:/perfil/datos";
     }
 
 

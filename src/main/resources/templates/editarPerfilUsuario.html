@@ -60,9 +60,9 @@
         </ul>
         <hr>
         <div class="dropdown">
-          <a href="#" th:text="${editarPerfil.nombre}" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="#" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://w7.pngwing.com/pngs/659/667/png-transparent-computer-icons-user-profile-blog-others-miscellaneous-rectangle-logo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>mdo</strong>
+            <strong  th:text="${editarPerfil.nombre}"></strong>
           </a>
           <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -128,6 +128,10 @@
                 <small>(Si no deseeas cambiarla, deje el espacio en blanco)</small>
               </label>
               <input type="password" id="password" th:field="*{contrasenia}" class="form-control">
+            </div>
+            <div class="col-md-6 col">
+              <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+              <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" class="form-control">
             </div>
           </div>
 
