@@ -123,6 +123,11 @@ public class HabitacionService {
         return pageRepositoryHab.listarHabitacionesPages(pageable,id);
     }
 
+    public Page<Habitacion> buscarHabitacionesPages(Integer id_hotel, Integer capacidad, Date fecha_inicio, Date fecha_fin,Pageable pageable) {
+        return pageRepositoryHab.buscarHabitacionesPages(id_hotel, capacidad, fecha_inicio, fecha_fin,pageable);
+    }
+
+
 
 
     public Double establecerPrecioHabitacion(Double precioBase, Habitacion habitacion){

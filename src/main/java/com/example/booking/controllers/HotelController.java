@@ -100,10 +100,14 @@ import java.util.concurrent.TimeUnit;
     public String hotelid(@PathVariable(name = "id") Integer id,
                           @ModelAttribute("habitacion") Habitacion capacidad,
                           @ModelAttribute("reserva") Reserva fecha_inicio,
-                          @ModelAttribute("reserva") Reserva fecha_fin,Model model) {
+                          @ModelAttribute("reserva") Reserva fecha_fin,Model model,
+                          @RequestParam(name="page", defaultValue = "0") int page) {
+        Pageable pageRequest = PageRequest.of(page, 5);
         model.addAttribute("titulo", "Buscar - Travel Planet");
-        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id, capacidad.getCapacidad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin());
+        Page<Habitacion> habitacions = habitacionService.buscarHabitacionesPages(id, capacidad.getCapacidad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin(),pageRequest);
+        PageRender<Habitacion> pageRender = new PageRender<>("/hoteles/habitacion/"+id,habitacions);
         Hotel hotel = hotelService.hotelID(id);
+        model.addAttribute("page",pageRender);
         model.addAttribute("hotel", hotel);
         model.addAttribute("habitacions", habitacions);
         return "hoteldetalle";
