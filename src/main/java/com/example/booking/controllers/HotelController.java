@@ -146,7 +146,7 @@ import java.util.concurrent.TimeUnit;
                               @ModelAttribute("reserva") Reserva fecha_fin,@ModelAttribute("habfiltro") Habitacion habitacion ,Model model) {
             model.addAttribute("titulo", "Buscar - Travel Planet");
             List<Habitacion> habitacions = habitacionService.habitacionfiltro(id, fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin(), capacidad.getCapacidad(),habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado()
-            , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte());
+            , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase());
             Hotel hotel = hotelService.hotelID(id);
             model.addAttribute("hotel", hotel);
             model.addAttribute("habitacions", habitacions);

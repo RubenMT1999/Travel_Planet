@@ -108,7 +108,7 @@ public class HabitacionService {
 
     public List<Habitacion> habitacionfiltro(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi1,
                                         boolean terraza1, boolean tv1, boolean aire1, boolean banio_privado, boolean cocina1,
-                                        boolean caja_fuerte) {
+                                        boolean caja_fuerte, Integer precioBase) {
         List<Integer> wifi = new ArrayList<>();
         List<Integer> terraza = new ArrayList<>();
         List<Integer> tv = new ArrayList<>();
@@ -116,6 +116,22 @@ public class HabitacionService {
         List<Integer> aire = new ArrayList<>();
         List<Integer> banio = new ArrayList<>();
         List<Integer> caja = new ArrayList<>();
+        Integer precioFinal = 0;
+        if(precioBase == 0){
+            precioFinal = 50;
+        }
+        if(precioBase == 50){
+            precioFinal = 100;
+        }
+        if(precioBase == 100){
+            precioFinal = 150;
+        }
+        if(precioBase == 150){
+            precioFinal = 200;
+        }
+        if(precioBase == 200){
+            precioFinal = 5000;
+        }
         if(!wifi1){
             wifi.add(0);
             wifi.add(1);
@@ -159,7 +175,7 @@ public class HabitacionService {
             caja.add(1);
         }
         return habitacionRepository.buscarfiltrosid(id_hotel, fecha_inicio, fecha_fin, capacidad, wifi, terraza, tv, aire,
-                banio, cocina, caja);
+                banio, cocina, caja, precioBase, precioFinal);
     }
 
 
