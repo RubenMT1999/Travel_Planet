@@ -2,12 +2,16 @@ package com.example.booking.repository;
 
 import com.example.booking.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transaction;
+import java.util.Date;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
@@ -28,6 +32,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Query("SELECT u FROM Usuario u where u.email = ?1")
     Usuario datosUsuario(String nombre);
 
-
+    @Transactional
+    @Modifying
+    @Query("UPDATE Usuario SET nombre = :nombre, apellidos = :apellidos, contrasenia = :contrasenia," +
+            "fechaNacimiento = :fechaNacimiento, dni = :dni, nacionalidad = :nacionalidad," +
+            "telefono = :telefono, email = :email")
+     void editarUsuario(String nombre, String apellidos, String contrasenia,
+                          Date fechaNacimiento, String dni, String nacionalidad,
+                          String telefono, String email);
 
 }

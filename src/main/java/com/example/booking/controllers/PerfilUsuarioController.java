@@ -8,6 +8,7 @@ import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,8 @@ public class PerfilUsuarioController {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
-    private UserAuthRepository userAuthRepository;
+    private BCryptPasswordEncoder passwordEncoder;
+
 
     @GetMapping("/datos")
     public String datosUsuario(Model model, Authentication auth){
@@ -55,9 +57,14 @@ public class PerfilUsuarioController {
         if (result.hasErrors()){
             return "redirect:/perfil/datos";
         }
-        usuarioService.guardarUsuario(usuario);
 
-        return "reditect:/perfil/datos";
+        String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
+        usuario.setContrasenia(bcryptPassword);
+
+        usuarioService.editarUsuario(usuario.getNombre(),usuario.getApellidos(),usuario.getContrasenia(),
+                usuario.getFechaNacimiento(),usuario.getDni(),usuario.getNacionalidad(),usuario.getTelefono(),usuario.getEmail());
+
+        return "redirect:/perfil/datos";
     }
 
 
