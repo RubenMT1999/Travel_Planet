@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,9 +31,107 @@ public class HotelService {
     @Autowired
     private PageRepository pageRepository;
 
-    public List<Hotel> Buscar(String ciudades, Date fecha_inicio, Date fecha_fin, Integer capacidad) {
+    public List<Hotel> buscar(String ciudades, Date fecha_inicio, Date fecha_fin, Integer capacidad) {
         return hotelRepository.buscador(ciudades, fecha_inicio, fecha_fin, capacidad);
             }
+
+    public List<Hotel> buscarPorFiltros(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi1,
+                                        boolean terraza1, boolean tv1, boolean aire1, boolean banio_privado, boolean cocina1,
+                                        boolean caja_fuerte, Integer precioBase, Integer puntuacion) {
+        List<Integer> wifi = new ArrayList<>();
+        List<Integer> terraza = new ArrayList<>();
+        List<Integer> tv = new ArrayList<>();
+        List<Integer> cocina = new ArrayList<>();
+        List<Integer> aire = new ArrayList<>();
+        List<Integer> banio = new ArrayList<>();
+        List<Integer> caja = new ArrayList<>();
+        Integer precioFinal = 0;
+        Double estrellamax = 0.0;
+        if(puntuacion == null){
+            puntuacion = 0;
+            estrellamax = 5.1;
+        }
+        if(puntuacion == 1){
+            estrellamax = 1.1;
+        }
+        if(puntuacion == 2){
+            estrellamax = 2.1;
+        }
+        if(puntuacion == 3){
+            estrellamax = 3.1;
+        }
+        if(puntuacion == 4){
+            estrellamax = 4.1;
+        }
+        if(puntuacion == 5){
+            estrellamax = 5.1;
+        }
+        if(precioBase == null){
+            precioBase = 5;
+            precioFinal = 10000;
+
+        }
+        if(precioBase == 0){
+            precioFinal = 50;
+        }
+        if(precioBase == 50){
+            precioFinal = 100;
+        }
+        if(precioBase == 100){
+            precioFinal = 150;
+        }
+        if(precioBase == 150){
+            precioFinal = 200;
+        }
+        if(precioBase == 200){
+            precioFinal = 5000;
+        }
+        if(!wifi1){
+            wifi.add(0);
+            wifi.add(1);
+        }else{
+            wifi.add(1);
+        }
+        if(!terraza1){
+            terraza.add(0);
+            terraza.add(1);
+        }else{
+            terraza.add(1);
+        }
+        if(!tv1){
+            tv.add(0);
+            tv.add(1);
+        }else{
+            tv.add(1);
+        }
+        if(!cocina1){
+            cocina.add(0);
+            cocina.add(1);
+        }else{
+            cocina.add(1);
+        }
+        if(!aire1){
+            aire.add(0);
+            aire.add(1);
+        }else{
+            aire.add(1);
+        }
+        if(!banio_privado){
+            banio.add(0);
+            banio.add(1);
+        }else{
+            banio.add(1);
+        }
+        if(!caja_fuerte){
+            caja.add(0);
+            caja.add(1);
+        }else{
+            caja.add(1);
+        }
+        return hotelRepository.buscarfiltros(ciudad, fecha_inicio, fecha_fin, capacidad, wifi, terraza, tv, aire,
+                                             banio, cocina, caja, precioBase, precioFinal, puntuacion, estrellamax);
+    }
+
 
     public List<Hotel> verTodosHoteles(){
         Hotel hotelNuevo = new Hotel();
