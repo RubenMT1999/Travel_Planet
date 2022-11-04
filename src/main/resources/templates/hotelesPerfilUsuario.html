@@ -28,7 +28,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
+            <a href="#" class="nav-link active" aria-current="page" th:href="@{/perfil/datos}">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
               Perfil de Usuario
             </a>
@@ -56,7 +56,7 @@
         <div class="dropdown">
           <a href="#" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://w7.pngwing.com/pngs/659/667/png-transparent-computer-icons-user-profile-blog-others-miscellaneous-rectangle-logo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong th:text="${editarPerfil.nombre}"></strong>
+            <strong th:text="${usuario.nombre}"></strong>
           </a>
           <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li><a class="dropdown-item" th:href="@{/perfil/editar-perfil}">Configuración</a></li>
@@ -79,12 +79,48 @@
     <div class="col-10 p-5">
 
       <div class="container">
+        <h2>Mis Hoteles</h2>
+        <div class="row">
 
-        <div>
+          <div class="col">
 
-          <div>
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item" th:each="hotel :${hotelesUsuario}">
 
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:text="${hotel.nombre}">
 
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+                    <div class="row">
+                      <div class="col">
+                        <span th:text="${hotel.comentario}"></span>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-3">
+                        <div class="g-col-4"><span>Número de Habitaciones :</span><span th:text="${hotel.numero_habitaciones}"></div>
+                      </div>
+                    </div>
+
+                      <div class="row">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                          <a class="btn btn-success me-md-2" type="button" th:href="@{/habitaciones/listar/{id}(id=${hotel.getId()})}">Habitaciones</a>
+                          <a class="btn btn-warning" type="button" th:href="@{/hoteles/editar/{id}(id=${hotel.getId()})}">Editar</a>
+                          <a class="btn btn-danger" type="button" th:href="@{/hoteles/eliminarPorId/{id}(id=${hotel.getId()})}">Eliminar</a>
+                        </div>
+                      </div>
+
+                  </div>
+                </div>
+
+              </div>
+              </div>
+            </div>
 
           </div>
 

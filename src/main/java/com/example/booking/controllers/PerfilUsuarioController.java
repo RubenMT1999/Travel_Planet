@@ -1,9 +1,11 @@
 package com.example.booking.controllers;
 
+import com.example.booking.models.Hotel;
 import com.example.booking.models.UserAuth;
 import com.example.booking.models.Usuario;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
+import com.example.booking.services.HotelService;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,11 +20,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/perfil")
 public class PerfilUsuarioController {
 
+    @Autowired
+    private HotelService hotelService;
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
@@ -67,6 +72,16 @@ public class PerfilUsuarioController {
         return "redirect:/perfil/datos";
     }
 
+    @GetMapping("/mis-hoteles")
+    public String listarHotelesUsuario(Model model, Authentication auth){
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        Usuario nombreUsuario = usuarioService.datosUsuario(auth.getName());
+        List<Hotel> hotelesUsuario = hotelService.hotelesMail(auth.getName());
+        model.addAttribute("usuario", nombreUsuario);
+        model.addAttribute("hotelesUsuario",hotelesUsuario);
+
+        return "hotelesPerfilUsuario";
+    }
 
 
 }
