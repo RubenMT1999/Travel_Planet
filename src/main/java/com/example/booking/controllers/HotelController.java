@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,7 +40,6 @@ import java.util.concurrent.TimeUnit;
     @Controller
 
     @SessionAttributes({"habitacion","reserva"})
-
     public class HotelController {
     @Autowired
     private HotelService hotelService;
@@ -55,7 +55,9 @@ import java.util.concurrent.TimeUnit;
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
                                    @RequestParam(name = "capacidad") Integer capacidad,
-                                   Model model) throws ParseException {
+                                   Model model, HttpSession session) throws ParseException {
+
+
 
         //Para utilizar el SessionAtribute para capacidad.
         Habitacion habitacion = new Habitacion();
@@ -93,6 +95,10 @@ import java.util.concurrent.TimeUnit;
 
         List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
         model.addAttribute("hotel", hotel);
+
+        session.setAttribute("fi", fechaInicio);
+        session.setAttribute("ff", fecha_Fin);
+
         return "busquedahoteles";
 
     }
@@ -150,6 +156,9 @@ import java.util.concurrent.TimeUnit;
         @PostMapping("/hoteles/nuevo")
         public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
         hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
+            if(imagen.isEmpty()){
+                hotel.setImagen("https://t3.ftcdn.net/jpg/01/06/85/86/360_F_106858608_EuOWeiATyMOD6b9cXNzcJDSZufLbojQs.jpg");
+            }
         hotelService.hotelGuardar(imagen,flash,hotel);
         return "redirect:/hoteles/verHotelesUsuarios";
 
@@ -225,7 +234,7 @@ import java.util.concurrent.TimeUnit;
 
         @GetMapping("/reserva/crear/{id}")
         public String crearReserva(Model model, @PathVariable Integer id, Authentication auth,
-                                   @ModelAttribute("reserva") Reserva fecha){
+                                   @ModelAttribute("reserva") Reserva fecha, HttpSession session){
 
 //            if (!model.containsAttribute("reserva")){
 //                return "index";
@@ -238,10 +247,14 @@ import java.util.concurrent.TimeUnit;
             Usuario usuario = usuarioService.usuarioPorNombre(auth.getName());
             reserva.setUsuario(usuario);
 
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechauno = (Date)session.getAttribute("fi");
+            Date fechafinal = (Date)session.getAttribute("ff");
+
             long diasBuscados = 0;
             try {
-                long fechaInicio = fecha.getFechaInicio().getTime();
-                long fechaFin = fecha.getFechaFin().getTime();
+                long fechaInicio = fechauno.getTime();;
+                long fechaFin = fechafinal.getTime();
                 long timeDiff = Math.abs(fechaInicio - fechaFin);
                 diasBuscados = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS) + 1;
             }catch (NullPointerException e){

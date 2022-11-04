@@ -103,7 +103,6 @@ public class HabitacionController {
 
         habitacion.setPrecioBase(habitacionService.establecerPrecioHabitacion(habitacion.getPrecioBase(), habitacion));
 
-
         habitacionService.cargarImagen(imagen,flash,habitacion);
 
         habitacionService.guardarPersonalizado(habitacion.getHotel().getId(),habitacion.getNumeroHabitacion(),habitacion.getExtensionTelefonica(),
