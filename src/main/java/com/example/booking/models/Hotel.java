@@ -89,7 +89,7 @@ public class Hotel {
     private Usuario usuario;
 
 
-    @OneToOne(mappedBy = "hotelTarifa")
+    @OneToOne(mappedBy = "hotel")
     private Tarifa tarifa;
 
     public Usuario getUsuario() {

@@ -40,12 +40,12 @@ public class Tarifa {
     @Column(name = "precio_terraza")
     private Double precioTerraza;
 
-    @Column(name = "precio_banio")
+    @Column(name = "precio_baño")
     private Double precioBanio;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel", referencedColumnName = "id")
-    private Hotel hotelTarifa;
+    private Hotel hotel;
 
     public Integer getId() {
         return id;
@@ -85,9 +85,7 @@ public class Tarifa {
         return precioTerraza;
     }
 
-    public Hotel getHotelTarifa() {
-        return hotelTarifa;
-    }
+    public Hotel getHotel() {return hotel;}
 
     public Double getPrecioBanio() {
         return precioBanio;

@@ -16,6 +16,7 @@
             <div class="card-body">
                 <form th:action="@{/tarifa/nuevo}" th:object="${tarifa}" method="POST", enctype="multipart/form-data">
                     <div class="form-group">
+                        <input type="hidden" name="id_hotel" th:value="${id_hotel}">
                         <br>
                         <label>Wifi: </label>
                         <input type="number" name="precio_wifi" th:field="*{precioWifi}" class="form-control" placeholder="Ponga aquí precio por tener wifi" required>
