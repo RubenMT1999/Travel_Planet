@@ -14,7 +14,7 @@
             <div class="col-3">
                 <div class="sticky-top mt-3">
                     <div class="card mb-3" style="max-width: 100%;" >
-                        <form action="#" th:action="@{/hoteles/listarPorFiltros}" th:object="${habitacion}" method="post">
+                        <form action="#" th:action="@{/hoteles/listar}" th:object="${habitacion}" method="post">
                             <div class="card text-center">
                                 <div class="card-body">
                                     <p class="fw-bolder">Tu presupuesto: </p>
@@ -39,7 +39,7 @@
                                         <label class="form-check-label" for="inlineRadio3"> + 200€</label>
                                     </div>
                                 </div>
-                                <form action="#" th:action="@{/hoteles/listarPorFiltros}" th:object="${hoteles}" method="post">
+                                <form action="#" th:action="@{/hoteles/listar}" th:object="${hoteles}" method="post">
                                 <div class="card-body">
                                     <p class="fw-bolder">Puntuación: </p>
                                     <div class="form-check-inline">
@@ -63,7 +63,7 @@
                                         <label class="form-check-label" for="inlineRadio3">Fantástico: 5</label>
                                     </div>
                                 </div>
-                                    <form action="#" th:action="@{/hoteles/listarPorFiltros}" th:object="${habitacion}" method="post">
+                                    <form action="#" th:action="@{/hoteles/listar}" th:object="${habitacion}" method="post">
 
                                     <div class="card-body">
                                     <p class="fw-bolder">Instalaciones: </p>

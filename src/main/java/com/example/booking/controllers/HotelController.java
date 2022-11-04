@@ -103,13 +103,14 @@ import java.util.concurrent.TimeUnit;
         return "busquedahoteles";
     }
 
-        @PostMapping("/listarPorFiltros")
+        @PostMapping("/listar")
         public String procesarBusqueda(@ModelAttribute("hoteles") Hotel ciudad,
                                        @ModelAttribute("habitacion") Habitacion capacidad,
                                        @ModelAttribute("reserva") Reserva fecha,
                                        Habitacion habitacion,
                                        Hotel puntuacion,
                                        Model model) {
+
             List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha.getFechaInicio(), fecha.getFechaFin(),
                     capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
                     habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getPuntuacion());
@@ -163,7 +164,7 @@ import java.util.concurrent.TimeUnit;
     return "hoteles";
     }
 
-    @RequestMapping("/BuscarPorCiudad/{ciudad}")
+    @RequestMapping(value = "/BuscarPorCiudad/{ciudad}")
     public String hotelPorCiudad(Model model, @PathVariable String ciudad){
     List<Hotel> hotelesCiudad = hotelService.hotelPorCiudad(ciudad);
     model.addAttribute("hotelesCiudad", hotelesCiudad);
