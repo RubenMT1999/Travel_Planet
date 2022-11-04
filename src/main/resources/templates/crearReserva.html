@@ -11,41 +11,54 @@
 
   <div class="container d-flex justify-content-center">
   <div class="card mt-5 mb-5" style="width: 50%;">
-    <div th:if="${habitacion.imagen != null}">
-      <img th:if="${!habitacion.imagen.contains('https')}" class="img-thumbnail rounded float-start w-100" th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
-      <img th:if="${habitacion.imagen.contains('https')}" th:src="${habitacion.imagen}" class="img-thumbnail rounded float-start w-100" alt="..." >
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Hotel <span th:text="${habitacion.getHotel().getNombre()}"></span></h5>
-      <p class="card-text" th:text="${habitacion.getDescripcion()}"></p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" th:text="'Capacidad: '+${habitacion.getCapacidad()}"></li>
-      <li class="list-group-item" th:text="'Precio: '+${habitacion.getPrecioBase() * dias}"></li>
-      <li class="list-group-item">Dispone de:
-        <ul>
-          <li th:if="${habitacion.isCajaFuerte()}">Caja Fuerte</li>
-          <li th:if="${habitacion.isAireAcondicionado()}">Aire Acondicionado</li>
-          <li th:if="${habitacion.isBanioPrivado()}">Baño Privado</li>
-          <li th:if="${habitacion.isCocina()}">Cocina</li>
-          <li th:if="${habitacion.isTerraza()}">Terraza</li>
-          <li th:if="${habitacion.isTv()}">Tv</li>
-          <li th:if="${habitacion.isWifi()}">WiFi</li>
-        </ul>
-      </li>
-      <li class="list-group-item" th:text="'Número de días: '+${dias}"></li>
-      <li class="list-group-item">
-        <p>Selecciona pensión:</p>
-      <select class="form-select" aria-label="Default select example">
-        <option value="1">Sólo alojamiento</option>
-        <option value="2">Alojamiento y desayuno</option>
-        <option value="3">Media pensión</option>
-        <option value="3">Pensión completa</option>
-        <option value="3">Todo incluido</option>
-      </select>
-      </li>
 
-    </ul>
+    <form th:action="@{/reserva/crear}" th:object="${pensionHotel}" method="post" enctype="multipart/form-data">
+
+      <div th:if="${habitacion.imagen != null}">
+        <img th:if="${!habitacion.imagen.contains('https')}" class="img-thumbnail rounded float-start w-100" th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
+        <img th:if="${habitacion.imagen.contains('https')}" th:src="${habitacion.imagen}" class="img-thumbnail rounded float-start w-100" alt="..." >
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Hotel <span th:text="${habitacion.getHotel().getNombre()}"></span></h5>
+        <p class="card-text" th:text="${habitacion.getDescripcion()}"></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" th:text="'Capacidad: '+${habitacion.getCapacidad()}"></li>
+        <li class="list-group-item" th:text="'Precio: '+${habitacion.getPrecioBase() * dias}"></li>
+        <li class="list-group-item">Dispone de:
+          <ul>
+            <li th:if="${habitacion.isCajaFuerte()}">Caja Fuerte</li>
+            <li th:if="${habitacion.isAireAcondicionado()}">Aire Acondicionado</li>
+            <li th:if="${habitacion.isBanioPrivado()}">Baño Privado</li>
+            <li th:if="${habitacion.isCocina()}">Cocina</li>
+            <li th:if="${habitacion.isTerraza()}">Terraza</li>
+            <li th:if="${habitacion.isTv()}">Tv</li>
+            <li th:if="${habitacion.isWifi()}">WiFi</li>
+          </ul>
+        </li>
+        <li class="list-group-item" th:text="'Número de días: '+${dias}"></li>
+        <li class="list-group-item">
+          <p>Selecciona pensión:</p>
+
+          <div class="input-group mb-3">
+            <select class="form-select" aria-label="Default select example" th:field="*{pension}">
+              <option th:value="0" >Sólo alojamiento</option>
+              <option th:value="1" >Alojamiento y desayuno</option>
+              <option th:value="2" >Media pensión</option>
+              <option th:value="3" >Pensión completa</option>
+              <option th:value="4" >Todo incluido</option>
+            </select>
+          </div>
+
+
+
+        </li>
+
+      </ul>
+        <input type="submit" value="Crear" class="btn btn-block btn-primary mt-3">
+    </form>
+
+
     <div class="card-body">
       <a href="#" class="card-link">Pagar</a>
       <a href="#" class="card-link">Atrás</a>

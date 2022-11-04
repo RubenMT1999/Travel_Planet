@@ -1,10 +1,7 @@
 package com.example.booking.controllers;
 
 import Paginador.PageRender;
-import com.example.booking.models.Habitacion;
-import com.example.booking.models.Hotel;
-import com.example.booking.models.Reserva;
-import com.example.booking.models.Usuario;
+import com.example.booking.models.*;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.UsuarioService;
@@ -261,13 +258,26 @@ import java.util.concurrent.TimeUnit;
                 e.printStackTrace();
             }
 
-
+            PensionHotel pensionHotel = new PensionHotel();
+            pensionHotel.setTarifa(habitacion.getHotel().getTarifa());
 
             model.addAttribute("titulo","Crear Reserva");
             model.addAttribute("reserva",reserva);
             model.addAttribute("habitacion",habitacion);
             model.addAttribute("usuario",usuario);
             model.addAttribute("dias",diasBuscados);
+            model.addAttribute("pensionHotel",pensionHotel);
             return "crearReserva";
         }
+
+
+        @PostMapping("/reserva/crear")
+        public String procesarReserva(@Valid PensionHotel pensionHotel, BindingResult result, Model model){
+
+            Pension pension= pensionHotel.getPension();
+
+            return "index";
+        }
+
+
 }
