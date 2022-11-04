@@ -39,51 +39,68 @@
                                     <label class="form-check-label" for="inlineRadio3"> + 200€</label>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <p class="fw-bolder">Puntuación: </p>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion4" value="option3">
-                                    <label class="form-check-label" for="inlineRadio3">Muy bien: 3 o más</label>
+                            <form action="#" th:action="@{/hoteles/listarPorFiltros}" th:object="${hoteles}" method="post">
+                                <div class="card-body">
+                                    <p class="fw-bolder">Puntuación: </p>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion1" th:field="*{puntuacion}" th:value=1>
+                                        <label class="form-check-label" for="inlineRadio3">Normal: 1</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion2" th:field="*{puntuacion}" th:value=2>
+                                        <label class="form-check-label" for="inlineRadio3">Agradable: 2</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion4" th:field="*{puntuacion}" th:value=3>
+                                        <label class="form-check-label" for="inlineRadio3">Bien: 3</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion5" th:field="*{puntuacion}" th:value=4>
+                                        <label class="form-check-label" for="inlineRadio3">Muy bien: 4</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion6" th:field="*{puntuacion}" th:value=5>
+                                        <label class="form-check-label" for="inlineRadio3">Fantástico: 5</label>
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion5" value="option3">
-                                    <label class="form-check-label" for="inlineRadio3">Fantástico: 4 o más </label>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="fw-bolder">Instalaciones: </p>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions1" th:field="*{wifi}" id="instalacion" value="">
-                                    <label class="form-check-label" for="inlineRadio1"> WiFi</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions2" th:field="*{cajaFuerte}"id="instalacion1" value="">
-                                    <label class="form-check-label" for="inlineRadio2"> Caja Fuerte</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions3" th:field="*{cocina}"id="instalacion2" value="">
-                                    <label class="form-check-label" for="inlineRadio3"> Cocina</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions4" th:field="*{banioPrivado}"id="instalacion3" value="">
-                                    <label class="form-check-label" for="inlineRadio3"> Baño privado</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions5" id="instalacion4" th:field="*{aireAcondicionado}" value="">
-                                    <label class="form-check-label" for="inlineRadio3"> Aire acondicionado</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions5" id="instalacion5" th:field="*{tv}" value="">
-                                    <label class="form-check-label" for="inlineRadio3"> Televisión</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="inlineRadioOptions5" id="instalacion6" th:field="*{terraza}" value="">
-                                    <label class="form-check-label" for="inlineRadio3"> Terraza</label>
-                                </div>
-                            </div>
-                            <div class="col-md-0 mt-sm-0 mt-md-3">
-                                <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
-                            </div>
+                                <form action="#" th:action="@{/hoteles/listarPorFiltros}" th:object="${habitacion}" method="post">
+
+                                    <div class="card-body">
+                                        <p class="fw-bolder">Instalaciones: </p>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions1" th:field="*{wifi}" id="instalacion" value="">
+                                            <label class="form-check-label" for="inlineRadio1"> WiFi</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions2" th:field="*{cajaFuerte}"id="instalacion1" value="">
+                                            <label class="form-check-label" for="inlineRadio2"> Caja Fuerte</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions3" th:field="*{cocina}"id="instalacion2" value="">
+                                            <label class="form-check-label" for="inlineRadio3"> Cocina</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions4" th:field="*{banioPrivado}"id="instalacion3" value="">
+                                            <label class="form-check-label" for="inlineRadio3"> Baño privado</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions5" id="instalacion4" th:field="*{aireAcondicionado}" value="">
+                                            <label class="form-check-label" for="inlineRadio3"> Aire acondicionado</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions5" id="instalacion5" th:field="*{tv}" value="">
+                                            <label class="form-check-label" for="inlineRadio3"> Televisión</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="inlineRadioOptions5" id="instalacion6" th:field="*{terraza}" value="">
+                                            <label class="form-check-label" for="inlineRadio3"> Terraza</label>
+                                        </div>
+                                        <div class="col-md-0 mt-sm-0 mt-md-3">
+                                            <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
+                                        </div>
+                                    </div>
+                                </form>
+                            </form>
                         </div>
                     </form>
                 </div>

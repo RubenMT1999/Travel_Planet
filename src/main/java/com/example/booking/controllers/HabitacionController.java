@@ -63,22 +63,6 @@ public class HabitacionController {
         return "habitaciones";
     }
 
-    /*@ModelAttribute("capacidad")
-    @GetMapping("/habitacion/{id}")
-    public String hotelid(@PathVariable(name = "id") Integer id,
-                          SessionStatus status, Model model) {
-        model.addAttribute("titulo", "Buscar - Travel Planet");
-        status.setComplete();
-        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id);
-        Hotel hotel = hotelService.hotelID(id);
-        model.addAttribute("hotel", hotel);
-        model.addAttribute("habitacions", habitacions);
-        return "hoteldetalle";
-    }
-
-     */
-
-
     @GetMapping("/crear/{id}")
     public String crear(Model model, @PathVariable Integer id){
         Habitacion habitacion = new Habitacion();

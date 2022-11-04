@@ -50,6 +50,16 @@ public class TarifaController {
             tarifaService.guardarTarifa(tarifa);
 }
     }
+    //Faker para generar estrella en hoteles
+   @GetMapping("/generarestrella")
+   public void generarhabitacionesAleatorio() {
+       Faker faker = new Faker();
+       for (Hotel h : hotelRepository.obtenerTodoshoteles()) {
+           h.setPuntuacion(faker.number().numberBetween(1,6));
+           hotelRepository.save(h);
+       }
+   }
 
     */
+
 }
