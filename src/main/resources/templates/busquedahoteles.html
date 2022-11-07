@@ -39,30 +39,30 @@
                                         <label class="form-check-label" for="inlineRadio3"> + 200€</label>
                                     </div>
                                 </div>
-<!--                                <form action="#" th:action="@{/hoteles/listarfiltro}" th:object="${hoteles}" method="get">-->
-<!--                                <div class="card-body">-->
-<!--                                    <p class="fw-bolder">Puntuación: </p>-->
-<!--                                    <div class="form-check-inline">-->
-<!--                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion1" th:field="*{}" th:value=1>-->
-<!--                                        <label class="form-check-label" for="inlineRadio3">Normal: 1</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-check-inline">-->
-<!--                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion2" th:field="*{puntuacion}" th:value=2>-->
-<!--                                        <label class="form-check-label" for="inlineRadio3">Agradable: 2</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-check-inline">-->
-<!--                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion4" th:field="*{puntuacion}" th:value=3>-->
-<!--                                        <label class="form-check-label" for="inlineRadio3">Bien: 3</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-check-inline">-->
-<!--                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion5" th:field="*{puntuacion}" th:value=4>-->
-<!--                                        <label class="form-check-label" for="inlineRadio3">Muy bien: 4</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-check-inline">-->
-<!--                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion6" th:field="*{puntuacion}" th:value=5>-->
-<!--                                        <label class="form-check-label" for="inlineRadio3">Fantástico: 5</label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <form action="#" th:action="@{/hoteles/listarfiltro}" th:object="${hotels}" method="get">
+                                <div class="card-body">
+                                    <p class="fw-bolder">Puntuación: </p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion1" th:field="*{estrellas}" th:value=1>
+                                        <label class="form-check-label" for="inlineRadio3">Normal: 1</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion2" th:field="*{estrellas}" th:value=2>
+                                        <label class="form-check-label" for="inlineRadio3">Agradable: 2</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion4" th:field="*{estrellas}" th:value=3>
+                                        <label class="form-check-label" for="inlineRadio3">Bien: 3</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion5" th:field="*{estrellas}" th:value=4>
+                                        <label class="form-check-label" for="inlineRadio3">Muy bien: 4</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion6" th:field="*{estrellas}" th:value=5>
+                                        <label class="form-check-label" for="inlineRadio3">Fantástico: 5</label>
+                                    </div>
+                                </div>
                                     <form action="#" th:action="@{/hoteles/listarfiltro}" th:object="${habitacion}" method="get">
                                     <div class="card-body">
                                     <p class="fw-bolder">Instalaciones: </p>
