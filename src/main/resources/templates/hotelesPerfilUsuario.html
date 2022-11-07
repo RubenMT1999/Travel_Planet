@@ -85,10 +85,10 @@
           <div class="col">
 
             <div class="accordion" id="accordionExample">
-              <div class="accordion-item" th:each="hotel :${hotelesUsuario}">
+              <div class="accordion-item mt-4" th:each="hotel :${hotelesUsuario}">
 
                 <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:text="${hotel.nombre}">
+                  <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:text="${hotel.nombre}">
 
                   </button>
                 </h2>
@@ -103,7 +103,7 @@
 
                     <div class="row">
                       <div class="col-3">
-                        <div class="g-col-4"><span>Número de Habitaciones :</span><span th:text="${hotel.numero_habitaciones}"></div>
+                        <div class="g-col-4 mt-2"><span class="fw-semibold">Número de Habitaciones :  </span><span th:text="${hotel.numero_habitaciones}"></span></div>
                       </div>
                     </div>
 
@@ -123,6 +123,14 @@
             </div>
 
           </div>
+
+        <div class="row mt-5">
+
+          <div class="col-5">
+            <span class="fw-semibold">¿Quieres registrar otro Hotel?  <a th:href="@{/hoteles/nuevo}" class="text-decoration-none fw-semibold">Registrar Hotel</a></span>
+          </div>
+
+        </div>
 
         </div>
 

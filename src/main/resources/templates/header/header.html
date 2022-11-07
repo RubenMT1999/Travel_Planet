@@ -35,6 +35,7 @@
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <span class="dropdown-item-text" sec:authentication="name"></span>
                             <span class="dropdown-item-text" sec:authentication="principal.authorities"></span>
+                            <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/perfil/datos}">Mi Perfil</a>
                             <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}">Mis reservas</a>
                             <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/hoteles/verHotelesUsuarios}">Mis hoteles</a>
                             <form id="logoutForm" th:action="@{/logout}" method="post">
@@ -87,6 +88,9 @@
                         </div>
                         <li sec:authorize="!isAuthenticated()" class="nav-item dropdown">
                             <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-dark text-light fs-4">Registrarse</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                            <a sec:authorize="isAuthenticated()" th:href="@{/perfil/datos}" class="btn btn-dark text-light fs-4">Mi Perfil</a>
                         </li>
                         <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
                             <a sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}" class="btn btn-dark text-light fs-4">Mis Reservas</a>
