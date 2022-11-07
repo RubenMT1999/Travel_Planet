@@ -4,6 +4,7 @@ import Paginador.PageRender;
 import com.example.booking.models.*;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
+import com.example.booking.services.PensionService;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,22 +16,14 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -44,6 +37,9 @@ import java.util.concurrent.TimeUnit;
     private HabitacionService habitacionService;
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private PensionService pensionService;
 
     @GetMapping("/hoteles/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
@@ -274,9 +270,12 @@ import java.util.concurrent.TimeUnit;
         @PostMapping("/reserva/crear")
         public String procesarReserva(@Valid PensionHotel pensionHotel, BindingResult result, Model model){
 
-            Pension pension= pensionHotel.getPension();
+            EPension ePension = pensionHotel.getPension();
+            Double precioPension = pensionService.precioPension(ePension.ordinal());
 
-            return "index";
+            model.addAttribute("reserva");
+
+            return "crearReservaDos";
         }
 
 

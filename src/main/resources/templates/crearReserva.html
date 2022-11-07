@@ -41,19 +41,12 @@
           <p>Selecciona pensión:</p>
 
           <div class="input-group mb-3">
-            <select class="form-select" aria-label="Default select example" th:field="*{pension}">
-              <option th:value="0" >Sólo alojamiento</option>
-              <option th:value="1" >Alojamiento y desayuno</option>
-              <option th:value="2" >Media pensión</option>
-              <option th:value="3" >Pensión completa</option>
-              <option th:value="4" >Todo incluido</option>
+            <select name="pension">
+              <option th:each="pensionOpt : ${T(com.example.booking.models.EPension).values()}"
+                      th:value="${pensionOpt}" th:text="${pensionOpt.displayValue}"></option>
             </select>
           </div>
-
-
-
         </li>
-
       </ul>
         <input type="submit" value="Crear" class="btn btn-block btn-primary mt-3">
     </form>
