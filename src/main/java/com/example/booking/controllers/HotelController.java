@@ -28,8 +28,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
     @Controller
+    @SessionAttributes({"habitacion","reserva", "hoteles", "habfiltro", "puntuacion"})
 
-    @SessionAttributes({"habitacion","reserva"})
     public class HotelController {
     @Autowired
     private HotelService hotelService;
@@ -43,7 +43,6 @@ import java.util.concurrent.TimeUnit;
 
     @GetMapping("/hoteles/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
-                                   @Valid Reserva reserva1, BindingResult result,
                                    RedirectAttributes flash,
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
@@ -81,29 +80,63 @@ import java.util.concurrent.TimeUnit;
         }
 
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
+        Hotel hoteles = new Hotel();
+        hoteles.setCiudad(ciudades);
+
+        if(filtro!=null && filtro){
+            model.addAttribute("hoteles", hotelesFiltro);
+        }else{
+            model.addAttribute("hoteles", hoteles);
+        }
+
+        //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
         Reserva reserva = new Reserva();
         reserva.setFechaInicio(fechaInicio);
         reserva.setFechaFin(fecha_Fin);
         model.addAttribute("reserva", reserva);
 
-        List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
+        //Para utilizar el SessionAtribute para capacidad.
+        Habitacion habitacion = new Habitacion();
+        habitacion.setCapacidad(capacidad);
+        model.addAttribute("habitacion", habitacion);
+
+        List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
         model.addAttribute("hotel", hotel);
 
         session.setAttribute("fi", fechaInicio);
         session.setAttribute("ff", fecha_Fin);
 
         return "busquedahoteles";
-
     }
+
+        @GetMapping("/listarfiltro")
+        public String procesarBusqueda(@ModelAttribute("hoteles") Hotel ciudad,
+                                       @ModelAttribute("habitacion") Habitacion capacidad,
+                                       @ModelAttribute("reserva") Reserva fecha,
+                                       Habitacion habitacion,
+                                       Hotel puntuacion,
+                                       Model model) {
+
+            List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha.getFechaInicio(), fecha.getFechaFin(),
+                    capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
+                    habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getPuntuacion());
+
+            model.addAttribute("habfiltro", habitacion);
+            model.addAttribute("puntuacion", puntuacion);
+            model.addAttribute("hotel", hotels);
+            return  "hotelesporfiltros";
+        }
+
+
+
     @GetMapping("/hoteles/habitacion/{id}")
     public String hotelid(@PathVariable(name = "id") Integer id,
                           @ModelAttribute("habitacion") Habitacion capacidad,
-                          @ModelAttribute("reserva") Reserva fecha_inicio,
-                          @ModelAttribute("reserva") Reserva fecha_fin,Model model,
+                          @ModelAttribute("reserva") Reserva fecha, Model model,
                           @RequestParam(name="page", defaultValue = "0") int page) {
         Pageable pageRequest = PageRequest.of(page, 5);
         model.addAttribute("titulo", "Buscar - Travel Planet");
-        Page<Habitacion> habitacions = habitacionService.buscarHabitacionesPages(id, capacidad.getCapacidad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin(),pageRequest);
+        Page<Habitacion> habitacions = habitacionService.buscarHabitacionesPages(id, capacidad.getCapacidad(), fecha.getFechaInicio(), fecha.getFechaFin(),pageRequest);
         PageRender<Habitacion> pageRender = new PageRender<>("/hoteles/habitacion/"+id,habitacions);
         Hotel hotel = hotelService.hotelID(id);
         model.addAttribute("page",pageRender);
@@ -111,6 +144,22 @@ import java.util.concurrent.TimeUnit;
         model.addAttribute("habitacions", habitacions);
         return "hoteldetalle";
     }
+
+        @GetMapping("/habitacionfiltro/{id}")
+        public String habitacionfiltro(@PathVariable(name = "id") Integer id,
+                                       @ModelAttribute("habitacion") Habitacion capacidad,
+                                       @ModelAttribute("reserva") Reserva fecha,
+                                       @ModelAttribute("habfiltro") Habitacion habitacion,
+                                       @ModelAttribute("puntuacion") Hotel puntuacion,
+                                       Model model) {
+            model.addAttribute("titulo", "Buscar - Travel Planet");
+            List<Habitacion> habitacions = habitacionService.habitacionfiltro(id, fecha.getFechaInicio(), fecha.getFechaFin(), capacidad.getCapacidad(),habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado()
+            , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getPuntuacion());
+            Hotel hotel = hotelService.hotelID(id);
+            model.addAttribute("hotel", hotel);
+            model.addAttribute("habitacions", habitacions);
+            return "hoteldetalle";
+        }
 
 
     @GetMapping("/hoteles/listarHoteles")

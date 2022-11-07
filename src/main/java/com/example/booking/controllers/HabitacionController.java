@@ -62,22 +62,6 @@ public class HabitacionController {
         return "habitaciones";
     }
 
-    /*@ModelAttribute("capacidad")
-    @GetMapping("/habitacion/{id}")
-    public String hotelid(@PathVariable(name = "id") Integer id,
-                          SessionStatus status, Model model) {
-        model.addAttribute("titulo", "Buscar - Travel Planet");
-        status.setComplete();
-        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id);
-        Hotel hotel = hotelService.hotelID(id);
-        model.addAttribute("hotel", hotel);
-        model.addAttribute("habitacions", habitacions);
-        return "hoteldetalle";
-    }
-
-     */
-
-
     @GetMapping("/crear/{id}")
     public String crear(Model model, @PathVariable Integer id){
         Habitacion habitacion = new Habitacion();
@@ -162,7 +146,8 @@ public class HabitacionController {
         return "redirect:/habitaciones/listar/"+idHotel;
     }
 
-    @GetMapping("/generar")
+    //Faker para generar habitaciones aleatorio.
+   /* @GetMapping("/generar")
     public void generarhabitacionesAleatorio() {
 
         Faker faker = new Faker();
@@ -180,6 +165,14 @@ public class HabitacionController {
                 habitacion.setDescripcion(faker.lorem().fixedString(100));
                 habitacion.setDisponibilidad(faker.bool().bool());
                 habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
+                habitacion.setCajaFuerte(faker.bool().bool());
+                habitacion.setCocina(faker.bool().bool());
+                habitacion.setBanioPrivado(faker.bool().bool());
+                habitacion.setAireAcondicionado(faker.bool().bool());
+                habitacion.setTv(faker.bool().bool());
+                habitacion.setTerraza(faker.bool().bool());
+                habitacion.setWifi(faker.bool().bool());
+                habitacion.setPrecioBase(faker.number().numberBetween(50,400));
                 contadorHabitacion ++;
                 habitacionService.guardarHabitacion(habitacion);
                 habitaciones.add(habitacion);
@@ -188,7 +181,11 @@ public class HabitacionController {
             hotelRepository.save(h);
         }
 
+
+
     }
+
+    */
 
 
 
