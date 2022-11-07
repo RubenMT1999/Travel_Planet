@@ -18,10 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class HabitacionService {
@@ -120,9 +117,9 @@ public class HabitacionService {
 
     }
 
-    public List<Habitacion> habitacionfiltro(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi1,
+    public Page<Habitacion> habitacionfiltro(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi1,
                                         boolean terraza1, boolean tv1, boolean aire1, boolean banio_privado, boolean cocina1,
-                                        boolean caja_fuerte, Integer precioBase, Integer puntuacion) {
+                                        boolean caja_fuerte, Double precioBase, Integer puntuacion, Pageable pageable) {
         List<Integer> wifi = new ArrayList<>();
         List<Integer> terraza = new ArrayList<>();
         List<Integer> tv = new ArrayList<>();
@@ -152,7 +149,7 @@ public class HabitacionService {
             estrellamax = 5.1;
         }
         if(precioBase == null){
-            precioBase = 5;
+            precioBase = 5.0;
             precioFinal = 10000;
 
         }
@@ -214,7 +211,7 @@ public class HabitacionService {
             caja.add(1);
         }
         return habitacionRepository.buscarfiltrosid(id_hotel, fecha_inicio, fecha_fin, capacidad, wifi, terraza, tv, aire,
-                banio, cocina, caja, precioBase, precioFinal, puntuacion, estrellamax);
+                banio, cocina, caja, precioBase, precioFinal, puntuacion, estrellamax, pageable );
     }
 
 
