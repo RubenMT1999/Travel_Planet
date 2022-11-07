@@ -80,14 +80,14 @@ import java.util.concurrent.TimeUnit;
         }
 
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
-        Hotel hoteles = new Hotel();
-        hoteles.setCiudad(ciudades);
+//        Hotel hoteles = new Hotel();
+//        hoteles.setCiudad(ciudades);
 
-        if(filtro!=null && filtro){
-            model.addAttribute("hoteles", hotelesFiltro);
-        }else{
-            model.addAttribute("hoteles", hoteles);
-        }
+//        if(filtro!=null && filtro){
+//            model.addAttribute("hoteles", hotelesFiltro);
+//        }else{
+//            model.addAttribute("hoteles", hoteles);
+//        }
 
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
         Reserva reserva = new Reserva();
@@ -96,12 +96,12 @@ import java.util.concurrent.TimeUnit;
         model.addAttribute("reserva", reserva);
 
         //Para utilizar el SessionAtribute para capacidad.
-        Habitacion habitacion = new Habitacion();
-        habitacion.setCapacidad(capacidad);
-        model.addAttribute("habitacion", habitacion);
+//        Habitacion habitacion = new Habitacion();
+//        habitacion.setCapacidad(capacidad);
+//        model.addAttribute("habitacion", habitacion);
 
-        List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
-        model.addAttribute("hotel", hotel);
+        List<Hotel> hoteles = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
+        model.addAttribute("hotel", hoteles);
 
         session.setAttribute("fi", fechaInicio);
         session.setAttribute("ff", fecha_Fin);
@@ -119,7 +119,7 @@ import java.util.concurrent.TimeUnit;
 
             List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha.getFechaInicio(), fecha.getFechaFin(),
                     capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
-                    habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getPuntuacion());
+                    habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getEstrellas());
 
             model.addAttribute("habfiltro", habitacion);
             model.addAttribute("puntuacion", puntuacion);
@@ -154,7 +154,7 @@ import java.util.concurrent.TimeUnit;
                                        Model model) {
             model.addAttribute("titulo", "Buscar - Travel Planet");
             List<Habitacion> habitacions = habitacionService.habitacionfiltro(id, fecha.getFechaInicio(), fecha.getFechaFin(), capacidad.getCapacidad(),habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado()
-            , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getPuntuacion());
+            , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getEstrellas());
             Hotel hotel = hotelService.hotelID(id);
             model.addAttribute("hotel", hotel);
             model.addAttribute("habitacions", habitacions);

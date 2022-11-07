@@ -47,7 +47,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
 
     List<Habitacion>buscarfiltrosid(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, List<Integer> wifi,
                                     List<Integer> terraza, List<Integer> tv, List<Integer> aire, List<Integer> banio_privado, List<Integer> cocina,
-                                    List<Integer> caja_fuerte, Integer preciobase, Integer precioFinal, Integer puntuacion, Double estrella);
+                                    List<Integer> caja_fuerte, Double preciobase, Integer precioFinal, Integer puntuacion, Double estrella);
 
 
     @Query(value = "SELECT id_hotel from Habitacion ", nativeQuery = true)
