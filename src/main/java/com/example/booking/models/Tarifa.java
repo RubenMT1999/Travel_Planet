@@ -20,6 +20,7 @@ public class Tarifa {
 
     private Temporada temporada;
 
+    @Column(name = "id_pension")
     private Pension pension;
 
     @Column(name = "precio_wifi")
