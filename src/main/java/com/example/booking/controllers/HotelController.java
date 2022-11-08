@@ -95,14 +95,17 @@ import java.util.concurrent.TimeUnit;
         reserva.setFechaFin(fecha_Fin);
         model.addAttribute("reserva", reserva);
 
-        //Para utilizar el SessionAtribute para capacidad.
-        Habitacion habitacion = new Habitacion();
-        habitacion.setCapacidad(capacidad);
-        model.addAttribute("habitacion", habitacion);
+
 
         List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
         model.addAttribute("hotel", hotel);
         model.addAttribute("hotels", hoteles);
+
+        //Para utilizar el SessionAtribute para capacidad.
+        Habitacion habitacion = new Habitacion();
+        habitacion.setCapacidad(capacidad);
+        habitacion.setPrecioBase(habitacionService.preciomin(hoteles.getId()));
+        model.addAttribute("habitacion", habitacion);
 
         session.setAttribute("fi", fechaInicio);
         session.setAttribute("ff", fecha_Fin);
