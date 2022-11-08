@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <title>Title</title>
+  <style type="text/css">
+    html, body {
+      margin:0px;
+      height:100%;
+    }
+  </style>
+</head>
+<body>
+
+<header th:replace="header/header :: header"></header>
+
+<div class="container-fluid px-0">
+  <div class="row me-0">
+
+    <div class="col-2">
+
+      <div class="d-flex flex-column flex-shrink-0 p-3 px-0 bg-light" style="height:100vh;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-4">Dashboard</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page" th:href="@{/perfil/datos}">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+              Perfil de Usuario
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+              Mis reservas
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+              Historial de Viajes
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+              Mis Hoteles
+            </a>
+          </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://w7.pngwing.com/pngs/659/667/png-transparent-computer-icons-user-profile-blog-others-miscellaneous-rectangle-logo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong th:text="${usuario.nombre}"></strong>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item" th:href="@{/perfil/editar-perfil}">Configuración</a></li>
+            <li><a class="dropdown-item" th:href="@{/perfil/datos}">Perfil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <form id="logout" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                <a onclick="document.getElementById('logout').submit();" class="dropdown-item p-2"
+                   type="submit">Cerrar Sesión</a>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="col-10 p-5">
+
+      <div class="container">
+        <h2>Mis Hoteles</h2>
+        <div class="row">
+
+          <div class="col">
+
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item mt-4" th:each="hotel :${hotelesUsuario}">
+
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:text="${hotel.nombre}">
+
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+                    <div class="row">
+                      <div class="col">
+                        <span th:text="${hotel.comentario}"></span>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-3">
+                        <div class="g-col-4 mt-2"><span class="fw-semibold">Número de Habitaciones :  </span><span th:text="${hotel.numero_habitaciones}"></span></div>
+                      </div>
+                    </div>
+
+                      <div class="row">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                          <a class="btn btn-success me-md-2" type="button" th:href="@{/habitaciones/listar/{id}(id=${hotel.getId()})}">Habitaciones</a>
+                          <a class="btn btn-warning" type="button" th:href="@{/hoteles/editar/{id}(id=${hotel.getId()})}">Editar</a>
+                          <a class="btn btn-danger" type="button" th:href="@{/hoteles/eliminarPorId/{id}(id=${hotel.getId()})}">Eliminar</a>
+                        </div>
+                      </div>
+
+                  </div>
+                </div>
+
+              </div>
+              </div>
+            </div>
+
+          </div>
+
+        <div class="row mt-5">
+
+          <div class="col-5">
+            <span class="fw-semibold">¿Quieres registrar otro Hotel?  <a th:href="@{/hoteles/nuevo}" class="text-decoration-none fw-semibold">Registrar Hotel</a></span>
+          </div>
+
+        </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>
