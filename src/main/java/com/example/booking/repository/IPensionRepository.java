@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface IPensionRepository extends JpaRepository<PensionHotel,Integer> {
 
-    @Query(value = "SELECT p.precio from PensionHotel p where p.pension=?1")
-    Double precioPension(Integer pension);
+    @Query(value = "SELECT p.precio from PensionHotel p where p.pension=?1 and p.tarifa=?2")
+    Double precioPension(Integer pension,Integer idTarifa);
 
 }

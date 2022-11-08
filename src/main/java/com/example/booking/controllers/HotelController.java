@@ -317,14 +317,16 @@ import java.util.concurrent.TimeUnit;
 
 
         @PostMapping("/reserva/crear")
-        public String procesarReserva(@Valid PensionHotel pensionHotel, BindingResult result, Model model){
+        public String procesarReserva(@Valid PensionHotel pensionHotel, BindingResult result,Model model, HttpSession session){
 
             EPension ePension = pensionHotel.getPension();
-            Double precioPension = pensionService.precioPension(ePension.ordinal());
+            Integer idTarifa = pensionHotel.getTarifa().getId();
 
-            model.addAttribute("reserva");
+            Double precioPension = pensionService.precioPension(ePension.ordinal(),5);
 
-            return "crearReservaDos";
+            session.setAttribute("precioPension",precioPension);
+
+            return "redirect:/crearReserva";
         }
 
 

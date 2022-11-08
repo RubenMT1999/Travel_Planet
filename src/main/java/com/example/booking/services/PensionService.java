@@ -11,8 +11,8 @@ public class PensionService {
     IPensionRepository pensionRepository;
 
 
-    public Double precioPension(Integer pension){
-        return pensionRepository.precioPension(pension);
+    public Double precioPension(Integer pension,Integer idTarifa){
+        return pensionRepository.precioPension(pension,idTarifa);
     }
 
 
