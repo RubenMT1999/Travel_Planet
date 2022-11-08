@@ -46,8 +46,6 @@ public class UsuarioController {
     private BCryptPasswordEncoder passwordEncoder;
 
 
-
-
     @GetMapping("/registrar")
     public String registro(Model model){
         Usuario usuario = new Usuario();
@@ -62,7 +60,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/registrar")
-    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status, HttpServletRequest request) {
+    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status) {
 
         if (result.hasErrors()) {
             model.addAttribute("titulo", "Ha habido algún error");
