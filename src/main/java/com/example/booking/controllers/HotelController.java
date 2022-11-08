@@ -304,7 +304,9 @@ import java.util.concurrent.TimeUnit;
             }
 
             PensionHotel pensionHotel = new PensionHotel();
-            pensionHotel.setTarifa(habitacion.getHotel().getTarifa());
+            //pensionHotel.setTarifa(habitacion.getHotel().getTarifa());
+            Tarifa miTarifa = habitacion.getHotel().getTarifa();
+            session.setAttribute("tarifa",miTarifa);
 
             model.addAttribute("titulo","Crear Reserva");
             model.addAttribute("reserva",reserva);
@@ -320,9 +322,9 @@ import java.util.concurrent.TimeUnit;
         public String procesarReserva(@Valid PensionHotel pensionHotel, BindingResult result,Model model, HttpSession session){
 
             EPension ePension = pensionHotel.getPension();
-            Integer idTarifa = pensionHotel.getTarifa().getId();
+            Tarifa miTarifa = (Tarifa) session.getAttribute("tarifa");
 
-            Double precioPension = pensionService.precioPension(ePension.ordinal(),5);
+            Double precioPension = pensionService.precioPension(ePension,miTarifa);
 
             session.setAttribute("precioPension",precioPension);
 

@@ -1,5 +1,7 @@
 package com.example.booking.services;
 
+import com.example.booking.models.EPension;
+import com.example.booking.models.Tarifa;
 import com.example.booking.repository.IPensionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +13,8 @@ public class PensionService {
     IPensionRepository pensionRepository;
 
 
-    public Double precioPension(Integer pension,Integer idTarifa){
-        return pensionRepository.precioPension(pension,idTarifa);
+    public Double precioPension(EPension pension, Tarifa tarifa){
+        return pensionRepository.precioPension(pension,tarifa);
     }
 
 
