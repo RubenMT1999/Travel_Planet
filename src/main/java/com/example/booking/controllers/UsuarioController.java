@@ -46,8 +46,6 @@ public class UsuarioController {
     private BCryptPasswordEncoder passwordEncoder;
 
 
-
-
     @GetMapping("/registrar")
     public String registro(Model model){
         Usuario usuario = new Usuario();
