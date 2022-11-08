@@ -59,6 +59,7 @@ import java.util.concurrent.TimeUnit;
 
 
 
+
         model.addAttribute("titulo", "Buscar - Travel Planet");
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaInicio = formato.parse(fecha_inicio);
@@ -85,6 +86,7 @@ import java.util.concurrent.TimeUnit;
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
         Hotel hoteles = new Hotel();
         hoteles.setCiudad(ciudades);
+
         model.addAttribute("hoteles", hoteles);
 
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
@@ -98,13 +100,9 @@ import java.util.concurrent.TimeUnit;
         habitacion.setCapacidad(capacidad);
         model.addAttribute("habitacion", habitacion);
 
-        //El modelo para el html
-        Hotel hotels = new Hotel();
-
-
         List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
         model.addAttribute("hotel", hotel);
-        model.addAttribute("hotels", hotels);
+        model.addAttribute("hotels", hoteles);
 
         session.setAttribute("fi", fechaInicio);
         session.setAttribute("ff", fecha_Fin);
