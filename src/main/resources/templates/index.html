@@ -10,7 +10,10 @@
 <body>
      <header th:replace="header/header :: header"></header>
 
-
+     <div th:classappend="'' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+          th:text="${mensaje}"
+          class="alert alert-danger">
+     </div>
 
      <div class="imagen-fondo">
 
