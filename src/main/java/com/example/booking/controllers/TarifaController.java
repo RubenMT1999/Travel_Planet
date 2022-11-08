@@ -5,7 +5,7 @@ import com.example.booking.models.Pension;
 import com.example.booking.models.Tarifa;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HotelService;
-import com.example.booking.services.PensionService;
+//import com.example.booking.services.PensionService;
 import com.example.booking.services.TarifaService;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +30,8 @@ public class TarifaController {
     HotelService hotelService;
     @Autowired
     UsuarioService usuarioService;
-    @Autowired
-    PensionService pensionService;
+//    @Autowired
+//    PensionService pensionService;
 
     @GetMapping("/nuevo/{id}")
     public String mostrarTarifaNueva(@PathVariable Integer id, Model model){
@@ -53,14 +53,14 @@ public class TarifaController {
 
     }
 
-    @GetMapping("/pension/{id}")
-    public  String mostrarTarifa(@PathVariable Integer id, Model model){
-        Tarifa tarifa = new Tarifa();
-        Pension pension = tarifa.getPension();
-        Integer id_tarifa = id;
-        model.addAttribute("pension", tarifa);
-        model.addAttribute("id_hotel", id_tarifa);
-        return "pensionNueva";
+//    @GetMapping("/pension/{id}")
+//    public  String mostrarTarifa(@PathVariable Integer id, Model model){
+//        Tarifa tarifa = new Tarifa();
+//        Pension pension = tarifa.getPension();
+//        Integer id_tarifa = id;
+//        model.addAttribute("pension", tarifa);
+//        model.addAttribute("id_hotel", id_tarifa);
+//        return "pensionNueva";
 
-    }
+//    }
 }
