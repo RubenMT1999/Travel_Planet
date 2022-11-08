@@ -95,7 +95,7 @@ import java.util.concurrent.TimeUnit;
         Hotel hotels = new Hotel();
 
 
-        List<Hotel> hoteles = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
+        List<Hotel> hotels1 = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
         model.addAttribute("hotel", hoteles);
         model.addAttribute("hotels", hotels);
 
