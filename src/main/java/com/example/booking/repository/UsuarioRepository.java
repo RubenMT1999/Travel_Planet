@@ -1,5 +1,6 @@
 package com.example.booking.repository;
 
+import com.example.booking.models.Authorities;
 import com.example.booking.models.UserAuth;
 import com.example.booking.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -52,7 +53,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Query("UPDATE Authorities SET authority = :roleAdmin where user.id = :id")
     void getIdAuthorities(String roleAdmin, Integer id);
 
-    @Query("SELECT UserAuth from UserAuth where username = ?1")
-    UserAuth getIdUserAuth(String nombre);
+    @Query("SELECT aut FROM Authorities aut  where aut.id = ?1")
+    Authorities getAuthorities(Integer id);
+
+    @Query("SELECT ua from UserAuth ua where ua.username = ?1")
+    UserAuth getIdUserAuth(String username);
 
 }

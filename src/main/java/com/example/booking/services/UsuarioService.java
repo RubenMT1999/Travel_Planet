@@ -1,5 +1,6 @@
 package com.example.booking.services;
 
+import com.example.booking.models.Authorities;
 import com.example.booking.models.UserAuth;
 import com.example.booking.models.Usuario;
 import com.example.booking.repository.UsuarioRepository;
@@ -49,5 +50,7 @@ public class UsuarioService{
 
     public void getRoleAdmin(String roleAdmin,Integer id){ usuarioRepository.getIdAuthorities(roleAdmin,id);}
 
-    public UserAuth getIdUserAuth(String auth){return usuarioRepository.getIdUserAuth(auth);}
+    public UserAuth getUserAuth(String auth){return usuarioRepository.getIdUserAuth(auth);}
+
+    public Authorities getAuthorities(Integer id){return usuarioRepository.getAuthorities(id);}
 }

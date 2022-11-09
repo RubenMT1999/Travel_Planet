@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @Controller
@@ -50,18 +51,15 @@ public class PerfilUsuarioController {
     public String getAdminUser(Model model, Authentication auth){
         auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario userAdmin = usuarioService.datosUsuario(auth.getName());
-        UserAuth userIDAuth = usuarioService.getIdUserAuth(auth.getName());
-
+        UserAuth userIDAuth = usuarioService.getUserAuth(auth.getName());
+        Authorities authorities = usuarioService.getAuthorities(userIDAuth.getId());
 
         if (userAdmin.getEsHotelero() == false){
             userAdmin.setEsHotelero(true);
             usuarioService.getAdmin(userAdmin.getEsHotelero(), userAdmin.getId());
             authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
-            usuarioService.getRoleAdmin(authorities.getAuthority(), userAuth.getId());
-
-
+            usuarioService.getRoleAdmin(authorities.getAuthority(), userIDAuth.getId());
         }
-
 
         model.addAttribute("getAdmin", userAdmin);
         return "redirect:/perfil/datos";
