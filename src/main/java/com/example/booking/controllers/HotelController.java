@@ -99,11 +99,19 @@ import java.util.concurrent.TimeUnit;
         Double valor = 0.0;
         List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
         //hotelService.precioBase(hotel);
+        List<Integer> num = new ArrayList<>();
         Map<Integer, List<Integer>> idHoteles = new HashMap<Integer, List<Integer>>();
        for(Hotel h: hotel){
-           if(h.getId() == )
-           valor = hotelService.precioBase(h.getId(), h.getNumero_habitaciones());
-           if(valor == null){
+           if(h.getId().equals(idHoteles.keySet())){
+               num.add(h.getNumero_habitaciones());
+               idHoteles.put(h.getId(), num);
+           }else {
+               num.add(h.getNumero_habitaciones());
+               idHoteles.put(h.getId(), num);
+           }
+           valor = hotelService.precioBase(idHoteles);
+           hotelService.preciomodificado(valor, h.getId());
+           /*if(valor == null){
                valor = 2000.0;
            }
             if(comprobacion > valor ){
@@ -112,7 +120,10 @@ import java.util.concurrent.TimeUnit;
 
 
 
+
+            */
         }
+
 
 
 

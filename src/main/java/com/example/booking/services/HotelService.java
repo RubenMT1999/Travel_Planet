@@ -20,10 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class HotelService {
@@ -37,13 +34,15 @@ public class HotelService {
         return hotelRepository.buscador(ciudades, fecha_inicio, fecha_fin, capacidad);
             }
 
-    public Double precioBase(List<Hotel> hotel){
-        List<Integer> lista = new ArrayList<>();
 
-        for(Hotel h: hotel){
-            lista.add(h.getId())
-        }
-        return hotelRepository.precio(id_hotel, num_hab);
+
+    public Double precioBase( Map<Integer, List<Integer>> idHoteles){
+        List<Integer> precio = new ArrayList<>();
+        Double valor = 0.0;
+        for (Map.Entry<Integer, List<Integer>> map : idHoteles.entrySet()){
+            valor =hotelRepository.precio(map.getKey(), map.getValue());
+            }
+        return valor;
     }
 
     public Double precioBasefiltro(Integer id_hotel){

@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 
@@ -29,8 +30,8 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
 
 
-    @Query(value = "SELECT precio_base FROM Habitacion h where id_hotel = :id_hotel and num_habitacion = :num_hab order by precio_base asc limit 1", nativeQuery = true)
-    Double precio(Integer id_hotel, Integer num_hab);
+    @Query(value = "SELECT precio_base FROM Habitacion h where id_hotel = :id_hotel and num_habitacion in :num_hab order by precio_base asc limit 1", nativeQuery = true)
+    Double precio(Integer id_hotel, List<Integer> num_hab);
 
     @Query(value = "SELECT precio_base FROM vistafiltro h where id = :id_hotel order by precio_base asc limit 1", nativeQuery = true)
     Double preciofiltro(Integer id_hotel);
