@@ -1,0 +1,128 @@
+
+scalar Double
+scalar Date
+
+enum ETemporada{
+    Alta
+    Media
+    Baja
+}
+
+enum EPension{
+    SoloAlojamiento
+    AlojamientoDesayuno
+    MediaPension
+    PensionCompleta
+    TodoIncluido
+}
+
+enum EMetodoDePago{
+    Paypal
+    TarjetaDeCredito
+    Bizum
+    TransferenciaBancaria
+}
+
+
+type Habitacion{
+    id:ID!
+    numHabitacion:Int
+    extTelefonica:String
+    capacidad:Int
+    descripcion:String
+    disponibilidad:Boolean
+    imagen:String
+    cajaFuerte:Boolean
+    cocina:Boolean
+    banioPrivado:Boolean
+    aireAcondicionado:Boolean
+    tv:Boolean
+    terraza:Boolean
+    wifi:Boolean
+    precioBase:Double
+    hotel:Hotel
+    tarifas:[Tarifa]
+    reservas:[Reserva]
+}
+
+
+type Hotel{
+    id:ID!
+    nombre:String
+    numero_habitaciones:Int
+    telefono:String
+    ciudad:String
+    lugar:String
+    imagen:String
+    cif:String
+    comentario:String
+    estrellas:Int
+    precio:String
+    habitaciones:[Habitacion]
+}
+
+
+type PensionHotel{
+    id:ID!
+    pension:EPension
+    precio:Double
+    tarifa:Tarifa
+
+}
+
+type Tarifa{
+    id:ID!
+    temporada:ETemporada
+    precioWifi:Double
+    precioCajaFuerte:Double
+    precioCocina:Double
+    precioAire:Double
+    precioTv:Double
+    precioTerraza:Double
+    precioBanio:Double
+    hotel:Hotel
+    pensionesHotel:[PensionHotel]
+}
+
+type Usuario{
+    id:ID!
+    nombre:String
+    apellidos:String
+    contrasenia:String
+    fechaNacimiento:Date
+    dni:String
+    nacionalidad:String
+    telefono:String
+    email:String
+    metodoDePago:EMetodoDePago
+    registrado:Boolean
+    descuento:Int
+    esHotelero:Boolean
+    reservas:[Reserva]
+    hoteles:[Hotel]
+}
+
+type Reserva{
+    id:ID!
+    usuario:Usuario
+    habitacion:Habitacion
+    metodoDePago:EMetodoDePago
+    fechaInicio:Date
+    fechaFin:Date
+}
+
+
+type Autorities{
+    id:ID!
+    userAuth:UserAuth
+    authority:String
+}
+
+type UserAuth{
+    id:ID!
+    username:String
+    password:String
+    enabled:Int
+    userRoles:[Autorities]
+}
+

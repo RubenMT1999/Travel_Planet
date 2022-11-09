@@ -282,6 +282,7 @@ import java.util.concurrent.TimeUnit;
 //                return "index";
 //            }
 
+            session.setAttribute("idHabitacion",id);
             auth= SecurityContextHolder.getContext().getAuthentication();
             Reserva reserva = new Reserva();
             Habitacion habitacion = habitacionService.findById(id);
@@ -308,6 +309,11 @@ import java.util.concurrent.TimeUnit;
             Tarifa miTarifa = habitacion.getHotel().getTarifa();
             session.setAttribute("tarifa",miTarifa);
 
+            Double precioPension = (Double) session.getAttribute("precioPension");
+            if (precioPension != null){
+                model.addAttribute("precioPension",precioPension);
+            }
+
             model.addAttribute("titulo","Crear Reserva");
             model.addAttribute("reserva",reserva);
             model.addAttribute("habitacion",habitacion);
@@ -325,10 +331,11 @@ import java.util.concurrent.TimeUnit;
             Tarifa miTarifa = (Tarifa) session.getAttribute("tarifa");
 
             Double precioPension = pensionService.precioPension(ePension,miTarifa);
+            Integer idHabitacion = (Integer) session.getAttribute("idHabitacion");
 
             session.setAttribute("precioPension",precioPension);
 
-            return "redirect:/crearReserva";
+            return "redirect:/reserva/crear/"+idHabitacion;
         }
 
 

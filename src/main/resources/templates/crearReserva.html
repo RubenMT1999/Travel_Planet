@@ -24,7 +24,8 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item" th:text="'Capacidad: '+${habitacion.getCapacidad()}"></li>
-        <li class="list-group-item" th:text="'Precio: '+${habitacion.getPrecioBase() * dias}"></li>
+        <li class="list-group-item" th:if="${precioPension}" th:text="'Precio: '+${habitacion.getPrecioBase() * dias + precioPension}"></li>
+        <li class="list-group-item" th:unless="${precioPension}" th:text="'Precio: '+${habitacion.getPrecioBase() * dias}"></li>
         <li class="list-group-item">Dispone de:
           <ul>
             <li th:if="${habitacion.isCajaFuerte()}">Caja Fuerte</li>
@@ -48,14 +49,9 @@
           </div>
         </li>
       </ul>
-        <input type="submit" value="Crear" class="btn btn-block btn-primary mt-3">
+        <input type="submit" value="Calcular Precio" class="btn btn-block btn-primary mx-3">
     </form>
 
-
-    <div class="card-body">
-      <a href="#" class="card-link">Pagar</a>
-      <a href="#" class="card-link">Atrás</a>
-    </div>
   </div>
   </div>
 
