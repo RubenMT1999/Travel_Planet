@@ -23,5 +23,14 @@ public class TarifaService {
         tarifaRepository.guardarTarifa(precioBanio,precioCajaFuerte,precioCocina,precioTv,precioTerraza,precioWifi,precioAire,id_hotel);
     }
 
+    public Tarifa buscarId (Integer id){
+        return tarifaRepository.findById(id).orElse(null);
+    }
+    public Tarifa tarifaEditar (Tarifa tarifa){
+        return tarifaRepository.save(tarifa);
+    }
 
+    public Tarifa verTarifa (Integer id){
+        return tarifaRepository.listarTarifa(id);
+    }
 }

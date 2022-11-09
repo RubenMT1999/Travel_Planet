@@ -41,7 +41,7 @@ public class Tarifa {
     @Column(name = "precio_terraza")
     private Double precioTerraza;
 
-    @Column(name = "precio_baño")
+    @Column(name = "precio_banio")
     private Double precioBanio;
 
     @OneToOne(fetch = FetchType.LAZY)

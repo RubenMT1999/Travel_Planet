@@ -14,7 +14,7 @@
         <div class="col-lg-6 cl-md-6 col-sm-6 container justify-content-center card">
             <h1 class="text-center">Precio de los extras</h1>
             <div class="card-body">
-                <form th:action="@{/tarifa/nuevo}" th:object="${tarifa}" method="POST", enctype="multipart/form-data">
+                <form th:action="@{/tarifa/editar}" th:object="${tarifa}" method="POST", enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="hidden" name="id_hotel" th:value="${id_hotel}">
                         <br>
@@ -45,7 +45,6 @@
                     <br>
                     <div class="box-footer">
                         <button class="btn btn-success">Guardar</button>
-
                     </div>
                 </form>
             </div>
