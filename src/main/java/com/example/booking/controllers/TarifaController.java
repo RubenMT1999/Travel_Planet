@@ -109,4 +109,24 @@ public class TarifaController {
         return "redirect:/hoteles/verHotelesUsuarios";
     }
 
+    @GetMapping("/pension/{id}")
+    public String nuevaPension(@PathVariable Integer id, Model model){
+        if ( tarifaService.verTarifa(id) != null){
+            model.addAttribute("error", "Ya existen características");
+            return "redirect:/tarifa/editar/{id}";
+        }else{
+
+            Tarifa tarifa = tarifaService.verTarifa(id);
+            Integer id_tarifa = tarifa.getId();
+
+
+
+            model.addAttribute("tarifa",tarifa);
+            model.addAttribute("id_tarifa", id_tarifa);
+            return "pensionNueva";
+        }
+    }
+
+
+
 }
