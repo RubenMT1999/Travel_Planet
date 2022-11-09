@@ -1,5 +1,6 @@
 package com.example.booking.services;
 
+import com.example.booking.models.UserAuth;
 import com.example.booking.models.Usuario;
 import com.example.booking.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,10 @@ public class UsuarioService{
     }
 
     public void borrarUsuario(Usuario usuario){ usuarioRepository.delete(usuario); }
+
+    public void getAdmin(Boolean getAdmin, Integer id){ usuarioRepository.getAdmin(getAdmin, id); }
+
+    public void getRoleAdmin(String roleAdmin,Integer id){ usuarioRepository.getIdAuthorities(roleAdmin,id);}
+
+    public UserAuth getIdUserAuth(String auth){return usuarioRepository.getIdUserAuth(auth);}
 }

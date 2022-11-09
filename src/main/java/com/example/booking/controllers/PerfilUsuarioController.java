@@ -1,8 +1,7 @@
 package com.example.booking.controllers;
 
-import com.example.booking.models.Hotel;
-import com.example.booking.models.UserAuth;
-import com.example.booking.models.Usuario;
+import com.example.booking.models.*;
+import com.example.booking.repository.AuthoritiesRepository;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.HotelService;
@@ -31,6 +30,8 @@ public class PerfilUsuarioController {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
+    private AuthoritiesRepository authoritiesRepository;
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
 
@@ -38,12 +39,32 @@ public class PerfilUsuarioController {
     public String datosUsuario(Model model, Authentication auth){
         auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario datosUsuario = usuarioService.datosUsuario(auth.getName());
-//        if (datosUsuario.getEsHotelero() == false){
-//
-//        }
+
+
         model.addAttribute("datosUsuario", datosUsuario);
         model.addAttribute("titulo", "Perfil de Usuario");
         return "perfilUsuario";
+    }
+
+    @PostMapping("/datos")
+    public String getAdminUser(Model model, Authentication auth){
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        Usuario userAdmin = usuarioService.datosUsuario(auth.getName());
+        UserAuth userIDAuth = usuarioService.getIdUserAuth(auth.getName());
+
+
+        if (userAdmin.getEsHotelero() == false){
+            userAdmin.setEsHotelero(true);
+            usuarioService.getAdmin(userAdmin.getEsHotelero(), userAdmin.getId());
+            authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
+            usuarioService.getRoleAdmin(authorities.getAuthority(), userAuth.getId());
+
+
+        }
+
+
+        model.addAttribute("getAdmin", userAdmin);
+        return "redirect:/perfil/datos";
     }
 
     @GetMapping("/editar-perfil")

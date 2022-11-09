@@ -1,5 +1,6 @@
 package com.example.booking.repository;
 
+import com.example.booking.models.UserAuth;
 import com.example.booking.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -40,5 +41,18 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
      void editarUsuario(String nombre, String apellidos, String contrasenia,
                           Date fechaNacimiento, String dni, String nacionalidad,
                           String telefono, String email);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Usuario SET esHotelero = :getAdmin where id = :id")
+    void getAdmin(Boolean getAdmin, Integer id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Authorities SET authority = :roleAdmin where user.id = :id")
+    void getIdAuthorities(String roleAdmin, Integer id);
+
+    @Query("SELECT UserAuth from UserAuth where username = ?1")
+    UserAuth getIdUserAuth(String nombre);
 
 }
