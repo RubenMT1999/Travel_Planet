@@ -24,9 +24,22 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
     @Query(value = "select * from vistabuscador where ciudad = :ciudad and capacidad = :capacidad" +
             " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) group by nombre", nativeQuery = true)
+            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) group by nombre ", nativeQuery = true)
 
     List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
+
+
+    @Query(value = "SELECT precio_base FROM Habitacion h where id_hotel = :id_hotel and num_habitacion = :num_hab order by precio_base asc limit 1", nativeQuery = true)
+    Double precio(Integer id_hotel, Integer num_hab);
+
+    @Query(value = "SELECT precio_base FROM vistafiltro h where id = :id_hotel order by precio_base asc limit 1", nativeQuery = true)
+    Double preciofiltro(Integer id_hotel);
+
+    @Query(value = "UPDATE hotel set precio = :precio where id = :id", nativeQuery = true)
+    Double preciobase(Double precio, Integer id);
+
+    @Query(value = "UPDATE hotel set precio = :precio where id = :id", nativeQuery = true)
+    Double preciobasefiltro(Double precio, Integer id);
 
 
     @Query(value = "select * from vistafiltro where ciudad = :ciudad and capacidad = :capacidad" +

@@ -55,8 +55,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     @Query(value = "SELECT id_hotel from Habitacion ", nativeQuery = true)
     List<Integer> totalIdHotelesHabitacion ();
 
-    @Query(value = "Select precio_base from habitacion where id_hotel = :id order by precio_base limit 1", nativeQuery = true)
-    Double preciomin(Integer id);
+
 
 
     @Query(value = "SELECT h.id from Habitacion h where h.numeroHabitacion = ?1")

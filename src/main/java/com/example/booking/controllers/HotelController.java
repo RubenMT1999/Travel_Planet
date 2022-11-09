@@ -95,16 +95,33 @@ import java.util.concurrent.TimeUnit;
         reserva.setFechaFin(fecha_Fin);
         model.addAttribute("reserva", reserva);
 
-
-
+        Double comprobacion = 2000.0;
+        Double valor = 0.0;
         List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
+        //hotelService.precioBase(hotel);
+        Map<Integer, List<Integer>> idHoteles = new HashMap<Integer, List<Integer>>();
+       for(Hotel h: hotel){
+           if(h.getId() == )
+           valor = hotelService.precioBase(h.getId(), h.getNumero_habitaciones());
+           if(valor == null){
+               valor = 2000.0;
+           }
+            if(comprobacion > valor ){
+                hotelService.preciomodificado(valor ,h.getId());
+            }
+
+
+
+        }
+
+
+
         model.addAttribute("hotel", hotel);
         model.addAttribute("hotels", hoteles);
 
         //Para utilizar el SessionAtribute para capacidad.
         Habitacion habitacion = new Habitacion();
         habitacion.setCapacidad(capacidad);
-        habitacion.setPrecioBase(habitacionService.preciomin(hoteles.getId()));
         model.addAttribute("habitacion", habitacion);
 
         session.setAttribute("fi", fechaInicio);
@@ -124,6 +141,10 @@ import java.util.concurrent.TimeUnit;
             List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha.getFechaInicio(), fecha.getFechaFin(),
                     capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
                     habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getEstrellas());
+            for(Hotel h: hotels){
+                Double valor = hotelService.precioBasefiltro(h.getId());
+                hotelService.preciomodificadofiltro(valor,h.getId());
+            }
 
             model.addAttribute("habfiltro", habitacion);
             model.addAttribute("puntuacion", puntuacion);

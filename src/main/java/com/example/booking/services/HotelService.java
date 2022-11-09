@@ -3,6 +3,7 @@ package com.example.booking.services;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
+import com.example.booking.repository.HabitacionRepository;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.repository.PageRepository;
 import net.bytebuddy.asm.Advice;
@@ -35,6 +36,36 @@ public class HotelService {
     public List<Hotel> buscar(String ciudades, Date fecha_inicio, Date fecha_fin, Integer capacidad) {
         return hotelRepository.buscador(ciudades, fecha_inicio, fecha_fin, capacidad);
             }
+
+    public Double precioBase(List<Hotel> hotel){
+        List<Integer> lista = new ArrayList<>();
+
+        for(Hotel h: hotel){
+            lista.add(h.getId())
+        }
+        return hotelRepository.precio(id_hotel, num_hab);
+    }
+
+    public Double precioBasefiltro(Integer id_hotel){
+        return hotelRepository.preciofiltro(id_hotel);
+    }
+
+
+
+    public void preciomodificado(Double precio, Integer id){
+        hotelRepository.preciobase(precio, id);
+    }
+    public void preciomodificadofiltro(Double precio, Integer id){
+        hotelRepository.preciobasefiltro(precio, id);
+    }
+
+
+
+
+
+
+
+
 
     public List<Hotel> buscarPorFiltros(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi1,
                                         boolean terraza1, boolean tv1, boolean aire1, boolean banio_privado, boolean cocina1,
@@ -222,6 +253,8 @@ public class HotelService {
             }
         }
     }
+
+
 
 }
 

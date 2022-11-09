@@ -42,10 +42,6 @@ public class HabitacionService {
         habitacionRepository.save(habitacion);
     }
 
-    public Double preciomin(Integer id){
-        return habitacionRepository.preciomin(id);
-    }
-
     public Habitacion encontrarPorId(Integer id){
         return habitacionRepository.findById(id).orElse(null);
     }
