@@ -80,12 +80,15 @@
 
       <div class="container">
         <h2>Mis Hoteles</h2>
+        <p th:text="${hotelNull}"></p>
         <div class="row">
 
           <div class="col">
 
             <div class="accordion" id="accordionExample">
               <div class="accordion-item mt-4" th:each="hotel :${hotelesUsuario}">
+
+
 
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:text="${hotel.nombre}">

@@ -43,7 +43,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         //definimos quien va a poder acceder a las distintas direccioens
         http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/hoteles/listar/**", "/hoteles/habitacionfiltro/**","resultado/ver", "/hotel/**", "/generar","reserva/**",
                 "/hoteles/habitacion/**","/reserva/crear/**", "/hoteles/listarfiltro").permitAll()
-                .antMatchers("/habitaciones/crear/**","/habitaciones/editar/**","habitaciones/borrar/**","habitaciones/listar/**").hasAnyRole("ADMIN")
+                .antMatchers("/habitaciones/crear/**","/habitaciones/editar/**","habitaciones/borrar/**","habitaciones/listar/**","/perfil/mis-hoteles").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

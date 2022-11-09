@@ -64,7 +64,7 @@
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <form id="logout" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-                            <a onclick="document.getElementById('logout').submit();" class="dropdown-item p-2"
+                            <a onclick="document.getElementById('logout').submit();" class="dropdown-item p-1"
                                     type="submit">Cerrar Sesión</a>
                         </form>
                     </li>
@@ -100,13 +100,36 @@
             </div>
             <div class="row mt-5">
                 <div class="col-3">
-                    <a class="btn btn-primary" th:href="@{/perfil/editar-perfil}">Editar Perfil</a>
+                    <a class="btn btn-dark" th:href="@{/perfil/editar-perfil}">Editar Perfil</a>
+                    <a class="btn btn-dark" th:if="${datosUsuario.getEsHotelero() == false}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Ser Hotelero
+                    </a>
                 </div>
             </div>
 
         </div>
 
 
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">¿ Quieres ser Hotelero ?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Si aceptas, podrás resgistrar tu hotel y tener permisos de administrador.
+                    ¿ Estás Serguo ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" >Sí, estoy seguro</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

@@ -38,6 +38,9 @@ public class PerfilUsuarioController {
     public String datosUsuario(Model model, Authentication auth){
         auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario datosUsuario = usuarioService.datosUsuario(auth.getName());
+//        if (datosUsuario.getEsHotelero() == false){
+//
+//        }
         model.addAttribute("datosUsuario", datosUsuario);
         model.addAttribute("titulo", "Perfil de Usuario");
         return "perfilUsuario";
@@ -55,6 +58,7 @@ public class PerfilUsuarioController {
     @PostMapping("/editar-perfil")
     public String guardarDatos(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model){
 
+        usuario.setFechaNacimiento(usuario.getFechaNacimiento());
         if (usuario.getContrasenia() == null){
             usuario.setContrasenia(usuario.getContrasenia());
         }
@@ -79,7 +83,9 @@ public class PerfilUsuarioController {
         List<Hotel> hotelesUsuario = hotelService.hotelesMail(auth.getName());
         model.addAttribute("usuario", nombreUsuario);
         model.addAttribute("hotelesUsuario",hotelesUsuario);
-
+        if (nombreUsuario.getHoteles() == null){
+            model.addAttribute("hotelNull","No tienes registrado ningun Hotel");
+        }
         return "hotelesPerfilUsuario";
     }
 
