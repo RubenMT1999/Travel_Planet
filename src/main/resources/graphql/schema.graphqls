@@ -1,6 +1,6 @@
 
-scalar Double
 scalar Date
+
 
 enum ETemporada{
     Alta
@@ -39,7 +39,7 @@ type Habitacion{
     tv:Boolean
     terraza:Boolean
     wifi:Boolean
-    precioBase:Double
+    precioBase:Float
     hotel:Hotel
     tarifas:[Tarifa]
     reservas:[Reserva]
@@ -65,7 +65,7 @@ type Hotel{
 type PensionHotel{
     id:ID!
     pension:EPension
-    precio:Double
+    precio:Float
     tarifa:Tarifa
 
 }
@@ -73,13 +73,13 @@ type PensionHotel{
 type Tarifa{
     id:ID!
     temporada:ETemporada
-    precioWifi:Double
-    precioCajaFuerte:Double
-    precioCocina:Double
-    precioAire:Double
-    precioTv:Double
-    precioTerraza:Double
-    precioBanio:Double
+    precioWifi:Float
+    precioCajaFuerte:Float
+    precioCocina:Float
+    precioAire:Float
+    precioTv:Float
+    precioTerraza:Float
+    precioBanio:Float
     hotel:Hotel
     pensionesHotel:[PensionHotel]
 }
@@ -126,3 +126,22 @@ type UserAuth{
     userRoles:[Autorities]
 }
 
+input UsuarioInput{
+    nombre:String
+    apellidos:String
+    contrasenia:String
+    fechaNacimiento:Date
+    dni:String
+    nacionalidad:String
+    telefono:String
+    email:String
+    esHotelero:Boolean
+}
+
+type Query{
+    ping: String @deprecated(reason: "https://stackoverflow.com/questions/59868942/graphql-a-schema-must-have-a-query-operation-defined")
+}
+
+type Mutation{
+    nuevoUsuario(input:UsuarioInput):Usuario
+}
