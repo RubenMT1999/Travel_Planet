@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/graphql")
+@RequestMapping("/api_graphql")
 public class GrapQLController {
 
 
@@ -34,7 +34,9 @@ public class GrapQLController {
     private UsuarioRepository usuarioRepository;
 
 
-    @GetMapping("/usuarios")
+
+    @RequestMapping(method = RequestMethod.GET, value = "/usuarios")
+    @QueryMapping
     public List<Usuario> listarUsuarios(){
         return usuarioRepository.findAll();
     }
