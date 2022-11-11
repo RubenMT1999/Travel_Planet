@@ -86,7 +86,6 @@ import java.util.concurrent.TimeUnit;
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
         Hotel hoteles = new Hotel();
         hoteles.setCiudad(ciudades);
-
         model.addAttribute("hoteles", hoteles);
 
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
@@ -110,14 +109,7 @@ import java.util.concurrent.TimeUnit;
             h.setPrecio(preciomin.toString());
         }
 
-
-
-
-
-
-
         model.addAttribute("hotel", hotel);
-        model.addAttribute("hotels", hoteles);
 
         //Para utilizar el SessionAtribute para capacidad.
         Habitacion habitacion = new Habitacion();
