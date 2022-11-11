@@ -68,10 +68,11 @@ public class Usuario {
     @Column(name = "es_hotelero")
     private Boolean esHotelero;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reservas;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Hotel> hoteles;
 

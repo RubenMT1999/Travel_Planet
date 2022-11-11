@@ -3,14 +3,18 @@ package com.example.booking.controllers;
 import com.example.booking.models.*;
 import com.example.booking.repository.AuthoritiesRepository;
 import com.example.booking.repository.UserAuthRepository;
+import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/graphql")
@@ -21,16 +25,24 @@ public class GrapQLController {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private UsuarioService usuarioService;
-
-    @Autowired
     private UserAuthRepository userAuthRepository;
 
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+
+    @GetMapping("/usuarios")
+    public List<Usuario> listarUsuarios(){
+        return usuarioRepository.findAll();
+    }
+
+
     @PostMapping("/nuevo/usuario")
-    @QueryMapping
+    @MutationMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Usuario nuevoUsuario(@RequestBody @Argument(name = "input")GrapqlModels.UsuarioInput input){
 
         Usuario usuario = new Usuario();
@@ -44,6 +56,7 @@ public class GrapQLController {
         usuario.setDni(input.getDni());
         usuario.setEmail(input.getEmail());
         usuario.setEsHotelero(input.getEsHotelero());
+        usuario.setTelefono(input.getTelefono());
 
         UserAuth auth = new UserAuth();
         auth.setUsername(usuario.getEmail());
@@ -61,8 +74,7 @@ public class GrapQLController {
 
         authorities.setUser(auth);
         authoritiesRepository.save(authorities);
-        usuarioService.save(usuario);
-        return usuario;
+        return usuarioRepository.save(usuario);
     }
 
 }
