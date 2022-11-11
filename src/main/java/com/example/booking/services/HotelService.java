@@ -35,16 +35,6 @@ public class HotelService {
             }
 
 
-
-    public Double precioBase( Map<Integer, List<Integer>> idHoteles){
-        List<Integer> precio = new ArrayList<>();
-        Double valor = 0.0;
-        for (Map.Entry<Integer, List<Integer>> map : idHoteles.entrySet()){
-            valor =hotelRepository.precio(map.getKey(), map.getValue());
-            }
-        return valor;
-    }
-
     public Double precioBasefiltro(Integer id_hotel){
         return hotelRepository.preciofiltro(id_hotel);
     }

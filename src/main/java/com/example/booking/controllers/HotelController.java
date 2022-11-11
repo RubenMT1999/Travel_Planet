@@ -95,34 +95,23 @@ import java.util.concurrent.TimeUnit;
         reserva.setFechaFin(fecha_Fin);
         model.addAttribute("reserva", reserva);
 
-        Double comprobacion = 2000.0;
-        Double valor = 0.0;
+
         List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
-        //hotelService.precioBase(hotel);
-        List<Integer> num = new ArrayList<>();
-        Map<Integer, List<Integer>> idHoteles = new HashMap<Integer, List<Integer>>();
+
        for(Hotel h: hotel){
-           if(h.getId().equals(idHoteles.keySet())){
-               num.add(h.getNumero_habitaciones());
-               idHoteles.put(h.getId(), num);
-           }else {
-               num.add(h.getNumero_habitaciones());
-               idHoteles.put(h.getId(), num);
-           }
-           valor = hotelService.precioBase(idHoteles);
-           hotelService.preciomodificado(valor, h.getId());
-           /*if(valor == null){
-               valor = 2000.0;
-           }
-            if(comprobacion > valor ){
-                hotelService.preciomodificado(valor ,h.getId());
+            Integer id = h.getId();
+            List<Habitacion> habitacions = habitacionService.buscarHabitaciones(id, capacidad, fechaInicio, fecha_Fin);
+            List<Double> precioHabitaciones = new ArrayList<>();
+            for (Habitacion habitacion : habitacions){
+                precioHabitaciones.add(habitacion.getPrecioBase());
+
             }
-
-
-
-
-            */
+            Double preciomin = Collections.min(precioHabitaciones);
+            h.setPrecio(preciomin.toString());
         }
+
+
+
 
 
 
@@ -153,8 +142,16 @@ import java.util.concurrent.TimeUnit;
                     capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
                     habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getEstrellas());
             for(Hotel h: hotels){
-                Double valor = hotelService.precioBasefiltro(h.getId());
-                hotelService.preciomodificadofiltro(valor,h.getId());
+                Integer id = h.getId();
+                List<Habitacion> habitacions = habitacionService.habitacionfiltroprecio(id, fecha.getFechaInicio(), fecha.getFechaFin(), capacidad.getCapacidad(),habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado()
+                        , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getEstrellas());
+                List<Double> precioHabitaciones = new ArrayList<>();
+                for (Habitacion habitaciones : habitacions){
+                    precioHabitaciones.add(habitaciones.getPrecioBase());
+
+                }
+                Double preciomin = Collections.min(precioHabitaciones);
+                h.setPrecio(preciomin.toString());
             }
 
             model.addAttribute("habfiltro", habitacion);

@@ -3,6 +3,8 @@ package com.example.booking.repository;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,8 +32,9 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
 
 
-    @Query(value = "SELECT precio_base FROM Habitacion h where id_hotel = :id_hotel and num_habitacion in :num_hab order by precio_base asc limit 1", nativeQuery = true)
-    Double precio(Integer id_hotel, List<Integer> num_hab);
+
+
+
 
     @Query(value = "SELECT precio_base FROM vistafiltro h where id = :id_hotel order by precio_base asc limit 1", nativeQuery = true)
     Double preciofiltro(Integer id_hotel);
