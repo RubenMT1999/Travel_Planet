@@ -56,7 +56,7 @@ public class Usuario {
     private String email;
 
     @JsonIgnore
-    @Column(name = "metodo_de_pago")
+    @Column(name = "metodo_pago")
     private EMetodoDePago metodoDePago;
 
     private boolean registrado;

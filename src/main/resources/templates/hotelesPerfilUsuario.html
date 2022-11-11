@@ -28,7 +28,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page" th:href="@{/perfil/datos}">
+            <a href="#" class="nav-link link-dark" aria-current="page" th:href="@{/perfil/datos}">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
               Perfil de Usuario
             </a>
@@ -46,7 +46,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="#" class="nav-link active link-dark">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
               Mis Hoteles
             </a>
@@ -100,7 +100,8 @@
 
                     <div class="row">
                       <div class="col">
-                        <span th:text="${hotel.comentario}"></span>
+                        <div class="g-col-4 mt-2"><span class="fw-semibold">Estrellas :  </span> <span th:text="${hotel.estrellas}"></span></div>
+
                       </div>
                     </div>
 

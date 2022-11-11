@@ -1,12 +1,10 @@
 package com.example.booking.controllers;
 
 import Paginador.PageRender;
-import com.example.booking.models.Habitacion;
-import com.example.booking.models.Hotel;
-import com.example.booking.models.Reserva;
-import com.example.booking.models.Usuario;
+import com.example.booking.models.*;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
+import com.example.booking.services.ReservaService;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,6 +45,8 @@ import java.util.concurrent.TimeUnit;
     private HabitacionService habitacionService;
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private ReservaService reservaService;
 
     @GetMapping("/hoteles/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
@@ -207,7 +207,7 @@ import java.util.concurrent.TimeUnit;
                 hotel.setImagen("https://t3.ftcdn.net/jpg/01/06/85/86/360_F_106858608_EuOWeiATyMOD6b9cXNzcJDSZufLbojQs.jpg");
             }
         hotelService.hotelGuardar(imagen,flash,hotel);
-        return "redirect:/hoteles/verHotelesUsuarios";
+        return "redirect:/perfil/mis-hoteles";
 
         }
 
@@ -308,13 +308,38 @@ import java.util.concurrent.TimeUnit;
                 e.printStackTrace();
             }
 
-
-
             model.addAttribute("titulo","Crear Reserva");
             model.addAttribute("reserva",reserva);
             model.addAttribute("habitacion",habitacion);
             model.addAttribute("usuario",usuario);
             model.addAttribute("dias",diasBuscados);
             return "crearReserva";
+        }
+
+
+        @PostMapping("/reserva/crear/{id}")
+        public String procesarReserva(Model model, @PathVariable Integer id, Authentication authentication,
+                                      @ModelAttribute("reserva") Reserva fecha, HttpSession session){
+
+            authentication= SecurityContextHolder.getContext().getAuthentication();
+            Reserva reserva = new Reserva();
+            Habitacion habitacion = habitacionService.findById(id);
+            reserva.setHabitacion(habitacion);
+            Usuario usuario = usuarioService.usuarioPorNombre(authentication.getName());
+            reserva.setUsuario(usuario);
+
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha_inicio = (Date)session.getAttribute("fi");
+            Date fecha_fin = (Date)session.getAttribute("ff");
+
+           reserva.setFechaInicio(fecha_inicio);
+           reserva.setFechaFin(fecha_fin);
+           EMetodoDePago metodoDePago = usuario.getMetodoDePago();
+
+           reservaService.reserva(usuario.getId(), habitacion.getId(),fecha_inicio,fecha_fin, metodoDePago.toString());
+
+           model.addAttribute("reserva", reserva);
+
+            return "redirect:/";
         }
 }

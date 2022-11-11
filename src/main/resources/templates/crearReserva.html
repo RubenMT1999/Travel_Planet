@@ -47,8 +47,10 @@
 
     </ul>
     <div class="card-body">
-      <a href="#" class="card-link">Pagar</a>
-      <a href="#" class="card-link">Atrás</a>
+      <form th:action="@{/reserva/crear}" th:object="${reserva}"  method="post">
+        <button href="#" class="btn btn-success">Reservar</button>
+      </form>
+      <a class="btn btn-danger">Cancelar</a>
     </div>
   </div>
   </div>

@@ -46,11 +46,6 @@ public class ReservaController {
 
 
 
-//    @PostMapping("/crear")
-//    public String procesarReserva(Model model, @Valid Reserva reserva, BindingResult result){
-//
-//    }
-
 
 
 }
