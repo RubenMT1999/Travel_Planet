@@ -26,7 +26,7 @@ public class Habitacion {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "num_habitacion",unique = true)
+    @Column(name = "num_habitacion")
     @NotNull
     private int numeroHabitacion;
 

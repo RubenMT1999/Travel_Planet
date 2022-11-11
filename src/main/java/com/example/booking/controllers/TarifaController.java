@@ -6,6 +6,7 @@ import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.TarifaService;
 import com.example.booking.services.UsuarioService;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -64,11 +65,13 @@ public class TarifaController {
                 tarifa.setPrecioTV(faker.number().randomDouble(1, 5, 20));
                 tarifa.setPrecioTerraza(faker.number().randomDouble(1, 5, 20));
                 tarifa.setPrecioBanio(faker.number().randomDouble(1, 5, 20));
-            tarifa.setHotelTarifa(h);
-            tarifaService.guardarTarifa(tarifa);
+            tarifa.setHotel(h);
+            tarifaService.guardar(tarifa);
 }
 
+
     }
+    /*
     //Faker para generar estrella en hoteles
    @GetMapping("/generarusuario")
    public void generarhabitacionesAleatorio() {
