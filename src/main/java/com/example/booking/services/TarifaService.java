@@ -33,4 +33,8 @@ public class TarifaService {
     public Tarifa verTarifa (Integer id){
         return tarifaRepository.listarTarifa(id);
     }
+
+    public void guardarPension (Integer tipoPension, Double precio, Integer idTarifa){
+        tarifaRepository.guardarPension(tipoPension,precio,idTarifa);
+    }
 }

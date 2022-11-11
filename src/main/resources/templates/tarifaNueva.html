@@ -39,7 +39,61 @@
                         <label>Baño: </label>
                         <input type="number" name="precio_banio" th:field="*{precioBanio}" class="form-control" placeholder="Ponga aquí precio por tener baño privado" required>
                         <br>
+                    </div>
+                        <br>
+                    <h1 class="text-center">Precio de las pensiones</h1>
+                        <br>
 
+<!--                    <div th:each="pe: ${T(com.example.booking.models.Pension).values()}">-->
+<!--                        <p th:text="${pe.name()}"> </p>-->
+<!--                        <input type="number" name="precio" th:name="precio" class="form-control" placeholder="Ponga aquí precio" required>-->
+<!--                        <input type="hidden" name="pension" th:value="${pe}">-->
+
+
+
+                                            <div th:object="${pension1}">
+                        <label>precio: </label>
+                        <input type="number" name="precio1" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>
+                        <br>
+                        <label>tipo pension: </label>
+                        <select name="pension1" th:field="*{pension}">
+                            <option th:each="pension1 : ${T(com.example.booking.models.Pension).values()}"
+                                    th:value="${pension1}" th:text="${pension1}"></option>
+                        </select>
+                        <br>
+                    </div>
+                    <div th:object="${pension2}">
+                        <label>precio: </label>
+                        <input type="number" name="precio2" th:field="*{precio}" th:value="pension2" class="form-control" placeholder="Ponga aquí precio" required>
+                        <br>
+                        <label>tipo pension: </label>
+                        <select name="pension2" th:field="*{pension}">
+                            <option th:each="pension2 : ${T(com.example.booking.models.Pension).values()}"
+                                    th:value="${pension2}" th:text="${pension2}"></option>
+                        </select>
+                        <br>
+                    </div>
+                    <div th:object="${pension3}">
+                        <label>precio: </label>
+                        <input type="number" name="precio3" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>
+                        <br>
+                        <label>tipo pension: </label>
+                        <select name="pension3" th:field="*{pension}">
+                            <option th:each="pension3 : ${T(com.example.booking.models.Pension).values()}"
+                                    th:value="${pension3}" th:text="${pension3}"></option>
+                        </select>
+                        <br>
+                    </div>
+                    <div th:object="${pension4}">
+                        <label>precio: </label>
+                        <input type="number" name="precio4" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>
+                        <br>
+                        <label>tipo pension: </label>
+                        <select name="pension4" th:field="*{pension}">
+                            <option th:each="pension4 : ${T(com.example.booking.models.Pension).values()}"
+                                    th:value="${pension4}" th:text="${pension4}"></option>
+                        </select>
+                        <br>
                     </div>
 
                     <br>

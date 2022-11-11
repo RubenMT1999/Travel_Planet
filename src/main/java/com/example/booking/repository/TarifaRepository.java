@@ -26,4 +26,10 @@ public interface TarifaRepository  extends JpaRepository<Tarifa,Integer> {
 
 
 
+    @Query(value = "insert into pensiones(tipo_pension,precio,id_tarifa) values (?1,?2,?3)",nativeQuery = true )
+    void guardarPension(@Param("tipo_pension") Integer tipoPension, @Param("precio") Double precio, @Param("id_tarifa") Integer idTarifa);
+
+
+
+
 }
