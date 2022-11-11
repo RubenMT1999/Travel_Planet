@@ -71,10 +71,10 @@ public class TarifaController {
 
     @PostMapping("/nuevo")
     public String tarifaNueva(@Valid Tarifa tarifa, Model model, @RequestParam ("id_hotel")Integer id_hotel,
-                              @Valid @ModelAttribute(name = "pension1") PensionHotel pension1,
-                              @Valid @ModelAttribute(name = "pension2") PensionHotel pension2,
-                              @Valid @ModelAttribute(name = "pension3") PensionHotel pension3,
-                              @Valid @ModelAttribute(name = "pension4") PensionHotel pension4){
+                               @RequestParam(name = "precio_completa") Double pension1,
+                               @RequestParam(name = "precio_media_pension") Double pension2,
+                               @RequestParam(name = "precio_desayuno") Double pension3,
+                               @RequestParam(name = "precio_ninguna") Double pension4){
 
 
             tarifaService.guardarTarifa(tarifa.getPrecioBanio(),tarifa.getPrecioCajaFuerte(),tarifa.getPrecioCocina(),tarifa.getPrecioTV(),tarifa.getPrecioTerraza(),tarifa.getPrecioWifi(),tarifa.getPrecioAire(),id_hotel);
@@ -84,10 +84,10 @@ public class TarifaController {
 
 
 
-            tarifaService.guardarPension(pension1.getPension().ordinal(), pension1.getPrecio(), id_tarifa);
-            tarifaService.guardarPension(pension2.getPension().ordinal(), pension2.getPrecio(), id_tarifa);
-            tarifaService.guardarPension(pension3.getPension().ordinal(), pension3.getPrecio(), id_tarifa);
-            tarifaService.guardarPension(pension4.getPension().ordinal(), pension4.getPrecio(), id_tarifa);
+            tarifaService.guardarPension(Pension.Completa.ordinal(), pension1, id_tarifa);
+            tarifaService.guardarPension(Pension.Desayuno_Cena.ordinal(), pension2, id_tarifa);
+            tarifaService.guardarPension(Pension.Desayuno.ordinal(), pension3, id_tarifa);
+            tarifaService.guardarPension(Pension.Ninguna.ordinal(), pension4, id_tarifa);
 
 
 
@@ -128,7 +128,11 @@ public class TarifaController {
     }
 
     @PostMapping("/editar")
-    public String mostrarTarifaEditar(@ModelAttribute("tarifa") Tarifa tarifa,Model model, @RequestParam ("id_hotel")Integer id_hotel){
+    public String mostrarTarifaEditar(@ModelAttribute("tarifa") Tarifa tarifa,Model model, @RequestParam ("id_hotel")Integer id_hotel,
+                                      @RequestParam(name = "precio_completa") Double pension1,
+                                      @RequestParam(name = "precio_media_pension") Double pension2,
+                                      @RequestParam(name = "precio_desayuno") Double pension3,
+                                      @RequestParam(name = "precio_ninguna") Double pension4){
         Tarifa tarifaEditar = tarifaService.verTarifa(id_hotel);
         tarifaEditar.setPrecioWifi(tarifa.getPrecioWifi());
         tarifaEditar.setPrecioCajaFuerte(tarifa.getPrecioCajaFuerte());
@@ -138,7 +142,14 @@ public class TarifaController {
         tarifaEditar.setPrecioTerraza(tarifa.getPrecioTerraza());
         tarifaEditar.setPrecioBanio(tarifa.getPrecioBanio());
 
+
+
         tarifaService.tarifaEditar(tarifaEditar);
+
+        tarifaService.modificarPension(pension1, tarifaEditar.getId(),Pension.Completa.ordinal());
+        tarifaService.modificarPension(pension2, tarifaEditar.getId(),Pension.Desayuno_Cena.ordinal());
+        tarifaService.modificarPension(pension3, tarifaEditar.getId(),Pension.Desayuno.ordinal());
+        tarifaService.modificarPension(pension4, tarifaEditar.getId(),Pension.Ninguna.ordinal());
 
 
 

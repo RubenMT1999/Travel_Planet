@@ -11,6 +11,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Repository
 public interface TarifaRepository  extends JpaRepository<Tarifa,Integer> {
 
@@ -28,6 +30,11 @@ public interface TarifaRepository  extends JpaRepository<Tarifa,Integer> {
 
     @Query(value = "insert into pensiones(tipo_pension,precio,id_tarifa) values (?1,?2,?3)",nativeQuery = true )
     void guardarPension(@Param("tipo_pension") Integer tipoPension, @Param("precio") Double precio, @Param("id_tarifa") Integer idTarifa);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update pensiones pen set pen.precio = ?1 where pen.id_tarifa = ?2 and pen.tipo_pension = ?3 ", nativeQuery = true)
+    void modificarPension(@Param("precio") Double precio, @Param("id_tarifa") Integer idTarifa, @Param("tipo_pension") Integer tipoPension);
 
 
 

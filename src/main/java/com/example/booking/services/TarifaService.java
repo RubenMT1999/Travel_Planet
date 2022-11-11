@@ -37,4 +37,8 @@ public class TarifaService {
     public void guardarPension (Integer tipoPension, Double precio, Integer idTarifa){
         tarifaRepository.guardarPension(tipoPension,precio,idTarifa);
     }
+
+    public void modificarPension(Double precio, Integer idTarifa, Integer tipoPension){
+        tarifaRepository.modificarPension(precio,idTarifa,tipoPension);
+    }
 }
