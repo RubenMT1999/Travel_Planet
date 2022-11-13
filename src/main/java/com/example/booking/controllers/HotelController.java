@@ -325,7 +325,7 @@ import java.util.concurrent.TimeUnit;
             Reserva reserva = new Reserva();
             Habitacion habitacion = habitacionService.findById(id);
             reserva.setHabitacion(habitacion);
-            Usuario usuario = usuarioService.usuarioPorNombre(authentication.getName());
+            Usuario usuario = usuarioService.datosUsuario(authentication.getName());
             reserva.setUsuario(usuario);
 
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -334,9 +334,8 @@ import java.util.concurrent.TimeUnit;
 
            reserva.setFechaInicio(fecha_inicio);
            reserva.setFechaFin(fecha_fin);
-           EMetodoDePago metodoDePago = usuario.getMetodoDePago();
 
-           reservaService.reserva(usuario.getId(), habitacion.getId(),fecha_inicio,fecha_fin, metodoDePago.toString());
+           reservaService.guardarReserva(reserva);
 
            model.addAttribute("reserva", reserva);
 

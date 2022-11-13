@@ -36,8 +36,6 @@ public class Reserva {
     @JoinColumn(name = "id_habitacion")
     private Habitacion habitacion;
 
-    @Column(name = "metodo_pago")
-    private EMetodoDePago metodoDePago;
 
     @NotNull
     @Future
@@ -60,10 +58,6 @@ public class Reserva {
 
     public Usuario getUsuario() {
         return usuario;
-    }
-
-    public EMetodoDePago getMetodoDePago() {
-        return metodoDePago;
     }
 
     public Date getFechaInicio() {

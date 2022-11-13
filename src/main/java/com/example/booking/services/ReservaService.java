@@ -33,9 +33,7 @@ public class ReservaService {
         return reservaRepository.reservasPorNombre(nombre);
     }
 
-    public Date fechaInicioReserva(Integer num_hab){return reservaRepository.fechaInicioReserva(num_hab);}
-    public Date fechaFinReserva(Integer num_hab){return reservaRepository.fechaFinReserva(num_hab);}
-
-    public Reserva reserva(Integer id_usuario, Integer id_habitacion, Date fecha_incio, Date fecha_fin, String metodo_pago)
-    {return reservaRepository.guardarReserva(id_usuario,id_habitacion,fecha_incio,fecha_fin,metodo_pago);}
+    public void guardarReserva(Reserva reserva){
+        reservaRepository.save(reserva);
+    }
 }

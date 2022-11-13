@@ -109,4 +109,15 @@ public class PerfilUsuarioController {
     }
 
 
+    @GetMapping("/mis-reservas")
+    public String reservasUsuario(Model model, Authentication authentication){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
+
+
+
+        return "reservaPerfilUsuario";
+    }
+
+
 }
