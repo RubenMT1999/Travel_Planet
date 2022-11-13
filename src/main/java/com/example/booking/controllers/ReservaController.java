@@ -36,7 +36,7 @@ public class ReservaController {
     @GetMapping("/ver")
     public String listarReserva(Model model, Authentication auth){
         auth = SecurityContextHolder.getContext().getAuthentication();
-        List<Reserva> reservas = reservaService.reservasPorNombre(auth.getName());
+        Reserva reservas = reservaService.reservasPorNombre(auth.getName());
         model.addAttribute("titulo", "Mis Reservas");
         model.addAttribute("reservas",reservas);
         return "reservas";

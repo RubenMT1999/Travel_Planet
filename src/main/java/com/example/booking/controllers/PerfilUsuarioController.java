@@ -5,6 +5,7 @@ import com.example.booking.repository.AuthoritiesRepository;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.HotelService;
+import com.example.booking.services.ReservaService;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,6 +31,8 @@ public class PerfilUsuarioController {
     private HotelService hotelService;
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private ReservaService reservaService;
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
     @Autowired
@@ -113,8 +116,10 @@ public class PerfilUsuarioController {
     public String reservasUsuario(Model model, Authentication authentication){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
+        Reserva listaReservaUsuario = reservaService.reservasPorNombre(authentication.getName());
 
-
+        model.addAttribute("reservasUsuario", listaReservaUsuario);
+        model.addAttribute("nombreUsuarioReserva", nombreUsuario);
 
         return "reservaPerfilUsuario";
     }

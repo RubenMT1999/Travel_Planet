@@ -17,6 +17,7 @@ public interface ReservaRepository  extends JpaRepository<Reserva,Integer> {
 
 
     @Query("SELECT r FROM Reserva r WHERE r.usuario.nombre = ?1")
-    List<Reserva> reservasPorNombre(String nombre);
+    Reserva reservasPorNombre(String nombre);
+
 
 }
