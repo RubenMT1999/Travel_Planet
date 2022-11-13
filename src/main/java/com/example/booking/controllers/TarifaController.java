@@ -8,6 +8,7 @@ import com.example.booking.services.TarifaService;
 import com.example.booking.services.UsuarioService;
 import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.method.P;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -153,19 +154,19 @@ public class TarifaController {
 
     @PostMapping("/editar")
     public String mostrarTarifaEditar(@ModelAttribute("tarifa") Tarifa tarifa,Model model, @RequestParam ("id_hotel")Integer id_hotel,
-                                      @RequestParam(name = "precio_completa") Double pension1,
-                                      @RequestParam(name = "precio_media_pension") Double pension2,
-                                      @RequestParam(name = "precio_desayuno") Double pension3,
-                                      @RequestParam(name = "precio_ninguna") Double pension4,
-                                      @RequestParam(name = "fecha_inicio_alta") String inicioAlta,
-                                      @RequestParam(name = "fecha_fin_alta") String finAlta,
-                                      @RequestParam(name = "precio_temporada_alta") Double precioAlta,
-                                      @RequestParam(name = "fecha_inicio_media") String inicioMedia,
-                                      @RequestParam(name = "fecha_fin_media") String finMedia,
-                                      @RequestParam(name = "precio_temporada_media") Double precioMedia,
-                                      @RequestParam(name = "fecha_inicio_baja") String inicioBaja,
-                                      @RequestParam(name = "fecha_fin_baja") String finBaja,
-                                      @RequestParam(name = "precio_temporada_baja") Double precioBaja) throws ParseException {
+                                      @Nullable @RequestParam(name = "precio_completa") Double pension1,
+                                      @Nullable @RequestParam(name = "precio_media_pension") Double pension2,
+                                      @Nullable @RequestParam(name = "precio_desayuno") Double pension3,
+                                      @Nullable @RequestParam(name = "precio_ninguna") Double pension4,
+                                      @Nullable @RequestParam(name = "fecha_inicio_alta") String inicioAlta,
+                                      @Nullable @RequestParam(name = "fecha_fin_alta") String finAlta,
+                                      @Nullable @RequestParam(name = "precio_temporada_alta") Double precioAlta,
+                                      @Nullable @RequestParam(name = "fecha_inicio_media") String inicioMedia,
+                                      @Nullable  @RequestParam(name = "fecha_fin_media") String finMedia,
+                                      @Nullable @RequestParam(name = "precio_temporada_media") Double precioMedia,
+                                      @Nullable @RequestParam(name = "fecha_inicio_baja") String inicioBaja,
+                                      @Nullable @RequestParam(name = "fecha_fin_baja") String finBaja,
+                                      @Nullable @RequestParam(name = "precio_temporada_baja") Double precioBaja) throws ParseException {
 
 
 
@@ -182,24 +183,44 @@ public class TarifaController {
 
         tarifaService.tarifaEditar(tarifaEditar);
 
+        if (pension1 != null){
+            tarifaService.modificarPension(pension1, tarifaEditar.getId(),Pension.Completa.ordinal());
+        }
+        if (pension2 != null){
+            tarifaService.modificarPension(pension2, tarifaEditar.getId(),Pension.Desayuno_Cena.ordinal());
+        }
+        if (pension3 != null){
+            tarifaService.modificarPension(pension3, tarifaEditar.getId(),Pension.Desayuno.ordinal());
 
+        }
+        if (pension4 != null){
+            tarifaService.modificarPension(pension4, tarifaEditar.getId(),Pension.Ninguna.ordinal());
+        }
 
-        tarifaService.modificarPension(pension1, tarifaEditar.getId(),Pension.Completa.ordinal());
-        tarifaService.modificarPension(pension2, tarifaEditar.getId(),Pension.Desayuno_Cena.ordinal());
-        tarifaService.modificarPension(pension3, tarifaEditar.getId(),Pension.Desayuno.ordinal());
-        tarifaService.modificarPension(pension4, tarifaEditar.getId(),Pension.Ninguna.ordinal());
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaInicio = formato.parse(inicioAlta);
-        Date fecha_Fin = formato.parse(finAlta);
-        Date fechaInicioMedia = formato.parse(inicioMedia);
-        Date fecha_FinMedia = formato.parse(finMedia);
-        Date fechaInicioBaja = formato.parse(inicioBaja);
-        Date fecha_FinNaja = formato.parse(finBaja);
 
-        tarifaService.modificarTemporada(fechaInicio,fecha_Fin,precioAlta,tarifaEditar.getId(),Temporada.Alta.ordinal());
-        tarifaService.modificarTemporada(fechaInicioMedia,fecha_FinMedia,precioMedia,tarifaEditar.getId(),Temporada.Media.ordinal());
-        tarifaService.modificarTemporada(fechaInicioBaja,fecha_FinMedia,precioBaja,tarifaEditar.getId(),Temporada.Baja.ordinal());
+
+
+        if (precioAlta != null){
+            Date fechaInicio = formato.parse(inicioAlta);
+            Date fecha_Fin = formato.parse(finAlta);
+            tarifaService.modificarTemporada(fechaInicio,fecha_Fin,precioAlta,tarifaEditar.getId(),Temporada.Alta.ordinal());
+
+        }
+        if (precioMedia != null){
+            Date fechaInicioMedia = formato.parse(inicioMedia);
+            Date fecha_FinMedia = formato.parse(finMedia);
+            tarifaService.modificarTemporada(fechaInicioMedia,fecha_FinMedia,precioMedia,tarifaEditar.getId(),Temporada.Media.ordinal());
+
+        }
+        if (precioBaja != null){
+            Date fechaInicioBaja = formato.parse(inicioBaja);
+            Date fecha_FinNaja = formato.parse(finBaja);
+            tarifaService.modificarTemporada(fechaInicioBaja,fecha_FinNaja,precioBaja,tarifaEditar.getId(),Temporada.Baja.ordinal());
+
+        }
+
 
 
 
