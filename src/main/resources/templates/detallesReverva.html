@@ -56,7 +56,7 @@
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://w7.pngwing.com/pngs/659/667/png-transparent-computer-icons-user-profile-blog-others-miscellaneous-rectangle-logo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <strong th:text="${nombreUsuarioReserva.nombre}"></strong>
+                        <strong th:text="${nombreUsuarioDetallesReserva.nombre}"></strong>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         <li><a class="dropdown-item" th:href="@{/perfil/editar-perfil}">Configuración</a></li>
@@ -82,16 +82,12 @@
 
                 <h2>Mis Reservas</h2>
 
-                <div th:if="${datosReserva.isEmpty()}">
-                    <h4>No hay reservas pendientes</h4>
-                </div>
-
-                <div class="card mt-3 border-dark text-bg-light" th:each="datosReserva : ${datosReserva}">
-                    <h5 class="card-header" th:text="${datosReserva.habitacion.hotel.ciudad}">Ciudad</h5>
+                <div class="card mt-3 border-dark text-bg-light">
+                    <h5 class="card-header" th:text="${habitacionReserva.descripcion}">Ciudad</h5>
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${datosReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
-                        <p class="card-text" th:text="${datosReserva.fechaInicio} + ${datosReserva.fechaFin}">Fecha</p>
-                        <a href="#" class="btn btn-dark" th:href="@{/perfil/mis-reservas/{id}(id=${datosReserva.getId()})}">Ver Detalles</a>
+                        <h5 class="card-title">Nombre Hotel</h5>
+                        <p class="card-text">Fecha</p>
+                        <a href="#" class="btn btn-dark">Ver Detalles</a>
                     </div>
                 </div>
 

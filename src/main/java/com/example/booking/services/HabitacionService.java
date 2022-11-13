@@ -267,6 +267,6 @@ public class HabitacionService {
         return habitacionRepository.comprobarNumHab(numHab);
     }
 
-
+    public void editarDisponibilidad(Boolean disponibilidad, Integer id){ habitacionRepository.editarDisponibilidad(disponibilidad,id);}
 
 }

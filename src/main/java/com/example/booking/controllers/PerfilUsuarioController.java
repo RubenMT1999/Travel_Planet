@@ -14,10 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -123,6 +120,20 @@ public class PerfilUsuarioController {
         model.addAttribute("nombreUsuarioReserva", nombreUsuario);
 
         return "reservaPerfilUsuario";
+    }
+    // ME FALTA CONSEGUIR LA HABITACION ME DA NULL
+    @GetMapping("/mis-reservas/{id}")
+    public String detallesReserva(Model model, @PathVariable Integer id, Authentication authentication){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
+        Reserva reservaPorId = reservaService.obtenerDetallesReserva(id);
+        Habitacion habitacion = reservaPorId.getHabitacion();
+        model.addAttribute("habitacionReserva", habitacion);
+
+        model.addAttribute("detallesReserva", reservaPorId);
+        model.addAttribute("nombreUsuarioDetallesReserva", nombreUsuario);
+
+        return "detallesReserva";
     }
 
 

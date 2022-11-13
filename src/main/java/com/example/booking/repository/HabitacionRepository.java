@@ -58,6 +58,9 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     @Query(value = "SELECT h.id from Habitacion h where h.numeroHabitacion = ?1")
     Integer comprobarNumHab(Integer numHab);
 
-
+    @Transactional
+    @Modifying
+    @Query("UPDATE Habitacion SET disponibilidad = :disponibilidad where id = :id")
+    void editarDisponibilidad(Boolean disponibilidad, Integer id);
 
 }

@@ -36,5 +36,6 @@ public class ReservaService {
 
     public List<Reserva> obtenerReservaUsuario(Integer idUsuario){return reservaRepository.obtenerReserva(idUsuario);}
 
+    public Reserva obtenerDetallesReserva(Integer idReserva){return reservaRepository.findById(idReserva).orElse(null);}
 
 }
