@@ -113,12 +113,13 @@ public class PerfilUsuarioController {
 
 
     @GetMapping("/mis-reservas")
-    public String reservasUsuario(Model model, Authentication authentication){
+    public String reservasUsuario(Reserva reserva, Model model, Authentication authentication){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
-        Reserva listaReservaUsuario = reservaService.reservasPorNombre(authentication.getName());
+        List<Reserva> obtenerReservaUsuario = reservaService.obtenerReservaUsuario(nombreUsuario.getId());
 
-        model.addAttribute("reservasUsuario", listaReservaUsuario);
+
+        model.addAttribute("datosReserva", obtenerReservaUsuario);
         model.addAttribute("nombreUsuarioReserva", nombreUsuario);
 
         return "reservaPerfilUsuario";

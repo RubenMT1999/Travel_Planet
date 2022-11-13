@@ -29,13 +29,12 @@ public class ReservaService {
     }
 
 
-    public Reserva reservasPorNombre(String nombre) {
-        return reservaRepository.reservasPorNombre(nombre);
-    }
 
     public void guardarReserva(Reserva reserva){
         reservaRepository.save(reserva);
     }
+
+    public List<Reserva> obtenerReservaUsuario(Integer idUsuario){return reservaRepository.obtenerReserva(idUsuario);}
 
 
 }

@@ -80,14 +80,20 @@
 
             <div class="container">
 
+            <div th:if="${datosReserva.isEmpty()}">
+                <h1>No hay reservas pendientes</h1>
+            </div>
+
                 <h2>Mis Reservas</h2>
 
-                <div class="row">
-
-                    <p th:text="${nombreHotel}"></p>
-
+                <div class="card mt-3 border-dark text-bg-light" th:each="datosReserva : ${datosReserva}">
+                    <h5 class="card-header" th:text="${datosReserva.habitacion.hotel.ciudad}">Ciudad</h5>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${datosReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
+                        <p class="card-text" th:text="${datosReserva.fechaInicio} + ${datosReserva.fechaFin}">Fecha</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
                 </div>
-
 
             </div>
 

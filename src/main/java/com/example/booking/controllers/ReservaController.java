@@ -33,13 +33,7 @@ public class ReservaController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/ver")
-    public String listarReserva(Model model, Authentication auth){
-        auth = SecurityContextHolder.getContext().getAuthentication();
-        Reserva reservas = reservaService.reservasPorNombre(auth.getName());
-        model.addAttribute("titulo", "Mis Reservas");
-        model.addAttribute("reservas",reservas);
-        return "reservas";
+
     }
 
 
@@ -48,4 +42,3 @@ public class ReservaController {
 
 
 
-}
