@@ -269,4 +269,5 @@ public class HabitacionService {
 
     public void editarDisponibilidad(Boolean disponibilidad, Integer id){ habitacionRepository.editarDisponibilidad(disponibilidad,id);}
 
+    public Habitacion obtenerHabitacionReserva(Integer id){return habitacionRepository.obtenerHabitacionReserva(id);}
 }

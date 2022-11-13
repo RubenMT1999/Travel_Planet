@@ -4,6 +4,7 @@ import com.example.booking.models.*;
 import com.example.booking.repository.AuthoritiesRepository;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
+import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
 import com.example.booking.services.ReservaService;
 import com.example.booking.services.UsuarioService;
@@ -34,6 +35,8 @@ public class PerfilUsuarioController {
     private AuthoritiesRepository authoritiesRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private HabitacionService habitacionService;
 
 
     @GetMapping("/datos")
@@ -110,7 +113,7 @@ public class PerfilUsuarioController {
 
 
     @GetMapping("/mis-reservas")
-    public String reservasUsuario(Reserva reserva, Model model, Authentication authentication){
+    public String reservasUsuario( Model model, Authentication authentication){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
         List<Reserva> obtenerReservaUsuario = reservaService.obtenerReservaUsuario(nombreUsuario.getId());
@@ -127,9 +130,9 @@ public class PerfilUsuarioController {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
         Reserva reservaPorId = reservaService.obtenerDetallesReserva(id);
-        Habitacion habitacion = reservaPorId.getHabitacion();
-        model.addAttribute("habitacionReserva", habitacion);
 
+        Habitacion habitacion = habitacionService.obtenerHabitacionReserva(reservaPorId.getId());
+        reservaPorId.setHabitacion(habitacion);
         model.addAttribute("detallesReserva", reservaPorId);
         model.addAttribute("nombreUsuarioDetallesReserva", nombreUsuario);
 
