@@ -1,9 +1,6 @@
 package com.example.booking.controllers;
 
-import com.example.booking.models.Hotel;
-import com.example.booking.models.Pension;
-import com.example.booking.models.PensionHotel;
-import com.example.booking.models.Tarifa;
+import com.example.booking.models.*;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HotelService;
 //import com.example.booking.services.PensionService;
@@ -20,7 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -74,7 +74,17 @@ public class TarifaController {
                                @RequestParam(name = "precio_completa") Double pension1,
                                @RequestParam(name = "precio_media_pension") Double pension2,
                                @RequestParam(name = "precio_desayuno") Double pension3,
-                               @RequestParam(name = "precio_ninguna") Double pension4){
+                               @RequestParam(name = "precio_ninguna") Double pension4,
+                              @RequestParam(name = "fecha_inicio_alta") String inicioAlta,
+                              @RequestParam(name = "fecha_fin_alta") String finAlta,
+                              @RequestParam(name = "precio_temporada_alta") Double precioAlta,
+                              @RequestParam(name = "fecha_inicio_media") String inicioMedia,
+                              @RequestParam(name = "fecha_fin_media") String finMedia,
+                              @RequestParam(name = "precio_temporada_media") Double precioMedia,
+                              @RequestParam(name = "fecha_inicio_baja") String inicioBaja,
+                              @RequestParam(name = "fecha_fin_baja") String finBaja,
+                              @RequestParam(name = "precio_temporada_baja") Double precioBaja
+    ) throws ParseException {
 
 
             tarifaService.guardarTarifa(tarifa.getPrecioBanio(),tarifa.getPrecioCajaFuerte(),tarifa.getPrecioCocina(),tarifa.getPrecioTV(),tarifa.getPrecioTerraza(),tarifa.getPrecioWifi(),tarifa.getPrecioAire(),id_hotel);
@@ -89,7 +99,21 @@ public class TarifaController {
             tarifaService.guardarPension(Pension.Desayuno.ordinal(), pension3, id_tarifa);
             tarifaService.guardarPension(Pension.Ninguna.ordinal(), pension4, id_tarifa);
 
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaInicio = formato.parse(inicioAlta);
+        Date fecha_Fin = formato.parse(finAlta);
 
+            tarifaService.guardarTemporada(Temporada.Alta.ordinal(),fechaInicio,fecha_Fin,precioAlta,id_tarifa);
+
+        Date fechaInicioMedia = formato.parse(inicioMedia);
+        Date fecha_FinMedia = formato.parse(finMedia);
+
+        tarifaService.guardarTemporada(Temporada.Media.ordinal(),fechaInicioMedia,fecha_FinMedia,precioMedia,id_tarifa);
+
+        Date fechaInicioBaja = formato.parse(inicioBaja);
+        Date fecha_FinNaja = formato.parse(finBaja);
+
+        tarifaService.guardarTemporada(Temporada.Baja.ordinal(),fechaInicioBaja,fechaInicioBaja,precioBaja,id_tarifa);
 
 
             return "redirect:/hoteles/verHotelesUsuarios";
@@ -132,7 +156,19 @@ public class TarifaController {
                                       @RequestParam(name = "precio_completa") Double pension1,
                                       @RequestParam(name = "precio_media_pension") Double pension2,
                                       @RequestParam(name = "precio_desayuno") Double pension3,
-                                      @RequestParam(name = "precio_ninguna") Double pension4){
+                                      @RequestParam(name = "precio_ninguna") Double pension4,
+                                      @RequestParam(name = "fecha_inicio_alta") String inicioAlta,
+                                      @RequestParam(name = "fecha_fin_alta") String finAlta,
+                                      @RequestParam(name = "precio_temporada_alta") Double precioAlta,
+                                      @RequestParam(name = "fecha_inicio_media") String inicioMedia,
+                                      @RequestParam(name = "fecha_fin_media") String finMedia,
+                                      @RequestParam(name = "precio_temporada_media") Double precioMedia,
+                                      @RequestParam(name = "fecha_inicio_baja") String inicioBaja,
+                                      @RequestParam(name = "fecha_fin_baja") String finBaja,
+                                      @RequestParam(name = "precio_temporada_baja") Double precioBaja) throws ParseException {
+
+
+
         Tarifa tarifaEditar = tarifaService.verTarifa(id_hotel);
         tarifaEditar.setPrecioWifi(tarifa.getPrecioWifi());
         tarifaEditar.setPrecioCajaFuerte(tarifa.getPrecioCajaFuerte());
@@ -146,10 +182,24 @@ public class TarifaController {
 
         tarifaService.tarifaEditar(tarifaEditar);
 
+
+
         tarifaService.modificarPension(pension1, tarifaEditar.getId(),Pension.Completa.ordinal());
         tarifaService.modificarPension(pension2, tarifaEditar.getId(),Pension.Desayuno_Cena.ordinal());
         tarifaService.modificarPension(pension3, tarifaEditar.getId(),Pension.Desayuno.ordinal());
         tarifaService.modificarPension(pension4, tarifaEditar.getId(),Pension.Ninguna.ordinal());
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaInicio = formato.parse(inicioAlta);
+        Date fecha_Fin = formato.parse(finAlta);
+        Date fechaInicioMedia = formato.parse(inicioMedia);
+        Date fecha_FinMedia = formato.parse(finMedia);
+        Date fechaInicioBaja = formato.parse(inicioBaja);
+        Date fecha_FinNaja = formato.parse(finBaja);
+
+        tarifaService.modificarTemporada(fechaInicio,fecha_Fin,precioAlta,tarifaEditar.getId(),Temporada.Alta.ordinal());
+        tarifaService.modificarTemporada(fechaInicioMedia,fecha_FinMedia,precioMedia,tarifaEditar.getId(),Temporada.Media.ordinal());
+        tarifaService.modificarTemporada(fechaInicioBaja,fecha_FinMedia,precioBaja,tarifaEditar.getId(),Temporada.Baja.ordinal());
 
 
 

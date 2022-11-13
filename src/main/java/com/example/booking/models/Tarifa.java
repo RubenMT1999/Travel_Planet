@@ -51,6 +51,9 @@ public class Tarifa {
     @OneToMany(mappedBy = "tarifa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PensionHotel> pensionHoteles;
 
+    @OneToMany(mappedBy = "tarifa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TemporadaHotel> temporadaHoteles;
+
     public Integer getId() {
         return id;
     }
