@@ -4,11 +4,7 @@ import com.example.booking.models.*;
 import com.example.booking.repository.AuthoritiesRepository;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
-import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -36,16 +32,14 @@ public class GrapQLController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/usuarios")
-    @QueryMapping
     public List<Usuario> listarUsuarios(){
         return usuarioRepository.findAll();
     }
 
 
     @PostMapping("/nuevo/usuario")
-    @MutationMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario nuevoUsuario(@RequestBody @Argument(name = "input")GrapqlModels.UsuarioInput input){
+    public Usuario nuevoUsuario(@RequestBody GrapqlModels.UsuarioInput input){
 
         Usuario usuario = new Usuario();
 
