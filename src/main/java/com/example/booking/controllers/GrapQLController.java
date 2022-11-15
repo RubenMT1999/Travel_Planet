@@ -37,22 +37,16 @@ public class GrapQLController {
     }
 
 
-    @PostMapping("/nuevo/usuario")
+    @RequestMapping(method = RequestMethod.POST, value = "/nuevo/usuario")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario nuevoUsuario(@RequestBody GrapqlModels.UsuarioInput input){
+    public Usuario nuevoUsuario(@RequestBody Usuario usuario){
 
-        Usuario usuario = new Usuario();
-
-        String bcryptPassword = passwordEncoder.encode(input.getPassword());
+        String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);
-        usuario.setNombre(input.getNombre());
-        usuario.setApellidos(input.getApellidos());
-        usuario.setFechaNacimiento(input.getFechaNacimiento());
-        usuario.setNacionalidad(input.getNacionalidad());
-        usuario.setDni(input.getDni());
-        usuario.setEmail(input.getEmail());
-        usuario.setEsHotelero(input.getEsHotelero());
-        usuario.setTelefono(input.getTelefono());
+
+        usuario.setMetodoDePago(EMetodoDePago.Bizum);
+        usuario.setRegistrado(true);
+        usuario.setDescuento(null);
 
         UserAuth auth = new UserAuth();
         auth.setUsername(usuario.getEmail());
@@ -62,7 +56,7 @@ public class GrapQLController {
 
         Authorities authorities = new Authorities();
 
-        if(usuario.getEsHotelero() == true){
+        if(usuario.getEsHotelero()){
             authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
         }else {
             authorities.setAuthority(ERoles.ROLE_USER.toString());

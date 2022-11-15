@@ -263,8 +263,8 @@ public class HabitacionService {
     public void listarIdHotelesPorHabitacion() { habitacionRepository.totalIdHotelesHabitacion(); }
 
 
-    public Integer comprobarNumHab(Integer numHab){
-        return habitacionRepository.comprobarNumHab(numHab);
+    public Integer comprobarNumHab(Integer numHab,Integer idHotel){
+        return habitacionRepository.comprobarNumHab(numHab,idHotel);
     }
 
 
