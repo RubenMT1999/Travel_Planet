@@ -265,7 +265,7 @@ import java.util.concurrent.TimeUnit;
         public String eliminarPorId( @PathVariable int id){
            hotelService.hotelEliminar(id);
 
-            return "redirect:/hoteles/verHotelesUsuarios";
+            return "redirect:/perfil/mis-hoteles";
         }
 
         @GetMapping("/hoteles/verHotelesUsuarios")

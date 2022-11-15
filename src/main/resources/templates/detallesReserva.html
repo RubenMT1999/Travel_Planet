@@ -85,11 +85,37 @@
                 <div class="card mt-3 border-dark text-bg-light">
                     <h5 class="card-header" th:text="${detallesReserva.habitacion.hotel.ciudad}">Ciudad</h5>
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${detallesReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
-                        <p class="card-text">Fecha</p>
-                        <a href="#" class="btn btn-warning">Modificar Reserva</a>
-                        <a href="#" class="btn btn-danger">Cancelar Reserva</a>
-                        <a href="#" class="btn btn-dark">Pagar Ahora</a>
+                        <div class="row">
+
+                            <div class="col-6">
+                                <h5 class="card-title" th:text="${detallesReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <p class="card-text" th:text="${detallesReserva.fechaInicio}">Fecha</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="card-text" th:text="${detallesReserva.fechaFin}">Fecha</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3 card-text">Capacidad</div>
+                                    <div class="col-1 card-text" th:text="${detallesReserva.habitacion.getCapacidad()}"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col card-text" th:text="${detallesReserva.habitacion.descripcion}">Capacidad</div>
+                                </div>
+                                <a href="#" class="btn btn-warning me-2 mt-3" th:href="@{/perfil/editar-reservas/{id}(id=${detallesReserva.getId()})}">Modificar Reserva</a>
+                                <a href="#" class="btn btn-danger me-2 mt-3" th:href="@{/perfil/eliminar-reservas/{id}(id=${detallesReserva.getId()})}">Cancelar Reserva</a>
+                                <a href="#" class="btn btn-dark mt-3">Pagar Ahora</a>
+                            </div>
+
+                            <div class="col-6">
+                                <img th:if="${#strings.length(detallesReserva.habitacion.hotel.imagen)>0}" class="img-thumbnail rounded float-end " th:src="@{'/uploads/' + ${detallesReserva.habitacion.hotel.imagen}}" th:alt="${detallesReserva.habitacion.hotel.imagen}"/>
+                            </div>
+
+                        </div>
+
+
                     </div>
                 </div>
 

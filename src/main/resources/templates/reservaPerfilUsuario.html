@@ -89,19 +89,24 @@
                 <div class="card mt-3 border-dark text-bg-light" th:each="datosReserva : ${datosReserva}">
                     <h5 class="card-header" th:text="${datosReserva.habitacion.hotel.ciudad}">Ciudad</h5>
                     <div class="card-body">
-
+                        <h5 class="card-title" th:text="${datosReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
                         <div class="row">
-                            <div class="col-3">
-                                <h5 class="card-title" th:text="${datosReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
+                            <div class="col-1">
+                                <span class="fw-semibold">Estrellas</span>
                             </div>
-                            <div class="col-3">
-                                <span class="fw-semibold"> - Estrellas :</span><p class="card-text fw-semibold fs-6" th:text="${datosReserva.habitacion.hotel.estrellas}">Estrellas</p>
+                            <div class="col-1">
+                                <p class="card-text fw-semibold fs-6" th:text="${datosReserva.habitacion.hotel.estrellas}">Estrellas</p>
                             </div>
                         </div>
-
-
-                        <p class="card-text fw-semibold fs-6" th:text="${datosReserva.fechaInicio} + ${datosReserva.fechaFin}">Fecha</p>
-                        <a href="#" class="btn btn-dark" th:href="@{/perfil/mis-reservas/{id}(id=${datosReserva.getId()})}">Ver Detalles</a>
+                        <div class="row">
+                            <div class="col-2">
+                                <p class="card-text fw-semibold fs-6" th:text="${datosReserva.fechaInicio}"></p>
+                            </div>
+                            <div class="col-2">
+                                <p class="card-text fw-semibold fs-6" th:text="${datosReserva.fechaFin}"></p>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-dark mt-2" th:href="@{/perfil/mis-reservas/{id}(id=${datosReserva.getId()})}">Ver Detalles</a>
                     </div>
                 </div>
 

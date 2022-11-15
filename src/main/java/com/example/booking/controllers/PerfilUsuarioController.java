@@ -11,6 +11,7 @@ import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -138,6 +139,21 @@ public class PerfilUsuarioController {
 
         return "detallesReserva";
     }
+
+    @PostMapping("/eliminar-reserva/{id}")
+    public String cancelarReserva(@PathVariable Integer id){
+        reservaService.cancelarReserva(id);
+        return "redirect:/perfil/mis-reservas";
+    }
+
+    @PostMapping("/editar-reserva/{id}")
+    public String editarReserva(Model model,@PathVariable Integer id){
+        Reserva reserva = reservaService.obtenerDetallesReserva(id);
+        model.addAttribute("editarReserva", reserva);
+        return "reditect:/";
+    }
+
+
 
 
 }
