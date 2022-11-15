@@ -38,10 +38,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Modifying
     @Query("UPDATE Usuario SET nombre = :nombre, apellidos = :apellidos, contrasenia = :contrasenia," +
             "fechaNacimiento = :fechaNacimiento, dni = :dni, nacionalidad = :nacionalidad," +
-            "telefono = :telefono, email = :email")
+            "telefono = :telefono, email = :email WHERE id = :id")
      void editarUsuario(String nombre, String apellidos, String contrasenia,
                           Date fechaNacimiento, String dni, String nacionalidad,
-                          String telefono, String email);
+                          String telefono, String email, Integer id);
 
     @Transactional
     @Modifying

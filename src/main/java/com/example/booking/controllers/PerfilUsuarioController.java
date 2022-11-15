@@ -79,22 +79,24 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/editar-perfil")
-    public String guardarDatos(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model){
-
-        usuario.setFechaNacimiento(usuario.getFechaNacimiento());
-        if (usuario.getContrasenia() == null){
-            usuario.setContrasenia(usuario.getContrasenia());
+    public String guardarDatos(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model,Authentication authentication){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario editarPerfilUsuario = usuarioService.datosUsuario(authentication.getName());
+        editarPerfilUsuario.setFechaNacimiento(editarPerfilUsuario.getFechaNacimiento());
+        if (editarPerfilUsuario.getContrasenia() == null){
+            editarPerfilUsuario.setContrasenia(editarPerfilUsuario.getContrasenia());
         }
 
         if (result.hasErrors()){
             return "redirect:/perfil/datos";
         }
 
-        String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
-        usuario.setContrasenia(bcryptPassword);
+        String bcryptPassword = passwordEncoder.encode(editarPerfilUsuario.getContrasenia());
+        editarPerfilUsuario.setContrasenia(bcryptPassword);
 
-        usuarioService.editarUsuario(usuario.getNombre(),usuario.getApellidos(),usuario.getContrasenia(),
-                usuario.getFechaNacimiento(),usuario.getDni(),usuario.getNacionalidad(),usuario.getTelefono(),usuario.getEmail());
+        usuarioService.editarUsuario(editarPerfilUsuario.getNombre(),editarPerfilUsuario.getApellidos(),editarPerfilUsuario.getContrasenia(),
+                editarPerfilUsuario.getFechaNacimiento(),editarPerfilUsuario.getDni(),editarPerfilUsuario.getNacionalidad(),editarPerfilUsuario.getTelefono()
+                ,editarPerfilUsuario.getEmail(), editarPerfilUsuario.getId());
 
         return "redirect:/perfil/datos";
     }
