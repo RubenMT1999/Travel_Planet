@@ -4,10 +4,12 @@ import Paginador.PageRender;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Hotel;
+import com.example.booking.models.Usuario;
 import com.example.booking.repository.HabitacionRepository;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
+import com.example.booking.services.UsuarioService;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,7 +50,6 @@ public class HabitacionController {
 
     @Autowired
     HabitacionService habitacionService;
-
     @Autowired
     HotelRepository hotelRepository;
     @Autowired
@@ -63,22 +66,6 @@ public class HabitacionController {
         return "habitaciones";
     }
 
-    /*@ModelAttribute("capacidad")
-    @GetMapping("/habitacion/{id}")
-    public String hotelid(@PathVariable(name = "id") Integer id,
-                          SessionStatus status, Model model) {
-        model.addAttribute("titulo", "Buscar - Travel Planet");
-        status.setComplete();
-        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id);
-        Hotel hotel = hotelService.hotelID(id);
-        model.addAttribute("hotel", hotel);
-        model.addAttribute("habitacions", habitacions);
-        return "hoteldetalle";
-    }
-
-     */
-
-
     @GetMapping("/crear/{id}")
     public String crear(Model model, @PathVariable Integer id){
         Habitacion habitacion = new Habitacion();
@@ -94,18 +81,24 @@ public class HabitacionController {
     public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, @RequestParam(value = "file") MultipartFile imagen,
                            SessionStatus status, @ModelAttribute("id") Integer idHotel, RedirectAttributes flash){
 
-        if(result.hasErrors()){
+       /* Integer comprobarNumHab = habitacionService.comprobarNumHab(habitacion.getNumeroHabitacion());
+
+        if(result.hasErrors() || comprobarNumHab != null){
             model.addAttribute("titulo", "Ha habido algún error");
+            model.addAttribute("comprobarNumHab",comprobarNumHab);
             return "crearHabitacion";
         }
 
-        habitacion.setPrecioBase(habitacionService.establecerPrecioHabitacion(habitacion.getPrecioBase(), habitacion));
+        */
 
+        habitacion.setPrecioBase(habitacionService.establecerPrecioHabitacion(habitacion.getPrecioBase(), habitacion));
 
         habitacionService.cargarImagen(imagen,flash,habitacion);
 
         habitacionService.guardarPersonalizado(habitacion.getHotel().getId(),habitacion.getNumeroHabitacion(),habitacion.getExtensionTelefonica(),
-                habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion(),habitacion.getPrecioBase());
+                habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion(),habitacion.getPrecioBase(),habitacion.isCajaFuerte(),
+                habitacion.isCocina(),habitacion.isBanioPrivado(),habitacion.isAireAcondicionado(),habitacion.isTv(),habitacion.isTerraza(),
+                habitacion.isWifi());
         model.addAttribute("success","La habitación ha sido creada con éxito!");
         return "redirect:/habitaciones/listar/"+idHotel;
     }
@@ -159,7 +152,8 @@ public class HabitacionController {
         return "redirect:/habitaciones/listar/"+idHotel;
     }
 
-    @GetMapping("/generar")
+    //Faker para generar habitaciones aleatorio.
+   /* @GetMapping("/generar")
     public void generarhabitacionesAleatorio() {
 
         Faker faker = new Faker();
@@ -177,6 +171,14 @@ public class HabitacionController {
                 habitacion.setDescripcion(faker.lorem().fixedString(100));
                 habitacion.setDisponibilidad(faker.bool().bool());
                 habitacion.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
+                habitacion.setCajaFuerte(faker.bool().bool());
+                habitacion.setCocina(faker.bool().bool());
+                habitacion.setBanioPrivado(faker.bool().bool());
+                habitacion.setAireAcondicionado(faker.bool().bool());
+                habitacion.setTv(faker.bool().bool());
+                habitacion.setTerraza(faker.bool().bool());
+                habitacion.setWifi(faker.bool().bool());
+                habitacion.setPrecioBase(faker.number().numberBetween(50,400));
                 contadorHabitacion ++;
                 habitacionService.guardarHabitacion(habitacion);
                 habitaciones.add(habitacion);
@@ -185,7 +187,12 @@ public class HabitacionController {
             hotelRepository.save(h);
         }
 
+
+
     }
+
+    */
+
 
 
 

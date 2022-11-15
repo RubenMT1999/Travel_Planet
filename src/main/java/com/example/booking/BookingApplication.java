@@ -4,12 +4,10 @@ import com.example.booking.services.HabitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @SpringBootApplication
@@ -40,6 +38,8 @@ public class BookingApplication implements CommandLineRunner {
         bean.setValidationMessageSource(messageSource());
         return bean;
     }
+
+
 
     @Override
     public void run(String... args) throws Exception {

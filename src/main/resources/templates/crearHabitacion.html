@@ -27,6 +27,7 @@
                         <input type="number" class="form-control" placeholder="Introduce el número" th:field="*{numeroHabitacion}" id="numero">
                     </div>
                     <div th:if="${#fields.hasErrors('numeroHabitacion')}" th:errors="*{numeroHabitacion}" class="alert alert-danger"></div>
+                    <div th:if="${comprobarNumHab}" class="alert alert-danger">Ya existe un habitación con ese número.</div>
 
 
                     <div class="form-group mb-3 col-10 ">
@@ -101,7 +102,6 @@
                         <input type="number" class="form-control" placeholder="Coste por día" th:field="*{precioBase}" id="preciobase">
                     </div>
                     <div th:if="${#fields.hasErrors('precioBase')}" th:errors="*{precioBase}" class="alert alert-danger"></div>
-
 
 
 

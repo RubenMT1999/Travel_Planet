@@ -13,28 +13,29 @@
 
 <div class="prueba" th:fragment="header">
 
-    <div class="container-fluid bg-dark d-none d-sm-block p-3 fixed" >
+    <div class="container-fluid d-none d-sm-block p-3 top-fixed bg-dark" >
 
         <div class="row">
 
-            <nav class="navbar navbar-dark ">
+            <nav class="navbar navbar-dark">
                 <div class="col-4 p-2">
-                    <a th:href="@{/}" class="fw-bold fs-4 text-decoration-none ml-5 text-danger">
+                    <a th:href="@{/}" class="fw-bold fs-4 text-decoration-none text-light ms-3">
                         PLANET TRAVEL
                     </a>
                 </div>
                 <div class="col-8 p-2 d-inline">
 
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-outline-danger float-end m-2" th:text="#{text.index.iniciar}">Iniciar sesion</a>
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-outline-danger float-end m-2" th:text="#{text.index.registrarse}">Registrarse</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-outline-light float-end m-2" th:text="#{text.index.iniciar}">Iniciar sesion</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-outline-light float-end m-2" th:text="#{text.index.registrarse}">Registrarse</a>
 
                     <div class="dropdown float-end" sec:authorize="isAuthenticated()">
                         <a class="btn btn-secondary dropdown-toggle "  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <span sec:authentication="name"></span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-dark">
                             <span class="dropdown-item-text" sec:authentication="name"></span>
                             <span class="dropdown-item-text" sec:authentication="principal.authorities"></span>
+                            <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/perfil/datos}">Mi Perfil</a>
                             <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}">Mis reservas</a>
                             <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/hoteles/verHotelesUsuarios}">Mis hoteles</a>
                             <form id="logoutForm" th:action="@{/logout}" method="post">
@@ -67,7 +68,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top d-block d-sm-none">
         <div class="container-fluid">
-            <a class="navbar-brand text-danger fs-4" th:href="@{/}">Planet Travel</a>
+            <a class="navbar-brand text-light fs-4 ms-3" th:href="@{/}">PLANET TRAVEL</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -80,21 +81,24 @@
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item" sec:authorize="isAuthenticated()">
                             <form id="logout" th:action="@{/logout}" method="post">
-                                <button class="btn btn-dark text-danger fs-4" onclick="document.getElementById('logout').submit();"
+                                <button class="btn btn-dark text-light fs-4" onclick="document.getElementById('logout').submit();"
                                         type="submit">Cerrar Sesión</button>
                             </form>
                         </li>
                         <li class="nav-item">
-                            <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-dark text-danger fs-4">Iniciar sesion</a>
+                            <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-dark text-light fs-4">Iniciar sesion</a>
                         </li>
                         <div sec:authorize="!isAuthenticated()">
                             <hr>
                         </div>
                         <li sec:authorize="!isAuthenticated()" class="nav-item dropdown">
-                            <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-dark text-danger fs-4">Registrarse</a>
+                            <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-dark text-light fs-4">Registrarse</a>
                         </li>
                         <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                            <a sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}" class="btn btn-dark text-danger fs-4">Mis Reservas</a>
+                            <a sec:authorize="isAuthenticated()" th:href="@{/perfil/datos}" class="btn btn-dark text-light fs-4">Mi Perfil</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                            <a sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}" class="btn btn-dark text-light fs-4">Mis Reservas</a>
                         </li>
                     </ul>
                 </div>

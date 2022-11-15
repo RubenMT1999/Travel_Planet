@@ -1,11 +1,10 @@
 package com.example.booking.controllers;
 
 import Paginador.PageRender;
-import com.example.booking.models.Habitacion;
-import com.example.booking.models.Hotel;
-import com.example.booking.models.Reserva;
+import com.example.booking.models.*;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.HotelService;
+import com.example.booking.services.PensionService;
 import com.example.booking.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,25 +16,19 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
     @Controller
-    @RequestMapping("/hoteles")
-    @SessionAttributes({"habitacion","reserva","tarifa"})
+    @SessionAttributes({"habitacion","reserva", "hoteles", "habfiltro", "puntuacion"})
 
     public class HotelController {
     @Autowired
@@ -45,19 +38,20 @@ import java.util.concurrent.TimeUnit;
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/listar")
+    @Autowired
+    private PensionService pensionService;
+
+    @GetMapping("/hoteles/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
-                                   @Valid Reserva reserva1, BindingResult result,
                                    RedirectAttributes flash,
                                    @RequestParam(name = "fechaInicio") String fecha_inicio,
                                    @RequestParam(name = "fechaFin") String fecha_fin,
                                    @RequestParam(name = "capacidad") Integer capacidad,
-                                   Model model) throws ParseException {
+                                   Model model, HttpSession session) throws ParseException {
 
-        //Para utilizar el SessionAtribute para capacidad.
-        Habitacion habitacion = new Habitacion();
-        habitacion.setCapacidad(capacidad);
-        model.addAttribute("habitacion", habitacion);
+
+
+
 
         model.addAttribute("titulo", "Buscar - Travel Planet");
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -83,31 +77,114 @@ import java.util.concurrent.TimeUnit;
         }
 
         //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
+        Hotel hoteles = new Hotel();
+        hoteles.setCiudad(ciudades);
+        model.addAttribute("hoteles", hoteles);
+
+        //Para utilizar el Sessionatribute para fecha inicio y fecha fin.
         Reserva reserva = new Reserva();
         reserva.setFechaInicio(fechaInicio);
         reserva.setFechaFin(fecha_Fin);
         model.addAttribute("reserva", reserva);
 
-        List<Hotel> hotel = hotelService.Buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
-        model.addAttribute("hotel", hotel);
-        return "busquedahoteles";
 
+        List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
+
+       for(Hotel h: hotel){
+            Integer id = h.getId();
+            List<Habitacion> habitacions = habitacionService.buscarHabitaciones(id, capacidad, fechaInicio, fecha_Fin);
+            List<Double> precioHabitaciones = new ArrayList<>();
+            for (Habitacion habitacion : habitacions){
+                precioHabitaciones.add(habitacion.getPrecioBase());
+
+            }
+            Double preciomin = Collections.min(precioHabitaciones);
+            h.setPrecio(preciomin.toString());
+        }
+
+        model.addAttribute("hotel", hotel);
+
+        //Para utilizar el SessionAtribute para capacidad.
+        Habitacion habitacion = new Habitacion();
+        habitacion.setCapacidad(capacidad);
+        model.addAttribute("habitacion", habitacion);
+
+        session.setAttribute("fi", fechaInicio);
+        session.setAttribute("ff", fecha_Fin);
+
+        return "busquedahoteles";
     }
-    @GetMapping("/habitacion/{id}")
+
+        @GetMapping("/hoteles/listarfiltro")
+        public String procesarBusqueda(@ModelAttribute("hoteles") Hotel ciudad,
+                                       @ModelAttribute("habitacion") Habitacion capacidad,
+                                       @ModelAttribute("reserva") Reserva fecha,
+                                       Habitacion habitacion,
+                                       Hotel puntuacion,
+                                       Model model) {
+
+            List<Hotel> hotels = hotelService.buscarPorFiltros(ciudad.getCiudad(), fecha.getFechaInicio(), fecha.getFechaFin(),
+                    capacidad.getCapacidad(), habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado(),
+                    habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getEstrellas());
+            for(Hotel h: hotels){
+                Integer id = h.getId();
+                List<Habitacion> habitacions = habitacionService.habitacionfiltroprecio(id, fecha.getFechaInicio(), fecha.getFechaFin(), capacidad.getCapacidad(),habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado()
+                        , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getEstrellas());
+                List<Double> precioHabitaciones = new ArrayList<>();
+                for (Habitacion habitaciones : habitacions){
+                    precioHabitaciones.add(habitaciones.getPrecioBase());
+
+                }
+                Double preciomin = Collections.min(precioHabitaciones);
+                h.setPrecio(preciomin.toString());
+            }
+
+            model.addAttribute("habfiltro", habitacion);
+            model.addAttribute("puntuacion", puntuacion);
+            model.addAttribute("hotel", hotels);
+            return  "hotelesporfiltros";
+        }
+
+
+
+    @GetMapping("/hoteles/habitacion/{id}")
     public String hotelid(@PathVariable(name = "id") Integer id,
                           @ModelAttribute("habitacion") Habitacion capacidad,
-                          @ModelAttribute("reserva") Reserva fecha_inicio,
-                          @ModelAttribute("reserva") Reserva fecha_fin,Model model) {
+                          @ModelAttribute("reserva") Reserva fecha, Model model,
+                          @RequestParam(name="page", defaultValue = "0") int page) {
+        Pageable pageRequest = PageRequest.of(page, 5);
         model.addAttribute("titulo", "Buscar - Travel Planet");
-        List<Habitacion> habitacions = habitacionService.buscarporoidHabitacion(id, capacidad.getCapacidad(), fecha_inicio.getFechaInicio(), fecha_fin.getFechaFin());
+        Page<Habitacion> habitacions = habitacionService.buscarHabitacionesPages(id, capacidad.getCapacidad(), fecha.getFechaInicio(), fecha.getFechaFin(),pageRequest);
+        PageRender<Habitacion> pageRender = new PageRender<>("/hoteles/habitacion/"+id,habitacions);
         Hotel hotel = hotelService.hotelID(id);
+        model.addAttribute("page",pageRender);
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("habitacions", habitacions);
+        return "hoteldetalle";
+    }
+
+    @GetMapping("/hoteles/habitacionfiltro/{id}")
+    public String habitacionfiltro(@PathVariable(name = "id") Integer id,
+                                   @ModelAttribute("habitacion") Habitacion capacidad,
+                                   @ModelAttribute("reserva") Reserva fecha,
+                                   @ModelAttribute("habfiltro") Habitacion habitacion,
+                                   @ModelAttribute("puntuacion") Hotel puntuacion,
+                                   Model model,
+                                   @RequestParam(name="page", defaultValue = "0") int page) {
+        Pageable pageRequest = PageRequest.of(page, 5);
+        model.addAttribute("titulo", "Buscar - Travel Planet");
+        Page<Habitacion> habitacions = habitacionService.habitacionfiltro(id, fecha.getFechaInicio(), fecha.getFechaFin(), capacidad.getCapacidad(),habitacion.isWifi(), habitacion.isTerraza(), habitacion.isTv(), habitacion.isAireAcondicionado()
+        , habitacion.isBanioPrivado(), habitacion.isCocina(), habitacion.isCajaFuerte(), habitacion.getPrecioBase(), puntuacion.getEstrellas(),pageRequest);
+        PageRender<Habitacion> pageRender = new PageRender<>("/hoteles/habitacion/"+id,habitacions);
+        Hotel hotel = hotelService.hotelID(id);
+        model.addAttribute("page",pageRender);
         model.addAttribute("hotel", hotel);
         model.addAttribute("habitacions", habitacions);
         return "hoteldetalle";
     }
 
 
-    @GetMapping("/listarHoteles")
+    @GetMapping("/hoteles/listarHoteles")
  public String hoteles(@RequestParam(name="page", defaultValue = "0") int page, Model model){
 //        List<Hotel> hoteles = hotelService.verTodosHoteles();
         Pageable pageRequest = PageRequest.of(page, 5);
@@ -118,21 +195,21 @@ import java.util.concurrent.TimeUnit;
     return "hoteles";
     }
 
-    @RequestMapping("/BuscarPorCiudad/{ciudad}")
+    @RequestMapping("/hoteles/BuscarPorCiudad/{ciudad}")
     public String hotelPorCiudad(Model model, @PathVariable String ciudad){
     List<Hotel> hotelesCiudad = hotelService.hotelPorCiudad(ciudad);
     model.addAttribute("hotelesCiudad", hotelesCiudad);
     return "HotelesPorCiudad";
     }
 
-        @RequestMapping("/BuscarPorId/{id}")
+        @RequestMapping("/hoteles/BuscarPorId/{id}")
         public String hotelPorId(Model model, @PathVariable int id){
             Hotel hotelesId = hotelService.hotelID(id);
             model.addAttribute("hotelesId", hotelesId);
             return "HotelesId";
         }
 
-        @GetMapping("/nuevo")
+        @GetMapping("/hoteles/nuevo")
         public String mostrarHotelNuevo(Model model){
         Hotel hotel = new Hotel();
         model.addAttribute("hotel",hotel);
@@ -140,10 +217,13 @@ import java.util.concurrent.TimeUnit;
 
         }
 
-        @PostMapping("/nuevo")
-        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth, @RequestParam(value = "file") MultipartFile imagen,  RedirectAttributes flash){
+        @PostMapping("/hoteles/nuevo")
+        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
         hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
-        hotelService.hotelGuardar(imagen, flash, hotel);
+            if(imagen.isEmpty()){
+                hotel.setImagen("https://t3.ftcdn.net/jpg/01/06/85/86/360_F_106858608_EuOWeiATyMOD6b9cXNzcJDSZufLbojQs.jpg");
+            }
+        hotelService.hotelGuardar(imagen,flash,hotel);
         return "redirect:/hoteles/verHotelesUsuarios";
 
         }
@@ -164,14 +244,14 @@ import java.util.concurrent.TimeUnit;
 //            return "redirect:/hoteles/verHotelesUsuarios";
 //        }
 
-        @GetMapping("/editar/{id}")
+        @GetMapping("/hoteles/editar/{id}")
         public String mostrarFormrHotelEditar(@PathVariable int id, Model model){
         model.addAttribute("hotel", hotelService.hotelID(id));
         return "hotelEditar";
         }
 
-        @PostMapping("/editar/{id}")
-        public String mostrarHotelEditar(@PathVariable int id, @ModelAttribute("hotel") Hotel hotel,Model model,  @RequestParam(value = "file") MultipartFile imagen,  RedirectAttributes flash){
+        @PostMapping("/hoteles/editar/{id}")
+        public String mostrarHotelEditar(@PathVariable int id, @ModelAttribute("hotel") Hotel hotel,Model model, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
         Hotel hotelEditar = hotelService.hotelID(id);
         hotelEditar.setId(id);
         hotelEditar.setNombre(hotel.getNombre());
@@ -185,33 +265,27 @@ import java.util.concurrent.TimeUnit;
             hotelEditar.setComentario(hotel.getComentario());
             hotelEditar.setEstrellas(hotel.getEstrellas());
 
-
             hotelService.cargarImagen(imagen, flash, hotel);
 
-            if (hotel.getImagen() == null) {
+            if(hotel.getImagen() == null){
                 hotelEditar.setImagen(hotelService.imagenHotel(hotel.getId()));
-                hotelService.hotelEditar(imagen,flash,hotelEditar);
+                hotelService.hotelEditar(imagen, flash, hotelEditar);
             }else {
-                hotelService.hotelEditar(imagen,flash,hotelEditar);
+                hotelService.hotelEditar(imagen, flash, hotelEditar);
             }
-
-
-
             return "redirect:/hoteles/verHotelesUsuarios";
         }
 
 
 
-        @RequestMapping("/eliminarPorId/{id}")
-        public String eliminarPorId( @PathVariable int id,RedirectAttributes flash,Model model){
+        @RequestMapping("/hoteles/eliminarPorId/{id}")
+        public String eliminarPorId( @PathVariable int id){
            hotelService.hotelEliminar(id);
-            flash.addFlashAttribute("success","Hotel eliminado con éxito!");
-            model.addAttribute("success","Hotel borrado con éxito!");
 
             return "redirect:/hoteles/verHotelesUsuarios";
         }
 
-        @GetMapping("/verHotelesUsuarios")
+        @GetMapping("/hoteles/verHotelesUsuarios")
         public String listarHotelesUsuario(Model model, Authentication auth){
             auth = SecurityContextHolder.getContext().getAuthentication();
             List<Hotel> hoteles = hotelService.hotelesMail(auth.getName());
@@ -219,4 +293,72 @@ import java.util.concurrent.TimeUnit;
 
             return "hotelesUsuario";
         }
+
+
+
+        @GetMapping("/reserva/crear/{id}")
+        public String crearReserva(Model model, @PathVariable Integer id, Authentication auth,
+                                   @ModelAttribute("reserva") Reserva fecha, HttpSession session){
+
+//            if (!model.containsAttribute("reserva")){
+//                return "index";
+//            }
+
+            session.setAttribute("idHabitacion",id);
+            auth= SecurityContextHolder.getContext().getAuthentication();
+            Reserva reserva = new Reserva();
+            Habitacion habitacion = habitacionService.findById(id);
+            reserva.setHabitacion(habitacion);
+            Usuario usuario = usuarioService.usuarioPorNombre(auth.getName());
+            reserva.setUsuario(usuario);
+
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechauno = (Date)session.getAttribute("fi");
+            Date fechafinal = (Date)session.getAttribute("ff");
+
+            long diasBuscados = 0;
+            try {
+                long fechaInicio = fechauno.getTime();;
+                long fechaFin = fechafinal.getTime();
+                long timeDiff = Math.abs(fechaInicio - fechaFin);
+                diasBuscados = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS) + 1;
+            }catch (NullPointerException e){
+                e.printStackTrace();
+            }
+
+            PensionHotel pensionHotel = new PensionHotel();
+            //pensionHotel.setTarifa(habitacion.getHotel().getTarifa());
+            Tarifa miTarifa = habitacion.getHotel().getTarifa();
+            session.setAttribute("tarifa",miTarifa);
+
+            Double precioPension = (Double) session.getAttribute("precioPension");
+            if (precioPension != null){
+                model.addAttribute("precioPension",precioPension);
+            }
+
+            model.addAttribute("titulo","Crear Reserva");
+            model.addAttribute("reserva",reserva);
+            model.addAttribute("habitacion",habitacion);
+            model.addAttribute("usuario",usuario);
+            model.addAttribute("dias",diasBuscados);
+            model.addAttribute("pensionHotel",pensionHotel);
+            return "crearReserva";
+        }
+
+
+        @PostMapping("/reserva/crear")
+        public String procesarReserva(@Valid PensionHotel pensionHotel, BindingResult result,Model model, HttpSession session){
+
+            EPension ePension = pensionHotel.getPension();
+            Tarifa miTarifa = (Tarifa) session.getAttribute("tarifa");
+
+            Double precioPension = pensionService.precioPension(ePension,miTarifa);
+            Integer idHabitacion = (Integer) session.getAttribute("idHabitacion");
+
+            session.setAttribute("precioPension",precioPension);
+
+            return "redirect:/reserva/crear/"+idHabitacion;
+        }
+
+
 }

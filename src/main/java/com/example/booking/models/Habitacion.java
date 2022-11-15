@@ -19,7 +19,6 @@ import java.util.Set;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Table(name = "habitacion")
-
 public class Habitacion {
 
     @Id
@@ -47,12 +46,13 @@ public class Habitacion {
 
     @Column(name = "disponibilidad")
     private Boolean disponibilidad;
-
+    @Column(name = "imagen")
     private String imagen;
 
     @Column(name = "caja_fuerte")
     private boolean cajaFuerte;
 
+    @Column(name = "cocina")
     private boolean cocina;
 
     @Column(name = "banio_privado")
@@ -60,14 +60,15 @@ public class Habitacion {
 
     @Column(name = "aire_acondicionado")
     private boolean aireAcondicionado;
-
+    @Column(name = "tv")
     private boolean tv;
-
+    @Column(name = "terraza")
     private boolean terraza;
-
+    @Column(name = "wifi")
     private boolean wifi;
 
     @Column(name = "precio_base")
+    @NotNull
     private Double precioBase;
 
     //tuve que quitar el cascade para que no me diera fallo al crear habitacion

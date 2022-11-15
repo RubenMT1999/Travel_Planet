@@ -9,30 +9,50 @@
 
   <header th:replace="header/header :: header"></header>
 
-  <div class="container">
-    <form th:action="@{/reserva/crear}" th:object="${reserva}" method="post">
-      <h2>Crear Reserva</h2>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Nombre</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  <div class="container d-flex justify-content-center">
+  <div class="card mt-5 mb-5" style="width: 50%;">
+
+    <form th:action="@{/reserva/crear}" th:object="${pensionHotel}" method="post" enctype="multipart/form-data">
+
+      <div th:if="${habitacion.imagen != null}">
+        <img th:if="${!habitacion.imagen.contains('https')}" class="img-thumbnail rounded float-start w-100" th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
+        <img th:if="${habitacion.imagen.contains('https')}" th:src="${habitacion.imagen}" class="img-thumbnail rounded float-start w-100" alt="..." >
       </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+      <div class="card-body">
+        <h5 class="card-title">Hotel <span th:text="${habitacion.getHotel().getNombre()}"></span></h5>
+        <p class="card-text" th:text="${habitacion.getDescripcion()}"></p>
       </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div>
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" th:text="'Capacidad: '+${habitacion.getCapacidad()}"></li>
+        <li class="list-group-item" th:if="${precioPension}" th:text="'Precio: '+${habitacion.getPrecioBase() * dias + precioPension}"></li>
+        <li class="list-group-item" th:unless="${precioPension}" th:text="'Precio: '+${habitacion.getPrecioBase() * dias}"></li>
+        <li class="list-group-item">Dispone de:
+          <ul>
+            <li th:if="${habitacion.isCajaFuerte()}">Caja Fuerte</li>
+            <li th:if="${habitacion.isAireAcondicionado()}">Aire Acondicionado</li>
+            <li th:if="${habitacion.isBanioPrivado()}">Baño Privado</li>
+            <li th:if="${habitacion.isCocina()}">Cocina</li>
+            <li th:if="${habitacion.isTerraza()}">Terraza</li>
+            <li th:if="${habitacion.isTv()}">Tv</li>
+            <li th:if="${habitacion.isWifi()}">WiFi</li>
+          </ul>
+        </li>
+        <li class="list-group-item" th:text="'Número de días: '+${dias}"></li>
+        <li class="list-group-item">
+          <p>Selecciona pensión:</p>
+
+          <div class="input-group mb-3">
+            <select name="pension">
+              <option th:each="pensionOpt : ${T(com.example.booking.models.EPension).values()}"
+                      th:value="${pensionOpt}" th:text="${pensionOpt.displayValue}"></option>
+            </select>
+          </div>
+        </li>
+      </ul>
+        <input type="submit" value="Calcular Precio" class="btn btn-block btn-primary mx-3">
     </form>
+
+  </div>
   </div>
 
 
