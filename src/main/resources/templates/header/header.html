@@ -25,8 +25,8 @@
                 </div>
                 <div class="col-8 p-2 d-inline">
 
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-outline-danger float-end m-2">Iniciar sesion</a>
-                    <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-outline-danger float-end m-2">Registrarse</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn btn-outline-danger float-end m-2" th:text="#{text.index.iniciar}">Iniciar sesion</a>
+                    <a sec:authorize="!isAuthenticated()" th:href="@{/registrar}" class="btn btn-outline-danger float-end m-2" th:text="#{text.index.registrarse}">Registrarse</a>
 
                     <div class="dropdown float-end" sec:authorize="isAuthenticated()">
                         <a class="btn btn-secondary dropdown-toggle "  role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,6 +44,11 @@
                             </form>
                         </ul>
                     </div>
+                    <ul class="navbar-nav  float-end m-2 mx-4" style="display: flex; flex-direction: row; flex-wrap: nowrap">
+                        <li class="nav-item mx1"><a class="btn btn-outline-sucess" href="?lang=es_ES">ES</a> </li>
+                        <li class="nav-item mx1"><a class="btn btn-outline-sucess" href="?lang=en_US">EN</a> </li>
+                        <li class="nav-item mx1"><a class="btn btn-outline-sucess" href="?lang=de_DE">DE</a> </li>
+                    </ul>
                 </div>
             </nav>
 

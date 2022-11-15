@@ -28,7 +28,7 @@
                         <div class="container-fluid mt-5">
                                 <div class="row">
                                     <div class="col-md-3 mb-3 mb-md-0">
-                                        <label class="font-weight-bold text-white fw-bold">¿A dónde vas?</label>
+                                        <label class="font-weight-bold text-white fw-bold" th:text="#{text.index.vas}">¿A dónde vas?</label>
                                         <select name="" id="lugar" class="form-select mb-3" th:field="*{ciudad}" >
                                             <option th:value="Sevilla" th:text="Sevilla">Sevilla</option>
                                             <option th:value="Granada" th:text="Granada">Granada</option>
@@ -59,7 +59,7 @@
 
                                                      <div class="col-md-3 mb-3 mb-md-0">
 
-                                                         <label class="font-weight-bold text-white fw-bold">Numeros de personas</label>
+                                                         <label class="font-weight-bold text-white fw-bold" th:text="#{text.index.personas}">Numeros de personas</label>
                                                          <select name="" id="adultos" class="form-select mb-3" th:field="*{capacidad}" >
                                                              <option th:value=1 th:text="1">1</option>
                                                              <option th:value=2 th:text="2">2</option>
@@ -77,7 +77,7 @@
                                 </div>
                             <div class="row">
                                 <div class="col-md-4 mt-sm-0 mt-md-4">
-                                    <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
+                                    <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20" th:text="#{text.index.buscar}">
                                 </div>
 
 
