@@ -1,5 +1,6 @@
 package com.example.booking.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import net.bytebuddy.implementation.bind.annotation.Empty;
 
@@ -74,8 +75,6 @@ public class Hotel {
     public Integer getEstrellas() {
         return estrellas;
     }
-
-
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY)
     private List<Habitacion> habitaciones;

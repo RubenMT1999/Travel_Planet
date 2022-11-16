@@ -42,9 +42,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //definimos quien va a poder acceder a las distintas direccioens
         http.csrf().disable().authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/hoteles/listar/**", "resultado/ver", "/hotel/**", "/generar","reserva/**",
-                "/hoteles/habitacion/**","/reserva/crear/**","/authenticate","/swagger-resources/**","/swagger-ui/**","/v3/api-docs","/webjars/**").permitAll()
+                "/hoteles/habitacion/**","/reserva/crear/**","/authenticate","/api_swagger/**","/swagger-resources/**","/swagger-ui/**","/v3/api-docs","/webjars/**").permitAll()
                 .antMatchers("/habitaciones/crear/**","/habitaciones/editar/**","habitaciones/borrar/**","habitaciones/listar/**").hasAnyRole("ADMIN")
-                //.anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                         .successHandler(successHandler)

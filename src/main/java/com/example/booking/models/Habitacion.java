@@ -72,14 +72,13 @@ public class Habitacion {
     private Double precioBase;
 
     //tuve que quitar el cascade para que no me diera fallo al crear habitacion
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel")
     private Hotel hotel;
 
-    @OneToMany
-    private List<Tarifa> id_tarifa;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "habitacion",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reserva;
 
@@ -152,9 +151,6 @@ public class Habitacion {
         return precioBase;
     }
 
-    public List<Tarifa> getId_tarifa() {
-        return id_tarifa;
-    }
 
     public Set<Reserva> getReserva() {
         return reserva;

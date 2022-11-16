@@ -23,6 +23,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     @Query("SELECT h FROM Habitacion h where h.hotel.id = ?1")
     List<Habitacion> listarHabitaciones(Integer id);
 
+
     @Transactional
     @Modifying
     @Query(value = "insert into habitacion (id_hotel, num_habitacion, ext_telefonica, capacidad,imagen, descripcion, precio_base,caja_fuerte,cocina,banio_privado,aire_acondicionado,tv,terraza,wifi)" +
