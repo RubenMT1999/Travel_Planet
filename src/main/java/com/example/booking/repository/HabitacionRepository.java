@@ -35,7 +35,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
                               @Param("wifi") Boolean wifi);
 
     @Query(value = "select * from vistahabitacion where id_hotel = :id and capacidad = :capacidad and ((fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin) or (fecha_inicio is null and fecha_fin is null)) group by id", nativeQuery = true)
+            "and fecha_fin not between :fecha_inicio and :fecha_fin) or (fecha_inicio is null and fecha_fin is null)) and disponibilidad = 1 group by id", nativeQuery = true)
 
     List<Habitacion> buscarporidhab(Integer id, Integer capacidad, Date fecha_inicio, Date fecha_fin);
 
@@ -44,7 +44,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
             " caja_fuerte in :caja_fuerte and wifi in :wifi and terraza in :terraza and precio_base between :preciobase and " +
             ":precioFinal and estrellas between :puntuacion and :estrella)" +
             " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null)" +
+            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) and disponibilidad = 1" +
             " group by id", nativeQuery = true)
     Page<Habitacion> buscarfiltrosid(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, List<Integer> wifi,
                                      List<Integer> terraza, List<Integer> tv, List<Integer> aire, List<Integer> banio_privado, List<Integer> cocina,

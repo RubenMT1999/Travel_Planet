@@ -40,8 +40,8 @@ public class UsuarioService{
     public Usuario datosUsuario(String auth){return usuarioRepository.datosUsuario(auth);}
 
     public void editarUsuario(String nombre, String apellidos, String contrasenia, Date fechaNacimiento,
-                          String dni, String nacionalidad, String telefono, String email){
-        usuarioRepository.editarUsuario(nombre, apellidos, contrasenia, fechaNacimiento, dni, nacionalidad, telefono, email);
+                          String dni, String nacionalidad, String telefono, Integer id){
+        usuarioRepository.editarUsuario(nombre, apellidos, contrasenia, fechaNacimiento, dni, nacionalidad, telefono, id);
     }
 
     public void borrarUsuario(Usuario usuario){ usuarioRepository.delete(usuario); }
@@ -53,4 +53,7 @@ public class UsuarioService{
     public UserAuth getUserAuth(String auth){return usuarioRepository.getIdUserAuth(auth);}
 
     public Authorities getAuthorities(Integer id){return usuarioRepository.getAuthorities(id);}
+
+
+
 }

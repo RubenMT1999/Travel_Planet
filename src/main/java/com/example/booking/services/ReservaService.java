@@ -38,5 +38,7 @@ public class ReservaService {
 
     public Reserva obtenerDetallesReserva(Integer idReserva){return reservaRepository.findById(idReserva).orElse(null);}
 
-    public void cancelarReserva(Integer idReserva){reservaRepository.deleteById(idReserva);}
+    public Reserva cancelarReserva( Reserva reserva){ reservaRepository.delete(reserva);
+        return null;
+    }
 }

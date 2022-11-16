@@ -34,7 +34,7 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
             " caja_fuerte in :caja_fuerte and wifi in :wifi and terraza in :terraza and precio_base between :preciobase and :precioFinal " +
             "and estrellas between :puntuacion and :estrella)" +
             " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null)" +
+            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) and disponibilidad = 1" +
             " group by nombre", nativeQuery = true)
 
     List<Hotel>buscarfiltros(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad, List<Integer> wifi,

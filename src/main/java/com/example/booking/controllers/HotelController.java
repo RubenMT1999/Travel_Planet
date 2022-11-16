@@ -328,7 +328,7 @@ import java.util.concurrent.TimeUnit;
             Usuario usuario = usuarioService.datosUsuario(authentication.getName());
             reserva.setUsuario(usuario);
 
-            habitacionService.editarDisponibilidad(true, habitacion.getId());
+            habitacionService.editarDisponibilidad(false, habitacion.getId());
 
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha_inicio = (Date)session.getAttribute("fi");

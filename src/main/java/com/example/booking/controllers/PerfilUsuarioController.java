@@ -38,6 +38,8 @@ public class PerfilUsuarioController {
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private HabitacionService habitacionService;
+    @Autowired
+    private UserAuthRepository userAuthRepository;
 
 
     @GetMapping("/datos")
@@ -79,22 +81,20 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/editar-perfil")
-    public String guardarDatos(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model){
+    public String guardarDatos(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model, Authentication auth){
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        Usuario editarPerfilUsuario = usuarioService.datosUsuario(auth.getName());
+        usuario.setId(editarPerfilUsuario.getId());
 
-        usuario.setFechaNacimiento(usuario.getFechaNacimiento());
         if (usuario.getContrasenia() == null){
-            usuario.setContrasenia(usuario.getContrasenia());
-        }
-
-        if (result.hasErrors()){
-            return "redirect:/perfil/datos";
+            usuario.setContrasenia(editarPerfilUsuario.getContrasenia());
         }
 
         String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);
 
         usuarioService.editarUsuario(usuario.getNombre(),usuario.getApellidos(),usuario.getContrasenia(),
-                usuario.getFechaNacimiento(),usuario.getDni(),usuario.getNacionalidad(),usuario.getTelefono(),usuario.getEmail());
+                usuario.getFechaNacimiento(),usuario.getDni(),usuario.getNacionalidad(),usuario.getTelefono(), usuario.getId());
 
         return "redirect:/perfil/datos";
     }
@@ -140,9 +140,14 @@ public class PerfilUsuarioController {
         return "detallesReserva";
     }
 
-    @PostMapping("/eliminar-reserva/{id}")
-    public String cancelarReserva(@PathVariable Integer id){
-        reservaService.cancelarReserva(id);
+    @RequestMapping("/eliminar-reserva/{id}")
+    public String cancelarReserva(@PathVariable Integer id, Authentication authentication){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
+        Reserva reserva = reservaService.obtenerDetallesReserva(id);
+        reserva.setUsuario(nombreUsuario);
+        reservaService.cancelarReserva(reserva);
+        habitacionService.editarDisponibilidad(true, reserva.getHabitacion().getId());
         return "redirect:/perfil/mis-reservas";
     }
 
@@ -150,7 +155,7 @@ public class PerfilUsuarioController {
     public String editarReserva(Model model,@PathVariable Integer id){
         Reserva reserva = reservaService.obtenerDetallesReserva(id);
         model.addAttribute("editarReserva", reserva);
-        return "reditect:/";
+        return "";
     }
 
 
