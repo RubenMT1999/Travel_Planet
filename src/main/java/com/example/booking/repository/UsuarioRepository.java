@@ -31,6 +31,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
 
     @Query("SELECT u FROM Usuario u where u.email = ?1")
     Usuario datosUsuario(String nombre);
+    @Query("SELECT u FROM Usuario u where u.id = ?1")
+    Usuario datosUsuarioID(Integer id);
+
 
     @Transactional
     @Modifying

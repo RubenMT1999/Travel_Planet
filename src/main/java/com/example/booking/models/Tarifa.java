@@ -1,9 +1,11 @@
 package com.example.booking.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
@@ -45,6 +47,8 @@ public class Tarifa {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel", referencedColumnName = "id")
+    @JsonIgnoreProperties(value="tarifa")
+    @JsonIgnore
     private Hotel hotel;
 
     @OneToMany(mappedBy = "tarifa",fetch = FetchType.LAZY, cascade = CascadeType.ALL)

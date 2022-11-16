@@ -1,7 +1,12 @@
 package com.example.booking.models;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.*;
 import net.bytebuddy.implementation.bind.annotation.Empty;
+import net.minidev.json.annotate.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -78,18 +83,22 @@ public class Hotel {
 
 
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value="hotel")
+    @JsonIgnore
     private List<Habitacion> habitaciones;
-
 //    public void addHabitacion(Habitacion habitacion){
 //        this.habitaciones.add(habitacion);
 //    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
+    @JsonIgnore
     private Usuario usuario;
 
 
     @OneToOne(mappedBy = "hotel")
+    @JsonIgnoreProperties(value="hotel")
+    @JsonIgnore
     private Tarifa tarifa;
 
     public Usuario getUsuario() {
@@ -141,7 +150,9 @@ public class Hotel {
         return imagen;
     }
 
-    public List<Habitacion> getHabitaciones() {
+
+
+   public List<Habitacion> getHabitaciones() {
         return habitaciones;
     }
 
