@@ -3,10 +3,14 @@ package com.example.booking.controllers;
 import com.example.booking.models.*;
 import com.example.booking.repository.*;
 import com.example.booking.services.HabitacionService;
+import com.example.booking.services.ReservaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +43,9 @@ public class SwaggerController {
 
     @Autowired
     private HotelRepository hotelRepository;
+
+    @Autowired
+    private ReservaService reservaService;
 
 
     // Métodos de Usuario.
@@ -171,6 +178,58 @@ public class SwaggerController {
         response.put("habitacion",habActualizar);
         return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 
+    }
+
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/borrarhab")
+    public ResponseEntity<?> borrarHabSwagger(@RequestParam Integer idHabitacion){
+
+        Map<String,Object> response = new HashMap<>();
+        Habitacion habitacion = null;
+
+        try{
+            habitacion = habitacionService.encontrarPorId(idHabitacion);
+        }catch (DataAccessException e){
+            response.put("mensaje","Error al buscar habitacion por el ID");
+            return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        try{
+            habitacionRepository.delete(habitacion);
+        }catch (Exception e){
+            response.put("mensaje","Error al intentar eliminar la habitación");
+            return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje","Habitación eliminada con éxito");
+        return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+    }
+
+
+    // Métodos de Reserva.
+    @RequestMapping(method = RequestMethod.GET, value = "/verreservas")
+    @SecurityRequirement(name = "")
+    public ResponseEntity<?> verReservasSwagger(Authentication auth){
+
+        Map<String,Object> response = new HashMap<>();
+        List<Reserva> reservas = null;
+
+        try{
+            auth = SecurityContextHolder.getContext().getAuthentication();
+        }catch (Exception e){
+            response.put("mensaje","Error al obtener la autenticación");
+            return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        try{
+            reservas = reservaService.reservasPorNombre(auth.getName());
+        }catch (Exception e){
+            response.put("mensaje","Error al intentar obtener las reservas");
+            return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("reservas",reservas);
+        return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
     }
 
 
