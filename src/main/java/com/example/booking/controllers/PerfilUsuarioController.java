@@ -155,7 +155,7 @@ public class PerfilUsuarioController {
     public String editarReserva(Model model,@PathVariable Integer id){
         Reserva reserva = reservaService.obtenerDetallesReserva(id);
         model.addAttribute("editarReserva", reserva);
-        return "";
+        return "reditect:/";
     }
 
 
