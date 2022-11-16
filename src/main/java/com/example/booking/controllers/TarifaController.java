@@ -96,10 +96,10 @@ public class TarifaController {
 
 
 
-            tarifaService.guardarPension(Pension.Completa.ordinal(), pension1, id_tarifa);
-            tarifaService.guardarPension(Pension.Desayuno_Cena.ordinal(), pension2, id_tarifa);
-            tarifaService.guardarPension(Pension.Desayuno.ordinal(), pension3, id_tarifa);
-            tarifaService.guardarPension(Pension.Ninguna.ordinal(), pension4, id_tarifa);
+            tarifaService.guardarPension(EPension.AlojamientoDesayuno.ordinal(), pension1, id_tarifa);
+            tarifaService.guardarPension(EPension.MediaPension.ordinal(), pension2, id_tarifa);
+            tarifaService.guardarPension(EPension.PensionCompleta.ordinal(), pension3, id_tarifa);
+            tarifaService.guardarPension(EPension.TodoIncluido.ordinal(), pension4, id_tarifa);
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaInicio = formato.parse(inicioAlta);
@@ -185,17 +185,17 @@ public class TarifaController {
         tarifaService.tarifaEditar(tarifaEditar);
 
         if (pension1 != null){
-            tarifaService.modificarPension(pension1, tarifaEditar.getId(),Pension.Completa.ordinal());
+            tarifaService.modificarPension(pension1, tarifaEditar.getId(),EPension.AlojamientoDesayuno.ordinal());
         }
         if (pension2 != null){
-            tarifaService.modificarPension(pension2, tarifaEditar.getId(),Pension.Desayuno_Cena.ordinal());
+            tarifaService.modificarPension(pension2, tarifaEditar.getId(),EPension.MediaPension.ordinal());
         }
         if (pension3 != null){
-            tarifaService.modificarPension(pension3, tarifaEditar.getId(),Pension.Desayuno.ordinal());
+            tarifaService.modificarPension(pension3, tarifaEditar.getId(),EPension.PensionCompleta.ordinal());
 
         }
         if (pension4 != null){
-            tarifaService.modificarPension(pension4, tarifaEditar.getId(),Pension.Ninguna.ordinal());
+            tarifaService.modificarPension(pension4, tarifaEditar.getId(),EPension.TodoIncluido.ordinal());
         }
 
 

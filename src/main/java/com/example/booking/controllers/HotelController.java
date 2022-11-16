@@ -298,7 +298,7 @@ import java.util.concurrent.TimeUnit;
 
         @GetMapping("/reserva/crear/{id}")
         public String crearReserva(Model model, @PathVariable Integer id, Authentication auth,
-                                   @ModelAttribute("reserva") Reserva fecha, HttpSession session){
+                                   @ModelAttribute("reserva") Reserva fecha, HttpSession session) throws ParseException {
 
 //            if (!model.containsAttribute("reserva")){
 //                return "index";
@@ -316,6 +316,7 @@ import java.util.concurrent.TimeUnit;
             Date fechauno = (Date)session.getAttribute("fi");
             Date fechafinal = (Date)session.getAttribute("ff");
 
+
             long diasBuscados = 0;
             try {
                 long fechaInicio = fechauno.getTime();;
@@ -325,9 +326,43 @@ import java.util.concurrent.TimeUnit;
             }catch (NullPointerException e){
                 e.printStackTrace();
             }
+            TemporadaHotel temporadaHotel = new TemporadaHotel();
+
+            String bajaIn1 = "2022-11-01";
+            String bajaFin1 = "2023-03-31";
+            Date bajaIn = formato.parse(bajaIn1);
+            Date bajaFin = formato.parse(bajaFin1);
+
+            String mediaIn1 = "2023-04-01";
+            String mediaFin1 = "2023-06-30";
+            Date mediaIn = formato.parse(mediaIn1);
+            Date mediaFin = formato.parse(mediaFin1);
+
+            String altaIn1 = "2023-07-01";
+            String altaFin1 = "2023-09-30";
+            Date altaIn = formato.parse(altaIn1);
+            Date altaFin = formato.parse(altaFin1);
+
+           if ((fechauno.after(bajaIn) || fechauno.equals(bajaIn)) && (fechafinal.equals(bajaFin) || fechafinal.before(bajaFin))){
+               temporadaHotel.setTemporada(Temporada.Baja);
+           }
+
+            if ((fechauno.after(mediaIn) || fechauno.equals(mediaIn)) && (fechafinal.equals(mediaFin) || fechafinal.before(mediaFin))){
+                temporadaHotel.setTemporada(Temporada.Media);
+            }
+
+            if ((fechauno.after(altaIn) || fechauno.equals(altaIn)) && (fechafinal.equals(altaFin) || fechafinal.before(altaFin))){
+                temporadaHotel.setTemporada(Temporada.Alta);
+            }
+
+
+
+
+
 
             PensionHotel pensionHotel = new PensionHotel();
             //pensionHotel.setTarifa(habitacion.getHotel().getTarifa());
+
             Tarifa miTarifa = habitacion.getHotel().getTarifa();
             session.setAttribute("tarifa",miTarifa);
 
@@ -335,6 +370,9 @@ import java.util.concurrent.TimeUnit;
             if (precioPension != null){
                 model.addAttribute("precioPension",precioPension);
             }
+            Double precioTemporada = pensionService.precioTemporada(temporadaHotel.getTemporada(),miTarifa);
+
+            habitacion.setPrecioBase((precioTemporada * diasBuscados) + habitacion.getPrecioBase());
 
             model.addAttribute("titulo","Crear Reserva");
             model.addAttribute("reserva",reserva);
@@ -356,6 +394,7 @@ import java.util.concurrent.TimeUnit;
             Integer idHabitacion = (Integer) session.getAttribute("idHabitacion");
 
             session.setAttribute("precioPension",precioPension);
+
 
             return "redirect:/reserva/crear/"+idHabitacion;
         }

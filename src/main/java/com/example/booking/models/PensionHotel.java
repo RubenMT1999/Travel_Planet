@@ -18,7 +18,7 @@ public class PensionHotel {
     private Integer id;
 
     @Column(name = "tipo_pension")
-    private Pension pension;
+    private EPension pension;
 
     @Column(name = "precio")
     private Double precio;
@@ -35,11 +35,11 @@ public class PensionHotel {
         this.id = id;
     }
 
-    public Pension getPension() {
+    public EPension getPension() {
         return pension;
     }
 
-    public void setPension(Pension pension) {
+    public void setPension(EPension pension) {
         this.pension = pension;
     }
 

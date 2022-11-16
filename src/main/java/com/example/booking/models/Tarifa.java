@@ -63,8 +63,9 @@ public class Tarifa {
         return temporada;
     }
 
-
-
+    public List<TemporadaHotel> getTemporadaHoteles() {
+        return temporadaHoteles;
+    }
 
 
     public Double getPrecioWifi() {
