@@ -1,5 +1,7 @@
 package com.example.booking;
 
+import com.example.booking.controllers.SwaggerController;
+import com.example.booking.repository.ShowApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,8 +21,8 @@ import java.util.Collections;
 public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
-        return new ApiInfo("MyApp Rest APIs",
-                "APIs for MyApp.",
+        return new ApiInfo("Planet Travel API",
+                "API para el CRUD de habitaciones, hoteles, reservas, usuarios.",
                 "1.0",
                 "Terms of service",
                 new Contact("test", "www.org.com", "test@emaildomain.com"),
@@ -32,11 +34,10 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
-                .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
+                .apis(RequestHandlerSelectors.withClassAnnotation(ShowApi.class))
+                .paths(PathSelectors.any()).
+                build().apiInfo(apiInfo());
     }
 
 

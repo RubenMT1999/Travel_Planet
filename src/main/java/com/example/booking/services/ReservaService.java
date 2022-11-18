@@ -28,6 +28,10 @@ public class ReservaService {
         return reservaRepository.findAll();
     }
 
+    public List<Reserva> reservasPorNombre(String nombre) {
+        return reservaRepository.reservasPorNombre(nombre);
+    }
+
 
 
     public void guardarReserva(Reserva reserva){

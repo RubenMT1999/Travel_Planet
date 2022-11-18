@@ -4,6 +4,7 @@ import com.example.booking.models.*;
 import com.example.booking.repository.*;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.ReservaService;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api_swagger")
+@ShowApi
 public class SwaggerController {
 
 
@@ -50,12 +52,14 @@ public class SwaggerController {
 
     // Métodos de Usuario.
     @RequestMapping(method = RequestMethod.GET, value = "/usuarios")
+    @ApiOperation(value = "Listar Usuarios")
     public List<Usuario> listarUsuarios(){
         return usuarioRepository.findAll();
     }
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/nuevo/usuario")
+    @ApiOperation(value = "Crear usuario")
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario nuevoUsuario(@RequestBody Usuario usuario){
 
@@ -88,11 +92,13 @@ public class SwaggerController {
 
     // Métodos de Habitación.
     @RequestMapping(method = RequestMethod.GET, value = "/listarhab")
+    @ApiOperation(value = "Listar Habitaciones")
     public List<Habitacion> listarHabitaciones(@RequestParam Integer idHotel){
         return habitacionService.listarHabitaciones(idHotel);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/crearhab")
+    @ApiOperation(value = "Crear Habitación")
     public ResponseEntity<?> crearHabSwagger(@RequestParam Integer idHotel, @RequestBody Habitacion habitacion){
 
         Map<String,Object> response = new HashMap<>();
@@ -139,6 +145,7 @@ public class SwaggerController {
 
 
     @RequestMapping(method = RequestMethod.PUT, value = "/updatehab")
+    @ApiOperation(value = "Actualizar Habitación")
     public ResponseEntity<?> actualizarHabSwagger(@RequestParam Integer idHabitacion, @RequestBody Habitacion habitacion){
 
         Map<String,Object> response = new HashMap();
@@ -182,6 +189,7 @@ public class SwaggerController {
 
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/borrarhab")
+    @ApiOperation(value = "Borrar Habitación")
     public ResponseEntity<?> borrarHabSwagger(@RequestParam Integer idHabitacion){
 
         Map<String,Object> response = new HashMap<>();
@@ -208,6 +216,7 @@ public class SwaggerController {
 
     // Métodos de Reserva.
     @RequestMapping(method = RequestMethod.GET, value = "/verreservas")
+    @ApiOperation(value = "Ver Reservas")
     @SecurityRequirement(name = "")
     public ResponseEntity<?> verReservasSwagger(Authentication auth){
 

@@ -41,9 +41,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //definimos quien va a poder acceder a las distintas direccioens
-        http.csrf().disable().authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/hoteles/listar/**", "resultado/ver", "/hotel/**", "/generar","reserva/**",
-                "/hoteles/habitacion/**","/reserva/crear/**","/authenticate","/api_swagger/**","/swagger-resources/**","/swagger-ui/**","/v3/api-docs","/webjars/**").permitAll()
-                .antMatchers("/habitaciones/crear/**","/habitaciones/editar/**","habitaciones/borrar/**","habitaciones/listar/**").hasAnyRole("ADMIN")
+        http.csrf().disable().authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/hoteles/listar/**", "resultado/ver", "/hotel/**", "/generar",
+                "/hoteles/habitacion/**","/reserva/crear/**","/authenticate","/swagger-resources/**","/swagger-ui/**","/v3/api-docs","/webjars/**","/api_swagger/**").permitAll()
+                .antMatchers("/habitaciones/crear/**","/habitaciones/editar/**","/habitaciones/borrar/**","/habitaciones/listar/**","/reserva/ver","/api_swagger/verreservas").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
