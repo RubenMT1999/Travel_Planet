@@ -1,5 +1,6 @@
 package com.example.booking.repository;
 
+import com.example.booking.models.Hotel;
 import com.example.booking.models.Tarifa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,4 +19,7 @@ public interface TarifaRepository  extends JpaRepository<Tarifa,Integer> {
                               @Param("precio_cocina") Double precioCocina, @Param("preciotv") Double precioTV
             , @Param("precio_terraza") Double precioTerraza, @Param("precio_wifi") Double precioWifi, @Param("precio_aire") Double precioAire, @Param("id_hotel") Integer id_hotel);
 
+
+    @Query(value = "select * from tarifa where id_hotel = :id_hotel", nativeQuery = true)
+    Tarifa tarifaIdhotel(Integer id_hotel);
 }
