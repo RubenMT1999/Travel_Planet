@@ -125,7 +125,7 @@ public class PerfilUsuarioController {
 
         return "reservaPerfilUsuario";
     }
-    // ME FALTA CONSEGUIR LA HABITACION ME DA NULL
+
     @GetMapping("/mis-reservas/{id}")
     public String detallesReserva(Model model, @PathVariable Integer id, Authentication authentication){
         authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -158,6 +158,13 @@ public class PerfilUsuarioController {
         return "reditect:/";
     }
 
+    @GetMapping("/mis-reservas/pago")
+    public String pagarReserva(Model model, Authentication authentication){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
+        model.addAttribute("nombreUsuarioPago", nombreUsuario);
+        return "pago";
+    }
 
 
 

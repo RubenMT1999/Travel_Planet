@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <title>Title</title>
+  <style type="text/css">
+    html, body {
+      margin:0px;
+      height:100%;
+    }
+  </style>
+</head>
+<body>
+
+<header th:replace="header/header :: header"></header>
+
+<div class="container-fluid px-0">
+  <div class="row me-0">
+
+    <div class="col-2">
+
+      <div class="d-flex flex-column flex-shrink-0 p-3 px-0 bg-light" style="height:100vh;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-4">Dashboard</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link link-dark" aria-current="page" th:href="@{/perfil/datos}">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+              Perfil de Usuario
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark active" th:href="@{/perfil/mis-reservas}">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+              Mis reservas
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+              Historial de Viajes
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark" th:href="@{/perfil/mis-hoteles}">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+              Mis Hoteles
+            </a>
+          </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://w7.pngwing.com/pngs/659/667/png-transparent-computer-icons-user-profile-blog-others-miscellaneous-rectangle-logo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <strong th:text="${nombreUsuarioPago.nombre}"></strong>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item" th:href="@{/perfil/editar-perfil}">Configuración</a></li>
+            <li><a class="dropdown-item" th:href="@{/perfil/datos}">Perfil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <form id="logout" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                <a onclick="document.getElementById('logout').submit();" class="dropdown-item p-2"
+                   type="submit">Cerrar Sesión</a>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-10">
+
+      <div class="container">
+        <div class="row">
+          <div class="col py-5 text-center">
+            <h2>Carrito de la compra</h2>
+            <p class="lead">Estás apunto de formar parte de nuestra compañia si no lo estás ya. Gracias por confiar en nosotros</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-8 order-2 order-md-1 mb-3">
+            <h4 class="mb-3">Direccion de envío</h4>
+            <form action="">
+              <div class="row">
+                <div class="col-12 col-sm-6 mb-3">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre">
+                </div>
+                <div class="col-12 col-sm-6 mb-3">
+                  <label for="correo" class="form-label">Apellidos</label>
+                  <input type="text" class="form-control" id="correo" name="correo">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" for="correo">Correo</label>
+                  <input type="email" class="form-control" placeholder="nombre@gmail.com" name="correo">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" for="direccion">Dirección</label>
+                  <input type="text" id="direccion" class="form-control" placeholder="1234 Calle Principal" name="direccion">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" for="direccion2">Dirección 2 <span class="text-muted">(Opcional)</span></label>
+                  <input type="text" id="direccion2" class="form-control" placeholder="Interior o informacion adicional" name="direccion2">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-sm-4 mb-3">
+                  <label for="pais" class="form-label">Comunidad autónoma</label>
+                  <select name="pais" id="pais" class="form-select">
+                    <option value="">Seleccionar Comunidad</option>
+                    <option value="andalucia">Andalucía</option>
+                    <option value="madrid">Madrid</option>
+                    <option value="cataluña">Cataluña</option>
+                    <option value="c-valencia">Comunidad Valenciana</option>
+                    <option value="galicia">Galicia</option>
+                    <option value="castilla-leon">Castilla y León</option>
+                  </select>
+                </div>
+                <div class="col-12 col-sm-4 mb-3">
+                  <label for="pais" class="form-label">Provincia</label>
+                  <select name="pais"  class="form-select">
+                    <option value="">Seleccionar Provincia</option>
+                    <option value="sevilla">Sevilla</option>
+                    <option value="españa">Málaga</option>
+                    <option value="cordoba">Córdoba</option>
+                    <option value="granada">Granada</option>
+                    <option value="almeria">Almería</option>
+                    <option value="madrid">Madrid</option>
+                    <option value="valencia">Valencia</option>
+                    <option value="barcelona">Barcelona</option>
+                    <option value="tarragona">Tarragona</option>
+                    <option value="coruña">La Coruña</option>
+                    <option value="pontevedra">Pontevedra</option>
+                  </select>
+                </div>
+                <div class="col-12 col-sm-4 mb-3">
+                  <label for="codigo-postal" class="form-label">Código Postal</label>
+                  <input type="text" id="codigo-postal" class="form-control">
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="misma-direccion">
+                    <label for="misma-direccion" class="form-label">Enviar a la misma dirección de facturación</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="guardar-informacion">
+                    <label for="guardar-informacion" class="form-label">Guardar información para la siguiente compra</label>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="row mb-3">
+                <div class="col-12">
+                  <div class="form-check">
+                    <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-credito">
+                    <label for="tarjeta-credito" class="form-check-label">Tarjeta de Crédito</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-debito">
+                    <label for="tarjeta-debito" class="form-check-label">Tarjeta de Débito</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-sm-6 mb-3">
+                  <label class="form-label" for="nombre-tarjeta">Nombre del titular</label>
+                  <input type="text" id="nombre-tarjeta" class="form-control">
+                  <small class="text-muted">Nombre completo como se muestra en la tarjeta</small>
+                </div>
+                <div class="col-12 col-sm-6 mb-3">
+                  <label class="form-label" for="numero-tarjeta">Número de tarjeta</label>
+                  <input type="text" id="numero-tarjeta" class="form-control">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6 col-sm-4 mb-3">
+                  <label class="form-label" for="tarjeta-expiracion">Expiración</label>
+                  <input type="text" id="tarjeta-expiracion" class="form-control">
+                </div>
+                <div class="col-6 col-sm-4 mb-3">
+                  <label class="form-label" for="tarjeta-ccv">CVV</label>
+                  <input type="text" id="tarjeta-ccv" class="form-control">
+                </div>
+              </div>
+
+              <hr class="mb-4">
+              <input type="submit" value="Continuar al pago" class="btn btn-block btn-lg btn-primary">
+            </form>
+          </div>
+
+          <div class="col-12 col-md-4 order-1 order-md-2 mb-3">
+            <h4 class="mb-3 d-flex justify-content-between align-items-center">
+              <span class="text-muted">Tu carrito</span>
+              <span class="badge bg-secondary rounded-pill">2</span>
+            </h4>
+            <ul class="list-group mb-3">
+              <li class="list-group-item d-flex justify-content-between">
+                <div>
+                  <h6 class="my-0">Porsche 911</h6>
+                  <small class="text-muted">Alquiler 15 días</small>
+                </div>
+                <span class="text-muted">5.000 €</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <div>
+                  <h6 class="my-0">Pack accesorios</h6>
+                  <small class="text-muted">Pequeño pack de accesorios</small>
+                </div>
+                <span class="text-success">Gratis</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-success">
+                  <h6 class="my-0">Codigo de descuento</h6>
+                  <small class="text-success">CUPON CLIENTE VIP</small>
+                </div>
+                <span class="text-success">- 1.000 €</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total (Euros)</span>
+                <strong>4.000 €</strong>
+              </li>
+            </ul>
+
+            <form action="" class="card p-2">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Cupon">
+                <div class="input-group-append">
+                  <button class="btn btn-secondary">Canjear</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer th:replace="footer/footer :: footer"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>
