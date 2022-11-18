@@ -35,6 +35,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/scripts/**");
         web.ignoring().antMatchers("/images/**");
         web.ignoring().antMatchers("/uploads/**");
+        web.ignoring().antMatchers("/static/**");
     }
 
     //Configuracion de quien puede visitar cada url
@@ -42,7 +43,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //definimos quien va a poder acceder a las distintas direccioens
         http.authorizeRequests().antMatchers("/","/registrar/**","/styles/**","/images/**","/login","/hoteles/listar/**", "resultado/ver", "/hotel/**", "/generar","reserva/**",
-                "/hoteles/habitacion/**","/reserva/crear/**", "/hoteles/listarfiltro").permitAll()
+                "/hoteles/habitacion/**","/reserva/crear/**", "/hoteles/listarfiltro", "/resources/**").permitAll()
                 .antMatchers("/habitaciones/crear/**","/habitaciones/editar/**","habitaciones/borrar/**","habitaciones/listar/**").hasAnyRole("ADMIN")
                 .antMatchers("/graphiql").permitAll()
                 //.anyRequest().authenticated()
@@ -70,5 +71,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select u.username, a.authority from authorities a inner join users u on (a.user_id=u.id) where u.username=?");
 
     }
+
+
 
 }
