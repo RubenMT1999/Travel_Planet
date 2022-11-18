@@ -121,7 +121,6 @@ import java.util.concurrent.TimeUnit;
         habitacion.setCapacidad(capacidad);
         model.addAttribute("habitacion", habitacion);
 
-        List<Hotel> hotel = hotelService.buscar(ciudades, fechaInicio, fecha_Fin, capacidad);
         model.addAttribute("hotel", hotel);
         model.addAttribute("hotels", hoteles);
 
@@ -400,8 +399,8 @@ import java.util.concurrent.TimeUnit;
         }
 
 
-        @PostMapping("/reserva/crear/{id}")
-        public String guardarReserva(Model model, @PathVariable Integer id, Authentication authentication,
+        @PostMapping("/reserva/nuevo/{id}")
+        public String guardarReserva( Model model,@PathVariable Integer id, Authentication authentication,
                                       @ModelAttribute("reserva") Reserva fecha, HttpSession session){
 
             authentication= SecurityContextHolder.getContext().getAuthentication();
@@ -428,7 +427,7 @@ import java.util.concurrent.TimeUnit;
         }
 
 
-        @PostMapping("/reserva/crear")
+       @PostMapping("/reserva/crear")
         public String procesarReserva(@Valid PensionHotel pensionHotel, BindingResult result,Model model, HttpSession session){
 
             EPension ePension = pensionHotel.getPension();
@@ -437,8 +436,7 @@ import java.util.concurrent.TimeUnit;
             Double precioPension = pensionService.precioPension(ePension,miTarifa);
             Integer idHabitacion = (Integer) session.getAttribute("idHabitacion");
 
-            session.setAttribute("precioPension",precioPension);
-
+           session.setAttribute("precioPension",precioPension);
 
             return "redirect:/reserva/crear/"+idHabitacion;
         }
