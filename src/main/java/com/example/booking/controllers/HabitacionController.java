@@ -89,6 +89,8 @@ public class HabitacionController {
             return "crearHabitacion";
         }
 
+
+
         habitacion.setPrecioBase(habitacionService.establecerPrecioHabitacion(habitacion.getPrecioBase(), habitacion));
 
         habitacionService.cargarImagen(imagen,flash,habitacion);

@@ -26,7 +26,7 @@ public class Hotel {
     private String nombre;
 
     @Column(name = "num_hab")
-    private int numero_habitaciones;
+    private Integer numero_habitaciones;
 
     @Column(name = "telefono")
     private String telefono;
@@ -104,7 +104,7 @@ public class Hotel {
     }
 
 
-    public int getNumero_habitaciones() {
+    public Integer getNumero_habitaciones() {
         return numero_habitaciones;
     }
 

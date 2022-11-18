@@ -1,0 +1,87 @@
+<!-- Footer -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <title></title>
+</head>
+<body>
+<div th:fragment="footer">
+
+  <footer class="bg-dark text-center text-white">
+
+    <div class="container p-4">
+
+      <section class="row mb-4">
+
+        <div class="m-1 col">
+          <img class="ms-3" th:src="@{/images/facebook.png}" alt="">
+          <img class="ms-3" th:src="@{/images/twitter.png}" alt="">
+          <img class="ms-3" th:src="@{/images/instagram.png}" alt="">
+          <img class="ms-3" th:src="@{/images/github.png}" alt="">
+        </div>
+
+        <!-- Section: Form -->
+        <section class="mt-4">
+          <form action="">
+            <!--Grid row-->
+            <div class="row d-flex justify-content-center">
+              <!--Grid column-->
+              <div class="col-auto">
+                <p class="pt-2">
+                  <strong>Suscribete a nuestro newsletter</strong>
+                </p>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-5 col-12">
+                <!-- Email input -->
+                <div class="form-outline form-white mb-4">
+                  <input type="email" id="form5Example21" class="form-control" placeholder="name@example.com"/>
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-auto">
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-outline-light mb-4">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section>
+          <p>
+            Bienvenidos a Planet Travel, la mejor agencias de Hoteles en España.
+            Nos encargaremos de ofrecerte los mejores hoteles de todo el país al mejor precio
+            y con ofertas increíbles.  ¡Gracias por poner tu equipaje en nuestras manos!
+          </p>
+        </section>
+      </section>
+
+    </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright:
+      <a class="text-white" th:href="@{/}">PLANET TRAVEL</a>
+    </div>
+
+  </footer>
+
+</div>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+

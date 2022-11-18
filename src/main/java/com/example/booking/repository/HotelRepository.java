@@ -3,6 +3,8 @@ package com.example.booking.repository;
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
 import com.example.booking.models.Reserva;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +17,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 
@@ -24,9 +27,23 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
     @Query(value = "select * from vistabuscador where ciudad = :ciudad and capacidad = :capacidad" +
             " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) group by nombre", nativeQuery = true)
+            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) group by nombre ", nativeQuery = true)
 
     List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
+
+
+
+
+
+
+    @Query(value = "SELECT precio_base FROM vistafiltro h where id = :id_hotel order by precio_base asc limit 1", nativeQuery = true)
+    Double preciofiltro(Integer id_hotel);
+
+    @Query(value = "UPDATE hotel set precio = :precio where id = :id", nativeQuery = true)
+    Double preciobase(Double precio, Integer id);
+
+    @Query(value = "UPDATE hotel set precio = :precio where id = :id", nativeQuery = true)
+    Double preciobasefiltro(Double precio, Integer id);
 
 
     @Query(value = "select * from vistafiltro where ciudad = :ciudad and capacidad = :capacidad" +
@@ -34,7 +51,7 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
             " caja_fuerte in :caja_fuerte and wifi in :wifi and terraza in :terraza and precio_base between :preciobase and :precioFinal " +
             "and estrellas between :puntuacion and :estrella)" +
             " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null)" +
+            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) and disponibilidad = 1" +
             " group by nombre", nativeQuery = true)
 
     List<Hotel>buscarfiltros(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad, List<Integer> wifi,

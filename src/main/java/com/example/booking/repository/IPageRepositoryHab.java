@@ -22,7 +22,7 @@ public interface IPageRepositoryHab extends PagingAndSortingRepository<Habitacio
 
 
     @Query(value = "select * from vistahabitacion where id_hotel = :id and capacidad = :capacidad and ((fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin) or (fecha_inicio is null and fecha_fin is null)) group by id", nativeQuery = true)
+            "and fecha_fin not between :fecha_inicio and :fecha_fin) or (fecha_inicio is null and fecha_fin is null)) and disponibilidad = 1 group by id", nativeQuery = true)
 
     Page<Habitacion> buscarHabitacionesPages(Integer id, Integer capacidad, Date fecha_inicio, Date fecha_fin, Pageable pageable);
 

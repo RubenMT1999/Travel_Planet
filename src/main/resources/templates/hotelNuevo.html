@@ -9,17 +9,17 @@
 <body>
 <header th:replace="header/header :: header"></header>
 
-    <div class="container">
+    <div class="container p-5">
         <div class="row">
-            <div class="col-lg-6 cl-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center">Registro de Hotel</h1>
+            <div class="col-lg-6 bg-light cl-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center mt-2">Registro de Hotel</h1>
                 <div class="card-body">
                   <form th:action="@{/hoteles/nuevo}" th:object="${hotel}" method="POST", enctype="multipart/form-data">
                       <div class="form-group">
-                          <label>Nombre: </label>
+                          <label th:text="#{text.hotel.nombre}">Nombre: </label>
                           <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Ponga aquí el nombre"  required>
                           <br>
-                          <label>Ciudad: </label>
+                          <label th:text="#{text.hotel.ciudad}">Ciudad: </label>
                           <select class="form-select" name="ciudad"  placeholder="Escoja la ciudad" th:field="*{ciudad}" required>
                               <option value="Sevilla">Sevilla</option>
                               <option value="Cádiz" >Cádiz</option>
@@ -31,25 +31,25 @@
                               <option value="Jaén">Jaén</option>
                           </select>
                           <br>
-                          <label>Lugar: </label>
+                          <label th:text="#{text.hotel.lugar}">Lugar: </label>
                           <input type="text" name="lugar" th:field="*{lugar}" class="form-control" placeholder="Ponga aquí el lugar" required>
                           <br>
-                          <label>Habitaciones: </label>
+                          <label th:text="#{text.hotel.numero_habitaciones}">Habitaciones: </label>
                           <input type="number" name="habitacion" th:field="*{numero_habitaciones}" class="form-control" placeholder="Ponga aquí el numero de habitaciones" required>
                           <br>
-                          <label>Precio: </label>
+                          <label th:text="#{text.hotel.precio}">Precio: </label>
                           <input type="text" name="precio" th:field="*{precio}" class="form-control" placeholder="Ponga aquí el precio de una noche" required>
                           <br>
-                          <label>Teléfono: </label>
+                          <label th:text="#{text.hotel.telefono}">Teléfono: </label>
                           <input type="text" name="telefono" th:field="*{telefono}" class="form-control" placeholder="Ponga aquí el teléfono" required>
                           <br>
-                          <label>CIF: </label>
+                          <label th:text="#{text.hotel.cif}">CIF: </label>
                           <input type="text" name="cif" th:field="*{cif}" class="form-control" placeholder="Ponga aquí el CIF" required>
                           <br>
-                          <label>Comentario: </label>
+                          <label th:text="#{text.hotel.comentario}">Comentario: </label>
                           <input type="text" name="comentario" th:field="*{comentario}" class="form-control" placeholder="Ponga aquí un comentario" required>
                           <br>
-                          <label>Estrellas: </label>
+                          <label th:text="#{text.hotel.estrellas}">Estrellas: </label>
                           <select type="number"  class="form-select" name="estrellas"  placeholder="¿Cuantas estrellas tiene su hotel?" th:field="*{estrellas}" required>
                               <option value="1">1</option>
                               <option value="2" >2</option>
@@ -60,8 +60,9 @@
 
 
                       </div>
+                      <br>
                       <div class="form-group mb-3 col-10 ">
-                          <label>Imagen</label>
+                          <label th:text="#{text.hotel.imagen}">Imagen</label>
                           <input type="file" name="file" class="form-control">
                       </div>
                       <br>

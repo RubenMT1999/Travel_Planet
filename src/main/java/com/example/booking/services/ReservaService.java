@@ -8,6 +8,7 @@ import com.example.booking.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,8 +29,16 @@ public class ReservaService {
     }
 
 
-    public List<Reserva> reservasPorNombre(String nombre) {
-        return reservaRepository.reservasPorNombre(nombre);
+
+    public void guardarReserva(Reserva reserva){
+        reservaRepository.save(reserva);
     }
 
+    public List<Reserva> obtenerReservaUsuario(Integer idUsuario){return reservaRepository.obtenerReserva(idUsuario);}
+
+    public Reserva obtenerDetallesReserva(Integer idReserva){return reservaRepository.findById(idReserva).orElse(null);}
+
+    public Reserva cancelarReserva( Reserva reserva){ reservaRepository.delete(reserva);
+        return null;
+    }
 }

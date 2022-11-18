@@ -22,6 +22,8 @@ public class Tarifa {
 
     private Temporada temporada;
 
+
+
     @Column(name = "precio_wifi")
     private Double precioWifi;
 
@@ -47,8 +49,11 @@ public class Tarifa {
     @JoinColumn(name = "id_hotel", referencedColumnName = "id")
     private Hotel hotel;
 
-    @OneToMany(mappedBy = "tarifa",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tarifa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PensionHotel> pensionHoteles;
+
+    @OneToMany(mappedBy = "tarifa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TemporadaHotel> temporadaHoteles;
 
     public Integer getId() {
         return id;
@@ -56,6 +61,10 @@ public class Tarifa {
 
     public Temporada getTemporada() {
         return temporada;
+    }
+
+    public List<TemporadaHotel> getTemporadaHoteles() {
+        return temporadaHoteles;
     }
 
 
