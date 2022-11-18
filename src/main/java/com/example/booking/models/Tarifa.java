@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tarifa")
@@ -21,7 +22,7 @@ public class Tarifa {
 
     private Temporada temporada;
 
-    private Pension pension;
+
 
     @Column(name = "precio_wifi")
     private Double precioWifi;
@@ -48,6 +49,12 @@ public class Tarifa {
     @JoinColumn(name = "id_hotel", referencedColumnName = "id")
     private Hotel hotel;
 
+    @OneToMany(mappedBy = "tarifa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PensionHotel> pensionHoteles;
+
+    @OneToMany(mappedBy = "tarifa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TemporadaHotel> temporadaHoteles;
+
     public Integer getId() {
         return id;
     }
@@ -56,10 +63,9 @@ public class Tarifa {
         return temporada;
     }
 
-    public Pension getPension() {
-        return pension;
+    public List<TemporadaHotel> getTemporadaHoteles() {
+        return temporadaHoteles;
     }
-
 
 
     public Double getPrecioWifi() {
