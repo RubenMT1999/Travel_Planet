@@ -63,6 +63,7 @@ public class PerfilUsuarioController {
         if (userAdmin.getEsHotelero() == false){
             userAdmin.setEsHotelero(true);
             usuarioService.getAdmin(userAdmin.getEsHotelero(), userAdmin.getId());
+
             authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
             usuarioService.getRoleAdmin(authorities.getAuthority(), userIDAuth.getId());
         }
