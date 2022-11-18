@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EPension {
-    SoloAlojamiento("Solo Alojamiento"),
     AlojamientoDesayuno("Alojamiento y Desayuno"),
     MediaPension("Media Pensión"),
     PensionCompleta("Pensión Completa"),

@@ -80,8 +80,6 @@ public class Hotel {
         return estrellas;
     }
 
-
-
     @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value="hotel")
     @JsonIgnore

@@ -50,7 +50,12 @@
         </li>
       </ul>
         <input type="submit" value="Calcular Precio" class="btn btn-block btn-primary mx-3">
+
     </form>
+    <form th:action="@{/reserva/nuevo/{id}(id=${habitacion.getId()})}" th:object="${reserva}"  method="post">
+      <button href="#" class="btn btn-success">Reservar</button>
+    </form>
+    <a class="btn btn-danger" th:href="@{/}">Cancelar</a>
 
   </div>
   </div>

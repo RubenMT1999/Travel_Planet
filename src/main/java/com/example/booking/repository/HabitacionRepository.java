@@ -24,6 +24,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     @Query("SELECT h FROM Habitacion h where h.hotel.id = ?1")
     List<Habitacion> listarHabitaciones(Integer id);
 
+
     @Transactional
     @Modifying
     @Query(value = "insert into habitacion (id_hotel, num_habitacion, ext_telefonica, capacidad,imagen, descripcion, precio_base,caja_fuerte,cocina,banio_privado,aire_acondicionado,tv,terraza,wifi)" +
@@ -36,7 +37,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
                               @Param("wifi") Boolean wifi);
 
     @Query(value = "select * from vistahabitacion where id_hotel = :id and capacidad = :capacidad and ((fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin) or (fecha_inicio is null and fecha_fin is null)) group by id", nativeQuery = true)
+            "and fecha_fin not between :fecha_inicio and :fecha_fin) or (fecha_inicio is null and fecha_fin is null)) and disponibilidad = 1 group by id", nativeQuery = true)
 
     List<Habitacion> buscarporidhab(Integer id, Integer capacidad, Date fecha_inicio, Date fecha_fin);
 
@@ -45,7 +46,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
             " caja_fuerte in :caja_fuerte and wifi in :wifi and terraza in :terraza and precio_base between :preciobase and " +
             ":precioFinal and estrellas between :puntuacion and :estrella)" +
             " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
-            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null)" +
+            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) and disponibilidad = 1" +
             " group by id", nativeQuery = true)
     Page<Habitacion> buscarfiltrosid(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, List<Integer> wifi,
                                      List<Integer> terraza, List<Integer> tv, List<Integer> aire, List<Integer> banio_privado, List<Integer> cocina,
@@ -72,7 +73,14 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
 
 
 
-    @Query(value = "SELECT h.id from Habitacion h where h.numeroHabitacion = ?1")
-    Integer comprobarNumHab(Integer numHab);
+    @Query(value = "SELECT h.id from Habitacion h where h.numeroHabitacion = ?1 and h.hotel.id = ?2")
+    Integer comprobarNumHab(Integer numHab,Integer numHotel);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Habitacion SET disponibilidad = :disponibilidad where id = :id")
+    void editarDisponibilidad(Boolean disponibilidad, Integer id);
+
+    @Query("SELECT h FROM Habitacion h WHERE h.id = ?1")
+    Habitacion obtenerHabitacionReserva(Integer id);
 }

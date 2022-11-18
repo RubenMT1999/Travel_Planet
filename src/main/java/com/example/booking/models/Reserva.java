@@ -1,9 +1,9 @@
 package com.example.booking.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,12 +31,10 @@ public class Reserva {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_habitacion")
     private Habitacion habitacion;
 
-    @Column(name = "metodo_pago")
-    private EMetodoDePago metodoDePago;
 
     @NotNull
     @Future
@@ -59,10 +57,6 @@ public class Reserva {
 
     public Usuario getUsuario() {
         return usuario;
-    }
-
-    public EMetodoDePago getMetodoDePago() {
-        return metodoDePago;
     }
 
     public Date getFechaInicio() {

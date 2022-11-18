@@ -39,12 +39,113 @@
                         <label>Baño: </label>
                         <input type="number" name="precio_banio" th:field="*{precioBanio}" class="form-control" placeholder="Ponga aquí precio por tener baño privado" required>
                         <br>
+                    </div>
+                    <div>
+                        <br>
+                    <h1 class="text-center">Precio de las pensiones</h1>
+                        <br>
 
+
+                        <p>Alojamiento y Desayuno</p>
+                        <input type="number" name="precio_completa"  class="form-control" placeholder="Ponga aquí precio" required>
+                    <br>
+                        <p>Media Pensión</p>
+                        <input type="number" name="precio_media_pension"  class="form-control" placeholder="Ponga aquí precio" required>
+                    <br>
+                        <p>Pensión Completa</p>
+                        <input type="number" name="precio_desayuno"  class="form-control" placeholder="Ponga aquí precio" required>
+                    <br>
+                         <p>Todo Incluido</p>
+                        <input type="number" name="precio_ninguna"  class="form-control" placeholder="Ponga aquí precio" required>
+
+                    </div>
+                    <div>
+                    <br>
+                    <h1 class="text-center">Precio de las temporadas</h1>
+                    <br>
+                    <h3>Alta</h3>
+                    <p>Inicio</p>
+                    <input type="Date" name="fecha_inicio_alta"  class="form-control"  required>
+                    <br>
+                    <p>Fin</p>
+                    <input type="Date" name="fecha_fin_alta"  class="form-control" required>
+                    <br>
+                    <p>Precio</p>
+                    <input type="number" name="precio_temporada_alta"  class="form-control" placeholder="Ponga aquí precio" required>
+                    <br>
+                    <h3>Media</h3>
+                    <p>Inicio</p>
+                    <input type="Date" name="fecha_inicio_media"  class="form-control"  required>
+                    <br>
+                    <p>Fin</p>
+                    <input type="Date" name="fecha_fin_media"  class="form-control" required>
+                    <br>
+                    <p>Precio</p>
+                    <input type="number" name="precio_temporada_media"  class="form-control" placeholder="Ponga aquí precio" required>
+                    <br>
+                    <h3>Baja</h3>
+                    <p>Inicio</p>
+                    <input type="Date" name="fecha_inicio_baja"  class="form-control"  required>
+                    <br>
+                    <p>Fin</p>
+                    <input type="Date" name="fecha_fin_baja"  class="form-control" required>
+                    <br>
+                    <p>Precio</p>
+                    <input type="number" name="precio_temporada_baja"  class="form-control" placeholder="Ponga aquí precio" required>
+
+
+
+
+
+<!--                                            <div th:object="${pension1}">-->
+<!--                        <label>precio: </label>-->
+<!--                        <input type="number" name="precio1" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>-->
+<!--                        <br>-->
+<!--                        <label>tipo pension: </label>-->
+<!--                        <select name="pension1" th:field="*{pension}">-->
+<!--                            <option th:each="pension1 : ${T(com.example.booking.models.Pension).values()}"-->
+<!--                                    th:value="${pension1}" th:text="${pension1}"></option>-->
+<!--                        </select>-->
+<!--                        <br>-->
+<!--                    </div>-->
+<!--                    <div th:object="${pension2}">-->
+<!--                        <label>precio: </label>-->
+<!--                        <input type="number" name="precio2" th:field="*{precio}" th:value="pension2" class="form-control" placeholder="Ponga aquí precio" required>-->
+<!--                        <br>-->
+<!--                        <label>tipo pension: </label>-->
+<!--                        <select name="pension2" th:field="*{pension}">-->
+<!--                            <option th:each="pension2 : ${T(com.example.booking.models.Pension).values()}"-->
+<!--                                    th:value="${pension2}" th:text="${pension2}"></option>-->
+<!--                        </select>-->
+<!--                        <br>-->
+<!--                    </div>-->
+<!--                    <div th:object="${pension3}">-->
+<!--                        <label>precio: </label>-->
+<!--                        <input type="number" name="precio3" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>-->
+<!--                        <br>-->
+<!--                        <label>tipo pension: </label>-->
+<!--                        <select name="pension3" th:field="*{pension}">-->
+<!--                            <option th:each="pension3 : ${T(com.example.booking.models.Pension).values()}"-->
+<!--                                    th:value="${pension3}" th:text="${pension3}"></option>-->
+<!--                        </select>-->
+<!--                        <br>-->
+<!--                    </div>-->
+<!--                    <div th:object="${pension4}">-->
+<!--                        <label>precio: </label>-->
+<!--                        <input type="number" name="precio4" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>-->
+<!--                        <br>-->
+<!--                        <label>tipo pension: </label>-->
+<!--                        <select name="pension4" th:field="*{pension}">-->
+<!--                            <option th:each="pension4 : ${T(com.example.booking.models.Pension).values()}"-->
+<!--                                    th:value="${pension4}" th:text="${pension4}"></option>-->
+<!--                        </select>-->
+<!--                        <br>-->
                     </div>
 
                     <br>
                     <div class="box-footer">
                         <button class="btn btn-success">Guardar</button>
+
                     </div>
                 </form>
             </div>

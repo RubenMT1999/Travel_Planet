@@ -364,10 +364,11 @@ public class HabitacionService {
     public void listarIdHotelesPorHabitacion() { habitacionRepository.totalIdHotelesHabitacion(); }
 
 
-    public Integer comprobarNumHab(Integer numHab){
-        return habitacionRepository.comprobarNumHab(numHab);
+    public Integer comprobarNumHab(Integer numHab,Integer idHotel){
+        return habitacionRepository.comprobarNumHab(numHab,idHotel);
     }
 
+    public void editarDisponibilidad(Boolean disponibilidad, Integer id){ habitacionRepository.editarDisponibilidad(disponibilidad,id);}
 
-
+    public Habitacion obtenerHabitacionReserva(Integer id){return habitacionRepository.obtenerHabitacionReserva(id);}
 }

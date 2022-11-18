@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Title</title>
+    <style type="text/css">
+        html, body {
+            margin:0px;
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+
+<header th:replace="header/header :: header"></header>
+
+<div class="container-fluid px-0">
+    <div class="row me-0">
+
+        <div class="col-2">
+
+            <div class="d-flex flex-column flex-shrink-0 p-3 px-0 bg-light" style="height:100vh;">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                    <span class="fs-4">Dashboard</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link link-dark" aria-current="page" th:href="@{/perfil/datos}">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                            Perfil de Usuario
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark active" th:href="@{/perfil/mis-reservas}">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                            Mis reservas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                            Historial de Viajes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark" th:href="@{/perfil/mis-hoteles}">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                            Mis Hoteles
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center ms-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://w7.pngwing.com/pngs/659/667/png-transparent-computer-icons-user-profile-blog-others-miscellaneous-rectangle-logo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong th:text="${nombreUsuarioDetallesReserva.nombre}"></strong>
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                        <li><a class="dropdown-item" th:href="@{/perfil/editar-perfil}">Configuración</a></li>
+                        <li><a class="dropdown-item" th:href="@{/perfil/datos}">Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form id="logout" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                                <a onclick="document.getElementById('logout').submit();" class="dropdown-item p-2"
+                                   type="submit">Cerrar Sesión</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="col-10 p-5">
+
+            <div class="container">
+
+                <h2>Mis Reservas</h2>
+
+                <div class="card mt-3 border-dark text-bg-light">
+                    <h5 class="card-header" th:text="${detallesReserva.habitacion.hotel.ciudad}">Ciudad</h5>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-6">
+                                <h5 class="card-title" th:text="${detallesReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <p class="card-text" th:text="${detallesReserva.fechaInicio}">Fecha</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="card-text" th:text="${detallesReserva.fechaFin}">Fecha</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3 card-text">Capacidad</div>
+                                    <div class="col-1 card-text" th:text="${detallesReserva.habitacion.getCapacidad()}"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col card-text" th:text="${detallesReserva.habitacion.descripcion}">Capacidad</div>
+                                </div>
+                                <a href="#" class="btn btn-warning me-2 mt-3" th:href="@{/perfil/editar-reservas/{id}(id=${detallesReserva.getId()})}">Modificar Reserva</a>
+                                <a href="#" class="btn btn-danger me-2 mt-3" th:href="@{/perfil/eliminar-reserva/{id}(id=${detallesReserva.getId()})}">Cancelar Reserva</a>
+                                <a href="#" class="btn btn-dark mt-3" th:href="@{/perfil/mis-reservas/pago}">Pagar Ahora</a>
+                            </div>
+
+                            <div class="col-6">
+                                <img th:if="${#strings.length(detallesReserva.habitacion.hotel.imagen)>0}" class="img-thumbnail rounded float-end " th:src="@{'/uploads/' + ${detallesReserva.habitacion.hotel.imagen}}" th:alt="${detallesReserva.habitacion.hotel.imagen}"/>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>

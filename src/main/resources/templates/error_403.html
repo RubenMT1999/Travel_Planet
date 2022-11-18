@@ -15,8 +15,8 @@
             <div class="card-header">Error: Acesso Denegado</div>
             <div class="card-body">
                 <!-- El remoteUser sería el usuario que está logeado. También podemos usar el authentication como en el login -->
-                <h5 class="card-title">Lo sentimos <span th:text="${#httpServletRequest.remoteUser}"></span>, NO tienes permisos para acceder a este recurso. </h5>
-                <a th:href="@{/}" class="btn btn-outline-light" role="button">Ir al inicio</a>
+                <h5 class="card-title">Lo sentimos <span th:text="${#httpServletRequest.remoteUser}"></span>, NO tienes permisos para acceder a este sitio. </h5>
+                <a th:href="@{/}" class="btn btn-outline-light mt-2" role="button">Ir al inicio</a>
             </div>
         </div>
     </div>

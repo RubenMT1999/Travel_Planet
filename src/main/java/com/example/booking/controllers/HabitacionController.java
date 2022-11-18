@@ -81,7 +81,7 @@ public class HabitacionController {
     public String procesar(@Valid Habitacion habitacion, BindingResult result, Model model, @RequestParam(value = "file") MultipartFile imagen,
                            SessionStatus status, @ModelAttribute("id") Integer idHotel, RedirectAttributes flash){
 
-       /* Integer comprobarNumHab = habitacionService.comprobarNumHab(habitacion.getNumeroHabitacion());
+        Integer comprobarNumHab = habitacionService.comprobarNumHab(habitacion.getNumeroHabitacion(),idHotel);
 
         if(result.hasErrors() || comprobarNumHab != null){
             model.addAttribute("titulo", "Ha habido algún error");
@@ -89,7 +89,7 @@ public class HabitacionController {
             return "crearHabitacion";
         }
 
-        */
+
 
         habitacion.setPrecioBase(habitacionService.establecerPrecioHabitacion(habitacion.getPrecioBase(), habitacion));
 

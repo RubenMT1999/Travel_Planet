@@ -79,10 +79,8 @@ public class Habitacion {
     @JsonIgnoreProperties(value="habitacion")
     private Hotel hotel;
 
-    @OneToMany
-    private List<Tarifa> id_tarifa;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "habitacion",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reserva> reserva;
 
@@ -155,9 +153,6 @@ public class Habitacion {
         return precioBase;
     }
 
-    public List<Tarifa> getId_tarifa() {
-        return id_tarifa;
-    }
 
     public Set<Reserva> getReserva() {
         return reserva;

@@ -28,13 +28,13 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page" th:href="@{/perfil/datos}">
+            <a href="#" class="nav-link link-dark active" aria-current="page" th:href="@{/perfil/datos}">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
               Perfil de Usuario
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="#" class="nav-link link-dark" th:href="@{/perfil/mis-reservas}">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
               Mis reservas
             </a>
@@ -78,7 +78,7 @@
 
     <div class="col-10 p-5">
 
-      <div class="container border border-primary bg-light rounded p-3 shadow mt-4">
+      <div class="container border border-dark bg-light rounded p-3 shadow mt-4">
 
         <h1 th:text="${titulo}" class="mt-4"></h1>
 
@@ -97,8 +97,8 @@
 
           <div class="row mt-3">
             <div class="col-md-6 col">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <input type="email" id="email" th:field="*{email}" class="form-control">
+              <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+              <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" class="form-control">
             </div>
             <div class="col-md-6 col">
               <label for="telefono" class="form-label">Teléfono</label>
@@ -116,7 +116,6 @@
               <input type="text" id="dni" th:field="*{dni}" class="form-control">
             </div>
           </div>
-
           <div class="row mt-3">
             <div class="col-md-6 col">
               <label for="password" class="form-label">Contraseña Nueva
@@ -124,16 +123,13 @@
               </label>
               <input type="password" id="password" th:field="*{contrasenia}" class="form-control">
             </div>
-            <div class="col-md-6 col">
-              <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-              <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" class="form-control">
-            </div>
+
           </div>
 
           <div class="row m-4">
-            <div class="col-md-4 col">
-              <input type="submit" value="Guardar" class="btn btn-primary">
-            </div>
+
+            <input type="submit" value="Guardar" class="btn btn-dark">
+
           </div>
 
         </form>

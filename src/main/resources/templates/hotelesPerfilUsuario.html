@@ -28,13 +28,13 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page" th:href="@{/perfil/datos}">
+            <a href="#" class="nav-link link-dark" aria-current="page" th:href="@{/perfil/datos}">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
               Perfil de Usuario
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="#" class="nav-link link-dark" th:href="@{/perfil/mis-reservas}">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
               Mis reservas
             </a>
@@ -46,7 +46,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="#" class="nav-link active link-dark">
               <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
               Mis Hoteles
             </a>
@@ -80,12 +80,15 @@
 
       <div class="container">
         <h2>Mis Hoteles</h2>
+        <p th:text="${hotelNull}"></p>
         <div class="row">
 
           <div class="col">
 
-            <div class="accordion" id="accordionExample">
-              <div class="accordion-item mt-4" th:each="hotel :${hotelesUsuario}">
+            <div class="accordion" id="accordionExample" th:each="hotel :${hotelesUsuario}">
+              <div class="accordion-item mt-4" >
+
+
 
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:text="${hotel.nombre}">
@@ -97,7 +100,8 @@
 
                     <div class="row">
                       <div class="col">
-                        <span th:text="${hotel.comentario}"></span>
+                        <div class="g-col-4 mt-2"><span class="fw-semibold">Estrellas :  </span> <span th:text="${hotel.estrellas}"></span></div>
+
                       </div>
                     </div>
 

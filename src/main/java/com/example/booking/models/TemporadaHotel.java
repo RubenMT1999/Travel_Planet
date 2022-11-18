@@ -5,23 +5,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Entity
-@Table(name = "pensiones")
-public class PensionHotel {
-
+@Table(name = "temporada")
+public class TemporadaHotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "tipo_pension")
-    private EPension pension;
+    @Column(name = "tipo_temporada")
+    private Temporada temporada;
 
     @Column(name = "precio")
     private Double precio;
+
+    @Column(name = "fecha_inicio")
+    private Date fechaInicio;
+
+    @Column(name = "fecha_fin")
+    private Date fechaFin;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tarifa")
@@ -35,12 +42,12 @@ public class PensionHotel {
         this.id = id;
     }
 
-    public EPension getPension() {
-        return pension;
+    public Temporada getTemporada() {
+        return temporada;
     }
 
-    public void setPension(EPension pension) {
-        this.pension = pension;
+    public void setTemporada(Temporada temporada) {
+        this.temporada = temporada;
     }
 
     public Double getPrecio() {
@@ -49,6 +56,22 @@ public class PensionHotel {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
     public Tarifa getTarifa() {

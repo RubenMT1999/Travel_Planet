@@ -118,9 +118,6 @@ public class Usuario {
         return email;
     }
 
-    public EMetodoDePago getMetodoDePago() {
-        return metodoDePago;
-    }
 
     public boolean isRegistrado() {
         return registrado;
