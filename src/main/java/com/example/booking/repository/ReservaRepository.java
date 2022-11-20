@@ -22,4 +22,5 @@ public interface ReservaRepository  extends JpaRepository<Reserva,Integer> {
     List<Reserva> reservasPorNombre(String nombre);
 
 
+
 }

@@ -76,64 +76,42 @@
 
     <div class="col-10">
 
-      <div class="container">
-        <div class="row">
-          <div class="col py-5 text-center">
-            <h2>Carrito de la compra</h2>
-            <p class="lead">Estás apunto de formar parte de nuestra compañia si no lo estás ya. Gracias por confiar en nosotros</p>
-          </div>
-        </div>
-
+      <div class="container mt-4">
         <div class="row">
           <div class="col-12 col-md-8 order-2 order-md-1 mb-3">
-            <h4 class="mb-3">Direccion de envío</h4>
+            <h4 class="mb-3">Datos de Usuario</h4>
             <form action="">
               <div class="row">
-                <div class="col-12 col-sm-6 mb-3">
+                <div class="col-12 col-sm-6 mb-2">
                   <label for="nombre" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre">
+                  <p type="text" class="form-control" th:text="${nombreUsuarioPago.nombre}" id="nombre" name="nombre"></p>
                 </div>
-                <div class="col-12 col-sm-6 mb-3">
+                <div class="col-12 col-sm-6 mb-2">
                   <label for="correo" class="form-label">Apellidos</label>
-                  <input type="text" class="form-control" id="correo" name="correo">
+                  <p type="text" class="form-control" id="correo" name="correo" th:text="${nombreUsuarioPago.apellidos}"></p>
                 </div>
               </div>
 
-              <div class="row mb-3">
+              <div class="row mb-2">
                 <div class="col">
                   <label class="form-label" for="correo">Correo</label>
-                  <input type="email" class="form-control" placeholder="nombre@gmail.com" name="correo">
+                  <p type="email" class="form-control" placeholder="nombre@gmail.com" name="correo" th:text="${nombreUsuarioPago.email}"></p>
                 </div>
               </div>
 
-              <div class="row mb-3">
+              <div class="row mb-2">
                 <div class="col">
-                  <label class="form-label" for="direccion">Dirección</label>
+                  <label class="form-label" for="direccion">Dirección<span class="text-muted">(Opcional)</span></label>
                   <input type="text" id="direccion" class="form-control" placeholder="1234 Calle Principal" name="direccion">
                 </div>
               </div>
 
-              <div class="row mb-3">
-                <div class="col">
-                  <label class="form-label" for="direccion2">Dirección 2 <span class="text-muted">(Opcional)</span></label>
-                  <input type="text" id="direccion2" class="form-control" placeholder="Interior o informacion adicional" name="direccion2">
-                </div>
-              </div>
-
               <div class="row">
-                <div class="col-12 col-sm-4 mb-3">
+                <div class="col-12 col-sm-4 mb-2">
                   <label for="pais" class="form-label">Comunidad autónoma</label>
-                  <select name="pais" id="pais" class="form-select">
-                    <option value="">Seleccionar Comunidad</option>
-                    <option value="andalucia">Andalucía</option>
-                    <option value="madrid">Madrid</option>
-                    <option value="cataluña">Cataluña</option>
-                    <option value="c-valencia">Comunidad Valenciana</option>
-                    <option value="galicia">Galicia</option>
-                    <option value="castilla-leon">Castilla y León</option>
-                  </select>
+                  <p type="text" class="form-control" id="pais" th:text="${nombreUsuarioPago.nacionalidad}"></p>
                 </div>
-                <div class="col-12 col-sm-4 mb-3">
+                <div class="col-12 col-sm-4 mb-2">
                   <label for="pais" class="form-label">Provincia</label>
                   <select name="pais"  class="form-select">
                     <option value="">Seleccionar Provincia</option>
@@ -142,38 +120,17 @@
                     <option value="cordoba">Córdoba</option>
                     <option value="granada">Granada</option>
                     <option value="almeria">Almería</option>
-                    <option value="madrid">Madrid</option>
-                    <option value="valencia">Valencia</option>
-                    <option value="barcelona">Barcelona</option>
-                    <option value="tarragona">Tarragona</option>
-                    <option value="coruña">La Coruña</option>
-                    <option value="pontevedra">Pontevedra</option>
+                    <option value="huelva">Huelva</option>
+                    <option value="valencia">Jaén</option>
                   </select>
                 </div>
-                <div class="col-12 col-sm-4 mb-3">
+                <div class="col-12 col-sm-4 mb-2">
                   <label for="codigo-postal" class="form-label">Código Postal</label>
                   <input type="text" id="codigo-postal" class="form-control">
                 </div>
               </div>
-
-              <hr>
-
-              <div class="row mb-3">
-                <div class="col-12">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="misma-direccion">
-                    <label for="misma-direccion" class="form-label">Enviar a la misma dirección de facturación</label>
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="guardar-informacion">
-                    <label for="guardar-informacion" class="form-label">Guardar información para la siguiente compra</label>
-                  </div>
-                </div>
-              </div>
-
-              <hr>
-
-              <div class="row mb-3">
+              <hr class="mb-2">
+              <div class="row mb-2">
                 <div class="col-12">
                   <div class="form-check">
                     <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-credito">
@@ -181,44 +138,44 @@
                   </div>
                   <div class="form-check">
                     <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-debito">
-                    <label for="tarjeta-debito" class="form-check-label">Tarjeta de Débito</label>
+                    <label for="tarjeta-debito" class="form-check-label">Paypal</label>
                   </div>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-12 col-sm-6 mb-3">
+                <div class="col-12 col-sm-6 mb-2">
                   <label class="form-label" for="nombre-tarjeta">Nombre del titular</label>
                   <input type="text" id="nombre-tarjeta" class="form-control">
                   <small class="text-muted">Nombre completo como se muestra en la tarjeta</small>
                 </div>
-                <div class="col-12 col-sm-6 mb-3">
+                <div class="col-12 col-sm-6 mb-2">
                   <label class="form-label" for="numero-tarjeta">Número de tarjeta</label>
                   <input type="text" id="numero-tarjeta" class="form-control">
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-6 col-sm-4 mb-3">
+                <div class="col-6 col-sm-4 mb-2">
                   <label class="form-label" for="tarjeta-expiracion">Expiración</label>
                   <input type="text" id="tarjeta-expiracion" class="form-control">
                 </div>
-                <div class="col-6 col-sm-4 mb-3">
+                <div class="col-6 col-sm-4 mb-2">
                   <label class="form-label" for="tarjeta-ccv">CVV</label>
                   <input type="text" id="tarjeta-ccv" class="form-control">
                 </div>
               </div>
 
-              <hr class="mb-4">
-              <input type="submit" value="Continuar al pago" class="btn btn-block btn-lg btn-primary">
+              <hr class="mb-3">
+              <input type="submit" value="Pagar" class="btn btn-block btn-dark">
             </form>
           </div>
 
           <div class="col-12 col-md-4 order-1 order-md-2 mb-3">
             <h4 class="mb-3 d-flex justify-content-between align-items-center">
-              <span class="text-muted">Tu carrito</span>
-              <span class="badge bg-secondary rounded-pill">2</span>
+              <span class="text-muted">Tu Compra</span>
             </h4>
+<!--            AQUI EL FOR EACH-->
             <ul class="list-group mb-3">
               <li class="list-group-item d-flex justify-content-between">
                 <div>

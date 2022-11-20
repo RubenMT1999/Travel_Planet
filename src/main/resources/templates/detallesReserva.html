@@ -104,9 +104,14 @@
                                 <div class="row">
                                     <div class="col card-text" th:text="${detallesReserva.habitacion.descripcion}">Capacidad</div>
                                 </div>
-                                <a href="#" class="btn btn-warning me-2 mt-3" th:href="@{/perfil/editar-reservas/{id}(id=${detallesReserva.getId()})}">Modificar Reserva</a>
+                                <a href="#" class="btn btn-warning me-2 mt-3"  th:href="@{/perfil/editar-reservas/{id}(id=${detallesReserva.getId()})}">Modificar Pensión</a>
                                 <a href="#" class="btn btn-danger me-2 mt-3" th:href="@{/perfil/eliminar-reserva/{id}(id=${detallesReserva.getId()})}">Cancelar Reserva</a>
                                 <a href="#" class="btn btn-dark mt-3" th:href="@{/perfil/mis-reservas/pago}">Pagar Ahora</a>
+<!--                                <div class="collapse" id="collapseExample">-->
+<!--                                    <div class="card card-body">-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
 
                             <div class="col-6">

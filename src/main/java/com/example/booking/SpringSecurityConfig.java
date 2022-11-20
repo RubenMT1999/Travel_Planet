@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
+import java.util.concurrent.TimeUnit;
 
 //enableGlobalMehtodSecurity para permitir las anotaciones Secured
 //@EnableGlobalMethodSecurity(securedEnabled = true)
@@ -53,9 +54,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/error_403");
-
-
+                .exceptionHandling().accessDeniedPage("/error_403")
+                .and()
+                .rememberMe()
+                    .key("somethingsecured")
+                    .rememberMeParameter("remember-me")
+                    .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(30)); // por defecto dos semanas
 
     }
 

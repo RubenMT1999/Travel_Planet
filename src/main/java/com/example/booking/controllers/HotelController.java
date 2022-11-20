@@ -371,10 +371,6 @@ import java.util.concurrent.TimeUnit;
             }
 
 
-
-
-
-
             PensionHotel pensionHotel = new PensionHotel();
             //pensionHotel.setTarifa(habitacion.getHotel().getTarifa());
 

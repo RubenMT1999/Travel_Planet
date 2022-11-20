@@ -133,13 +133,27 @@ public class PerfilUsuarioController {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
         Reserva reservaPorId = reservaService.obtenerDetallesReserva(id);
-
         Habitacion habitacion = habitacionService.obtenerHabitacionReserva(reservaPorId.getId());
         reservaPorId.setHabitacion(habitacion);
+
+
+
         model.addAttribute("detallesReserva", reservaPorId);
         model.addAttribute("nombreUsuarioDetallesReserva", nombreUsuario);
 
         return "detallesReserva";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editarReserva(@PathVariable Integer id, Model model, Authentication authentication){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario datosUsuario = usuarioService.datosUsuario(authentication.getName());
+        Reserva reserva = reservaService.obtenerDetallesReserva(id);
+
+        model.addAttribute("editarReserva", reserva);
+        model.addAttribute("editarReservaUsuario", datosUsuario);
+
+        return "";
     }
 
     @RequestMapping("/eliminar-reserva/{id}")
@@ -153,20 +167,16 @@ public class PerfilUsuarioController {
         return "redirect:/perfil/mis-reservas";
     }
 
-    @PostMapping("/editar-reserva/{id}")
-    public String editarReserva(Model model,@PathVariable Integer id){
-        Reserva reserva = reservaService.obtenerDetallesReserva(id);
-        model.addAttribute("editarReserva", reserva);
-        return "reditect:/";
-    }
 
     @GetMapping("/mis-reservas/pago")
     public String pagarReserva(Model model, Authentication authentication){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
         model.addAttribute("nombreUsuarioPago", nombreUsuario);
+
         return "pago";
     }
+
 
 
 
