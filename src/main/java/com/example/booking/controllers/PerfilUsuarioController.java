@@ -60,6 +60,7 @@ public class PerfilUsuarioController {
         UserAuth userIDAuth = usuarioService.getUserAuth(auth.getName());
         Authorities authorities = usuarioService.getAuthorities(userIDAuth.getId());
 
+
         if (userAdmin.getEsHotelero() == false){
             userAdmin.setEsHotelero(true);
             usuarioService.getAdmin(userAdmin.getEsHotelero(), userAdmin.getId());
