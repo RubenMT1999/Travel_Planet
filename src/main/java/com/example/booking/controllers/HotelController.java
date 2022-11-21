@@ -108,28 +108,21 @@ import java.util.concurrent.TimeUnit;
             List<Double> precioHabitaciones = new ArrayList<>();
             for (Habitacion habitacion : habitacions){
                 precioHabitaciones.add(habitacion.getPrecioBase());
-
             }
             Double preciomin = Collections.min(precioHabitaciones);
             h.setPrecio(preciomin.toString());
         }
-
         model.addAttribute("hotel", hotel);
-
         //Para utilizar el SessionAtribute para capacidad.
         Habitacion habitacion = new Habitacion();
         habitacion.setCapacidad(capacidad);
         model.addAttribute("habitacion", habitacion);
-
         model.addAttribute("hotel", hotel);
         model.addAttribute("hotels", hoteles);
-
         session.setAttribute("fi", fechaInicio);
         session.setAttribute("ff", fecha_Fin);
-
         return "busquedahoteles";
     }
-
         @GetMapping("/hoteles/listarfiltro")
         public String procesarBusqueda(@ModelAttribute("hoteles") Hotel ciudad,
                                        @ModelAttribute("habitacion") Habitacion capacidad,

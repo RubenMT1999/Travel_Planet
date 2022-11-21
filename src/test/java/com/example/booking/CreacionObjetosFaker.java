@@ -14,14 +14,31 @@ import java.util.List;
 public class CreacionObjetosFaker {
 
 
-//    @Autowired
-//    HotelRepository hotelRepository;
-//
-//
-//    Faker faker = new Faker();
-//
-//
-//    public List<Habitacion> fakerHabitaciones(Integer numero, Integer idHotel){
+    @Autowired
+    HotelRepository hotelRepository;
+
+
+    Faker faker = new Faker();
+
+
+    public Hotel fakerHotel(Integer numero, Integer idHotel) {
+
+        Hotel hotelfaker = new Hotel();
+        hotelfaker.setCiudad("Sevilla");
+        hotelfaker.setNombre("Alameda");
+        hotelfaker.setPrecio(faker.number().digit());
+        hotelfaker.setComentario(faker.lorem().characters());
+        hotelfaker.setImagen("https://www.cataloniahotels.com/es/blog/wp-content/uploads/2016/05/habitaci%C3%B3n-doble-catalonia-620x412.jpg");
+        hotelfaker.setLugar("Sevilla");
+        hotelfaker.setTelefono("123456789");
+        hotelfaker.setCif("123");
+        hotelfaker.setNumero_habitaciones(faker.number().numberBetween(1, 20));
+        hotelfaker.setLocalidad("Sevilla");
+        hotelfaker.setPais("España");
+        hotelfaker.setEstrellas(faker.number().numberBetween(1, 5));
+       // hotelfaker.setUsuario();
+
+
 //
 //        Hotel hotel = hotelRepository.findById(idHotel).get();
 //
@@ -55,4 +72,7 @@ public class CreacionObjetosFaker {
 //    }
 
 
+        return null;
+    }
 }
+

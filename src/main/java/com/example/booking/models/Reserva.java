@@ -37,7 +37,6 @@ public class Reserva {
 
 
     @NotNull
-    @Future
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -45,7 +44,6 @@ public class Reserva {
 
 
     @NotNull
-    @Future
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
