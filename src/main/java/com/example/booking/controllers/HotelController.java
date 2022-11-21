@@ -37,7 +37,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
     @Controller
-    @SessionAttributes({"habitacion","reserva", "hoteles", "habfiltro", "puntuacion"})
+    @SessionAttributes({"habitacion","reserva", "hoteles", "habfiltro", "puntuacion", "precio"})
 
     public class HotelController {
     @Autowired
@@ -323,7 +323,6 @@ import java.util.concurrent.TimeUnit;
             auth= SecurityContextHolder.getContext().getAuthentication();
             Reserva reserva = new Reserva();
             Habitacion habitacion = habitacionService.findById(id);
-            Double precio_extras = habitacionService.establecerPrecioHabitacion(habitacion.getPrecioBase(), habitacion);
             reserva.setHabitacion(habitacion);
             Usuario usuario = usuarioService.usuarioPorNombre(auth.getName());
             reserva.setUsuario(usuario);
@@ -386,6 +385,7 @@ import java.util.concurrent.TimeUnit;
 
             habitacion.setPrecioBase((precioTemporada * diasBuscados) + habitacion.getPrecioBase());
 
+            model.addAttribute("precio", habitacion);
             model.addAttribute("titulo","Crear Reserva");
             model.addAttribute("reserva",reserva);
             model.addAttribute("habitacion",habitacion);
@@ -398,10 +398,11 @@ import java.util.concurrent.TimeUnit;
 
         @PostMapping("/reserva/nuevo/{id}")
         public String guardarReserva( Model model,@PathVariable Integer id, Authentication authentication,
-                                      @ModelAttribute("reserva") Reserva fecha, HttpSession session) throws ParseException {
+                                      @ModelAttribute("reserva") Reserva fecha, @ModelAttribute("precio") Habitacion precio, HttpSession session) throws ParseException {
 
             authentication= SecurityContextHolder.getContext().getAuthentication();
             Reserva reserva = new Reserva();
+            reserva.setPrecio_total(precio.getPrecioBase());
             Habitacion habitacion = habitacionService.findById(id);
 
             reserva.setHabitacion(habitacion);
