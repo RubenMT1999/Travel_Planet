@@ -44,13 +44,17 @@ public class Reserva {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date fechaInicio;
 
-
     @NotNull
     @Future
     @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date fechaFin;
+
+
+    @NotNull
+    @Column(name = "precio_total")
+    private Double precio_total;
 
     public Integer getId() {
         return id;
@@ -68,6 +72,9 @@ public class Reserva {
         return fechaFin;
     }
 
+    public Double getPrecio_total() {
+        return precio_total;
+    }
 
     public Habitacion getHabitacion() {
         return habitacion;

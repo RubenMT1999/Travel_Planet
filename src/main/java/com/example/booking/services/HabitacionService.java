@@ -55,9 +55,9 @@ public class HabitacionService {
     public void guardarPersonalizado(Integer idHotel,Integer numHab,String extTel, Integer capacidad,
                                      String imagen, String descripcion, Double precioBase,Boolean cajaFuerte,
                                      Boolean cocina,Boolean banioPrivado,Boolean aireAcondicionado,Boolean tv,
-                                     Boolean terraza,Boolean wifi){
+                                     Boolean terraza,Boolean wifi, Boolean disponibilidad){
         habitacionRepository.guardarPersonalizado(idHotel,numHab,extTel,capacidad,imagen,descripcion,precioBase,
-                cajaFuerte,cocina,banioPrivado,aireAcondicionado,tv,terraza,wifi);
+                cajaFuerte,cocina,banioPrivado,aireAcondicionado,tv,terraza,wifi, disponibilidad);
     }
 
 

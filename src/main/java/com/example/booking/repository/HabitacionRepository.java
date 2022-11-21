@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +28,14 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
 
     @Transactional
     @Modifying
-    @Query(value = "insert into habitacion (id_hotel, num_habitacion, ext_telefonica, capacidad,imagen, descripcion, precio_base,caja_fuerte,cocina,banio_privado,aire_acondicionado,tv,terraza,wifi)" +
-            " values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14)",nativeQuery = true )
+    @Query(value = "insert into habitacion (id_hotel, num_habitacion, ext_telefonica, capacidad,imagen, descripcion, precio_base,caja_fuerte,cocina,banio_privado,aire_acondicionado,tv,terraza,wifi,disponibilidad)" +
+            " values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14, ?15)",nativeQuery = true )
     void guardarPersonalizado(@Param("id_hotel") Integer idHotel, @Param("num_habitacion") Integer numHab,
-                    @Param("ext_telefonica") String extTelefonica, @Param("capacidad") Integer capacidad
-                    ,@Param("imagen") String imagen,@Param("descripcion") String descripcion, @Param("precioBase") Double precioBase,
+                              @Param("ext_telefonica") String extTelefonica, @Param("capacidad") Integer capacidad
+                    , @Param("imagen") String imagen, @Param("descripcion") String descripcion, @Param("precioBase") Double precioBase,
                               @Param("caja_fuerte") Boolean cajaFuerte, @Param("cocina") Boolean cocina, @Param("banio_privado") Boolean banioPrivado,
                               @Param("aire_acondicionado") Boolean aireAcondicionado, @Param("tv") Boolean tv, @Param("terraza") Boolean terraza,
-                              @Param("wifi") Boolean wifi);
+                              @Param("wifi") Boolean wifi, @Param("disponibilidad") Boolean disponibilidad);
 
     @Query(value = "select * from vistahabitacion where id_hotel = :id and capacidad = :capacidad and ((fecha_inicio not between :fecha_inicio and :fecha_fin " +
             "and fecha_fin not between :fecha_inicio and :fecha_fin) or (fecha_inicio is null and fecha_fin is null)) and disponibilidad = 1 group by id", nativeQuery = true)
@@ -80,6 +81,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     @Modifying
     @Query("UPDATE Habitacion SET disponibilidad = :disponibilidad where id = :id")
     void editarDisponibilidad(Boolean disponibilidad, Integer id);
+
 
     @Query("SELECT h FROM Habitacion h WHERE h.id = ?1")
     Habitacion obtenerHabitacionReserva(Integer id);

@@ -92,13 +92,13 @@ public class HabitacionController {
 
 
         habitacion.setPrecioBase(habitacionService.establecerPrecioHabitacion(habitacion.getPrecioBase(), habitacion));
-
+        habitacionService.editarDisponibilidad(true,habitacion.getId());
         habitacionService.cargarImagen(imagen,flash,habitacion);
 
         habitacionService.guardarPersonalizado(habitacion.getHotel().getId(),habitacion.getNumeroHabitacion(),habitacion.getExtensionTelefonica(),
                 habitacion.getCapacidad(),habitacion.getImagen(),habitacion.getDescripcion(),habitacion.getPrecioBase(),habitacion.isCajaFuerte(),
                 habitacion.isCocina(),habitacion.isBanioPrivado(),habitacion.isAireAcondicionado(),habitacion.isTv(),habitacion.isTerraza(),
-                habitacion.isWifi());
+                habitacion.isWifi(), true);
         model.addAttribute("success","La habitación ha sido creada con éxito!");
         return "redirect:/habitaciones/listar/"+idHotel;
     }

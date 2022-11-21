@@ -323,6 +323,7 @@ import java.util.concurrent.TimeUnit;
             auth= SecurityContextHolder.getContext().getAuthentication();
             Reserva reserva = new Reserva();
             Habitacion habitacion = habitacionService.findById(id);
+            Double precio_extras = habitacionService.establecerPrecioHabitacion(habitacion.getPrecioBase(), habitacion);
             reserva.setHabitacion(habitacion);
             Usuario usuario = usuarioService.usuarioPorNombre(auth.getName());
             reserva.setUsuario(usuario);
@@ -397,21 +398,22 @@ import java.util.concurrent.TimeUnit;
 
         @PostMapping("/reserva/nuevo/{id}")
         public String guardarReserva( Model model,@PathVariable Integer id, Authentication authentication,
-                                      @ModelAttribute("reserva") Reserva fecha, HttpSession session){
+                                      @ModelAttribute("reserva") Reserva fecha, HttpSession session) throws ParseException {
 
             authentication= SecurityContextHolder.getContext().getAuthentication();
             Reserva reserva = new Reserva();
             Habitacion habitacion = habitacionService.findById(id);
+
             reserva.setHabitacion(habitacion);
             Usuario usuario = usuarioService.datosUsuario(authentication.getName());
             reserva.setUsuario(usuario);
+            habitacion.getPrecioBase();
 
             habitacionService.editarDisponibilidad(false, habitacion.getId());
 
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha_inicio = (Date)session.getAttribute("fi");
             Date fecha_fin = (Date)session.getAttribute("ff");
-
            reserva.setFechaInicio(fecha_inicio);
            reserva.setFechaFin(fecha_fin);
 
