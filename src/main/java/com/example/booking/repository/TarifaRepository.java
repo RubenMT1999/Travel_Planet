@@ -56,4 +56,5 @@ public interface TarifaRepository  extends JpaRepository<Tarifa,Integer> {
 
     @Query(value = "select * from tarifa where id_hotel = :id_hotel", nativeQuery = true)
     Tarifa tarifaIdhotel(Integer id_hotel);
+
 }

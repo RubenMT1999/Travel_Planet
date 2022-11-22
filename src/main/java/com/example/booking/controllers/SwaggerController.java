@@ -4,6 +4,7 @@ import com.example.booking.models.*;
 import com.example.booking.repository.*;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.ReservaService;
+import com.example.booking.services.TarifaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -53,6 +55,9 @@ public class SwaggerController {
 
     @Autowired
     private ReservaService reservaService;
+
+    @Autowired
+    private TarifaService tarifaService;
 
 
     // Métodos de Usuario.
@@ -101,6 +106,7 @@ public class SwaggerController {
     public List<Habitacion> listarHabitaciones(@RequestParam Integer idHotel){
         return habitacionService.listarHabitaciones(idHotel);
     }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/crearhab")
     @ApiOperation(value = "Crear Habitación")
@@ -269,6 +275,49 @@ public class SwaggerController {
         return hotelRepository.save(hotel);
     }
 
+    //Swagger crear tarifa caracteristicas
+    @RequestMapping(method = RequestMethod.POST, value = "/creartarifa")
+    public Tarifa crearTarifa(@RequestParam Integer idHotel, @RequestBody Tarifa tarifa){
+        Hotel hotel = hotelRepository.obtenerHotelId(idHotel);
+
+
+        tarifa.setHotel(hotel);
+
+
+
+
+        if ( tarifaRepository.listarTarifa(idHotel) == null ){
+            tarifaRepository.guardarTarifa(tarifa.getPrecioBanio(), tarifa.getPrecioCajaFuerte(), tarifa.getPrecioCocina(), tarifa.getPrecioTV(), tarifa.getPrecioTerraza(), tarifa.getPrecioWifi(), tarifa.getPrecioAire(), idHotel);
+
+        }
+
+
+
+        return tarifa;
+    }
+
+    //Swagger crear tarifa pensiones
+    @RequestMapping(method = RequestMethod.POST, value = "/creartarifapensiones")
+    public PensionHotel crearPensiones(@RequestParam Integer idTarifa, @RequestParam Integer enumPension, @RequestBody PensionHotel pensiones){
+        Tarifa tarifa = tarifaRepository.findById(idTarifa).orElse(null);
+
+        pensiones.setTarifa(tarifa);
+
+
+
+
+
+
+
+
+        if ( tarifaRepository.listarTarifa(idTarifa) != null && tarifaRepository.listarPension(enumPension) == null){
+        tarifaRepository.guardarPension(enumPension,pensiones.getPrecio(),tarifa.getId());
+        }
+
+
+
+        return pensiones;
+    }
     //Swagger borrar hoteles.
     @RequestMapping(method = RequestMethod.DELETE, value = "/borrarhotel")
     public void borrarHotel(@RequestParam Integer id_hotel)  {
@@ -305,6 +354,7 @@ public class SwaggerController {
         hotel.setId(id_hotel);
         return hotelRepository.save(hotel);
     }
+
 
 
 

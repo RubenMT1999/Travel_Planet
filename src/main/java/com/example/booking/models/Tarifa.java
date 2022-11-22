@@ -47,15 +47,19 @@ public class Tarifa {
     @Column(name = "precio_banio")
     private Double precioBanio;
 
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel", referencedColumnName = "id")
     @JsonIgnoreProperties(value="tarifa")
     @JsonIgnore
     private Hotel hotel;
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "tarifa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PensionHotel> pensionHoteles;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tarifa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TemporadaHotel> temporadaHoteles;
 
