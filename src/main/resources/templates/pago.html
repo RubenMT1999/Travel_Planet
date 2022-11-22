@@ -80,7 +80,9 @@
         <div class="row">
           <div class="col-12 col-md-8 order-2 order-md-1 mb-3">
             <h4 class="mb-3">Datos de Usuario</h4>
-            <form action="">
+
+            <form th:action="@{/perfil/efectuar-pago}" method="get" th:object="${metodoPago}">
+
               <div class="row">
                 <div class="col-12 col-sm-6 mb-2">
                   <label for="nombre" class="form-label">Nombre</label>
@@ -113,7 +115,7 @@
                 </div>
                 <div class="col-12 col-sm-4 mb-2">
                   <label for="pais" class="form-label">Provincia</label>
-                  <select name="pais"  class="form-select">
+                  <select name="pais"  class="form-select" required>
                     <option value="">Seleccionar Provincia</option>
                     <option value="sevilla">Sevilla</option>
                     <option value="españa">Málaga</option>
@@ -126,20 +128,22 @@
                 </div>
                 <div class="col-12 col-sm-4 mb-2">
                   <label for="codigo-postal" class="form-label">Código Postal</label>
-                  <input type="text" id="codigo-postal" class="form-control">
+                  <input type="text" id="codigo-postal" class="form-control" required>
                 </div>
               </div>
               <hr class="mb-2">
               <div class="row mb-2">
                 <div class="col-12">
-                  <div class="form-check">
-                    <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-credito">
+
+                    <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-credito" th:field="*{entero}" th:value="1">
                     <label for="tarjeta-credito" class="form-check-label">Tarjeta de Crédito</label>
-                  </div>
-                  <div class="form-check">
-                    <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-debito">
+                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="tarjeta-debito" th:field="*{entero}" th:value="0">
                     <label for="tarjeta-debito" class="form-check-label">Paypal</label>
-                  </div>
+                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="bizum" th:field="*{entero}" th:value="2">
+                    <label for="bizum" class="form-check-label">Bizum</label>
+                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="transeferencia" th:field="*{entero}" th:value="3">
+                    <label for="transeferencia" class="form-check-label">Transferencia Bancaria</label>
+
                 </div>
               </div>
 
@@ -175,32 +179,31 @@
             <h4 class="mb-3 d-flex justify-content-between align-items-center">
               <span class="text-muted">Tu Compra</span>
             </h4>
-<!--            AQUI EL FOR EACH-->
+
             <ul class="list-group mb-3">
               <li class="list-group-item d-flex justify-content-between">
                 <div>
                   <h6 class="my-0">Hotel</h6>
-                  <small class="text-muted">Reservar</small>
+                  <small class="text-muted" th:text="${datosReservaHotel.getNombre()}"></small>
                 </div>
-                <span class="text-muted">5.000 €</span>
               </li>
               <li class="list-group-item d-flex justify-content-between">
                 <div>
-                  <h6 class="my-0">Pack accesorios</h6>
-                  <small class="text-muted">Pequeño pack de accesorios</small>
+                  <h6 class="my-0 text-success">Regalo</h6>
+                  <small class="text-muted" th:text="'Tour touristico por ' + ${datosReservaHotel.getCiudad()}"></small>
                 </div>
                 <span class="text-success">Gratis</span>
               </li>
               <li class="list-group-item d-flex justify-content-between bg-light">
-                <div class="text-success">
+                <div class="text-dark">
                   <h6 class="my-0">Codigo de descuento</h6>
-                  <small class="text-success">CUPON CLIENTE VIP</small>
+                  <small class="text-muted">CUPON CLIENTE VIP</small>
                 </div>
-                <span class="text-success">- 1.000 €</span>
+                <span class="text-muted">0</span>
               </li>
               <li class="list-group-item d-flex justify-content-between">
                 <span>Total (Euros)</span>
-                <strong>4.000 €</strong>
+                <strong th:text="${datosReservaUsuario.getPrecio_total()} + '€'" ></strong>
               </li>
             </ul>
 
