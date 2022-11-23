@@ -13,7 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
 
@@ -21,18 +25,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
-
+import static org.mockito.Mockito.*;
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@DataJpaTest
-@TestPropertySource(properties = {
-        "spring.jpa.hibernate.ddl-auto=validate",
-        "spring.datasource.driver-class-name=org.mariadb.jdbc.Driver",
-        "spring.datasource.url=jdbc:h2:mem:db",
-        "spring.jpa.properties.hibernate.default_schema=",
-        "spring.jpa.hibernate.ddl-auto=update"
-})
+//@DataJpaTest
+//@TestPropertySource(properties = {
+//        "spring.jpa.hibernate.ddl-auto=validate",
+//        "spring.datasource.driver-class-name=org.mariadb.jdbc.Driver",
+//        "spring.datasource.url=jdbc:h2:mem:db",
+//        "spring.jpa.properties.hibernate.default_schema=",
+//        "spring.jpa.hibernate.ddl-auto=update"
+//})
 class HabitacionServiceTest {
     @Mock
     private HabitacionRepository habitacionRepository;
@@ -73,18 +76,20 @@ class HabitacionServiceTest {
     @Test
     @DisplayName("Test 3 -> HabitacionesService -> guardarHabitacion(Habitacion)")
     void guardarHabitacion(){
-        when(habitacionRepository.save(Mockito.any(Habitacion.class))).thenReturn(habitaciones.get(0));
+//        when(habitacionRepository.save(Mockito.any(Habitacion.class))).thenReturn(habitaciones.get(0));
 
-        Habitacion miHabitacion = habitacionRepository.save(habitaciones.get(2));
-//        assertThat(returnedStudent, hasProperty("firstName", equalTo("John")));
-        assertTrue(miHabitacion.getCapacidad()==habitaciones.get(0).getCapacidad());
+        Habitacion nuevaHabitacion = new Habitacion();
+        nuevaHabitacion.setCapacidad(habitaciones.get(2).getCapacidad());
 
+        doAnswer(i->{
+            Habitacion arg0 = i.getArgument(0);
+            assertEquals(Habitacion.class,arg0.getClass());
+            assertEquals(nuevaHabitacion.getCapacidad(), arg0.getCapacidad());
+            assertNotNull(arg0);
+            return null;
+        }).when(habitacionRepository).save(any(Habitacion.class));
+
+        habitacionService.guardarHabitacion(habitaciones.get(2));
     }
-
-
-
-
-
-
 
 }
