@@ -76,7 +76,8 @@ class HabitacionServiceTest {
         when(habitacionRepository.save(Mockito.any(Habitacion.class))).thenReturn(habitaciones.get(0));
 
         Habitacion miHabitacion = habitacionRepository.save(habitaciones.get(2));
-        asserThat(returnedStudent, hasProperty("firstName", equalTo("John")));
+//        assertThat(returnedStudent, hasProperty("firstName", equalTo("John")));
+        assertTrue(miHabitacion.getCapacidad()==habitaciones.get(0).getCapacidad());
 
     }
 
