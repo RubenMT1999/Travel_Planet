@@ -76,20 +76,34 @@ class HabitacionServiceTest {
     @Test
     @DisplayName("Test 3 -> HabitacionesService -> guardarHabitacion(Habitacion)")
     void guardarHabitacion(){
-//        when(habitacionRepository.save(Mockito.any(Habitacion.class))).thenReturn(habitaciones.get(0));
 
-        Habitacion nuevaHabitacion = new Habitacion();
-        nuevaHabitacion.setCapacidad(habitaciones.get(2).getCapacidad());
+//        Habitacion nuevaHabitacion = new Habitacion();
+//        nuevaHabitacion.setCapacidad(habitaciones.get(2).getCapacidad());
+//
+//        doAnswer(i->{
+//            Habitacion arg0 = i.getArgument(0);
+//            assertEquals(nuevaHabitacion.getCapacidad(), arg0.getCapacidad());
+//            verify(habitacionRepository, times(1)).save(arg0);
+//            assertNotNull(arg0);
+//            return null;
+//        }).when(habitacionRepository).save(any(Habitacion.class));
+//
+        habitacionService.guardarHabitacion(habitaciones.get(2));
+
+        verify(habitacionRepository, times(1)).save(habitaciones.get(2));
+    }
+
+    @Test
+    @DisplayName("Test 4 -> HabitacionService -> borrarHabitacion(Habitacion)")
+    void borrarHabitacion(){
 
         doAnswer(i->{
             Habitacion arg0 = i.getArgument(0);
-            assertEquals(Habitacion.class,arg0.getClass());
-            assertEquals(nuevaHabitacion.getCapacidad(), arg0.getCapacidad());
-            assertNotNull(arg0);
+            verify(habitacionRepository, times(1)).delete(arg0);
             return null;
-        }).when(habitacionRepository).save(any(Habitacion.class));
+        }).when(habitacionRepository).delete(any(Habitacion.class));
 
-        habitacionService.guardarHabitacion(habitaciones.get(2));
+        habitacionService.borrarHabitacion(habitaciones.get(1));
     }
 
 }

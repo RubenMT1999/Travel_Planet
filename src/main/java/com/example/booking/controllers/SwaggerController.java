@@ -156,7 +156,7 @@ public class SwaggerController {
         Map<String,Object> response = new HashMap();
         Habitacion habActualizar = null;
         try{
-           habActualizar = habitacionService.encontrarPorId(idHabitacion);
+           habActualizar = habitacionService.findById(idHabitacion);
         }catch (Exception e){
             response.put("mensaje","Error al encontrar el ID de habitación");
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -201,7 +201,7 @@ public class SwaggerController {
         Habitacion habitacion = null;
 
         try{
-            habitacion = habitacionService.encontrarPorId(idHabitacion);
+            habitacion = habitacionService.findById(idHabitacion);
         }catch (DataAccessException e){
             response.put("mensaje","Error al buscar habitacion por el ID");
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);

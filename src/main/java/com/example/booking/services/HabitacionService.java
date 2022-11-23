@@ -42,11 +42,6 @@ public class HabitacionService {
         habitacionRepository.save(habitacion);
     }
 
-    public Habitacion encontrarPorId(Integer id){
-        return habitacionRepository.findById(id).orElse(null);
-    }
-
-
     public void borrarHabitacion(Habitacion habitacion){
         habitacionRepository.delete(habitacion);
     }
