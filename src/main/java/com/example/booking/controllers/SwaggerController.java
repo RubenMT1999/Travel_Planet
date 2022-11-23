@@ -66,7 +66,6 @@ public class SwaggerController {
         String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);
 
-        usuario.setMetodoDePago(EMetodoDePago.Bizum);
         usuario.setRegistrado(true);
         usuario.setDescuento(null);
 

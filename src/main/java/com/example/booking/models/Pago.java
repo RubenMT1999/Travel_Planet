@@ -28,12 +28,4 @@ public class Pago {
     @JoinColumn(name = "id_usuario")
     private Usuario id_usuario;
 
-    @Column(name = "metodo_pago")
-    private EMetodoDePago metodo_pago;
-
-    private Integer entero;
-
-    @Column(name = "pagado")
-    private Boolean pagado;
-
 }

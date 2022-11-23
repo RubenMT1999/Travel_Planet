@@ -409,7 +409,7 @@ import java.util.concurrent.TimeUnit;
             Usuario usuario = usuarioService.datosUsuario(authentication.getName());
             reserva.setUsuario(usuario);
             habitacion.getPrecioBase();
-
+            reserva.setPagado(false);
             habitacionService.editarDisponibilidad(false, habitacion.getId());
 
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");

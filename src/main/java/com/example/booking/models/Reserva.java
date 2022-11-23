@@ -51,6 +51,9 @@ public class Reserva {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date fechaFin;
 
+    @Column(name = "pagado")
+    private Boolean pagado;
+
 
     @NotNull
     @Column(name = "precio_total")
@@ -60,6 +63,9 @@ public class Reserva {
         return id;
     }
 
+    public Boolean getPagado() {
+        return pagado;
+    }
     public Usuario getUsuario() {
         return usuario;
     }

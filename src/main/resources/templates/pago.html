@@ -81,7 +81,7 @@
           <div class="col-12 col-md-8 order-2 order-md-1 mb-3">
             <h4 class="mb-3">Datos de Usuario</h4>
 
-            <form th:action="@{/perfil/efectuar-pago}" method="get" th:object="${metodoPago}">
+            <form th:action="@{/perfil/mis-reservas/pago}" method="post" th:object="${metodoPago}">
 
               <div class="row">
                 <div class="col-12 col-sm-6 mb-2">
@@ -135,13 +135,13 @@
               <div class="row mb-2">
                 <div class="col-12">
 
-                    <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-credito" th:field="*{entero}" th:value="1">
+                    <input type="radio" name="metodo-pago" class="form-check-input" id="tarjeta-credito">
                     <label for="tarjeta-credito" class="form-check-label">Tarjeta de Crédito</label>
-                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="tarjeta-debito" th:field="*{entero}" th:value="0">
+                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="tarjeta-debito">
                     <label for="tarjeta-debito" class="form-check-label">Paypal</label>
-                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="bizum" th:field="*{entero}" th:value="2">
+                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="bizum" >
                     <label for="bizum" class="form-check-label">Bizum</label>
-                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="transeferencia" th:field="*{entero}" th:value="3">
+                    <input type="radio" name="metodo-pago" class="form-check-input ms-2" id="transeferencia">
                     <label for="transeferencia" class="form-check-label">Transferencia Bancaria</label>
 
                 </div>
@@ -203,7 +203,7 @@
               </li>
               <li class="list-group-item d-flex justify-content-between">
                 <span>Total (Euros)</span>
-                <strong th:text="${datosReservaUsuario.getPrecio_total()} + '€'" ></strong>
+                <strong th:text="${metodoPago.getId_reserva().getPrecio_total()} + '€'" ></strong>
               </li>
             </ul>
 

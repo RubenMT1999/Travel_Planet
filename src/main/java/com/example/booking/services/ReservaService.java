@@ -44,7 +44,6 @@ public class ReservaService {
         return null;
     }
 
-//    public void guardarPrecio(Double precio){reservaRepository.}
-
+    public void editarPagado(Boolean pagado, Integer id_habitacion){ reservaRepository.editarPagado(pagado, id_habitacion);}
 
 }

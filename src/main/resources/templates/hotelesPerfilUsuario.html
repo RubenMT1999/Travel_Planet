@@ -80,7 +80,9 @@
 
       <div class="container">
         <h2>Mis Hoteles</h2>
-        <p th:text="${hotelNull}"></p>
+        <div th:if="${hotelesUsuario.isEmpty()}">
+          <h4>No tienes Hoteles</h4>
+        </div>
         <div class="row">
 
           <div class="col">

@@ -174,32 +174,32 @@ public class PerfilUsuarioController {
                                @ModelAttribute("reservaHotel") Habitacion reservaHotel, Authentication authentication){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
-        Reserva reserva = reservaUsuario;
-        Hotel hotel = reservaHotel.getHotel();
         Pago pago = new Pago();
+        Hotel hotel = reservaHotel.getHotel();
+
+
+        pago.setId_reserva(reservaUsuario);
+        pago.setId_usuario(nombreUsuario);
 
         model.addAttribute("metodoPago", pago);
         model.addAttribute("datosReservaHotel", hotel);
-        model.addAttribute("datosReservaUsuario", reserva);
         model.addAttribute("nombreUsuarioPago", nombreUsuario);
 
         return "pago";
     }
 
-    @PostMapping("/efectuar-pago")
-    public String efectuarPago(Reserva reserva,Model model, Authentication authentication, Pago pago){
+    @PostMapping("/mis-reservas/pago")
+    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario,Model model, Authentication authentication, Pago pago){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
-        Pago nuevoPago = new Pago();
 
-        nuevoPago.setId_usuario(nombreUsuario);
-        nuevoPago.setPagado(true);
-        nuevoPago.setId_reserva(reserva);
-        nuevoPago.setMetodo_pago(pago.getMetodo_pago());
+        pago.setId_usuario(nombreUsuario);
+        pago.setId_reserva(reservaUsuario);
+        pagoService.guardarPago(pago);
 
-        pagoService.guardarPago(nuevoPago);
+        reservaService.editarPagado(true, pago.getId_reserva().getHabitacion().getId());
 
-        model.addAttribute("pago", nuevoPago);
+        model.addAttribute("metodoPago", pago);
 
         return "redirect:/perfil/mis-reservas";
     }
