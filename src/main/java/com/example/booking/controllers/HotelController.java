@@ -125,7 +125,7 @@ import java.util.concurrent.TimeUnit;
     }
         @GetMapping("/hoteles/listarfiltro")
         public String procesarBusqueda(@ModelAttribute("hoteles") Hotel ciudad,
-                                       @ModelAttribute("habitacion") Habitacion capacidad,
+                                       @ModelAttribute( "habitacion") Habitacion capacidad,
                                        @ModelAttribute("reserva") Reserva fecha,
                                        Habitacion habitacion,
                                        Hotel puntuacion,

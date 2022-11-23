@@ -95,7 +95,7 @@ public class Hotel {
 
 
     @OneToOne(mappedBy = "hotel")
-    @JsonIgnoreProperties(value="hotel")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
     private Tarifa tarifa;
 

@@ -26,6 +26,8 @@ import java.util.Map;
 @RequestMapping("/api_swagger")
 @ShowApi
 public class SwaggerController {
+    @Autowired
+    private IPensionRepository pensionRepository;
 
 
     @Autowired
@@ -305,7 +307,7 @@ public class SwaggerController {
         hotel.setId(id_hotel);
         return hotelRepository.save(hotel);
     }
-
+    
 
 
 }

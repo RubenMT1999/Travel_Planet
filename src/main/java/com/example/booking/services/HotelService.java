@@ -35,24 +35,13 @@ public class HotelService {
             }
 
 
-    public Double precioBasefiltro(Integer id_hotel){
-        return hotelRepository.preciofiltro(id_hotel);
+
+
+
+
+    public List<Hotel> obtenerHoteldeUsuario(Integer id_usuario){
+        return hotelRepository.obtenerHoteldeUsuario(id_usuario);
     }
-
-
-
-    public void preciomodificado(Double precio, Integer id){
-        hotelRepository.preciobase(precio, id);
-    }
-    public void preciomodificadofiltro(Double precio, Integer id){
-        hotelRepository.preciobasefiltro(precio, id);
-    }
-
-
-
-
-
-
 
 
 

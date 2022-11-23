@@ -49,7 +49,7 @@ public class Tarifa {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel", referencedColumnName = "id")
-    @JsonIgnoreProperties(value="tarifa")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
     private Hotel hotel;
 
