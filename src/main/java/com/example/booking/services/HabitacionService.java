@@ -105,13 +105,6 @@ public class HabitacionService {
     }
 
 
-
-    public List<Habitacion> buscarporoidHabitacion(Integer id_hotel, Integer capacidad, Date fecha_inicio, Date fecha_fin) {
-        List<Habitacion> habitacion = habitacionRepository.buscarporidhab(id_hotel, capacidad, fecha_inicio, fecha_fin);
-        return habitacion;
-
-    }
-
     public Page<Habitacion> habitacionfiltro(Integer id_hotel, Date fecha_inicio, Date fecha_fin, Integer capacidad, boolean wifi1,
                                         boolean terraza1, boolean tv1, boolean aire1, boolean banio_privado, boolean cocina1,
                                         boolean caja_fuerte, Double precioBase, Integer puntuacion,Pageable pageable) {

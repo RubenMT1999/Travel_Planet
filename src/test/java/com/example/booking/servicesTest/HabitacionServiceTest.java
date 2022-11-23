@@ -21,6 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,6 +105,40 @@ class HabitacionServiceTest {
         }).when(habitacionRepository).delete(any(Habitacion.class));
 
         habitacionService.borrarHabitacion(habitaciones.get(1));
+    }
+
+    @Test
+    @DisplayName("Test 5 -> HabitacionService -> guardarPersonalizado")
+    void guardarPersonalizado(){
+
+        habitacionService.guardarPersonalizado(habitaciones.get(1).getHotel().getId(),habitaciones.get(1).getNumeroHabitacion(),habitaciones.get(1).getExtensionTelefonica(),
+                habitaciones.get(1).getCapacidad(),habitaciones.get(1).getImagen(),habitaciones.get(1).getDescripcion(),habitaciones.get(1).getPrecioBase(),habitaciones.get(1).isCajaFuerte(),
+                habitaciones.get(1).isCocina(),habitaciones.get(1).isBanioPrivado(),habitaciones.get(1).isAireAcondicionado(),habitaciones.get(1).isTv(),habitaciones.get(1).isTerraza(),
+                habitaciones.get(1).isWifi());
+
+
+        verify(habitacionRepository, times(1)).guardarPersonalizado(
+                habitaciones.get(1).getHotel().getId(),habitaciones.get(1).getNumeroHabitacion(),habitaciones.get(1).getExtensionTelefonica(),
+                habitaciones.get(1).getCapacidad(),habitaciones.get(1).getImagen(),habitaciones.get(1).getDescripcion(),habitaciones.get(1).getPrecioBase(),habitaciones.get(1).isCajaFuerte(),
+                habitaciones.get(1).isCocina(),habitaciones.get(1).isBanioPrivado(),habitaciones.get(1).isAireAcondicionado(),habitaciones.get(1).isTv(),habitaciones.get(1).isTerraza(),
+                habitaciones.get(1).isWifi()
+        );
+    }
+
+    @Test
+    @DisplayName("Test 6 -> HabitacionService -> habitacionFiltroPrecio")
+    void habitacionfiltroprecio(){
+
+        when(habitacionRepository.buscarfiltrosidprecio(any(Integer.class,Date.class,Date.class,)))
+
+        habitacionService.habitacionfiltroprecio(habitaciones.get(1).getId(), new Date(),
+                new Date(), habitaciones.get(1).getCapacidad(),habitaciones.get(1).isWifi(),
+                habitaciones.get(1).isTerraza(), habitaciones.get(1).isTv(), habitaciones.get(1).isAireAcondicionado(),
+                habitaciones.get(1).isBanioPrivado(), habitaciones.get(1).isCocina(), habitaciones.get(1).isCajaFuerte(),
+                habitaciones.get(1).getPrecioBase(), 5);
+
+        verify(habitacionRepository, times(1)).buscarfiltrosidprecio()
+
     }
 
 }
