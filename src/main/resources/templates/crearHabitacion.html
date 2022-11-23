@@ -112,8 +112,13 @@
 <!--                    <div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}" class="alert alert-danger"></div>-->
 
 
-
+                <div th:if="${tarifa!=null}">
                     <input type="submit" value="Crear" class="btn btn-block btn-primary mt-3">
+                </div>
+                <div th:unless="${tarifa!=null}">
+                    <input type="submit" disabled value="Crear" class="btn btn-block btn-primary mt-3">
+                    <p class="text-danger">Por favor, cree una tarifa para su hotel.</p>
+                </div>
 
                 </form>
             </div>

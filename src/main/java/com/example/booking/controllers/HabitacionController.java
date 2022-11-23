@@ -1,10 +1,8 @@
 package com.example.booking.controllers;
 
 import Paginador.PageRender;
-import com.example.booking.models.Habitacion;
+import com.example.booking.models.*;
 import com.example.booking.models.Hotel;
-import com.example.booking.models.Hotel;
-import com.example.booking.models.Usuario;
 import com.example.booking.repository.HabitacionRepository;
 import com.example.booking.repository.HotelRepository;
 import com.example.booking.services.HabitacionService;
@@ -69,10 +67,13 @@ public class HabitacionController {
     @GetMapping("/crear/{id}")
     public String crear(Model model, @PathVariable Integer id){
         Habitacion habitacion = new Habitacion();
-        habitacion.setHotel(hotelRepository.findById(id).get());
+        Hotel hotel = hotelRepository.findById(id).get();
+        habitacion.setHotel(hotel);
+        Tarifa tarifa = hotel.getTarifa();
 
         model.addAttribute("titulo","Crear Habitación");
         model.addAttribute("habitacion",habitacion);
+        model.addAttribute("tarifa",tarifa);
         return "crearHabitacion";
     }
 
