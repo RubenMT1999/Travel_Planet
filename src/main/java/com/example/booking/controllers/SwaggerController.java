@@ -15,6 +15,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +45,8 @@ public class SwaggerController {
 
     @Autowired
     private HabitacionRepository habitacionRepository;
+    @Autowired
+    private TarifaRepository tarifaRepository;
 
     @Autowired
     private HotelRepository hotelRepository;
@@ -240,6 +245,67 @@ public class SwaggerController {
         response.put("reservas",reservas);
         return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
     }
+    //Swagger Busqueda
+    @RequestMapping(method = RequestMethod.GET, value = "/busquedahoteles")
+    public List<Hotel> busquedahoteles(@RequestParam String ciudad,@RequestParam String fechaInicio,@RequestParam String fechaFin,@RequestParam Integer capacidad) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha_inicio = formato.parse(fechaInicio);
+        Date fecha_fin = formato.parse(fechaFin);
+        List<Hotel> hoteles = hotelRepository.buscador(ciudad, fecha_inicio, fecha_fin, capacidad);
+        return hoteles;
+    }
+
+    //Swagger todos los hoteles
+    @RequestMapping(method = RequestMethod.GET, value = "/listarhoteles")
+    public List<Hotel> listarhoteles()  {
+        return hotelRepository.findAll();
+    }
+
+    //Swagger crear hoteles.
+    @RequestMapping(method = RequestMethod.POST, value = "/crearhoteles")
+    public Hotel crearHotel(@RequestParam Integer id_usuario, @RequestBody Hotel hotel)  {
+        Usuario usuario = usuarioRepository.datosUsuarioID(id_usuario);
+        hotel.setUsuario(usuario);
+        return hotelRepository.save(hotel);
+    }
+
+    //Swagger borrar hoteles.
+    @RequestMapping(method = RequestMethod.DELETE, value = "/borrarhotel")
+    public void borrarHotel(@RequestParam Integer id_hotel)  {
+        Tarifa tarifa = tarifaRepository.tarifaIdhotel(id_hotel);
+        if(tarifa != null){
+            tarifaRepository.delete(tarifa);
+        }
+        List<Habitacion> habitacion = habitacionRepository.listarHabitaciones(id_hotel);
+        if(habitacion != null){
+            for(Habitacion h: habitacion){
+                habitacionRepository.delete(h);
+            }
+        }
+        hotelRepository.deleteById(id_hotel);
+    }
+
+    //Swagger actualizar hoteles.
+    @RequestMapping(method = RequestMethod.PUT, value = "/actualizarhotel")
+    public Hotel actualizarHotel(@RequestParam Integer id_hotel, @RequestBody Hotel hotel){
+        Hotel hotelEditar = hotelRepository.obtenerHotelId(id_hotel);
+        Usuario usuario = hotelEditar.getUsuario();
+        hotelEditar.setId(id_hotel);
+        hotelEditar.setNombre(hotel.getNombre());
+        hotelEditar.setCiudad(hotel.getCiudad());
+        hotelEditar.setLugar(hotel.getLugar());
+        hotelEditar.setNumero_habitaciones(hotel.getNumero_habitaciones());
+        hotelEditar.setPrecio(hotel.getPrecio());
+        hotelEditar.setImagen(hotel.getImagen());
+        hotelEditar.setTelefono(hotel.getTelefono());
+        hotelEditar.setCif(hotel.getCif());
+        hotelEditar.setComentario(hotel.getComentario());
+        hotelEditar.setEstrellas(hotel.getEstrellas());
+        hotel.setUsuario(usuario);
+        hotel.setId(id_hotel);
+        return hotelRepository.save(hotel);
+    }
+
 
 
 }

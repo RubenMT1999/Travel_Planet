@@ -1,9 +1,9 @@
 package com.example.booking.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -72,9 +72,11 @@ public class Habitacion {
     private Double precioBase;
 
     //tuve que quitar el cascade para que no me diera fallo al crear habitacion
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_hotel")
+    @JsonIgnore
+    @JsonIgnoreProperties(value="habitacion")
     private Hotel hotel;
 
 

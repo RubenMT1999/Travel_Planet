@@ -2,6 +2,7 @@ package com.example.booking.repository;
 
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.PensionHotel;
+import com.example.booking.models.Hotel;
 import com.example.booking.models.Tarifa;
 import com.example.booking.models.TemporadaHotel;
 import org.springframework.data.domain.Page;
@@ -53,5 +54,6 @@ public interface TarifaRepository  extends JpaRepository<Tarifa,Integer> {
     @Query("Select p from TemporadaHotel p where p.tarifa.id = ?1 ")
     TemporadaHotel listarTemporada(Integer id_tarifa);
 
-
+    @Query(value = "select * from tarifa where id_hotel = :id_hotel", nativeQuery = true)
+    Tarifa tarifaIdhotel(Integer id_hotel);
 }

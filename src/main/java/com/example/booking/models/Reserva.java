@@ -31,7 +31,6 @@ public class Reserva {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_habitacion")
     private Habitacion habitacion;
