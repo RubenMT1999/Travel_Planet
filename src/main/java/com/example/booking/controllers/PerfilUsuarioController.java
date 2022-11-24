@@ -60,7 +60,6 @@ public class PerfilUsuarioController {
         UserAuth userIDAuth = usuarioService.getUserAuth(auth.getName());
         Authorities authorities = usuarioService.getAuthorities(userIDAuth.getId());
 
-
         if (userAdmin.getEsHotelero() == false){
             userAdmin.setEsHotelero(true);
             usuarioService.getAdmin(userAdmin.getEsHotelero(), userAdmin.getId());
@@ -133,7 +132,8 @@ public class PerfilUsuarioController {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
         Reserva reservaPorId = reservaService.obtenerDetallesReserva(id);
-        Habitacion habitacion = habitacionService.obtenerHabitacionReserva(reservaPorId.getId());
+
+        Habitacion habitacion = habitacionService.obtenerHabitacionReserva(reservaPorId.getHabitacion().getId());
         reservaPorId.setHabitacion(habitacion);
 
         model.addAttribute("reservaHotel", habitacion);
@@ -194,10 +194,12 @@ public class PerfilUsuarioController {
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
 
         pago.setId_usuario(nombreUsuario);
-        pago.setId_reserva(reservaUsuario);
+        Reserva reserva = reservaUsuario;
+        pago.setId_reserva(reserva);
         pagoService.guardarPago(pago);
+        Habitacion habitacion = pago.getId_reserva().getHabitacion();
 
-        reservaService.editarPagado(true, pago.getId_reserva().getHabitacion().getId());
+        reservaService.editarPagado(true, habitacion.getId());
 
         model.addAttribute("metodoPago", pago);
 
