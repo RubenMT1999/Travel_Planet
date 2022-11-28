@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -297,27 +296,57 @@ public class SwaggerController {
     }
 
     //Swagger crear tarifa pensiones
-    @RequestMapping(method = RequestMethod.POST, value = "/creartarifapensiones")
-    public PensionHotel crearPensiones(@RequestParam Integer idTarifa, @RequestParam Integer enumPension, @RequestBody PensionHotel pensiones){
+    @RequestMapping(method = RequestMethod.POST, value = "/crearpensiones")
+    public PensionHotel crearPensiones(@RequestParam Integer idTarifa, @RequestParam EPension pension, @RequestBody PensionHotel pensiones){
         Tarifa tarifa = tarifaRepository.findById(idTarifa).orElse(null);
 
         pensiones.setTarifa(tarifa);
 
-
-
-
-
-
-
-
-        if ( tarifaRepository.listarTarifa(idTarifa) != null && tarifaRepository.listarPension(enumPension) == null){
-        tarifaRepository.guardarPension(enumPension,pensiones.getPrecio(),tarifa.getId());
+        if ( tarifaRepository.tarifaSwagger(idTarifa) != null && tarifaRepository.pensionSwagger(idTarifa,pension.ordinal()) == null){
+        tarifaRepository.guardarPension(pension.ordinal(), pensiones.getPrecio(),tarifa.getId());
         }
-
-
 
         return pensiones;
     }
+
+    //Swagger crear tarifa temporadas
+    @RequestMapping(method = RequestMethod.POST, value = "/creartemporadas")
+    public TemporadaHotel crearTemporadas(@RequestParam Integer idTarifa, @RequestParam Temporada temporada, @RequestBody TemporadaHotel temporadas){
+        Tarifa tarifa = tarifaRepository.findById(idTarifa).orElse(null);
+
+        temporadas.setTarifa(tarifa);
+
+        if (tarifaRepository.tarifaSwagger(idTarifa) != null && tarifaRepository.temporadaSwagger(idTarifa, temporada.ordinal()) == null){
+            tarifaRepository.guardarTemporada(temporada.ordinal(),temporadas.getFechaInicio(),temporadas.getFechaFin(),temporadas.getPrecio(),idTarifa);
+        }
+
+
+    return  temporadas;
+    }
+
+    //Swagger borrar temporada
+    @RequestMapping(method = RequestMethod.DELETE, value = "/borrartemporada")
+    public void borrarTemporada(@RequestParam Integer idTarifa, @RequestParam Temporada temporada){
+
+
+
+        tarifaRepository.borrarTemporadaSwagger(idTarifa, temporada.ordinal());
+
+
+    }
+
+    //Swagger borrar pension
+    @RequestMapping(method = RequestMethod.DELETE, value = "/borrarpension")
+    public void borrarPension(@RequestParam Integer idTarifa, @RequestParam EPension pension){
+
+
+
+            tarifaRepository.borrarPensionSwagger(idTarifa, pension.ordinal());
+
+
+    }
+
+
     //Swagger borrar hoteles.
     @RequestMapping(method = RequestMethod.DELETE, value = "/borrarhotel")
     public void borrarHotel(@RequestParam Integer id_hotel)  {
@@ -332,6 +361,41 @@ public class SwaggerController {
             }
         }
         hotelRepository.deleteById(id_hotel);
+    }
+
+    //Swagger actualizar caracteristicas Tarifa
+    @RequestMapping(method = RequestMethod.PUT, value = "/actualizarTarifaCaracteristicas")
+    public Tarifa actualizarTarifaCaracteristicas(@RequestParam Integer idHotel, @RequestBody Tarifa tarifa){
+        Tarifa tarifaEditar = tarifaRepository.listarTarifa(idHotel);
+        tarifaEditar.setPrecioWifi(tarifa.getPrecioWifi());
+        tarifaEditar.setPrecioAire(tarifa.getPrecioAire());
+        tarifaEditar.setPrecioTerraza(tarifa.getPrecioTerraza());
+        tarifaEditar.setPrecioCocina(tarifa.getPrecioCocina());
+        tarifaEditar.setPrecioTV(tarifa.getPrecioTV());
+        tarifaEditar.setPrecioBanio(tarifa.getPrecioBanio());
+        tarifaEditar.setPrecioCajaFuerte(tarifa.getPrecioCajaFuerte());
+        return tarifaRepository.save(tarifaEditar);
+    }
+
+    //Swagger actualizar temporada Tarifa
+    @RequestMapping(method = RequestMethod.PUT, value = "/actualizarTarifaTemporada")
+    public void actualizarTarifaTemporada(@RequestParam Integer idTarifa, @RequestParam Temporada temporada, @RequestBody TemporadaHotel temporadaHotel) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha_inicio = formato.format(temporadaHotel.getFechaInicio());
+        String fecha_fin = formato.format(temporadaHotel.getFechaFin());
+
+        Date fi = formato.parse(fecha_inicio);
+        Date ff = formato.parse(fecha_fin);
+
+        tarifaRepository.modificarTemporada(fi,ff, temporadaHotel.getPrecio(), idTarifa, temporada.ordinal());
+
+    }
+
+    //Swagger actualizar pension Tarifa
+    @RequestMapping(method = RequestMethod.PUT, value = "/actualizarTarifaPension")
+    public void actualizarTarifaPension(Integer idTarifa, @RequestParam EPension pension, @RequestBody PensionHotel pensionHotel){
+        tarifaRepository.modificarPension(pensionHotel.getPrecio(),idTarifa,pension.ordinal());
+
     }
 
     //Swagger actualizar hoteles.

@@ -3,7 +3,6 @@ package com.example.booking.models;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,7 +30,6 @@ public class TemporadaHotel {
     private Date fechaFin;
 
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tarifa")
     private Tarifa tarifa;
