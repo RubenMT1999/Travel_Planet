@@ -34,13 +34,20 @@ public class HotelService {
         return hotelRepository.buscador(ciudades, fecha_inicio, fecha_fin, capacidad);
             }
 
+//    public List<Habitacion> listarHabitaciones(Integer id){
+//        return habitacionRepository.listarHabitaciones(id);
+//    }
+    public List<Hotel> obtenerHoteldeUsuario(Integer id){
+        return hotelRepository.obtenerHoteldeUsuario(id);
+    }
 
+    public void guardarHotel(Hotel hotel){
 
+        hotelRepository.save(hotel);
+    }
 
-
-
-    public List<Hotel> obtenerHoteldeUsuario(Integer id_usuario){
-        return hotelRepository.obtenerHoteldeUsuario(id_usuario);
+    public Hotel findById(Integer id){
+        return hotelRepository.findById(id).orElse(null);
     }
 
 
@@ -201,6 +208,7 @@ public class HotelService {
         return hotelRepository.save(hotel);
     }
     public void hotelEliminar(int id){ hotelRepository.deleteById(id);}
+
 
 
     public List<Hotel> hotelesMail (String auth) { return hotelRepository.hotelPorMail(auth);}

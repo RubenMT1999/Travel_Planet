@@ -15,8 +15,6 @@ import java.util.List;
 public class CreacionObjetosFaker {
 
     Faker faker = new Faker();
-    @Autowired
-    HotelRepository hotelRepository;
 
     public List<Habitacion> fakerHabitaciones(Integer numero, Integer idHotel){
         List<Habitacion> misHabitaciones = new ArrayList<>();
@@ -46,12 +44,13 @@ public class CreacionObjetosFaker {
 
         return misHabitaciones;
     }
-    public List<Hotel> fakerHotel(Integer numero) {
+    public List<Hotel> fakerHotel(Integer numero, Integer id_usuario) {
         Usuario usuario = new Usuario();
         List<Hotel> hotellista = new ArrayList<>();
 
         for (int i=0; i<numero; i++){
             Hotel hotelfaker = new Hotel();
+            hotelfaker.setId(numero);
             hotelfaker.setCiudad("Sevilla");
             hotelfaker.setNombre("Alameda");
             hotelfaker.setPrecio(faker.number().digit());

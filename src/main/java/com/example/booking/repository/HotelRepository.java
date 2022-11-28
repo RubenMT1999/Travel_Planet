@@ -86,8 +86,13 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
     @Query(value = "select r.imagen from Hotel r where r.id= ?1")
     String imagenHotel(Integer id);
 
-    @Query(value = "select * from hotel where id_usuario = :id_usuario", nativeQuery = true)
-    List<Hotel> obtenerHoteldeUsuario(Integer id_usuario);
+
+
+    @Query(value = "select r from Hotel r where r.usuario.id = ?1")
+    List<Hotel> obtenerHoteldeUsuario(Integer id);
+
+//    @Query(value = "select * from hotel where id_usuario = :id_usuario", nativeQuery = true)
+//    List<Hotel> obtenerHoteldeUsuario(Integer id_usuario);
 
 
 

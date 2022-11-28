@@ -17,9 +17,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -50,49 +53,62 @@ class HotelServiceTest {
     @InjectMocks
     private HotelService hotelService;
 
-    public static List<Hotel> hotelLista;
-    public static Hotel hotel;
+    public static List<Hotel> hotel;
+
 
     @BeforeAll
     public static void cargarDatos(){
-        List<Hotel> hotel = new CreacionObjetosFaker().fakerHotel(16);
+         hotel = new CreacionObjetosFaker().fakerHotel(16, 3);
     }
+
+
 
     @Test
     @DisplayName("Test 1 -> HotelService -> obtenerHoteldeUsuario(idUsuario)")
     void listarHotel() {
-        when(hotelRepository.obtenerHoteldeUsuario(3)).thenReturn(hotelLista);
+        when(hotelRepository.obtenerHoteldeUsuario(3)).thenReturn(hotel);
         List<Hotel> comprobarHotel = hotelService.obtenerHoteldeUsuario(3);
         assertNotNull(hotelService.obtenerHoteldeUsuario(3));
-        assertEquals(hotelLista,comprobarHotel);
+        assertEquals(hotel,comprobarHotel);
     }
 
     @Test
     @DisplayName("Test 2 -> HotelService -> findById()")
     void findById(){
-        when(hotelRepository.findById(84)).thenReturn(Optional.ofNullable(hotel));
-        Hotel hotelPrueba = hotelRepository.findById(84).orElse(null);
-        assertEquals(hotelPrueba,hotel);
+        when(hotelRepository.findById(10)).thenReturn(Optional.ofNullable(hotel.get(0)));
+        Hotel hotelPrueba = hotelService.findById(10);
+        assertEquals(hotelPrueba,hotel.get(0));
     }
 
-//    @Test
-//    @DisplayName("Test 3 -> HotelService -> guardarHotel(Hotel)")
-//    void guardarHotel(){
-//
-//        Hotel hotelguardar = new Hotel();
-//        nuevaHabitacion.setCapacidad(hotel.get(2).getCapacidad());
-//
-//        doAnswer(i->{
-//            Habitacion arg0 = i.getArgument(0);
-//            assertEquals(Habitacion.class,arg0.getClass());
-//            assertEquals(nuevaHabitacion.getCapacidad(), arg0.getCapacidad());
-//            assertNotNull(arg0);
-//            return null;
-//        }).when(habitacionRepository).save(any(Habitacion.class));
-//
-//        habitacionService.guardarHabitacion(habitaciones.get(2));
-//    }
+    @Test
+    @DisplayName("Test 3 -> HotelService -> guardarHotel(Hotel)")
+    void guardarHotel(){
+        Hotel hotelguardar = new Hotel();
+        hotelguardar.setLugar(hotel.get(2).getLugar());
+        doAnswer(i->{
+            Hotel arg0 = i.getArgument(0);
+            assertEquals(Hotel.class,arg0.getClass());
+            assertEquals(hotelguardar.getLugar(), arg0.getLugar());
+            assertNotNull(arg0);
+            return null;
+        }).when(hotelRepository).save(any(Hotel.class));
+        hotelService.guardarHotel(hotel.get(2));
+    }
+    @Test
+    @DisplayName("Test 4 -> HotelService -> borrarHotel(Hotel)")
+    void borrarHotel(){
+        when(hotelRepository.findById(5)).thenReturn(Optional.ofNullable(hotel.get(0)));
+        Hotel buscar = hotelService.findById(5);
+        hotelService.hotelEliminar(5);
+        Hotel hotelPrueba = hotelService.findById(5);
+        assertNull(hotelPrueba);
+    }
 
 }
+
+
+
+
+
 
 

@@ -66,9 +66,7 @@ class HabitacionServiceTest {
     @DisplayName("Test 2 -> HabitacionesService -> findById()")
     void findById(){
         when(habitacionRepository.findById(84)).thenReturn(Optional.ofNullable(habitaciones.get(0)));
-
         Habitacion habitacionPrueba = habitacionService.findById(84);
-
         assertEquals(habitacionPrueba,habitaciones.get(0));
     }
 
