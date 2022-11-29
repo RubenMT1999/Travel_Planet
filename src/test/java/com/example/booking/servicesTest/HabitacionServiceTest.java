@@ -115,22 +115,22 @@ class HabitacionServiceTest {
         habitacionService.borrarHabitacion(habitaciones.get(1));
     }
 
-    @Test
-    @DisplayName("Test 5 -> HabitacionService -> guardarPersonalizado")
-    void guardarPersonalizado(){
-
-        habitacionService.guardarPersonalizado(habitaciones.get(1).getHotel().getId(),habitaciones.get(1).getNumeroHabitacion(),habitaciones.get(1).getExtensionTelefonica(),
-                habitaciones.get(1).getCapacidad(),habitaciones.get(1).getImagen(),habitaciones.get(1).getDescripcion(),habitaciones.get(1).getPrecioBase(),habitaciones.get(1).isCajaFuerte(),
-                habitaciones.get(1).isCocina(),habitaciones.get(1).isBanioPrivado(),habitaciones.get(1).isAireAcondicionado(),habitaciones.get(1).isTv(),habitaciones.get(1).isTerraza(),
-                habitaciones.get(1).isWifi());
-
-
-        verify(habitacionRepository, times(1)).guardarPersonalizado(
-                habitaciones.get(1).getHotel().getId(),habitaciones.get(1).getNumeroHabitacion(),habitaciones.get(1).getExtensionTelefonica(),
-                habitaciones.get(1).getCapacidad(),habitaciones.get(1).getImagen(),habitaciones.get(1).getDescripcion(),habitaciones.get(1).getPrecioBase(),habitaciones.get(1).isCajaFuerte(),
-                habitaciones.get(1).isCocina(),habitaciones.get(1).isBanioPrivado(),habitaciones.get(1).isAireAcondicionado(),habitaciones.get(1).isTv(),habitaciones.get(1).isTerraza(),
-                habitaciones.get(1).isWifi());
-    }
+//    @Test
+//    @DisplayName("Test 5 -> HabitacionService -> guardarPersonalizado")
+//    void guardarPersonalizado(){
+//
+//        habitacionService.guardarPersonalizado(habitaciones.get(1).getHotel().getId(),habitaciones.get(1).getNumeroHabitacion(),habitaciones.get(1).getExtensionTelefonica(),
+//                habitaciones.get(1).getCapacidad(),habitaciones.get(1).getImagen(),habitaciones.get(1).getDescripcion(),habitaciones.get(1).getPrecioBase(),habitaciones.get(1).isCajaFuerte(),
+//                habitaciones.get(1).isCocina(),habitaciones.get(1).isBanioPrivado(),habitaciones.get(1).isAireAcondicionado(),habitaciones.get(1).isTv(),habitaciones.get(1).isTerraza(),
+//                habitaciones.get(1).isWifi());
+//
+//
+//        verify(habitacionRepository, times(1)).guardarPersonalizado(
+//                habitaciones.get(1).getHotel().getId(),habitaciones.get(1).getNumeroHabitacion(),habitaciones.get(1).getExtensionTelefonica(),
+//                habitaciones.get(1).getCapacidad(),habitaciones.get(1).getImagen(),habitaciones.get(1).getDescripcion(),habitaciones.get(1).getPrecioBase(),habitaciones.get(1).isCajaFuerte(),
+//                habitaciones.get(1).isCocina(),habitaciones.get(1).isBanioPrivado(),habitaciones.get(1).isAireAcondicionado(),habitaciones.get(1).isTv(),habitaciones.get(1).isTerraza(),
+//                habitaciones.get(1).isWifi());
+//    }
 
     @Test
     @DisplayName("Test 6 -> HabitacionService -> habitacionFiltroPrecio")
