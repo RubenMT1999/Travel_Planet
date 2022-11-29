@@ -7,7 +7,6 @@ import com.example.booking.repository.TarifaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.DoubleBuffer;
 import java.util.Date;
 
 @Service
@@ -48,8 +47,9 @@ public class TarifaService {
         tarifaRepository.guardarTemporada(tipoTemporada,fechaInicio,fechaFin,precio,idTarifa);
     }
 
-    public void modificarTemporada(Date fechaInicio, Date fechaFin, Double precio, Integer idTarifa, Integer tipoTemporada){
+    public PensionHotel modificarTemporada(Date fechaInicio, Date fechaFin, Double precio, Integer idTarifa, Integer tipoTemporada){
         tarifaRepository.modificarTemporada(fechaInicio,fechaFin,precio,idTarifa,tipoTemporada);
+        return null;
     }
 
     public PensionHotel verPension (Integer id_tarifa){
@@ -59,6 +59,8 @@ public class TarifaService {
     public TemporadaHotel verTemporada (Integer id_tarifa){
         return tarifaRepository.listarTemporada(id_tarifa);
     }
+
+
 
 
 }

@@ -4,7 +4,9 @@ import com.example.booking.models.*;
 import com.example.booking.repository.*;
 import com.example.booking.services.HabitacionService;
 import com.example.booking.services.ReservaService;
+import com.example.booking.services.TarifaService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -56,6 +58,9 @@ public class SwaggerController {
     @Autowired
     private ReservaService reservaService;
 
+    @Autowired
+    private TarifaService tarifaService;
+
 
     // Métodos de Usuario.
     @RequestMapping(method = RequestMethod.GET, value = "/usuarios")
@@ -103,6 +108,7 @@ public class SwaggerController {
     public List<Habitacion> listarHabitaciones(@RequestParam Integer idHotel){
         return habitacionService.listarHabitaciones(idHotel);
     }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/crearhab")
     @ApiOperation(value = "Crear Habitación")
@@ -158,7 +164,7 @@ public class SwaggerController {
         Map<String,Object> response = new HashMap();
         Habitacion habActualizar = null;
         try{
-           habActualizar = habitacionService.encontrarPorId(idHabitacion);
+           habActualizar = habitacionService.findById(idHabitacion);
         }catch (Exception e){
             response.put("mensaje","Error al encontrar el ID de habitación");
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -203,7 +209,7 @@ public class SwaggerController {
         Habitacion habitacion = null;
 
         try{
-            habitacion = habitacionService.encontrarPorId(idHabitacion);
+            habitacion = habitacionService.findById(idHabitacion);
         }catch (DataAccessException e){
             response.put("mensaje","Error al buscar habitacion por el ID");
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -271,6 +277,117 @@ public class SwaggerController {
         return hotelRepository.save(hotel);
     }
 
+    //Swagger crear reserva
+    @RequestMapping(method = RequestMethod.POST, value = "/crearReserva")
+    public void crearReserva(@RequestParam Integer idUsuario, @RequestParam Integer idHabitacion, @RequestBody Reserva reserva) throws ParseException {
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+        reserva.setUsuario(usuario);
+        Habitacion habitacion = habitacionRepository.findById(idHabitacion).orElse(null);
+        reserva.setHabitacion(habitacion);
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha_inicio = formato.format(reserva.getFechaInicio());
+        String fecha_fin = formato.format(reserva.getFechaFin());
+
+        Date fi = formato.parse(fecha_inicio);
+        Date ff = formato.parse(fecha_fin);
+
+        reserva.setFechaInicio(fi);
+        reserva.setFechaFin(ff);
+
+
+
+
+        reservaService.guardarReserva(reserva);
+
+
+    }
+
+    //Swagger crear tarifa caracteristicas
+    @RequestMapping(method = RequestMethod.POST, value = "/creartarifa")
+    public Tarifa crearTarifa(@RequestParam Integer idHotel, @RequestBody Tarifa tarifa){
+        Hotel hotel = hotelRepository.obtenerHotelId(idHotel);
+
+
+        tarifa.setHotel(hotel);
+
+
+
+
+        if ( tarifaRepository.listarTarifa(idHotel) == null ){
+            tarifaRepository.guardarTarifa(tarifa.getPrecioBanio(), tarifa.getPrecioCajaFuerte(), tarifa.getPrecioCocina(), tarifa.getPrecioTV(), tarifa.getPrecioTerraza(), tarifa.getPrecioWifi(), tarifa.getPrecioAire(), idHotel);
+
+        }
+
+
+
+        return tarifa;
+    }
+
+    //Swagger crear tarifa pensiones
+    @RequestMapping(method = RequestMethod.POST, value = "/crearpensiones")
+    public PensionHotel crearPensiones(@RequestParam Integer idTarifa, @RequestParam EPension pension, @RequestBody PensionHotel pensiones){
+        Tarifa tarifa = tarifaRepository.findById(idTarifa).orElse(null);
+
+        pensiones.setTarifa(tarifa);
+
+        if ( tarifaRepository.tarifaSwagger(idTarifa) != null && tarifaRepository.pensionSwagger(idTarifa,pension.ordinal()) == null){
+        tarifaRepository.guardarPension(pension.ordinal(), pensiones.getPrecio(),tarifa.getId());
+        }
+
+        return pensiones;
+    }
+
+    //Swagger crear tarifa temporadas
+    @RequestMapping(method = RequestMethod.POST, value = "/creartemporadas")
+    public TemporadaHotel crearTemporadas(@RequestParam Integer idTarifa, @RequestParam Temporada temporada, @RequestBody TemporadaHotel temporadas){
+        Tarifa tarifa = tarifaRepository.findById(idTarifa).orElse(null);
+
+        temporadas.setTarifa(tarifa);
+
+        if (tarifaRepository.tarifaSwagger(idTarifa) != null && tarifaRepository.temporadaSwagger(idTarifa, temporada.ordinal()) == null){
+            tarifaRepository.guardarTemporada(temporada.ordinal(),temporadas.getFechaInicio(),temporadas.getFechaFin(),temporadas.getPrecio(),idTarifa);
+        }
+
+
+    return  temporadas;
+    }
+    //Swagger borrar reserva
+    @RequestMapping(method = RequestMethod.DELETE, value = "/borrarreserva")
+    public void borrarReserva(@RequestParam Integer idUsuario, @RequestBody Reserva reserva){
+        List<Reserva> reserva1 = reservaService.obtenerReservaUsuario(idUsuario);
+        for (Reserva r: reserva1){
+            reservaService.cancelarReserva(r);
+        }
+
+    }
+
+
+    //Swagger borrar temporada
+    @RequestMapping(method = RequestMethod.DELETE, value = "/borrartemporada")
+    public void borrarTemporada(@RequestParam Integer idTarifa, @RequestParam Temporada temporada){
+
+
+
+        tarifaRepository.borrarTemporadaSwagger(idTarifa, temporada.ordinal());
+
+
+    }
+
+
+
+    //Swagger borrar pension
+    @RequestMapping(method = RequestMethod.DELETE, value = "/borrarpension")
+    public void borrarPension(@RequestParam Integer idTarifa, @RequestParam EPension pension){
+
+
+
+            tarifaRepository.borrarPensionSwagger(idTarifa, pension.ordinal());
+
+
+    }
+
+
     //Swagger borrar hoteles.
     @RequestMapping(method = RequestMethod.DELETE, value = "/borrarhotel")
     public void borrarHotel(@RequestParam Integer id_hotel)  {
@@ -285,6 +402,41 @@ public class SwaggerController {
             }
         }
         hotelRepository.deleteById(id_hotel);
+    }
+
+    //Swagger actualizar caracteristicas Tarifa
+    @RequestMapping(method = RequestMethod.PUT, value = "/actualizarTarifaCaracteristicas")
+    public Tarifa actualizarTarifaCaracteristicas(@RequestParam Integer idHotel, @RequestBody Tarifa tarifa){
+        Tarifa tarifaEditar = tarifaRepository.listarTarifa(idHotel);
+        tarifaEditar.setPrecioWifi(tarifa.getPrecioWifi());
+        tarifaEditar.setPrecioAire(tarifa.getPrecioAire());
+        tarifaEditar.setPrecioTerraza(tarifa.getPrecioTerraza());
+        tarifaEditar.setPrecioCocina(tarifa.getPrecioCocina());
+        tarifaEditar.setPrecioTV(tarifa.getPrecioTV());
+        tarifaEditar.setPrecioBanio(tarifa.getPrecioBanio());
+        tarifaEditar.setPrecioCajaFuerte(tarifa.getPrecioCajaFuerte());
+        return tarifaRepository.save(tarifaEditar);
+    }
+
+    //Swagger actualizar temporada Tarifa
+    @RequestMapping(method = RequestMethod.PUT, value = "/actualizarTarifaTemporada")
+    public void actualizarTarifaTemporada(@RequestParam Integer idTarifa, @RequestParam Temporada temporada, @RequestBody TemporadaHotel temporadaHotel) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha_inicio = formato.format(temporadaHotel.getFechaInicio());
+        String fecha_fin = formato.format(temporadaHotel.getFechaFin());
+
+        Date fi = formato.parse(fecha_inicio);
+        Date ff = formato.parse(fecha_fin);
+
+        tarifaRepository.modificarTemporada(fi,ff, temporadaHotel.getPrecio(), idTarifa, temporada.ordinal());
+
+    }
+
+    //Swagger actualizar pension Tarifa
+    @RequestMapping(method = RequestMethod.PUT, value = "/actualizarTarifaPension")
+    public void actualizarTarifaPension(Integer idTarifa, @RequestParam EPension pension, @RequestBody PensionHotel pensionHotel){
+        tarifaRepository.modificarPension(pensionHotel.getPrecio(),idTarifa,pension.ordinal());
+
     }
 
     //Swagger actualizar hoteles.
@@ -308,6 +460,7 @@ public class SwaggerController {
         return hotelRepository.save(hotel);
     }
     
+
 
 
 }

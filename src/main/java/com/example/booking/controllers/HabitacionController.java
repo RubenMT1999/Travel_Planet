@@ -85,8 +85,10 @@ public class HabitacionController {
         Integer comprobarNumHab = habitacionService.comprobarNumHab(habitacion.getNumeroHabitacion(),idHotel);
 
         if(result.hasErrors() || comprobarNumHab != null){
+            Tarifa tarifa = habitacion.getHotel().getTarifa();
             model.addAttribute("titulo", "Ha habido algún error");
             model.addAttribute("comprobarNumHab",comprobarNumHab);
+            model.addAttribute("tarifa",tarifa);
             return "crearHabitacion";
         }
 
@@ -108,7 +110,7 @@ public class HabitacionController {
 
     @GetMapping("/editar/{id}")
     public String editar(Model model, @PathVariable Integer id){
-        Habitacion habitacion = habitacionService.encontrarPorId(id);
+        Habitacion habitacion = habitacionService.findById(id);
 
         if(habitacion==null){
             model.addAttribute("error","La habitación no existe");
@@ -145,7 +147,7 @@ public class HabitacionController {
                          RedirectAttributes flash){
 
 
-        Habitacion habitacion = habitacionService.encontrarPorId(id);
+        Habitacion habitacion = habitacionService.findById(id);
         habitacionService.borrarImagen(habitacion);
         habitacionService.borrarHabitacion(habitacion);
         flash.addFlashAttribute("success","Habitación eliminada con éxito!");

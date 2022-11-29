@@ -44,23 +44,23 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
 
-//    @Bean
-//    public LocaleResolver localeResolver() {
-//        final SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-//        localeResolver.setDefaultLocale(new Locale("es", "ES"));
-//        return localeResolver;
-//    }
-//
-//    @Bean
-//    public LocaleChangeInterceptor localeChangeInterceptor(){
-//        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-//        localeChangeInterceptor.setParamName("lang");
-//        return localeChangeInterceptor;
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(localeChangeInterceptor());
-//    }
+    @Bean
+    public LocaleResolver localeResolver() {
+        final SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+        localeResolver.setDefaultLocale(new Locale("es", "ES"));
+        return localeResolver;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor(){
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        return localeChangeInterceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
 }
 

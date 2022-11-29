@@ -3,6 +3,7 @@ package com.example.booking.models;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -23,6 +24,7 @@ public class PensionHotel {
     @Column(name = "precio")
     private Double precio;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tarifa")
     private Tarifa tarifa;
