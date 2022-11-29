@@ -56,7 +56,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Query("UPDATE Authorities SET authority = :roleAdmin where user.id = :id")
     void getIdAuthorities(String roleAdmin, Integer id);
 
-    @Query("SELECT aut FROM Authorities aut  where aut.id = ?1")
+    @Query("SELECT aut FROM Authorities aut  where aut.user.id = ?1")
     Authorities getAuthorities(Integer id);
 
     @Query("SELECT ua from UserAuth ua where ua.username = ?1")

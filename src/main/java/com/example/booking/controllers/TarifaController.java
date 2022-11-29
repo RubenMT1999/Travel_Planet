@@ -145,7 +145,6 @@ public class TarifaController {
         }else{
 
 
-
         Integer id_hotel = id;
         model.addAttribute("tarifa", tarifaService.verTarifa(id));
         model.addAttribute("id_hotel", id_hotel);

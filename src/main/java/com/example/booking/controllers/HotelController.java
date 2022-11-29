@@ -37,7 +37,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
     @Controller
-    @SessionAttributes({"habitacion","reserva", "hoteles", "habfiltro", "puntuacion"})
+    @SessionAttributes({"habitacion","reserva", "hoteles", "habfiltro", "puntuacion", "precio"})
 
     public class HotelController {
     @Autowired
@@ -364,10 +364,6 @@ import java.util.concurrent.TimeUnit;
             }
 
 
-
-
-
-
             PensionHotel pensionHotel = new PensionHotel();
             //pensionHotel.setTarifa(habitacion.getHotel().getTarifa());
 
@@ -382,6 +378,7 @@ import java.util.concurrent.TimeUnit;
 
             habitacion.setPrecioBase((precioTemporada * diasBuscados) + habitacion.getPrecioBase());
 
+            model.addAttribute("precio", habitacion);
             model.addAttribute("titulo","Crear Reserva");
             model.addAttribute("reserva",reserva);
             model.addAttribute("habitacion",habitacion);
@@ -394,21 +391,23 @@ import java.util.concurrent.TimeUnit;
 
         @PostMapping("/reserva/nuevo/{id}")
         public String guardarReserva( Model model,@PathVariable Integer id, Authentication authentication,
-                                      @ModelAttribute("reserva") Reserva fecha, HttpSession session){
+                                      @ModelAttribute("reserva") Reserva fecha, @ModelAttribute("precio") Habitacion precio, HttpSession session) throws ParseException {
 
             authentication= SecurityContextHolder.getContext().getAuthentication();
             Reserva reserva = new Reserva();
+            reserva.setPrecio_total(precio.getPrecioBase());
             Habitacion habitacion = habitacionService.findById(id);
+
             reserva.setHabitacion(habitacion);
             Usuario usuario = usuarioService.datosUsuario(authentication.getName());
             reserva.setUsuario(usuario);
-
+            habitacion.getPrecioBase();
+            reserva.setPagado(false);
             habitacionService.editarDisponibilidad(false, habitacion.getId());
 
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha_inicio = (Date)session.getAttribute("fi");
             Date fecha_fin = (Date)session.getAttribute("ff");
-
            reserva.setFechaInicio(fecha_inicio);
            reserva.setFechaFin(fecha_fin);
 

@@ -24,7 +24,6 @@ public class UsuarioService{
     public void save(Usuario usuario) { usuarioRepository.save(usuario);
     }
 
-
     public Usuario usuarioPorId(Integer id){return usuarioRepository.findById(id).orElse(null);}
 
     public Usuario buscarPorMail(String mail){return usuarioRepository.buscarPormail(mail);}
@@ -54,7 +53,4 @@ public class UsuarioService{
     public UserAuth getUserAuth(String auth){return usuarioRepository.getIdUserAuth(auth);}
 
     public Authorities getAuthorities(Integer id){return usuarioRepository.getAuthorities(id);}
-
-
-
 }

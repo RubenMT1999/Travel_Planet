@@ -32,8 +32,6 @@ public class ReservaService {
         return reservaRepository.reservasPorNombre(nombre);
     }
 
-
-
     public void guardarReserva(Reserva reserva){
         reservaRepository.save(reserva);
     }
@@ -45,4 +43,7 @@ public class ReservaService {
     public Reserva cancelarReserva( Reserva reserva){ reservaRepository.delete(reserva);
         return null;
     }
+
+    public void editarPagado(Boolean pagado, Integer id_habitacion){ reservaRepository.editarPagado(pagado, id_habitacion);}
+
 }

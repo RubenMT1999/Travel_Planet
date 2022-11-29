@@ -80,7 +80,9 @@
 
       <div class="container">
         <h2>Mis Hoteles</h2>
-        <p th:text="${hotelNull}"></p>
+        <div th:if="${hotelesUsuario.isEmpty()}">
+          <h4>No tienes Hoteles</h4>
+        </div>
         <div class="row">
 
           <div class="col">
@@ -114,7 +116,8 @@
                       <div class="row">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                           <a class="btn btn-success me-md-2" type="button" th:href="@{/habitaciones/listar/{id}(id=${hotel.getId()})}">Habitaciones</a>
-                          <a class="btn btn-warning" type="button" th:href="@{/hoteles/editar/{id}(id=${hotel.getId()})}">Editar</a>
+                          <a class="btn btn-warning" type="button" th:href="@{/hoteles/editar/{id}(id=${hotel.getId()})}">Editar Hotel</a>
+                          <a th:href="@{/tarifa/nuevo/{id}(id=${hotel.getId()})}" class="btn btn-warning">Edita Tarifa</a>
                           <a class="btn btn-danger" type="button" th:href="@{/hoteles/eliminarPorId/{id}(id=${hotel.getId()})}">Eliminar</a>
                         </div>
                       </div>
