@@ -6,6 +6,7 @@ import com.example.booking.services.HabitacionService;
 import com.example.booking.services.ReservaService;
 import com.example.booking.services.TarifaService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -274,6 +275,32 @@ public class SwaggerController {
         return hotelRepository.save(hotel);
     }
 
+    //Swagger crear reserva
+    @RequestMapping(method = RequestMethod.POST, value = "/crearReserva")
+    public void crearReserva(@RequestParam Integer idUsuario, @RequestParam Integer idHabitacion, @RequestBody Reserva reserva) throws ParseException {
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+        reserva.setUsuario(usuario);
+        Habitacion habitacion = habitacionRepository.findById(idHabitacion).orElse(null);
+        reserva.setHabitacion(habitacion);
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha_inicio = formato.format(reserva.getFechaInicio());
+        String fecha_fin = formato.format(reserva.getFechaFin());
+
+        Date fi = formato.parse(fecha_inicio);
+        Date ff = formato.parse(fecha_fin);
+
+        reserva.setFechaInicio(fi);
+        reserva.setFechaFin(ff);
+
+
+
+
+        reservaService.guardarReserva(reserva);
+
+
+    }
+
     //Swagger crear tarifa caracteristicas
     @RequestMapping(method = RequestMethod.POST, value = "/creartarifa")
     public Tarifa crearTarifa(@RequestParam Integer idHotel, @RequestBody Tarifa tarifa){
@@ -323,6 +350,16 @@ public class SwaggerController {
 
     return  temporadas;
     }
+    //Swagger borrar reserva
+    @RequestMapping(method = RequestMethod.DELETE, value = "/borrarreserva")
+    public void borrarReserva(@RequestParam Integer idUsuario, @RequestBody Reserva reserva){
+        List<Reserva> reserva1 = reservaService.obtenerReservaUsuario(idUsuario);
+        for (Reserva r: reserva1){
+            reservaService.cancelarReserva(r);
+        }
+
+    }
+
 
     //Swagger borrar temporada
     @RequestMapping(method = RequestMethod.DELETE, value = "/borrartemporada")
@@ -334,6 +371,8 @@ public class SwaggerController {
 
 
     }
+
+
 
     //Swagger borrar pension
     @RequestMapping(method = RequestMethod.DELETE, value = "/borrarpension")
