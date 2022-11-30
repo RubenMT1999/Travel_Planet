@@ -14,36 +14,12 @@
 <div class="container mt-5">
     <div class="d-inline">
         <h1 class="text-secondary d-inline">Listado de Habitaciones</h1>
-        <a th:href="@{/habitaciones/crear/{id}(id=${id})}" class="btn btn-success float-end">Crear</a>
+        <a th:href="@{/habitaciones/crear/{id}(id=${id})}" class="btn btn-dark float-end">Crear</a>
     </div>
 
-<!--    <table class="table mt-5">-->
-<!--      <thead class="table-dark">-->
-<!--            <tr>-->
-<!--                <th>Nº Habitación</th>-->
-<!--                <th>Capacidad</th>-->
-<!--                <th>Descripción</th>-->
-<!--                <th>Precio Base</th>-->
-<!--                <th>Imagen</th>-->
-<!--                <th>Disponible</th>-->
-<!--                <th>Editar</th>-->
-<!--                <th>Eliminar</th>-->
-<!--            </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--            <tr th:each="habitacion: ${habitaciones}">-->
-<!--                <td th:text="${habitacion.numeroHabitacion}"></td>-->
-<!--                <td th:text="${habitacion.capacidad}"></td>-->
-<!--                <td th:text="${habitacion.descripcion}"></td>-->
-<!--                <td th:text="${habitacion.precioBase}"></td>-->
-<!--                <td th:text="${habitacion.imagen}"></td>-->
-<!--                <td th:text="${habitacion.disponibilidad}"></td>-->
-<!--                <td><a th:href="@{/habitaciones/editar/{id}(id=${habitacion.getId()})}" class="btn btn-primary">Editar</a></td>-->
-<!--                <td><a th:href="@{/habitaciones/borrar/{id}(id=${habitacion.getId()})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a></td>-->
-
-<!--            </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
+    <div th:if="${habitaciones.isEmpty()}" class="mt-4 mb-4">
+        <span class="fw-semibold text-muted fs-4">No hay habitaciones Registradas</span>
+    </div>
 
     <div class="container">
         <div class="row" th:each="habitacion: ${habitaciones}">
@@ -75,7 +51,7 @@
 
 
 
-    <nav th:replace="paginator-nav :: paginator"></nav>
+    <nav class="mt-5" th:replace="paginator-nav :: paginator"></nav>
 </div>
 
 

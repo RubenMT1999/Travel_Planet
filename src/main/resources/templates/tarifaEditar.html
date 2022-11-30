@@ -13,10 +13,12 @@
     <form th:action="@{/tarifa/editar}" th:object="${tarifa}" method="POST" enctype="multipart/form-data">
 
         <div class="row bg-light justify-content-evenly">
-                <div class="col-md-4 col card">
-                    <h1 class="text-center fs-4 mt-4">Precio de los extras</h1>
-                    <div class="card-body">
-                        <form  class="form-group">
+
+                <form class="form-group">
+                    <div class="col-md-4 col card">
+                        <h1 class="text-center fs-4 mt-4">Precio de los extras</h1>
+                        <div class="card-body">
+
                             <input type="hidden" name="id_hotel" th:value="${id_hotel}">
                             <label for="wifi">Wifi: </label>
                             <input type="number" id="wifi" name="precio_wifi" th:field="*{precioWifi}" class="form-control" placeholder="Ponga aquí precio por tener wifi" required>
@@ -39,95 +41,91 @@
                             <label for="wc" class="mt-2">Baño: </label>
                             <input type="number" id="wc" name="precio_banio" th:field="*{precioBanio}" class="form-control" placeholder="Ponga aquí precio por tener baño privado" required>
 
-                        </form>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 col card">
-                    <h1 class="text-center mt-4 fs-4">Precio de las pensiones</h1>
-                <div class="card-body">
-                    <form class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label for="desayuno" class="mt-2">Alojamiento y Desayuno</label>
-                                <input type="number" id="desayuno" name="precio_completa"  class="form-control" placeholder="Ponga aquí precio" >
+                    <div class="col-md-4 col card">
+                        <h1 class="text-center mt-4 fs-4">Precio de las pensiones</h1>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="desayuno" class="mt-2">Alojamiento y Desayuno</label>
+                                    <input type="number" id="desayuno" name="precio_completa"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="media-pension" class="mt-2">Media Pensión</label>
+                                    <input type="number" id="media-pension" name="precio_media_pension"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="pension-completa" class="mt-2">Pensión Completa</label>
+                                    <input type="number" id="pension-completa" name="precio_desayuno"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="todo-incluido" class="mt-2">Todo Incluido</label>
+                                    <input type="number" id="todo-incluido" name="precio_ninguna"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="media-pension" class="mt-2">Media Pensión</label>
-                                <input type="number" id="media-pension" name="precio_media_pension"  class="form-control" placeholder="Ponga aquí precio" >
+                    </div>
+                    <div class="col-md-4 col card">
+                        <h1 class="text-center fs-4 mt-4">Precio de las temporadas</h1>
+                        <div class="card-body">
+                            <div class="row mt-2">
+                                <p class="fs-6 fw-semibold">Alta</p>
+                                <div class="col-6">
+                                    <label for="alta-inicio" class="">Inicio</label>
+                                    <input type="Date" id="alta-inicio" name="fecha_inicio_alta"  class="form-control" >
+                                    <label for="alta-fin">Fin</label>
+                                    <input type="Date" id="alta-fin" name="fecha_fin_alta"  class="form-control" >
+                                </div>
+                                <div class="col-6">
+                                    <label for="precio-alta">Precio</label>
+                                    <input type="number" id="precio-alta" name="precio_temporada_alta"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <p class="fs-6 fw-semibold">Media</p>
+                                <div class="col-6">
+                                    <label for="media-inicio">Inicio</label>
+                                    <input type="Date" id="media-inicio" name="fecha_inicio_media"  class="form-control"  >
+                                    <label for="media-fin">Fin</label>
+                                    <input type="Date" id="media-fin" name="fecha_fin_media"  class="form-control" >
+                                </div>
+                                <div class="col-6">
+                                    <label for="precio-media">Precio</label>
+                                    <input type="number" id="precio-media" name="precio_temporada_media"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <p class="fs-5 fw-semibold">Baja</p>
+                                <div class="col-6">
+                                    <label for="baja-inicio">Inicio</label>
+                                    <input type="Date" id="baja-inicio" name="fecha_inicio_baja"  class="form-control"  >
+                                    <label for="baja-fin">Fin</label>
+                                    <input type="Date" id="baja-fin" name="fecha_fin_baja"  class="form-control" >
+                                </div>
+                                <div class="col-6">
+                                    <label for="precio-baja">Precio</label>
+                                    <input type="number" id="precio-baja" name="precio_temporada_baja"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="pension-completa" class="mt-2">Pensión Completa</label>
-                                <input type="number" id="pension-completa" name="precio_desayuno"  class="form-control" placeholder="Ponga aquí precio" >
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="todo-incluido" class="mt-2">Todo Incluido</label>
-                                <input type="number" id="todo-incluido" name="precio_ninguna"  class="form-control" placeholder="Ponga aquí precio" >
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                </form>
+
+            <div class="row mt-4">
+                <div class="col-4">
+                    <button type="submit" class="btn btn-success">Guardar</button>
                 </div>
             </div>
-                <div class="col-md-4 col card">
-                    <h1 class="text-center fs-4 mt-4">Precio de las temporadas</h1>
-                <div class="card-body">
-                    <form class="form-group">
-                        <div class="row mt-2">
-                            <p class="fs-6 fw-semibold">Alta</p>
-                            <div class="col-6">
-                                <label for="alta-inicio" class="">Inicio</label>
-                                <input type="Date" id="alta-inicio" name="fecha_inicio_alta"  class="form-control" >
-                                <label for="alta-fin">Fin</label>
-                                <input type="Date" id="alta-fin" name="fecha_fin_alta"  class="form-control" >
-                            </div>
-                            <div class="col-6">
-                                <label for="precio-alta">Precio</label>
-                                <input type="number" id="precio-alta" name="precio_temporada_alta"  class="form-control" placeholder="Ponga aquí precio" >
-                            </div>
-                        </div>
 
-                        <div class="row mt-4">
-                            <p class="fs-6 fw-semibold">Media</p>
-                            <div class="col-6">
-                                <label for="media-inicio">Inicio</label>
-                                <input type="Date" id="media-inicio" name="fecha_inicio_media"  class="form-control"  >
-                                <label for="media-fin">Fin</label>
-                                <input type="Date" id="media-fin" name="fecha_fin_media"  class="form-control" >
-                            </div>
-                            <div class="col-6">
-                                <label for="precio-media">Precio</label>
-                                <input type="number" id="precio-media" name="precio_temporada_media"  class="form-control" placeholder="Ponga aquí precio" >
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <p class="fs-5 fw-semibold">Baja</p>
-                            <div class="col-6">
-                                <label for="baja-inicio">Inicio</label>
-                                <input type="Date" id="baja-inicio" name="fecha_inicio_baja"  class="form-control"  >
-                                <label for="baja-fin">Fin</label>
-                                <input type="Date" id="baja-fin" name="fecha_fin_baja"  class="form-control" >
-                            </div>
-                            <div class="col-6">
-                                <label for="precio-baja">Precio</label>
-                                <input type="number" id="precio-baja" name="precio_temporada_baja"  class="form-control" placeholder="Ponga aquí precio" >
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col-4">
-                <button type="submit" class="btn btn-success">Guardar</button>
-            </div>
         </div>
 
     </form>

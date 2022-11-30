@@ -118,7 +118,7 @@ public class TarifaController {
         tarifaService.guardarTemporada(Temporada.Baja.ordinal(),fechaInicioBaja,fechaInicioBaja,precioBaja,id_tarifa);
 
 
-            return "redirect:/hoteles/verHotelesUsuarios";
+            return "redirect:/perfil/mis-hoteles";
 
 
 
@@ -224,7 +224,7 @@ public class TarifaController {
 
 
 
-        return "redirect:/hoteles/verHotelesUsuarios";
+        return "redirect:/perfil/mis-hoteles";
     }
 
 

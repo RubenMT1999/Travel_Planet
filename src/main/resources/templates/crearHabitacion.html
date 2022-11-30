@@ -12,7 +12,6 @@
 
 <div class="container p-5">
 
-
     <div class="row align-items-center ">
         <div class="col-lg-6 col-md-5">
             <strong class="mt-5 fs-3 d-flex justify-content-center" th:text="${titulo}"></strong>
@@ -109,14 +108,12 @@
                         <label>Imagen</label>
                         <input type="file" name="file" class="form-control">
                     </div>
-<!--                    <div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}" class="alert alert-danger"></div>-->
-
 
                 <div th:if="${tarifa!=null}">
-                    <input type="submit" value="Crear" class="btn btn-block btn-primary mt-3">
+                    <input type="submit" value="Crear" class="btn btn-block btn-dark mt-3">
                 </div>
-                <div th:unless="${tarifa!=null}">
-                    <input type="submit" disabled value="Crear" class="btn btn-block btn-primary mt-3">
+                <div th:unless="${tarifa!=null}" class="mb-2 mt-2">
+                    <input type="submit" disabled value="Crear" class="btn btn-block btn-dark mt-3">
                     <p class="text-danger">Por favor, cree una tarifa para su hotel.</p>
                 </div>
 
@@ -126,13 +123,9 @@
 
         </div>
 
-        <!--
-        <div class="col-md-7 col-lg-6 d-sm-none d-md-block d-none d-sm-block">
-          <div class="d-flex justify-content-center portrait">
-            <img src="/images/bg_1.jpg" class="img-thumbnail img-fluid" alt="...">
-          </div>
+        <div class="col-lg-6 col-md-5">
+
         </div>
-        -->
 
     </div>
 
