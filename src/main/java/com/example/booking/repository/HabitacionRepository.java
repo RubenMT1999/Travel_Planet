@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,11 +31,11 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     @Query(value = "insert into habitacion (id_hotel, num_habitacion, ext_telefonica, capacidad,imagen, descripcion, precio_base,caja_fuerte,cocina,banio_privado,aire_acondicionado,tv,terraza,wifi)" +
             " values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14)",nativeQuery = true )
     void guardarPersonalizado(@Param("id_hotel") Integer idHotel, @Param("num_habitacion") Integer numHab,
-                    @Param("ext_telefonica") String extTelefonica, @Param("capacidad") Integer capacidad
-                    ,@Param("imagen") String imagen,@Param("descripcion") String descripcion, @Param("precioBase") Double precioBase,
+                              @Param("ext_telefonica") String extTelefonica, @Param("capacidad") Integer capacidad
+                    , @Param("imagen") String imagen, @Param("descripcion") String descripcion, @Param("precioBase") Double precioBase,
                               @Param("caja_fuerte") Boolean cajaFuerte, @Param("cocina") Boolean cocina, @Param("banio_privado") Boolean banioPrivado,
                               @Param("aire_acondicionado") Boolean aireAcondicionado, @Param("tv") Boolean tv, @Param("terraza") Boolean terraza,
-                              @Param("wifi") Boolean wifi);
+                              @Param("wifi") Boolean wifi, @Param("disponibilidad") Boolean disponibilidad);
 
 
     @Query(value = "select * from vistahabitacion where id_hotel = :id_hotel and capacidad = :capacidad" +
@@ -79,4 +80,5 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
 
     @Query("SELECT h FROM Habitacion h WHERE h.id = ?1")
     Habitacion obtenerHabitacionReserva(Integer id);
+
 }

@@ -4,10 +4,7 @@ import com.example.booking.models.*;
 import com.example.booking.repository.AuthoritiesRepository;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
-import com.example.booking.services.HabitacionService;
-import com.example.booking.services.HotelService;
-import com.example.booking.services.ReservaService;
-import com.example.booking.services.UsuarioService;
+import com.example.booking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"reservaUsuario","reservaHotel"})
 @RequestMapping("/perfil")
 public class PerfilUsuarioController {
 
@@ -40,6 +38,8 @@ public class PerfilUsuarioController {
     private HabitacionService habitacionService;
     @Autowired
     private UserAuthRepository userAuthRepository;
+    @Autowired
+    private PagoService pagoService;
 
 
     @GetMapping("/datos")
@@ -63,6 +63,7 @@ public class PerfilUsuarioController {
         if (userAdmin.getEsHotelero() == false){
             userAdmin.setEsHotelero(true);
             usuarioService.getAdmin(userAdmin.getEsHotelero(), userAdmin.getId());
+
             authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
             usuarioService.getRoleAdmin(authorities.getAuthority(), userIDAuth.getId());
         }
@@ -132,12 +133,28 @@ public class PerfilUsuarioController {
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
         Reserva reservaPorId = reservaService.obtenerDetallesReserva(id);
 
-        Habitacion habitacion = habitacionService.obtenerHabitacionReserva(reservaPorId.getId());
+        Habitacion habitacion = habitacionService.obtenerHabitacionReserva(reservaPorId.getHabitacion().getId());
         reservaPorId.setHabitacion(habitacion);
+
+        model.addAttribute("reservaHotel", habitacion);
+        model.addAttribute("reservaUsuario", reservaPorId);
+
         model.addAttribute("detallesReserva", reservaPorId);
         model.addAttribute("nombreUsuarioDetallesReserva", nombreUsuario);
 
         return "detallesReserva";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editarReserva(@PathVariable Integer id, Model model, Authentication authentication){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario datosUsuario = usuarioService.datosUsuario(authentication.getName());
+        Reserva reserva = reservaService.obtenerDetallesReserva(id);
+
+        model.addAttribute("editarReserva", reserva);
+        model.addAttribute("editarReservaUsuario", datosUsuario);
+
+        return "";
     }
 
     @RequestMapping("/eliminar-reserva/{id}")
@@ -151,21 +168,43 @@ public class PerfilUsuarioController {
         return "redirect:/perfil/mis-reservas";
     }
 
-    @PostMapping("/editar-reserva/{id}")
-    public String editarReserva(Model model,@PathVariable Integer id){
-        Reserva reserva = reservaService.obtenerDetallesReserva(id);
-        model.addAttribute("editarReserva", reserva);
-        return "reditect:/";
-    }
 
     @GetMapping("/mis-reservas/pago")
-    public String pagarReserva(Model model, Authentication authentication){
+    public String pagarReserva(Model model,@ModelAttribute("reservaUsuario") Reserva reservaUsuario,
+                               @ModelAttribute("reservaHotel") Habitacion reservaHotel, Authentication authentication){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
+        Pago pago = new Pago();
+        Hotel hotel = reservaHotel.getHotel();
+
+
+        pago.setId_reserva(reservaUsuario);
+        pago.setId_usuario(nombreUsuario);
+
+        model.addAttribute("metodoPago", pago);
+        model.addAttribute("datosReservaHotel", hotel);
         model.addAttribute("nombreUsuarioPago", nombreUsuario);
+
         return "pago";
     }
 
+    @PostMapping("/mis-reservas/pago")
+    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario,Model model, Authentication authentication, Pago pago){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
+
+        pago.setId_usuario(nombreUsuario);
+        Reserva reserva = reservaUsuario;
+        pago.setId_reserva(reserva);
+        pagoService.guardarPago(pago);
+        Habitacion habitacion = pago.getId_reserva().getHabitacion();
+
+        reservaService.editarPagado(true, habitacion.getId());
+
+        model.addAttribute("metodoPago", pago);
+
+        return "redirect:/perfil/mis-reservas";
+    }
 
 
 }
