@@ -99,8 +99,8 @@ class HotelServiceTest {
     void borrarHotel(){
         when(hotelRepository.findById(5)).thenReturn(Optional.ofNullable(hotel.get(0)));
         Hotel buscar = hotelService.findById(5);
-        hotelService.hotelEliminar(5);
-        Hotel hotelPrueba = hotelService.findById(5);
+        hotelService.hotelEliminar(16);
+        Hotel hotelPrueba = hotelService.findById(16);
         assertNull(hotelPrueba);
     }
 

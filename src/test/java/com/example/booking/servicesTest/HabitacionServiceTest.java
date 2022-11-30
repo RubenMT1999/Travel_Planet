@@ -57,7 +57,7 @@ class HabitacionServiceTest {
     public static List<Habitacion> habitaciones;
 
     @BeforeAll
-    public static void cargarDatos(){
+    public static void cargarDatos() throws ParseException {
         habitaciones = new CreacionObjetosFaker().fakerHabitaciones(10,16);
     }
 

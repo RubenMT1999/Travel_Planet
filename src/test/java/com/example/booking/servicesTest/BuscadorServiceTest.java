@@ -27,7 +27,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,22 +55,27 @@ class BuscadorServiceTest {
     @InjectMocks
     private HotelService hotelService;
 
-    public static List<Hotel> hotel;
+    public static List<Hotel> hotelbusqueda;
 
 
     @BeforeAll
-    public static void cargarDatos(){
+    public static void cargarDatos() throws ParseException {
 
-        hotel = new CreacionObjetosFaker().fakerHotel(16, 3);
+        hotelbusqueda = new CreacionObjetosFaker().fakerHotelBusqueda();
     }
 
     @Test
-    @DisplayName("Test 1 -> HotelService -> obtenerHotelBusqueda(Ciudad, Fecha inicio, Fecha Fin, Capacidad, Disponibilidad)")
-    void listarHotelBusqueda() {
-        when(hotelRepository.obtenerHoteldeUsuario(3)).thenReturn(hotel);
-        List<Hotel> comprobarHotel = hotelService.obtenerHoteldeUsuario(3);
-        assertNotNull(hotelService.obtenerHoteldeUsuario(3));
-        assertEquals(hotel,comprobarHotel);
+    @DisplayName("Test 1 -> HotelService -> obtenerHotelBusqueda(Ciudad, Fecha inicio, Fecha Fin, Capacidad)")
+    void listarHotelBusqueda() throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaInicio = formato.parse("2022-12-1");
+        Date fecha_Fin = formato.parse("2022-12-12");
+//        Date inicio = formato.parse("2020-11-30");
+//        Date fin = formato.parse("2020-12-11");
+        when(hotelRepository.buscadortest("Sevilla", fechaInicio, fecha_Fin, 2)).thenReturn(hotelbusqueda);
+        List<Hotel> busqueda = hotelService.buscartest("Sevilla", fechaInicio, fecha_Fin, 2);
+        assertEquals(busqueda.size(), 10 );
+//        assertNotNull(hotelService.buscartest("Sevilla", inicio, fin, 2));
     }
 
 }

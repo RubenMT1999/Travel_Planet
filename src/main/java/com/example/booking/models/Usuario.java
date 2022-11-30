@@ -66,7 +66,7 @@ public class Usuario {
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Reserva> reservas;
+    private List<Reserva> reservas;
 
 
     @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -128,7 +128,7 @@ public class Usuario {
         return esHotelero;
     }
 
-    public Set<Reserva> getReservas() {
+    public List<Reserva> getReservas() {
         return reservas;
     }
 

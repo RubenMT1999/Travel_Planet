@@ -31,11 +31,14 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
     List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
 
-//    @Query(value = "select * from vistabuscador where ciudad = :ciudad and capacidad = :capacidad" +
-//            " and (fecha_inicio not between :fecha_inicio and :fecha_fin " +
-//            "and fecha_fin not between :fecha_inicio and :fecha_fin or fecha_inicio is null and fecha_fin is null) and disponibilidad = 1 group by nombre ", nativeQuery = true)
-//
-//    List<Hotel> buscador(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
+    @Query(value = "select h.* from Hotel h " +
+            "join Habitacion h2 on h2.id_hotel = h.id " +
+            "join Reserva r on r.id_habitacion = h2.id " +
+            "where h.ciudad = :ciudad and h2.capacidad = :capacidad" +
+            " and (r.fecha_inicio not between :fecha_inicio and :fecha_fin " +
+            "and r.fecha_fin not between :fecha_inicio and :fecha_fin or r.fecha_inicio is null and r.fecha_fin is null) and h2.disponibilidad = 1 group by h.nombre ", nativeQuery = true)
+
+    List<Hotel> buscadortest(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
 
 
 

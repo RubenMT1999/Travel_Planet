@@ -82,7 +82,7 @@ public class Habitacion {
 
     @JsonIgnore
     @OneToMany(mappedBy = "habitacion",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Reserva> reserva;
+    private List<Reserva> reserva;
 
 
     public Integer getId() {
@@ -154,7 +154,7 @@ public class Habitacion {
     }
 
 
-    public Set<Reserva> getReserva() {
+    public List<Reserva> getReserva() {
         return reserva;
     }
 }

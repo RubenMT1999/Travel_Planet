@@ -34,6 +34,10 @@ public class HotelService {
         return hotelRepository.buscador(ciudades, fecha_inicio, fecha_fin, capacidad);
             }
 
+    public List<Hotel> buscartest(String ciudades, Date fecha_inicio, Date fecha_fin, Integer capacidad) {
+        return hotelRepository.buscadortest(ciudades, fecha_inicio, fecha_fin, capacidad);
+    }
+
 //    public List<Habitacion> listarHabitaciones(Integer id){
 //        return habitacionRepository.listarHabitaciones(id);
 //    }
