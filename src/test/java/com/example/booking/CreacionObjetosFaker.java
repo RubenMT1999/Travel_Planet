@@ -2,6 +2,7 @@ package com.example.booking;
 
 import com.example.booking.models.Habitacion;
 import com.example.booking.models.Hotel;
+import com.example.booking.models.Reserva;
 import com.example.booking.models.Usuario;
 import com.example.booking.repository.HotelRepository;
 import com.github.javafaker.Faker;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.persistence.PrePersist;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class CreacionObjetosFaker {
@@ -68,6 +71,32 @@ public class CreacionObjetosFaker {
         }
 
         return hotellista;
+    }
+
+    public List<Usuario> fakerUsuario(Integer numero){
+        Set<Hotel> hotel = new HashSet<>();
+        Set<Reserva> reserva = new HashSet<>();
+        List<Usuario> usuarioLista = new ArrayList<>();
+
+        for (int i=0; i<numero; i++){
+            Usuario usuariofaker = new Usuario();
+            usuariofaker.setId(numero);
+            usuariofaker.setNombre(faker.artist().name());
+            usuariofaker.setApellidos(faker.artist().name());
+            usuariofaker.setRegistrado(faker.bool().bool());
+            usuariofaker.setTelefono(faker.number().digit());
+            usuariofaker.setEmail(faker.superhero()+"@gmail.com");
+            usuariofaker.setContrasenia("1234");
+            usuariofaker.setDescuento(faker.number().randomDigit());
+            usuariofaker.setDni(String.valueOf(faker.number().numberBetween(9,9)));
+            usuariofaker.setEsHotelero(faker.bool().bool());
+            usuariofaker.setFechaNacimiento(faker.date().birthday());
+            usuariofaker.setNacionalidad(faker.country().name());
+            usuariofaker.setHoteles(hotel);
+            usuariofaker.setReservas(reserva);
+            usuarioLista.add(usuariofaker);
+        }
+            return  usuarioLista;
     }
 
 }
