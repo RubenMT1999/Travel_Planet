@@ -1,22 +1,23 @@
 package com.example.booking;
 
-import com.example.booking.models.Habitacion;
-import com.example.booking.models.Hotel;
-import com.example.booking.models.Usuario;
+import com.example.booking.models.*;
 import com.example.booking.repository.HotelRepository;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.persistence.PrePersist;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class CreacionObjetosFaker {
 
     Faker faker = new Faker();
 
-    public List<Habitacion> fakerHabitaciones(Integer numero, Integer idHotel){
+    public List<Habitacion> fakerHabitaciones(Integer numero){
         List<Habitacion> misHabitaciones = new ArrayList<>();
         Hotel hotel = new Hotel();
         for (int i=0; i<numero; i++){
@@ -44,6 +45,55 @@ public class CreacionObjetosFaker {
 
         return misHabitaciones;
     }
+
+
+    public List<Reserva> fakerReservas(Integer numero){
+        List<Reserva> misReservas = new ArrayList<>();
+        Habitacion habitacion = new Habitacion();
+        Usuario usuario = new Usuario();
+        for (int i=0;i<=numero;i++){
+            Reserva reserva = new Reserva();
+            reserva.setId(faker.number().numberBetween(100,999));
+            reserva.setHabitacion(habitacion);
+            reserva.setUsuario(usuario);
+            reserva.setPagado(faker.bool().bool());
+            reserva.setFechaFin(faker.date().future(2, TimeUnit.DAYS));
+            reserva.setFechaInicio(faker.date().past(2,TimeUnit.DAYS));
+            reserva.setPrecio_total((double) faker.number().numberBetween(50, 400));
+            misReservas.add(reserva);
+            habitacion.setReserva(new HashSet<>(misReservas));
+            usuario.setReservas(new HashSet<>(misReservas));
+        }
+        return misReservas;
+    }
+
+
+    public List<Tarifa> fakerTarifa(Integer numero){
+        List<Tarifa> misTarifas = new ArrayList<>();
+        Hotel hotel = new Hotel();
+        for (int i=0;i<=numero;i++){
+            Tarifa tarifa = new Tarifa();
+            tarifa.setPrecioAire((double) faker.number().numberBetween(2, 20));
+            tarifa.setHotel(hotel);
+            tarifa.setId(faker.number().numberBetween(100,999));
+            tarifa.setPrecioCocina((double) faker.number().numberBetween(2, 20));
+            tarifa.setPrecioBanio((double) faker.number().numberBetween(2, 20));
+            tarifa.setPrecioTV((double) faker.number().numberBetween(2, 20));
+            tarifa.setPrecioTerraza((double) faker.number().numberBetween(2, 20));
+            tarifa.setPrecioWifi((double) faker.number().numberBetween(2, 20));
+            tarifa.setPrecioCajaFuerte((double) faker.number().numberBetween(2, 20));
+            tarifa.setTemporada(Temporada.Media);
+            tarifa.setPensionHoteles(null);
+            tarifa.setTemporadaHoteles(null);
+            misTarifas.add(tarifa);
+            hotel.setTarifa(tarifa);
+        }
+        return misTarifas;
+    }
+
+
+
+
     public List<Hotel> fakerHotel(Integer numero, Integer id_usuario) {
         Usuario usuario = new Usuario();
         List<Hotel> hotellista = new ArrayList<>();
@@ -69,6 +119,7 @@ public class CreacionObjetosFaker {
 
         return hotellista;
     }
+
 
 }
 

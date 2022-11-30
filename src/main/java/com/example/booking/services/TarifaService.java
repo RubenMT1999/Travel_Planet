@@ -15,19 +15,13 @@ public class TarifaService {
     @Autowired
     TarifaRepository tarifaRepository;
 
-    public Tarifa tarifaNuevaId(int id){
-        return tarifaRepository.findById(id).orElse(null);
-    }
 
-    public Tarifa tarifaNueva(Tarifa tarifa){return tarifaRepository.save(tarifa);}
 
     public void guardarTarifa(Double precioBanio, Double precioCajaFuerte, Double precioCocina, Double precioTv, Double precioTerraza, Double precioWifi, Double precioAire, Integer id_hotel){
         tarifaRepository.guardarTarifa(precioBanio,precioCajaFuerte,precioCocina,precioTv,precioTerraza,precioWifi,precioAire,id_hotel);
     }
 
-    public Tarifa buscarId (Integer id){
-        return tarifaRepository.findById(id).orElse(null);
-    }
+
     public Tarifa tarifaEditar (Tarifa tarifa){
         return tarifaRepository.save(tarifa);
     }
