@@ -29,6 +29,8 @@ public class PerfilUsuarioController {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
+    private TarifaService tarifaService;
+    @Autowired
     private ReservaService reservaService;
     @Autowired
     private AuthoritiesRepository authoritiesRepository;

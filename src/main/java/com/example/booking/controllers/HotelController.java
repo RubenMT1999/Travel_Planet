@@ -232,7 +232,7 @@ import java.util.concurrent.TimeUnit;
                 hotel.setImagen("https://t3.ftcdn.net/jpg/01/06/85/86/360_F_106858608_EuOWeiATyMOD6b9cXNzcJDSZufLbojQs.jpg");
             }
         hotelService.hotelGuardar(imagen,flash,hotel);
-        return "redirect:/perfil/mis-hoteles";
+        return "redirect:/tarifa/nuevo/"+hotel.getId();
 
         }
 
@@ -281,7 +281,7 @@ import java.util.concurrent.TimeUnit;
             }else {
                 hotelService.hotelEditar(imagen, flash, hotelEditar);
             }
-            return "redirect:/hoteles/verHotelesUsuarios";
+            return "redirect:/perfil/mis-hoteles";
         }
 
 

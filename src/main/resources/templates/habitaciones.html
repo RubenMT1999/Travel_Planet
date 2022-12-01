@@ -14,51 +14,27 @@
 <div class="container mt-5">
     <div class="d-inline">
         <h1 class="text-secondary d-inline">Listado de Habitaciones</h1>
-        <a th:href="@{/habitaciones/crear/{id}(id=${id})}" class="btn btn-success float-end">Crear</a>
+        <a th:href="@{/habitaciones/crear/{id}(id=${id})}" class="btn btn-dark float-end">Crear</a>
     </div>
 
-<!--    <table class="table mt-5">-->
-<!--      <thead class="table-dark">-->
-<!--            <tr>-->
-<!--                <th>Nº Habitación</th>-->
-<!--                <th>Capacidad</th>-->
-<!--                <th>Descripción</th>-->
-<!--                <th>Precio Base</th>-->
-<!--                <th>Imagen</th>-->
-<!--                <th>Disponible</th>-->
-<!--                <th>Editar</th>-->
-<!--                <th>Eliminar</th>-->
-<!--            </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--            <tr th:each="habitacion: ${habitaciones}">-->
-<!--                <td th:text="${habitacion.numeroHabitacion}"></td>-->
-<!--                <td th:text="${habitacion.capacidad}"></td>-->
-<!--                <td th:text="${habitacion.descripcion}"></td>-->
-<!--                <td th:text="${habitacion.precioBase}"></td>-->
-<!--                <td th:text="${habitacion.imagen}"></td>-->
-<!--                <td th:text="${habitacion.disponibilidad}"></td>-->
-<!--                <td><a th:href="@{/habitaciones/editar/{id}(id=${habitacion.getId()})}" class="btn btn-primary">Editar</a></td>-->
-<!--                <td><a th:href="@{/habitaciones/borrar/{id}(id=${habitacion.getId()})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a></td>-->
+    <div th:if="${habitaciones.isEmpty()}" class="mt-4 mb-4">
+        <span class="fw-semibold text-muted fs-4">No hay habitaciones Registradas</span>
+    </div>
 
-<!--            </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-
-    <div class="container">
+    <div class="container mt-4">
         <div class="row" th:each="habitacion: ${habitaciones}">
-            <div class="card mb-3 w-100">
+            <div class="card mb-3 w-100 border border-dark p-2" style="--bs-border-opacity: .5;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img th:if="${#strings.length(habitacion.imagen)>0} and ${!habitacion.imagen.contains('https')}" class="img-thumbnail rounded float-end " th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
+                        <img th:if="${#strings.length(habitacion.imagen)>0} and ${!habitacion.imagen.contains('https')}" class="img-thumbnail float-end " th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
                         <img th:if="${habitacion.imagen.contains('https')}" th:src="${habitacion.imagen}" class="card-img-top" alt="..." >
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${habitacion.numeroHabitacion}"></h5>
+                            <h5 class="card-title" th:text=" 'Número de habitación : ' + ${habitacion.numeroHabitacion}"></h5>
                             <p class="card-text" th:text="${habitacion.descripcion}"></p>
-                            <p class="card-text">Capacidad: <small th:text="${habitacion.capacidad}"></small></p>
-                            <p class="card-text">Precio: <small th:text="${habitacion.precioBase}"></small></p>
+                            <p class="card-text fw-semibold fs-5">Capacidad: <small th:text="${habitacion.capacidad}"></small></p>
+                            <p class="card-text fw-semibold fs-5">Precio: <small th:text="${habitacion.precioBase}"></small></p>
                             <a th:href="@{/habitaciones/editar/{id}(id=${habitacion.getId()})}" class="btn btn-primary">Editar</a>
                             <a th:href="@{/habitaciones/borrar/{id}(id=${habitacion.getId()})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a>
                         </div>
@@ -75,7 +51,7 @@
 
 
 
-    <nav th:replace="paginator-nav :: paginator"></nav>
+    <nav class="mt-5" th:replace="paginator-nav :: paginator"></nav>
 </div>
 
 

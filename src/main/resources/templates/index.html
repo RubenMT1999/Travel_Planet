@@ -24,7 +24,7 @@
                  <div class="container-fluid mt-5">
                      <div class="row">
                          <div class="col-md-2 mb-3 mb-md-0">
-                             <label class="font-weight-bold text-white fw-bold" th:text="#{text.index.vas}">¿A dónde vas?</label>
+                             <label class="font-weight-bold text-dark fw-bold">Ciudad</label>
                              <select name="" id="lugar" class="form-select mb-3" th:field="*{ciudad}" >
                                  <option th:value="Sevilla" th:text="Sevilla">Sevilla</option>
                                  <option th:value="Granada" th:text="Granada">Granada</option>
@@ -37,17 +37,17 @@
                              </select>
                          </div>
                          <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}" method="get">
-                             <div class="col-md-2 mb-2 mb-lg-0">
+                             <div class="col-md-3 mb-2 mb-lg-0">
 
-                                 <label  class="font-weight-bold text-white fw-bold">Check In</label>
+                                 <label  class="font-weight-bold text-dark fw-bold">Check In</label>
 
                                  <input type="date" class="form-control"  th:min="${now}" th:field="*{fechaInicio}"  placeholder="yyyy-MM-dd" required>
 
 
                              </div>
                              <form action="#" th:action="@{/hoteles/listar}" th:object="${reserva}"  method="get">
-                                 <div class="col-md-2 mb-2 mb-lg-0">
-                                     <label class="font-weight-bold text-white fw-bold">Check Out</label>
+                                 <div class="col-md-3 mb-2 mb-lg-0">
+                                     <label class="font-weight-bold text-dark fw-bold">Check Out</label>
 
                                      <input type="date" class="form-control" id="fechafin"  th:min="${now}" th:field="*{fechaFin}" placeholder="yyyy-MM-dd" required>
                                  </div>
@@ -55,7 +55,7 @@
 
                                      <div class="col-md-3 mb-3 mb-md-0">
 
-                                         <label class="font-weight-bold text-white fw-bold" th:text="#{text.index.personas}">Numeros de personas</label>
+                                         <label class="font-weight-bold text-dark fw-bold" th:text="#{text.index.personas}">Numeros de personas</label>
                                          <select name="" id="adultos" class="form-select mb-3" th:field="*{capacidad}" >
                                              <option th:value=1 th:text="1">1</option>
                                              <option th:value=2 th:text="2">2</option>
@@ -68,8 +68,12 @@
                                  </form>
                              </form>
                          </form>
-                         <div class="col-md-3 mt-sm-0 mt-md-4 mx-auto">
-                             <button type="submit" class="btn btn-primary btn-block text-white" th:text="#{text.index.buscar}">Buscar Hoteles</button>
+                         <div class="col-md-1 mt-sm-0 mt-md-4 mx-auto">
+                             <button type="submit" class="btn btn-dark btn-block">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                                 </svg>
+                             </button>
                          </div>
                      </div>
                  </div>

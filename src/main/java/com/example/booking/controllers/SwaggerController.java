@@ -100,6 +100,11 @@ public class SwaggerController {
         return usuarioRepository.save(usuario);
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/editar/usuario")
+    @ApiOperation(value = "Crear usuario")
+    public void editarUsuario(@RequestParam Integer idUsuario,@RequestBody Usuario usuario){
+        Usuario editarUsuario = new Usuario();
+    }
 
     // Métodos de Habitación.
     @RequestMapping(method = RequestMethod.GET, value = "/listarhab")
