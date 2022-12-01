@@ -1,9 +1,6 @@
 package com.example.booking;
 
-import com.example.booking.models.Habitacion;
-import com.example.booking.models.Hotel;
-import com.example.booking.models.Reserva;
-import com.example.booking.models.Usuario;
+import com.example.booking.models.*;
 import com.example.booking.repository.HotelRepository;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +94,22 @@ public class CreacionObjetosFaker {
             usuarioLista.add(usuariofaker);
         }
             return  usuarioLista;
+    }
+
+    public List<Pago> fakerPago(Integer numero){
+        Reserva reserva = new Reserva();
+        Usuario usuario = new Usuario();
+
+        List<Pago>  pagosLista = new ArrayList<>();
+
+        for (int i=0; i<numero; i++){
+            Pago pagofaker = new Pago();
+            pagofaker.setId(faker.number().randomDigit());
+            pagofaker.setId_reserva(reserva);
+            pagofaker.setId_usuario(usuario);
+            pagosLista.add(pagofaker);
+        }
+        return  pagosLista;
     }
 
 }
