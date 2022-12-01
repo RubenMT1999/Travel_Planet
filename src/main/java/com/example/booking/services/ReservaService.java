@@ -40,8 +40,7 @@ public class ReservaService {
 
     public Reserva obtenerDetallesReserva(Integer idReserva){return reservaRepository.findById(idReserva).orElse(null);}
 
-    public Reserva cancelarReserva( Reserva reserva){ reservaRepository.delete(reserva);
-        return null;
+    public void cancelarReserva( Reserva reserva){ reservaRepository.delete(reserva);
     }
 
     public void editarPagado(Boolean pagado, Integer id_habitacion){ reservaRepository.editarPagado(pagado, id_habitacion);}
