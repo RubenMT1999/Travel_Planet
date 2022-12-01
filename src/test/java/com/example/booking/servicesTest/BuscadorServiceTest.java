@@ -70,12 +70,13 @@ class BuscadorServiceTest {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaInicio = formato.parse("2022-12-1");
         Date fecha_Fin = formato.parse("2022-12-12");
-//        Date inicio = formato.parse("2020-11-30");
-//        Date fin = formato.parse("2020-12-11");
+        Date inicio = formato.parse("2020-11-30");
+        Date fin = formato.parse("2020-12-11");
         when(hotelRepository.buscadortest("Sevilla", fechaInicio, fecha_Fin, 2)).thenReturn(hotelbusqueda);
         List<Hotel> busqueda = hotelService.buscartest("Sevilla", fechaInicio, fecha_Fin, 2);
+        List<Hotel> busquedanull = hotelService.buscartest("Sevilla", inicio, fin, 2);
         assertEquals(busqueda.size(), 10 );
-//        assertNotNull(hotelService.buscartest("Sevilla", inicio, fin, 2));
+        assertEquals(busquedanull.size(), 0 );
     }
 
 }

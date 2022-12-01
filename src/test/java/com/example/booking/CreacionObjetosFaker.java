@@ -46,7 +46,7 @@ public class CreacionObjetosFaker {
     }
 
     public Hotel fakerunhotel() throws ParseException {
-        Usuario usuario = fakerunUsuario();
+        Usuario usuario = new Usuario();
             Hotel hotelfaker = new Hotel();
             hotelfaker.setId(faker.number().numberBetween(1,100));
             hotelfaker.setCiudad("Sevilla");
@@ -104,29 +104,10 @@ public class CreacionObjetosFaker {
         }
         return misHabitaciones;
     }
-    public Usuario fakerunUsuario() throws ParseException {
-        Set<Hotel> hotel = new HashSet<>();
-        List<Reserva> reserva = new ArrayList<>();
-            Usuario usuariofaker = new Usuario();
-            usuariofaker.setNombre(faker.artist().name());
-            usuariofaker.setApellidos(faker.artist().name());
-            usuariofaker.setRegistrado(faker.bool().bool());
-            usuariofaker.setTelefono(faker.number().digit());
-            usuariofaker.setEmail(faker.superhero()+"@gmail.com");
-            usuariofaker.setContrasenia("1234");
-            usuariofaker.setDescuento(faker.number().randomDigit());
-            usuariofaker.setDni(String.valueOf(faker.number().numberBetween(9,9)));
-            usuariofaker.setEsHotelero(faker.bool().bool());
-            usuariofaker.setFechaNacimiento(faker.date().birthday());
-            usuariofaker.setNacionalidad(faker.country().name());
-            usuariofaker.setHoteles(hotel);
-            usuariofaker.setReservas(reserva);
-        return  usuariofaker;
-    }
 
     public List<Reserva> fakerReserva() throws ParseException {
         Reserva reserva = new Reserva();
-       Usuario usuario = fakerunUsuario();
+       Usuario usuario = new Usuario();
 
         List<Reserva> reservas = new ArrayList<>();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
