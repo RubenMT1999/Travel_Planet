@@ -99,14 +99,14 @@ public class TarifaServiceTest {
     @DisplayName("Test 5 -> TarifaService -> modificarPension()")
     void modificarPension(){
         doAnswer(i->{
-            verify(tarifaRepository,times(1)).guardarPension(3,8.50,7);
+            verify(tarifaRepository,times(1)).modificarPension(3.00,8,7);
             assertNotNull(i.getArgument(0));
             assertNotNull(i.getArgument(1));
             assertNotNull(i.getArgument(2));
             return null;
-        }).when(tarifaRepository).guardarPension(any(Integer.class),any(Double.class),any(Integer.class));
+        }).when(tarifaRepository).modificarPension(any(Double.class),any(Integer.class),any(Integer.class));
 
-        tarifaService.guardarPension(3,8.50,7);
+        tarifaService.modificarPension(3.00,8,7);
 
     }
 
