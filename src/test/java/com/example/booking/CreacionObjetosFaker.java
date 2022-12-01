@@ -92,10 +92,9 @@ public class CreacionObjetosFaker {
     }
 
     public List<Hotel> fakerHotelBusqueda() throws ParseException {
-//        List<Hotel> hotelesCreado = fakerHotel(10, 10);
-//        List<Habitacion> habitacionCreado = fakerHabitaciones(10,10);
+
         List<Hotel> hoteles = new ArrayList<>();
-        List<Reserva> reservaCreada = fakerReserva();
+        List<Reserva> reservaCreada = fakerReservas(2);
         for(Reserva r: reservaCreada){
             Habitacion habitacion = r.getHabitacion();
             habitacion.setReserva(reservaCreada);
@@ -119,7 +118,7 @@ public class CreacionObjetosFaker {
             reserva.setFechaInicio(faker.date().past(2,TimeUnit.DAYS));
             reserva.setPrecio_total((double) faker.number().numberBetween(50, 400));
             misReservas.add(reserva);
-            habitacion.setReserva(new HashSet<>(misReservas));
+            habitacion.setReserva(new ArrayList<>(misReservas));
             usuario.setReservas(new HashSet<>(misReservas));
         }
         return misReservas;

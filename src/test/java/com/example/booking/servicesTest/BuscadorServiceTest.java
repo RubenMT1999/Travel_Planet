@@ -75,8 +75,8 @@ class BuscadorServiceTest {
         when(hotelRepository.buscadortest("Sevilla", fechaInicio, fecha_Fin, 2)).thenReturn(hotelbusqueda);
         List<Hotel> busqueda = hotelService.buscartest("Sevilla", fechaInicio, fecha_Fin, 2);
         List<Hotel> busquedanull = hotelService.buscartest("Sevilla", inicio, fin, 2);
-        assertEquals(busqueda.size(), 10 );
-        assertEquals(busquedanull.size(), 0 );
+        assertEquals(busqueda.size(), 3);
+        assertEquals(busquedanull.size(), 0);
     }
 
 }
