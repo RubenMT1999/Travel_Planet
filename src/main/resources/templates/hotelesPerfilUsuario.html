@@ -86,12 +86,11 @@
 
 
 
-                <h2 class="accordion-header" id="headingOne">
+                <h2 class="accordion-header" th:id="${hotel.getId()}">
                   <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:text="${hotel.nombre}">
-
                   </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div id="collapseOne" class="accordion-collapse collapse" th:label="${hotel.getId()}"  data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <div>
                       <span th:text="${hotel.ciudad}" class="fs-5 fw-semibold"></span>
