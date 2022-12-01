@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -431,6 +432,27 @@ import java.util.concurrent.TimeUnit;
            session.setAttribute("precioPension",precioPension);
 
             return "redirect:/reserva/crear/"+idHabitacion;
+        }
+
+        //Tarea automatizada con Scheduled. Cuando la fecha fin de reserva de una habitación
+        //sobrepase la fecha actual, la habitación debe pasar a estar libre.
+        //Se ejecuta a las 10:15 AM cada día.
+        @Scheduled(cron = "0 15 10 ? * *")
+        public void cambiarEstadoHabitacion(){
+            List<Reserva> totalReservas = reservaService.listar();
+            Date date = java.sql.Date.valueOf(LocalDate.now());
+
+            for (Reserva reserva:totalReservas) {
+                if (reserva.getFechaFin().before(date) && !reserva.getHabitacion().getDisponibilidad()){
+                    reserva.getHabitacion().setDisponibilidad(true);
+                    habitacionService.editarDisponibilidad(true,reserva.getHabitacion().getId());
+                    System.out.println(reserva);
+
+                }
+            }
+
+
+
         }
 
 

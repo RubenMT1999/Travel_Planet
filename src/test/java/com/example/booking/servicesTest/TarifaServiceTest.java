@@ -95,19 +95,19 @@ public class TarifaServiceTest {
     }
 
 
-    @Test
-    @DisplayName("Test 5 -> TarifaService -> modificarPension()")
-    void modificarPension(){
-        doAnswer(i->{
-            verify(tarifaRepository,times(1)).modificarPension(3.00,8,7);
-            assertNotNull(i.getArgument(0));
-            assertNotNull(i.getArgument(1));
-            assertNotNull(i.getArgument(2));
-            return null;
-        }).when(tarifaRepository).modificarPension(any(Double.class),any(Integer.class),any(Integer.class));
-
-        tarifaService.modificarPension(3.00,8,7);
-
-    }
+//    @Test
+//    @DisplayName("Test 5 -> TarifaService -> modificarPension()")
+//    void modificarPension(){
+//        doAnswer(i->{
+//            verify(tarifaRepository,times(1)).modificarPension(3.00,8,7);
+//            assertNotNull(i.getArgument(0));
+//            assertNotNull(i.getArgument(1));
+//            assertNotNull(i.getArgument(2));
+//            return null;
+//        }).when(tarifaRepository).modificarPension(any(Double.class),any(Integer.class),any(Integer.class));
+//
+//        tarifaService.modificarPension(3.00,8,7);
+//
+//    }
 
 }
