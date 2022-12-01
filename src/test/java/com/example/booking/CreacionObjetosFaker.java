@@ -112,6 +112,22 @@ public class CreacionObjetosFaker {
         return  pagosLista;
     }
 
+    public List<PensionHotel> fakerPension(Integer numero){
+        EPension ePension = EPension.PensionCompleta;
+        Tarifa tarifa = new Tarifa();
+        List<PensionHotel> pensionHotels = new ArrayList<>();
+
+        for (int i=0; i<numero; i++){
+            PensionHotel pensionfaker = new PensionHotel();
+            pensionfaker.setPension(ePension);
+            pensionfaker.setTarifa(tarifa);
+            pensionfaker.setId(faker.number().randomDigit());
+            pensionfaker.setPrecio(Double.valueOf(faker.number().digit()));
+            pensionHotels.add(pensionfaker);
+        }
+        return  pensionHotels;
+    }
+
 }
 
 
