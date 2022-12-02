@@ -89,9 +89,13 @@ public class PerfilUsuarioController {
         Usuario editarPerfilUsuario = usuarioService.datosUsuario(auth.getName());
         usuario.setId(editarPerfilUsuario.getId());
 
-        if (usuario.getContrasenia() == null){
-            usuario.setContrasenia(editarPerfilUsuario.getContrasenia());
-        }
+        if (usuario.getContrasenia().isBlank()){usuario.setContrasenia(editarPerfilUsuario.getContrasenia());}
+        if (usuario.getNombre().isBlank()){usuario.setNombre(editarPerfilUsuario.getNombre());}
+        if (usuario.getApellidos().isBlank()){ usuario.setApellidos(editarPerfilUsuario.getApellidos()); }
+        if (usuario.getFechaNacimiento() == null){ usuario.setFechaNacimiento(editarPerfilUsuario.getFechaNacimiento());}
+        if (usuario.getDni().isBlank()){usuario.setDni(editarPerfilUsuario.getDni());}
+        if (usuario.getTelefono().isBlank()){usuario.setTelefono(editarPerfilUsuario.getTelefono());}
+        if (usuario.getNacionalidad().isBlank()){usuario.setNacionalidad(editarPerfilUsuario.getNacionalidad());}
 
         String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);

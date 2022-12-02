@@ -26,6 +26,7 @@
                         </div>
                         <div class="card-body" >
                             <p class="card-text" th:text="${habitacion.descripcion}"></p>
+                            <p class="card-text" th:text="'Capacidad : ' + ${habitacion.capacidad}"></p>
 
                             <div>
                                 <span class="badge text-bg-primary"  th:if="${habitacion.wifi}">Wifi</span>
