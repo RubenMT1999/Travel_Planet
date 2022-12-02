@@ -80,18 +80,17 @@
         <div class="row">
 
           <div class="col">
-
             <div class="accordion" id="accordionExample" th:each="hotel :${hotelesUsuario}">
               <div class="accordion-item mt-4" >
 
 
 
                 <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" th:text="${hotel.nombre}">
+                  <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#id'+${hotel.getId()}" aria-expanded="true" aria-controls="1" th:text="${hotel.nombre}">
 
                   </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div  th:id="'id'+${hotel.getId()}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <div>
                       <span th:text="${hotel.ciudad}" class="fs-5 fw-semibold"></span>
@@ -101,7 +100,12 @@
                     </div>
                     <div class="row">
                       <div class="col">
-                        <div class="g-col-4 mt-2"><span class="fw-semibold">Estrellas :  </span> <span th:text="${hotel.estrellas}"></span></div>
+                        <div th:if="${hotel.estrellas == 1}" class="g-col-4 mt-2"><span class="fw-semibold">Estrellas: ⭐</span> </div>
+                        <div th:if="${hotel.estrellas == 2}" class="g-col-4 mt-2"><span class="fw-semibold">Estrellas: ⭐⭐</span> </div>
+                        <div th:if="${hotel.estrellas == 3}" class="g-col-4 mt-2"><span class="fw-semibold">Estrellas: ⭐⭐⭐</span> </div>
+                        <div th:if="${hotel.estrellas == 4}" class="g-col-4 mt-2"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐</span> </div>
+                        <div th:if="${hotel.estrellas == 5}" class="g-col-4 mt-2"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐⭐</span> </div>
+
 
                       </div>
                     </div>
