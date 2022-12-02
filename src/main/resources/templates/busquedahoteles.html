@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
-                <div class="sticky-top mt-3">
+                <div class="sticky-top mt-3" style="top: 30px">
                     <div class="card mb-3" style="max-width: 100%;" >
                         <form action="#" th:action="@{/hoteles/listarfiltro}" th:object="${habitacion}" method="get">
                             <div class="card text-center">
@@ -133,9 +133,11 @@
                             <h5 class="card-title">Estrellas: <span th:text="${hoteles.getEstrellas()}"></span></h5>
 
                             <p class="card-text "><span th:text="${hoteles.ciudad}"></span>, <span th:text="${hoteles.lugar}"></span></p>
-                            <p class="card-text "><span th:text="${hoteles.precio} + '€'"></span></p>
-                            <div class="card-body">
-                                <a th:href="@{'/hoteles/habitacion/' + ${hoteles.id}}" class="btn btn-primary">Ver disponibilidad</a>
+                            <p class="card-text "><span th:text="${hoteles.comentario}"></span></p>
+
+                            <p class="card-text "><span th:text="'Precio medio de las Habitaciones :  ' + ${hoteles.precio} + '€'"></span></p>
+                            <div class="card-body clearfix" style="margin-left: -40px; margin-top: 20px">
+                                <a th:href="@{'/hoteles/habitacion/' + ${hoteles.id}}" class="btn btn-primary float-end">Ver disponibilidad</a>
                             </div>
 
                         </div>
