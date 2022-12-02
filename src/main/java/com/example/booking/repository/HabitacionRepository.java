@@ -28,8 +28,8 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
 
     @Transactional
     @Modifying
-    @Query(value = "insert into habitacion (id_hotel, num_habitacion, ext_telefonica, capacidad,imagen, descripcion, precio_base,caja_fuerte,cocina,banio_privado,aire_acondicionado,tv,terraza,wifi,disponibilidad)" +
-            " values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14, ?15)",nativeQuery = true )
+    @Query(value = "insert into habitacion (id_hotel, num_habitacion, ext_telefonica, capacidad,imagen, descripcion, precio_base,caja_fuerte,cocina,banio_privado,aire_acondicionado,tv,terraza,wifi)" +
+            " values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14)",nativeQuery = true )
     void guardarPersonalizado(@Param("id_hotel") Integer idHotel, @Param("num_habitacion") Integer numHab,
                               @Param("ext_telefonica") String extTelefonica, @Param("capacidad") Integer capacidad
                     , @Param("imagen") String imagen, @Param("descripcion") String descripcion, @Param("precioBase") Double precioBase,
