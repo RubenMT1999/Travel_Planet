@@ -41,7 +41,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
             "telefono = :telefono WHERE id = :id")
      void editarUsuario(String nombre, String apellidos, String contrasenia,
                         Date fechaNacimiento, String dni, String nacionalidad,
-                        Integer id);
+                        Integer id, String telefono);
 
     @Transactional
     @Modifying
