@@ -121,9 +121,15 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <form th:action="@{/perfil/datos}" th:object="${getAdmin}" method="post">
-                        <button type="submit" class="btn btn-primary">Sí, estoy seguro</button>
-                    </form>
-
+                        <form id="logoutForm" th:action="@{/logout}" method="post">
+                            <button class="dropdown-item"
+                                    onclick="document.getElementById('logoutForm').submit();"
+                                    type="submit">Si Sesión</button>
+<!--                        </form>-->
+<!--                        <button type="submit" class="btn btn-primary" >Sí, estoy seguro</button>-->
+<!--                    </form>-->
+                        </form>
+                        </form>
                 </div>
             </div>
         </div>
