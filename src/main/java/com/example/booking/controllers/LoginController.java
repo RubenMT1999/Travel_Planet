@@ -28,7 +28,6 @@ public class LoginController {
         //para que no nos muestre otra vez el login hacemos esto.
         if(principal != null){
             flash.addAttribute("info","Ya ha iniciado sesión anteriormente");
-
             return "redirect:/";
         }
 
