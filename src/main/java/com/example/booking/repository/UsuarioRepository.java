@@ -10,9 +10,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transaction;
 import java.util.Date;
 
 @Repository
@@ -43,8 +40,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
             "fechaNacimiento = :fechaNacimiento, dni = :dni, nacionalidad = :nacionalidad," +
             "telefono = :telefono WHERE id = :id")
      void editarUsuario(String nombre, String apellidos, String contrasenia,
-                          Date fechaNacimiento, String dni, String nacionalidad,
-                          String telefono,Integer id);
+                        Date fechaNacimiento, String dni, String nacionalidad,
+                        Integer id);
 
     @Transactional
     @Modifying

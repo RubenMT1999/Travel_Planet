@@ -10,9 +10,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.HashSet;
 import java.util.*;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.Set;
 
 @Component
 public class CreacionObjetosFaker {
@@ -146,6 +148,64 @@ public class CreacionObjetosFaker {
             hotel.setTarifa(tarifa);
         }
         return misTarifas;
+    }
+
+    public List<Usuario> fakerUsuario(Integer numero){
+        Set<Hotel> hotel = new HashSet<>();
+        Set<Reserva> reserva = new HashSet<>();
+        List<Usuario> usuarioLista = new ArrayList<>();
+
+        for (int i=0; i<numero; i++){
+            Usuario usuariofaker = new Usuario();
+            usuariofaker.setId(numero);
+            usuariofaker.setNombre(faker.artist().name());
+            usuariofaker.setApellidos(faker.artist().name());
+            usuariofaker.setRegistrado(faker.bool().bool());
+            usuariofaker.setTelefono(faker.number().digit());
+            usuariofaker.setEmail(faker.superhero()+"@gmail.com");
+            usuariofaker.setContrasenia("1234");
+            usuariofaker.setDescuento(faker.number().randomDigit());
+            usuariofaker.setDni(String.valueOf(faker.number().numberBetween(9,9)));
+            usuariofaker.setEsHotelero(faker.bool().bool());
+            usuariofaker.setFechaNacimiento(faker.date().birthday());
+            usuariofaker.setNacionalidad(faker.country().name());
+            usuariofaker.setHoteles(hotel);
+            usuariofaker.setReservas(reserva);
+            usuarioLista.add(usuariofaker);
+        }
+            return  usuarioLista;
+    }
+
+    public List<Pago> fakerPago(Integer numero){
+        Reserva reserva = new Reserva();
+        Usuario usuario = new Usuario();
+
+        List<Pago>  pagosLista = new ArrayList<>();
+
+        for (int i=0; i<numero; i++){
+            Pago pagofaker = new Pago();
+            pagofaker.setId(faker.number().randomDigit());
+            pagofaker.setId_reserva(reserva);
+            pagofaker.setId_usuario(usuario);
+            pagosLista.add(pagofaker);
+        }
+        return  pagosLista;
+    }
+
+    public List<PensionHotel> fakerPension(Integer numero){
+        EPension ePension = EPension.PensionCompleta;
+        Tarifa tarifa = new Tarifa();
+        List<PensionHotel> pensionHotels = new ArrayList<>();
+
+        for (int i=0; i<numero; i++){
+            PensionHotel pensionfaker = new PensionHotel();
+            pensionfaker.setPension(ePension);
+            pensionfaker.setTarifa(tarifa);
+            pensionfaker.setId(faker.number().randomDigit());
+            pensionfaker.setPrecio(Double.valueOf(faker.number().digit()));
+            pensionHotels.add(pensionfaker);
+        }
+        return  pensionHotels;
     }
 
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
@@ -41,7 +40,7 @@ public class UsuarioService{
 
     public void editarUsuario(String nombre, String apellidos, String contrasenia, Date fechaNacimiento,
                           String dni, String nacionalidad, String telefono, Integer id){
-        usuarioRepository.editarUsuario(nombre, apellidos, contrasenia, fechaNacimiento, dni, nacionalidad, telefono, id);
+        usuarioRepository.editarUsuario(nombre, apellidos, contrasenia, fechaNacimiento, dni, nacionalidad, id);
     }
 
     public void borrarUsuario(Usuario usuario){ usuarioRepository.delete(usuario); }
