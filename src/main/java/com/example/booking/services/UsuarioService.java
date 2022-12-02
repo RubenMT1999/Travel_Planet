@@ -40,7 +40,7 @@ public class UsuarioService{
 
     public void editarUsuario(String nombre, String apellidos, String contrasenia, Date fechaNacimiento,
                           String dni, String nacionalidad, String telefono, Integer id){
-        usuarioRepository.editarUsuario(nombre, apellidos, contrasenia, fechaNacimiento, dni, nacionalidad, id);
+        usuarioRepository.editarUsuario(nombre, apellidos, contrasenia, fechaNacimiento, dni, nacionalidad,telefono, id);
     }
 
     public void borrarUsuario(Usuario usuario){ usuarioRepository.delete(usuario); }

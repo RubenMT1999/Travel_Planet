@@ -222,12 +222,19 @@ import java.util.concurrent.TimeUnit;
         public String mostrarHotelNuevo(Model model){
         Hotel hotel = new Hotel();
         model.addAttribute("hotel",hotel);
+        model.addAttribute("titulo","Nuevo Hotel");
             return "hotelNuevo";
 
         }
 
         @PostMapping("/hoteles/nuevo")
-        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
+        public String hotelNuevo(@Valid @ModelAttribute("hotel") Hotel hotel,BindingResult result,Model model, Authentication auth, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
+
+            if (result.hasErrors()) {
+                model.addAttribute("titulo", "Ha habido algún error");
+                return "/hoteles/nuevo";
+            }
+
         hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
             if(imagen.isEmpty()){
                 hotel.setImagen("https://t3.ftcdn.net/jpg/01/06/85/86/360_F_106858608_EuOWeiATyMOD6b9cXNzcJDSZufLbojQs.jpg");

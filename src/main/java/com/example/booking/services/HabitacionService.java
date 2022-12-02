@@ -57,7 +57,7 @@ public class HabitacionService {
 
 
     public void cargarImagen(MultipartFile imagen, RedirectAttributes flash, Habitacion habitacion){
-        if(!imagen.isEmpty()){
+        if(!imagen.isEmpty() && (imagen.getOriginalFilename().endsWith(".jpg") || imagen.getOriginalFilename().endsWith(".png"))){
 
             String uniqueFilename = UUID.randomUUID().toString()+ "_" +imagen.getOriginalFilename();
             //Path relativo al proyecto
@@ -75,7 +75,12 @@ public class HabitacionService {
             }
         }
 
-        if(imagen.isEmpty()){
+        Boolean prueba = false;
+        if (imagen.getOriginalFilename().endsWith(".jpg") || imagen.getOriginalFilename().endsWith(".png")){
+            prueba = true;
+        }
+
+        if(imagen.isEmpty() || prueba==false){
             habitacion.setImagen("https://t3.ftcdn.net/jpg/01/06/85/86/360_F_106858608_EuOWeiATyMOD6b9cXNzcJDSZufLbojQs.jpg");
         }
     }
