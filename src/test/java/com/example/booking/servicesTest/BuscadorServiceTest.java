@@ -27,7 +27,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,70 +48,35 @@ import static org.mockito.Mockito.*;
 //        "spring.jpa.properties.hibernate.default_schema=",
 //        "spring.jpa.hibernate.ddl-auto=update"
 //})
-class HotelServiceTest {
-
+class BuscadorServiceTest {
     @Mock
     private HotelRepository hotelRepository;
 
     @InjectMocks
     private HotelService hotelService;
 
-    public static List<Hotel> hotel;
+    public static List<Hotel> hotelbusqueda;
 
 
     @BeforeAll
-    public static void cargarDatos(){
-         hotel = new CreacionObjetosFaker().fakerHotel(16, 3);
-    }
+    public static void cargarDatos() throws ParseException {
 
-
-
-    @Test
-    @DisplayName("Test 1 -> HotelService -> obtenerHoteldeUsuario(idUsuario)")
-    void listarHotel() {
-        when(hotelRepository.obtenerHoteldeUsuario(3)).thenReturn(hotel);
-        List<Hotel> comprobarHotel = hotelService.obtenerHoteldeUsuario(3);
-        assertNotNull(hotelService.obtenerHoteldeUsuario(3));
-        assertEquals(hotel,comprobarHotel);
+        hotelbusqueda = new CreacionObjetosFaker().fakerHotelBusqueda();
     }
 
     @Test
-    @DisplayName("Test 2 -> HotelService -> findById()")
-    void findById(){
-        when(hotelRepository.findById(10)).thenReturn(Optional.ofNullable(hotel.get(0)));
-        Hotel hotelPrueba = hotelService.findById(10);
-        assertEquals(hotelPrueba,hotel.get(0));
-    }
-
-    @Test
-    @DisplayName("Test 3 -> HotelService -> guardarHotel(Hotel)")
-    void guardarHotel(){
-        Hotel hotelguardar = new Hotel();
-        hotelguardar.setLugar(hotel.get(2).getLugar());
-        doAnswer(i->{
-            Hotel arg0 = i.getArgument(0);
-            assertEquals(Hotel.class,arg0.getClass());
-            assertEquals(hotelguardar.getLugar(), arg0.getLugar());
-            assertNotNull(arg0);
-            return null;
-        }).when(hotelRepository).save(any(Hotel.class));
-        hotelService.guardarHotel(hotel.get(2));
-    }
-    @Test
-    @DisplayName("Test 4 -> HotelService -> borrarHotel(Hotel)")
-    void borrarHotel(){
-        when(hotelRepository.findById(5)).thenReturn(Optional.ofNullable(hotel.get(0)));
-        Hotel buscar = hotelService.findById(5);
-        hotelService.hotelEliminar(16);
-        Hotel hotelPrueba = hotelService.findById(16);
-        assertNull(hotelPrueba);
+    @DisplayName("Test 1 -> HotelService -> obtenerHotelBusqueda(Ciudad, Fecha inicio, Fecha Fin, Capacidad)")
+    void listarHotelBusqueda() throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaInicio = formato.parse("2022-12-1");
+        Date fecha_Fin = formato.parse("2022-12-12");
+        Date inicio = formato.parse("2020-11-30");
+        Date fin = formato.parse("2020-12-11");
+        when(hotelRepository.buscadortest("Sevilla", fechaInicio, fecha_Fin, 2)).thenReturn(hotelbusqueda);
+        List<Hotel> busqueda = hotelService.buscartest("Sevilla", fechaInicio, fecha_Fin, 2);
+        List<Hotel> busquedanull = hotelService.buscartest("Sevilla", inicio, fin, 2);
+        assertEquals(busqueda.size(), 3);
+        assertEquals(busquedanull.size(), 0);
     }
 
 }
-
-
-
-
-
-
-

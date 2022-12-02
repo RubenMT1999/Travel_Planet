@@ -33,11 +33,10 @@
                             <span sec:authentication="name"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <span class="dropdown-item-text" sec:authentication="name"></span>
-                            <span class="dropdown-item-text" sec:authentication="principal.authorities"></span>
-                            <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/perfil/datos}">Mi Perfil</a>
-                            <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/reserva/ver}">Mis reservas</a>
-                            <a class="dropdown-item-text text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/hoteles/verHotelesUsuarios}">Mis hoteles</a>
+                            <a class="dropdown-item text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/perfil/datos}">Mi Perfil</a>
+                            <a class="dropdown-item text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/perfil/mis-reservas}">Mis reservas</a>
+                            <a class="dropdown-item text-decoration-none" sec:authorize="isAuthenticated()" th:href="@{/perfil/mis-hoteles}">Mis hoteles</a>
+                            <hr>
                             <form id="logoutForm" th:action="@{/logout}" method="post">
                                 <button class="dropdown-item"
                                         onclick="document.getElementById('logoutForm').submit();"

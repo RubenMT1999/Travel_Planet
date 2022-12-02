@@ -9,152 +9,130 @@
 <body>
 <header th:replace="header/header :: header"></header>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6 cl-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center">Precio de los extras</h1>
-            <div class="card-body">
-                <form th:action="@{/tarifa/nuevo}" th:object="${tarifa}" method="POST", enctype="multipart/form-data">
-                    <div class="form-group">
-                        <input type="hidden" name="id_hotel" th:value="${id_hotel}">
-                        <br>
-                        <label>Wifi: </label>
-                        <input type="number" name="precio_wifi" th:field="*{precioWifi}" class="form-control" placeholder="Ponga aquí precio por tener wifi" required>
-                        <br>
-                        <label>Caja Fuerte: </label>
-                        <input type="number" name="precio_caja_fuerte" th:field="*{precioCajaFuerte}" class="form-control" placeholder="Ponga aquí precio por tener caja fuerte" required>
-                        <br>
-                        <label>Cocina: </label>
-                        <input type="number" name="precio_cocina" th:field="*{precioCocina}" class="form-control" placeholder="Ponga aquí precio por tener cocina" required>
-                        <br>
-                        <label>Aire Acondicionado: </label>
-                        <input type="number" name="precio_aire" th:field="*{precioAire}" class="form-control" placeholder="Ponga aquí precio por tener aire acondicionado" required>
-                        <br>
-                        <label>Televisión: </label>
-                        <input type="number" name="preciotv" th:field="*{precioTV}" class="form-control" placeholder="Ponga aquí precio por tener televisión" required>
-                        <br>
-                        <label>Terraza: </label>
-                        <input type="number" name="precio_terraza" th:field="*{precioTerraza}" class="form-control" placeholder="Ponga aquí precio por tener terraza" required>
-                        <br>
-                        <label>Baño: </label>
-                        <input type="number" name="precio_banio" th:field="*{precioBanio}" class="form-control" placeholder="Ponga aquí precio por tener baño privado" required>
-                        <br>
+    <div class="container-fluid p-5">
+        <form th:action="@{/tarifa/nuevo}" th:object="${tarifa}" method="POST" enctype="multipart/form-data">
+
+            <div class="row bg-light justify-content-evenly">
+
+                <form class="form-group">
+                    <div class="col-md-4 col card">
+                        <h1 class="text-center fs-4 mt-4">Precio de los extras</h1>
+                        <div class="card-body">
+
+                            <input type="hidden" name="id_hotel" th:value="${id_hotel}">
+                            <label for="wifi">Wifi: </label>
+                            <input type="number" id="wifi" name="precio_wifi" th:field="*{precioWifi}" class="form-control" placeholder="Ponga aquí precio por tener wifi" required>
+
+                            <label for="caja-fuerte" class="mt-2">Caja Fuerte: </label>
+                            <input type="number" id="caja-fuerte" name="precio_caja_fuerte" th:field="*{precioCajaFuerte}" class="form-control" placeholder="Ponga aquí precio por tener caja fuerte" required>
+
+                            <label for="cocina" class="mt-2">Cocina: </label>
+                            <input type="number" id="cocina" name="precio_cocina" th:field="*{precioCocina}" class="form-control" placeholder="Ponga aquí precio por tener cocina" required>
+
+                            <label for="aire" class="mt-2">Aire Acondicionado: </label>
+                            <input type="number" id="aire" name="precio_aire" th:field="*{precioAire}" class="form-control" placeholder="Ponga aquí precio por tener aire acondicionado" required>
+
+                            <label for="tv" class="mt-2">Televisión: </label>
+                            <input type="number" id="tv" name="preciotv" th:field="*{precioTV}" class="form-control" placeholder="Ponga aquí precio por tener televisión" required>
+
+                            <label for="terraza" class="mt-2">Terraza: </label>
+                            <input type="number" id="terraza" name="precio_terraza" th:field="*{precioTerraza}" class="form-control" placeholder="Ponga aquí precio por tener terraza" required>
+
+                            <label for="wc" class="mt-2">Baño: </label>
+                            <input type="number" id="wc" name="precio_banio" th:field="*{precioBanio}" class="form-control" placeholder="Ponga aquí precio por tener baño privado" required>
+
+                        </div>
                     </div>
-                    <div>
-                        <br>
-                    <h1 class="text-center">Precio de las pensiones</h1>
-                        <br>
-
-
-                        <p>Alojamiento y Desayuno</p>
-                        <input type="number" name="precio_completa"  class="form-control" placeholder="Ponga aquí precio" required>
-                    <br>
-                        <p>Media Pensión</p>
-                        <input type="number" name="precio_media_pension"  class="form-control" placeholder="Ponga aquí precio" required>
-                    <br>
-                        <p>Pensión Completa</p>
-                        <input type="number" name="precio_desayuno"  class="form-control" placeholder="Ponga aquí precio" required>
-                    <br>
-                         <p>Todo Incluido</p>
-                        <input type="number" name="precio_ninguna"  class="form-control" placeholder="Ponga aquí precio" required>
-
+                    <div class="col-md-4 col card">
+                        <h1 class="text-center mt-4 fs-4">Precio de las pensiones</h1>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="desayuno" class="mt-2">Alojamiento y Desayuno</label>
+                                    <input type="number" id="desayuno" name="precio_completa"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="media-pension" class="mt-2">Media Pensión</label>
+                                    <input type="number" id="media-pension" name="precio_media_pension"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="pension-completa" class="mt-2">Pensión Completa</label>
+                                    <input type="number" id="pension-completa" name="precio_desayuno"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="todo-incluido" class="mt-2">Todo Incluido</label>
+                                    <input type="number" id="todo-incluido" name="precio_ninguna"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                    <br>
-                    <h1 class="text-center">Precio de las temporadas</h1>
-                    <br>
-                    <h3>Alta</h3>
-                    <p>Inicio</p>
-                    <input type="Date" name="fecha_inicio_alta"  class="form-control"  required>
-                    <br>
-                    <p>Fin</p>
-                    <input type="Date" name="fecha_fin_alta"  class="form-control" required>
-                    <br>
-                    <p>Precio</p>
-                    <input type="number" name="precio_temporada_alta"  class="form-control" placeholder="Ponga aquí precio" required>
-                    <br>
-                    <h3>Media</h3>
-                    <p>Inicio</p>
-                    <input type="Date" name="fecha_inicio_media"  class="form-control"  required>
-                    <br>
-                    <p>Fin</p>
-                    <input type="Date" name="fecha_fin_media"  class="form-control" required>
-                    <br>
-                    <p>Precio</p>
-                    <input type="number" name="precio_temporada_media"  class="form-control" placeholder="Ponga aquí precio" required>
-                    <br>
-                    <h3>Baja</h3>
-                    <p>Inicio</p>
-                    <input type="Date" name="fecha_inicio_baja"  class="form-control"  required>
-                    <br>
-                    <p>Fin</p>
-                    <input type="Date" name="fecha_fin_baja"  class="form-control" required>
-                    <br>
-                    <p>Precio</p>
-                    <input type="number" name="precio_temporada_baja"  class="form-control" placeholder="Ponga aquí precio" required>
+                    <div class="col-md-4 col card">
+                        <h1 class="text-center fs-4 mt-4">Precio de las temporadas</h1>
+                        <div class="card-body">
+                            <div class="row mt-2">
+                                <p class="fs-6 fw-semibold">Alta</p>
+                                <div class="col-6">
+                                    <label for="alta-inicio" class="">Inicio</label>
+                                    <input type="Date" id="alta-inicio" name="fecha_inicio_alta"  class="form-control" >
+                                    <label for="alta-fin">Fin</label>
+                                    <input type="Date" id="alta-fin" name="fecha_fin_alta"  class="form-control" >
+                                </div>
+                                <div class="col-6">
+                                    <label for="precio-alta">Precio</label>
+                                    <input type="number" id="precio-alta" name="precio_temporada_alta"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
 
+                            <div class="row mt-4">
+                                <p class="fs-6 fw-semibold">Media</p>
+                                <div class="col-6">
+                                    <label for="media-inicio">Inicio</label>
+                                    <input type="Date" id="media-inicio" name="fecha_inicio_media"  class="form-control"  >
+                                    <label for="media-fin">Fin</label>
+                                    <input type="Date" id="media-fin" name="fecha_fin_media"  class="form-control" >
+                                </div>
+                                <div class="col-6">
+                                    <label for="precio-media">Precio</label>
+                                    <input type="number" id="precio-media" name="precio_temporada_media"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
 
-
-
-
-<!--                                            <div th:object="${pension1}">-->
-<!--                        <label>precio: </label>-->
-<!--                        <input type="number" name="precio1" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>-->
-<!--                        <br>-->
-<!--                        <label>tipo pension: </label>-->
-<!--                        <select name="pension1" th:field="*{pension}">-->
-<!--                            <option th:each="pension1 : ${T(com.example.booking.models.Pension).values()}"-->
-<!--                                    th:value="${pension1}" th:text="${pension1}"></option>-->
-<!--                        </select>-->
-<!--                        <br>-->
-<!--                    </div>-->
-<!--                    <div th:object="${pension2}">-->
-<!--                        <label>precio: </label>-->
-<!--                        <input type="number" name="precio2" th:field="*{precio}" th:value="pension2" class="form-control" placeholder="Ponga aquí precio" required>-->
-<!--                        <br>-->
-<!--                        <label>tipo pension: </label>-->
-<!--                        <select name="pension2" th:field="*{pension}">-->
-<!--                            <option th:each="pension2 : ${T(com.example.booking.models.Pension).values()}"-->
-<!--                                    th:value="${pension2}" th:text="${pension2}"></option>-->
-<!--                        </select>-->
-<!--                        <br>-->
-<!--                    </div>-->
-<!--                    <div th:object="${pension3}">-->
-<!--                        <label>precio: </label>-->
-<!--                        <input type="number" name="precio3" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>-->
-<!--                        <br>-->
-<!--                        <label>tipo pension: </label>-->
-<!--                        <select name="pension3" th:field="*{pension}">-->
-<!--                            <option th:each="pension3 : ${T(com.example.booking.models.Pension).values()}"-->
-<!--                                    th:value="${pension3}" th:text="${pension3}"></option>-->
-<!--                        </select>-->
-<!--                        <br>-->
-<!--                    </div>-->
-<!--                    <div th:object="${pension4}">-->
-<!--                        <label>precio: </label>-->
-<!--                        <input type="number" name="precio4" th:field="*{precio}" class="form-control" placeholder="Ponga aquí precio" required>-->
-<!--                        <br>-->
-<!--                        <label>tipo pension: </label>-->
-<!--                        <select name="pension4" th:field="*{pension}">-->
-<!--                            <option th:each="pension4 : ${T(com.example.booking.models.Pension).values()}"-->
-<!--                                    th:value="${pension4}" th:text="${pension4}"></option>-->
-<!--                        </select>-->
-<!--                        <br>-->
-                    </div>
-
-                    <br>
-                    <div class="box-footer">
-                        <button class="btn btn-success">Guardar</button>
-
+                            <div class="row mt-4">
+                                <p class="fs-5 fw-semibold">Baja</p>
+                                <div class="col-6">
+                                    <label for="baja-inicio">Inicio</label>
+                                    <input type="Date" id="baja-inicio" name="fecha_inicio_baja"  class="form-control"  >
+                                    <label for="baja-fin">Fin</label>
+                                    <input type="Date" id="baja-fin" name="fecha_fin_baja"  class="form-control" >
+                                </div>
+                                <div class="col-6">
+                                    <label for="precio-baja">Precio</label>
+                                    <input type="number" id="precio-baja" name="precio_temporada_baja"  class="form-control" placeholder="Ponga aquí precio" >
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
+
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+
             </div>
-        </div>
+
+
+
+        </form>
+
     </div>
-
-
-
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
