@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -56,7 +57,7 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/datos")
-    public String getAdminUser(Model model, Authentication auth){
+    public String getAdminUser(Model model, Authentication auth, Integer valor){
         auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario userAdmin = usuarioService.datosUsuario(auth.getName());
         UserAuth userIDAuth = usuarioService.getUserAuth(auth.getName());
@@ -68,7 +69,11 @@ public class PerfilUsuarioController {
 
             authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
             usuarioService.getRoleAdmin(authorities.getAuthority(), userIDAuth.getId());
+
+
+
         }
+
 
         model.addAttribute("getAdmin", userAdmin);
         return "redirect:/perfil/datos";
@@ -78,6 +83,8 @@ public class PerfilUsuarioController {
     public String editarPerfil(Model model, Authentication auth){
         auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario editarPerfilUsuario = usuarioService.datosUsuario(auth.getName());
+        LocalDate now = LocalDate.now();
+        model.addAttribute("now", now);
         model.addAttribute("editarPerfil", editarPerfilUsuario);
         model.addAttribute("titulo", "Editar Perfil");
         return "editarPerfilUsuario";
@@ -92,13 +99,10 @@ public class PerfilUsuarioController {
         if (usuario.getContrasenia() == null){
             usuario.setContrasenia(editarPerfilUsuario.getContrasenia());
         }
-
         String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);
-
         usuarioService.editarUsuario(usuario.getNombre(),usuario.getApellidos(),usuario.getContrasenia(),
                 usuario.getFechaNacimiento(),usuario.getDni(),usuario.getNacionalidad(),usuario.getTelefono(), usuario.getId());
-
         return "redirect:/perfil/datos";
     }
 

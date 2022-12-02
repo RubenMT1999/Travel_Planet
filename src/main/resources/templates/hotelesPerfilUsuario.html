@@ -86,7 +86,7 @@
 
 
                 <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#id'+${hotel.getId()}" aria-expanded="true" aria-controls="1" th:text="${hotel.nombre}">
+                  <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#id'+${hotel.getId()}" aria-expanded="false"  th:aria-controls="id+${hotel.getId()}" th:text="${hotel.nombre}">
 
                   </button>
                 </h2>
