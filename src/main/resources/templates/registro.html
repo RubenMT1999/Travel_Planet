@@ -12,6 +12,7 @@
 <body>
 <header th:replace="header/header :: header"></header>
 
+
 <div class="form-body">
   <div class="row">
     <div class="form-holder">
@@ -21,72 +22,70 @@
           <p>Rellena los datos de abajo.</p>
           <form th:action="@{/registrar}" th:object="${usuario}" method="post">
 
-            <div class="row">
+            <div th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="alert alert-danger"></div>
+            <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="alert alert-danger"></div>
+            <div th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" class="alert alert-danger"></div>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger"></div>
+            <div th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" class="alert alert-danger"></div>
+            <div th:if="${#fields.hasErrors('nacionalidad')}" th:errors="*{nacionalidad}" class="alert alert-danger"></div>
+            <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="alert alert-danger"></div>
+            <div th:if="${#fields.hasErrors('contrasenia')}" th:errors="*{contrasenia}" class="alert alert-danger"></div>
 
+            <div th:if="${errorCorreo != null}"  th:text="${errorCorreo}" class="alert alert-danger"></div>
+            <div th:if="${errorContrasenia != null}"  th:text="${errorContrasenia}" class="alert alert-danger"></div>
+
+
+            <div class="row">
               <div class="col-md-6 mt-2">
                 <label for="nombre-usuario">Nombre</label>
                 <input type="text" class="form-control" th:field="*{nombre}" id="nombre-usuario" required>
               </div>
-              <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="alert alert-danger"></div>
+
 
               <div class="col-md-6 mt-2">
                 <label for="apellido-usuario">Apellidos</label>
                 <input type="text" class="form-control"  th:field="*{apellidos}" id="apellido-usuario" required>
               </div>
-              <div th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" class="alert alert-danger"></div>
-
             </div>
 
             <div class="col-md-12 mt-2">
               <label for="email-usuario">Email</label>
               <input type="text" class="form-control" th:field="*{email}" id="email-usuario" required>
             </div>
-            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger"></div>
+
 
             <div class="row">
-
               <div class="col-md-6 mt-2">
                 <label for="fecha-usuario">Fecha de Nacimiento</label>
                 <input type="date" class="form-control" th:field="*{fechaNacimiento}" th:max="${maximo}" id="fecha-usuario" required>
               </div>
-              <div th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}" class="alert alert-danger"></div>
-
 
               <div class="col-md-6 mt-2">
                 <label for="nacionalidad-usuario">Nacionalidad</label>
                 <input type="text" class="form-control" th:field="*{nacionalidad}" id="nacionalidad-usuario" required>
               </div>
-              <div th:if="${#fields.hasErrors('nacionalidad')}" th:errors="*{nacionalidad}" class="alert alert-danger"></div>
-
             </div>
 
             <div class="row">
-
               <div class="col-md-6 mt-2">
                 <label for="telefono-usuario">Número de Teléfono</label>
                 <input type="text" class="form-control" th:field="*{telefono}" id="telefono-usuario" required>
               </div>
-              <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="alert alert-danger"></div>
-
               <div class="col-md-6 mt-2">
                 <label for="dni-usuario">DNI</label>
                 <input type="text" class="form-control" th:field="*{dni}" id="dni-usuario" required>
               </div>
-              <div th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="alert alert-danger"></div>
-
             </div>
 
             <div class="col-md-12 mt-2">
               <label for="contrasenia-usuario">Contraseña</label>
               <input type="password" class="form-control" th:field="*{contrasenia}" id="contrasenia-usuario" required>
             </div>
-            <div th:if="${#fields.hasErrors('contrasenia')}" th:errors="*{contrasenia}" class="alert alert-danger"></div>
 
             <div class="form-check mt-3">
               <input class="form-check-input" id="exampleCheck1" type="checkbox" value="" th:field="*{esHotelero}">
               <label class="form-check-label" for="exampleCheck1">Quiero registrar mi Hotel</label>
             </div>
-
 
             <div class="form-button mt-3">
               <button id="submit" type="submit" class="btn btn-primary mt-2">Registrarme</button>

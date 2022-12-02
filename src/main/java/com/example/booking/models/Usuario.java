@@ -3,13 +3,11 @@ package com.example.booking.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -27,9 +25,11 @@ public class Usuario {
     private Integer id;
 
     @NotEmpty
+    @Length(max = 15,message = "El nombre no puede tener más de 15 caracteres")
     private String nombre;
 
     @NotEmpty
+    @Length(max = 25, message = "Los apellidos no puede tener más de 25 caracteres")
     private String apellidos;
 
     @NotEmpty
@@ -43,6 +43,8 @@ public class Usuario {
     private Date fechaNacimiento;
 
     @NotEmpty
+    @Length(max = 9)
+    @Pattern(regexp = "[0-9]{7,8}[A-Za-z]",message = "Formato DNI incorrecto")
     private String dni;
 
     @NotEmpty

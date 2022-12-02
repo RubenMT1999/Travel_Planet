@@ -18,6 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -95,19 +99,33 @@ public class TarifaServiceTest {
     }
 
 
-//    @Test
-//    @DisplayName("Test 5 -> TarifaService -> modificarPension()")
-//    void modificarPension(){
-//        doAnswer(i->{
-//            verify(tarifaRepository,times(1)).modificarPension(3.00,8,7);
-//            assertNotNull(i.getArgument(0));
-//            assertNotNull(i.getArgument(1));
-//            assertNotNull(i.getArgument(2));
-//            return null;
-//        }).when(tarifaRepository).modificarPension(any(Double.class),any(Integer.class),any(Integer.class));
-//
-//        tarifaService.modificarPension(3.00,8,7);
-//
-//    }
+    @Test
+    @DisplayName("Test 5 -> TarifaService -> modificarPension()")
+    void modificarPension(){
+        doAnswer(i->{
+            verify(tarifaRepository,times(1)).modificarPension(3.00,8,7);
+            return null;
+        }).when(tarifaRepository).modificarPension(any(Double.class),any(Integer.class),any(Integer.class));
+
+        tarifaService.modificarPension(3.00,8,7);
+    }
+
+    @Test
+    @DisplayName("Test 6 -> TarifaService -> guardarTemporada()")
+     void guardarTemporada() throws ParseException {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha_inicio = format.parse("2001-06-08");
+        Date fecha_fin = format.parse("2002-09-08");
+
+        doAnswer(i->{
+            verify(tarifaRepository,times(1)).guardarTemporada(8,fecha_inicio,fecha_fin,6.09,8);
+            assertNotNull(i.getArguments());
+            return null;
+        }).when(tarifaRepository).guardarTemporada(any(Integer.class),any(Date.class),any(Date.class),any(Double.class),any(Integer.class));
+
+        tarifaService.guardarTemporada(8,fecha_inicio,fecha_fin,6.09,8);
+    }
+
 
 }
