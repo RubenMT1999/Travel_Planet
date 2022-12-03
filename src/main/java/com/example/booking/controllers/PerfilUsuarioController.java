@@ -25,6 +25,7 @@ import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -64,7 +65,7 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/datos")
-    public String getAdminUser(Model model, Authentication auth){
+    public String getAdminUser(Model model, Authentication auth, Integer valor){
         auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario userAdmin = usuarioService.datosUsuario(auth.getName());
         UserAuth userIDAuth = usuarioService.getUserAuth(auth.getName());
@@ -76,6 +77,9 @@ public class PerfilUsuarioController {
 
             authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
             usuarioService.getRoleAdmin(authorities.getAuthority(), userIDAuth.getId());
+
+
+
         }
 
         model.addAttribute("getAdmin", userAdmin);
@@ -86,6 +90,8 @@ public class PerfilUsuarioController {
     public String editarPerfil(Model model, Authentication auth){
         auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario editarPerfilUsuario = usuarioService.datosUsuario(auth.getName());
+        LocalDate now = LocalDate.now();
+        model.addAttribute("now", now);
         model.addAttribute("editarPerfil", editarPerfilUsuario);
         model.addAttribute("titulo", "Editar Perfil");
         return "editarPerfilUsuario";
@@ -97,9 +103,13 @@ public class PerfilUsuarioController {
         Usuario editarPerfilUsuario = usuarioService.datosUsuario(auth.getName());
         usuario.setId(editarPerfilUsuario.getId());
 
-        if (usuario.getContrasenia() == null){
-            usuario.setContrasenia(editarPerfilUsuario.getContrasenia());
-        }
+        if (usuario.getContrasenia().isBlank()){usuario.setContrasenia(editarPerfilUsuario.getContrasenia());}
+        if (usuario.getNombre().isBlank()){usuario.setNombre(editarPerfilUsuario.getNombre());}
+        if (usuario.getApellidos().isBlank()){ usuario.setApellidos(editarPerfilUsuario.getApellidos()); }
+        if (usuario.getFechaNacimiento() == null){ usuario.setFechaNacimiento(editarPerfilUsuario.getFechaNacimiento());}
+        if (usuario.getDni().isBlank()){usuario.setDni(editarPerfilUsuario.getDni());}
+        if (usuario.getTelefono().isBlank()){usuario.setTelefono(editarPerfilUsuario.getTelefono());}
+        if (usuario.getNacionalidad().isBlank()){usuario.setNacionalidad(editarPerfilUsuario.getNacionalidad());}
 
         String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);

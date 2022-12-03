@@ -72,7 +72,7 @@
 
     <div class="col-10 p-5">
 
-      <div class="container border border-dark bg-light rounded p-3 shadow mt-4">
+      <div class="container shadow-lg border border-dark bg-light rounded p-3 shadow mt-4"  style="--bs-border-opacity: .5;">
 
         <h1 th:text="${titulo}" class="mt-4"></h1>
 
@@ -91,8 +91,8 @@
 
           <div class="row mt-3">
             <div class="col-md-6 col">
-              <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-              <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" class="form-control">
+              <label for="fechaNacimiento"   class="form-label">Fecha de Nacimiento</label>
+              <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}"  th:max="${now}" class="form-control">
             </div>
             <div class="col-md-6 col">
               <label for="telefono" class="form-label">Teléfono</label>
@@ -113,7 +113,7 @@
           <div class="row mt-3">
             <div class="col-md-6 col">
               <label for="password" class="form-label">Contraseña Nueva
-                <small>(Si no deseeas cambiarla, deje el espacio en blanco)</small>
+                <small>(Si no deseas cambiarla, deje el espacio en blanco)</small>
               </label>
               <input type="password" id="password" th:field="*{contrasenia}" class="form-control">
             </div>

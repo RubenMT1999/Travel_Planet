@@ -84,12 +84,13 @@ public class UsuarioServiceTest {
             String arg4 = i.getArgument(4);
             String arg5 = i.getArgument(5);
             Integer arg6 = i.getArgument(6);
+            String arg7 = i.getArgument(7);
 
 
 
-            verify(usuarioRepository,times(1)).editarUsuario(arg0,arg1,arg2,arg3,arg4,arg5,arg6);
+            verify(usuarioRepository,times(1)).editarUsuario(arg0,arg1,arg2,arg3,arg4,arg5,arg6, arg7);
             return null;
-        }).when(usuarioRepository).editarUsuario(any(String.class),any(String.class),any(String.class),any(Date.class),any(String.class),any(String.class),any(Integer.class));
+        }).when(usuarioRepository).editarUsuario(any(String.class),any(String.class),any(String.class),any(Date.class),any(String.class),any(String.class),any(Integer.class), any(String.class));
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha_inicio = formato.parse("2011-11-11");

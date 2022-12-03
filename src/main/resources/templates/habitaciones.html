@@ -33,8 +33,8 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text=" 'Número de habitación : ' + ${habitacion.numeroHabitacion}"></h5>
                             <p class="card-text" th:text="${habitacion.descripcion}"></p>
-                            <p class="card-text fw-semibold fs-5">Capacidad: <small th:text="${habitacion.capacidad}"></small></p>
-                            <p class="card-text fw-semibold fs-5">Precio: <small th:text="${habitacion.precioBase}"></small></p>
+                            <p class="card-text fw-semibold fs-6">Capacidad : <small th:text="${habitacion.capacidad}"></small></p>
+                            <p class="card-text fw-semibold fs-6">Precio : <small th:text="${habitacion.precioBase}"></small></p>
                             <a th:href="@{/habitaciones/editar/{id}(id=${habitacion.getId()})}" class="btn btn-primary">Editar</a>
                             <a th:href="@{/habitaciones/borrar/{id}(id=${habitacion.getId()})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a>
                         </div>
