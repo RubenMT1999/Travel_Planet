@@ -2,9 +2,11 @@ package com.example.booking.controllers;
 
 import com.example.booking.models.*;
 import com.example.booking.repository.AuthoritiesRepository;
+import com.example.booking.repository.ReservaRepository;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.*;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,9 +16,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import viewPdf.reservaExporterPdf;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -127,6 +135,29 @@ public class PerfilUsuarioController {
         model.addAttribute("nombreUsuarioReserva", nombreUsuario);
 
         return "reservaPerfilUsuario";
+    }
+
+    @GetMapping("/exportarPDF/{id}")
+    public  void exportarFacturaPdf(HttpServletResponse response, @PathVariable Integer id) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+
+        Reserva reserva = reservaService.obtenerDetallesReserva(id);
+
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaInicio = dateFormatter.format(reserva.getFechaInicio());
+        String nombre = reserva.getUsuario().getNombre();
+        String apellido = reserva.getUsuario().getApellidos();
+        String cabecera = "Content-Disposition";
+        String valor = "attachment; filename= Factura_" + fechaInicio + "_" + nombre + "_" + apellido + ".pdf";
+
+        response.setHeader(cabecera, valor);
+
+
+
+        reservaExporterPdf exporter = new reservaExporterPdf(reserva);
+        exporter.exportar(response);
+
+
     }
 
     @GetMapping("/mis-reservas/{id}")
