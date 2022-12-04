@@ -12,7 +12,7 @@
 <div class="container-fluid">
   <h2 class="text-center mt-4">Confirmar Reserva</h2>
 
-  <form th:action="@{/reserva/crear}" th:object="${pensionHotel}" method="post" enctype="multipart/form-data" class="mt-4 mb-5">
+  <form th:action="@{/reserva/crear}" th:object="${pensionHotel}" method="post" enctype="multipart/form-data" class="mt-4">
 
     <div class="row">
 
@@ -34,16 +34,16 @@
                 <p class="card-text" th:text="${habitacion.descripcion}"></p>
               </div>
               <div class="col mt-2">
-                <p class="" th:text="'Capacidad : '+${habitacion.getCapacidad()}"></p>
+                <p class="fw-semibold fs-6" th:text="'Capacidad : '+${habitacion.getCapacidad()}"></p>
               </div>
               <div class="col">
-                <p class="list-group-item" th:if="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() * dias + precioPension}"></p>
+                <p class="list-group-item fw-semibold fs-6" th:if="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() * dias + precioPension} + '€'"></p>
               </div>
               <div class="col">
-                <p class="list-group-item" th:unless="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() * dias}"></p>
+                <p class="list-group-item fw-semibold fs-6" th:unless="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() * dias} + '€'" ></p>
               </div>
               <div>
-                <span>Dispone de : </span>
+                <span class="fw-semibold fs-6">Dispone de : </span>
                 <span class="badge text-bg-primary"  th:if="${habitacion.wifi}">Wifi</span>
                 <span class="badge text-bg-primary"  th:if="${habitacion.tv}">TV</span>
                 <span class="badge text-bg-primary"  th:if="${habitacion.terraza}">Terraza</span>
@@ -54,10 +54,10 @@
               </div>
 
               <div class="col mt-2">
-                <p class="list-group-item" th:text="'Número de noches : '+${dias}"></p>
+                <p class="list-group-item fw-semibold fs-6" th:text="'Número de noches : '+${dias}"></p>
               </div>
-              <div class="col">
-                <p>Seleciona la pensión</p>
+              <div class="col mt-4">
+                <p class="fw-semibold fs-6">Seleciona la pensión</p>
                 <select name="pension">
                   <option th:each="pensionOpt : ${T(com.example.booking.models.EPension).values()}"
                           th:value="${pensionOpt}" th:text="${pensionOpt.displayValue}"></option>
@@ -73,11 +73,11 @@
     </div>
 
   </form>
-  <div class="row mt-4">
-    <form class="col-6" th:action="@{/reserva/nuevo/{id}(id=${habitacion.getId()})}" th:object="${reserva}"  method="post">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5" style="margin-right: 460px">
+    <form class="me-md-end" th:action="@{/reserva/nuevo/{id}(id=${habitacion.getId()})}" th:object="${reserva}"  method="post">
       <button href="#" class="btn btn-success">Reservar</button>
     </form>
-    <div class="col-6">
+    <div class="">
       <a class="btn btn-danger" th:href="@{/}">Cancelar</a>
     </div>
   </div>

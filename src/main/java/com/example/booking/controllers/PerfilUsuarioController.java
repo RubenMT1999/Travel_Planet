@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -201,7 +202,8 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/mis-reservas/pago")
-    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario,Model model, Authentication authentication, Pago pago){
+    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario, Model model,
+                               Authentication authentication, Pago pago, RedirectAttributes redirectAttributes) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
 
@@ -214,6 +216,10 @@ public class PerfilUsuarioController {
         reservaService.editarPagado(true, habitacion.getId());
 
         model.addAttribute("metodoPago", pago);
+
+        if (reserva.getPagado() == true) {
+            redirectAttributes.addFlashAttribute("pagado", "La Reserva se ha pagado con éxito");
+        }
 
         return "redirect:/perfil/mis-reservas";
     }
