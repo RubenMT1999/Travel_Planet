@@ -16,6 +16,7 @@
 <header th:replace="header/header :: header"></header>
 
 <div class="container-fluid px-0">
+
     <div class="row me-0">
 
         <div class="col-2">
@@ -80,37 +81,32 @@
                     <h4>No hay reservas pendientes</h4>
                 </div>
 
-                <div class="card mt-3 border-dark text-bg-light" th:each="datosReserva : ${datosReserva}">
-                    <h5 class="card-header" th:text="${datosReserva.habitacion.hotel.ciudad}">Ciudad</h5>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${datosReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
-                        <div class="row">
-                            <div class="col-1">
-                                <span class="fw-semibold">Estrellas</span>
-                            </div>
-                            <div class="col-1">
-                                <p class="card-text fw-semibold fs-6" th:text="${datosReserva.habitacion.hotel.estrellas}">Estrellas</p>
-                            </div>
+                <div class="card text-bg-dark mt-5" th:each="datosReserva : ${datosReserva}" style="height: 200px">
+                    <img th:if="${datosReserva.habitacion.hotel.ciudad == 'Sevilla'}" th:src="@{/images/bannerSevilla.jpg}" class="card-img" alt="..." style="object-fit: cover; width: 100%; height: 100%">
+                    <img th:if="${datosReserva.habitacion.hotel.ciudad == 'Granada'}" th:src="@{/images/bannerGranada.jpg}" class="card-img" alt="..." style="object-fit: cover; width: 100%; height: 100%">
+                    <img th:if="${datosReserva.habitacion.hotel.ciudad == 'Huelva'}" th:src="@{/images/bannerHuelva.jpg}" class="card-img" alt="..." style="object-fit: cover; width: 100%; height: 100%">
+                    <img th:if="${datosReserva.habitacion.hotel.ciudad == 'Cádiz'}" th:src="@{/images/bannerCadiz.jpg}" class="card-img" alt="..." style="object-fit: cover; width: 100%; height: 100%">
+                    <img th:if="${datosReserva.habitacion.hotel.ciudad == 'Málaga'}" th:src="@{/images/bannerMalaga.jpg}" class="card-img" alt="..." style="object-fit: cover; width: 100%; height: 100%">
+                    <img th:if="${datosReserva.habitacion.hotel.ciudad == 'Jaén'}" th:src="@{/images/bannerJaen.jpg}" class="card-img" alt="..." style="object-fit: cover; width: 100%; height: 100%">
+                    <img th:if="${datosReserva.habitacion.hotel.ciudad == 'Córdoba'}" th:src="@{/images/bannerCordoba.jpg}" class="card-img" alt="..." style="object-fit: cover; width: 100%; height: 100%">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title text-dark fs-6 fw-semibold" th:text="${datosReserva.habitacion.hotel.ciudad} + ' - ' + ${datosReserva.habitacion.hotel.nombre}"></h5>
+                        <div class="card-text">
+                            <div th:if="${datosReserva.habitacion.hotel.estrellas == 1}" class="g-col-4 mt-2 fs-6 text-dark fw-semibold"><span class="fw-semibold">Estrellas: ⭐</span> </div>
+                            <div th:if="${datosReserva.habitacion.hotel.estrellas == 2}" class="g-col-4 mt-2 fs-6 fw-semibold text-dark"><span class="fw-semibold">Estrellas: ⭐⭐</span> </div>
+                            <div th:if="${datosReserva.habitacion.hotel.estrellas == 3}" class="g-col-4 mt-2 fs-6 fw-semibold text-dark"><span class="fw-semibold">Estrellas: ⭐⭐⭐</span> </div>
+                            <div th:if="${datosReserva.habitacion.hotel.estrellas == 4}" class="g-col-4 mt-2 fs-6 fw-semibold text-dark"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐</span> </div>
+                            <div th:if="${datosReserva.habitacion.hotel.estrellas == 5}" class="g-col-4 mt-2 fs-6 fw-semibold text-dark"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐⭐</span> </div>
                         </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <p class="card-text fw-semibold fs-6" th:text="${datosReserva.fechaInicio}"></p>
-                            </div>
-                            <div class="col-2">
-                                <p class="card-text fw-semibold fs-6" th:text="${datosReserva.fechaFin}"></p>
-                            </div>
-                        </div>
+                        <p class="card-text"> <small class="fs-6 fw-semibold text-dark" th:text="'Entrada : ' + ${datosReserva.fechaInicio} + ' - ' + 'Salida : ' + ${datosReserva.fechaFin}"></small></p>
                         <a href="#" class="btn btn-dark mt-2" th:href="@{/perfil/mis-reservas/{id}(id=${datosReserva.getId()})}">Ver Detalles</a>
                     </div>
                 </div>
-
             </div>
-
         </div>
 
 
     </div>
-
 
 </div>
 

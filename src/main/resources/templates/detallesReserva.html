@@ -83,26 +83,30 @@
 
                             <div class="col-6">
                                 <h5 class="card-title" th:text="${detallesReserva.habitacion.hotel.nombre}">Nombre Hotel</h5>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <p class="card-text" th:text="${detallesReserva.fechaInicio}">Fecha</p>
-                                    </div>
-                                    <div class="col-3">
-                                        <p class="card-text" th:text="${detallesReserva.fechaFin}">Fecha</p>
-                                    </div>
+                                <div class="card-text">
+                                    <div th:if="${detallesReserva.habitacion.hotel.estrellas == 1}" class="g-col-4 mt-2 fs-6 text-dark fw-semibold"><span class="fw-semibold">Estrellas: ⭐</span> </div>
+                                    <div th:if="${detallesReserva.habitacion.hotel.estrellas == 2}" class="g-col-4 mt-2 fs-6 fw-semibold text-dark"><span class="fw-semibold">Estrellas: ⭐⭐</span> </div>
+                                    <div th:if="${detallesReserva.habitacion.hotel.estrellas == 3}" class="g-col-4 mt-2 fs-6 fw-semibold text-dark"><span class="fw-semibold">Estrellas: ⭐⭐⭐</span> </div>
+                                    <div th:if="${detallesReserva.habitacion.hotel.estrellas == 4}" class="g-col-4 mt-2 fs-6 fw-semibold text-dark"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐</span> </div>
+                                    <div th:if="${detallesReserva.habitacion.hotel.estrellas == 5}" class="g-col-4 mt-2 fs-6 fw-semibold text-dark"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐⭐</span> </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-3 card-text">Capacidad</div>
-                                    <div class="col-1 card-text" th:text="${detallesReserva.habitacion.getCapacidad()}"></div>
+                                <p class="card-text fs-6 fw-semibold mt-2" th:text="'Entrada : ' + ${detallesReserva.fechaInicio} + ' - ' + 'Salida : ' + ${detallesReserva.fechaFin}">Fecha</p>
+                                <div class="card-text fs-6 fw-semibold" th:text="'Capacidad : ' + ${detallesReserva.habitacion.getCapacidad()} + 'persona'"></div>
+                                <div class="card-text mt-2" th:text="${detallesReserva.habitacion.descripcion}"></div>
+                                <div class="card-text mt-3 fs-6 fw-semibold">La habitación incluye :</div>
+                                <div class="mt-2">
+                                    <span class="badge text-bg-primary"  th:if="${detallesReserva.habitacion.wifi}">Wifi</span>
+                                    <span class="badge text-bg-primary"  th:if="${detallesReserva.habitacion.tv}">TV</span>
+                                    <span class="badge text-bg-primary"  th:if="${detallesReserva.habitacion.terraza}">Terraza</span>
+                                    <span class="badge text-bg-primary"  th:if="${detallesReserva.habitacion.cocina}">Cocina</span>
+                                    <span class="badge text-bg-primary"  th:if="${detallesReserva.habitacion.banioPrivado}">Baño</span>
+                                    <span class="badge text-bg-primary"  th:if="${detallesReserva.habitacion.aireAcondicionado}">Aire Acondicionado</span>
+                                    <span class="badge text-bg-primary"  th:if="${detallesReserva.habitacion.cajaFuerte}">Caja Fuerte</span>
                                 </div>
-                                <div class="row">
-                                    <div class="col card-text" th:text="${detallesReserva.habitacion.descripcion}">Capacidad</div>
-                                </div>
-                                <a href="#" class="btn btn-warning me-2 mt-3"  th:href="@{/perfil/editar-reservas/{id}(id=${detallesReserva.getId()})}">Modificar Pensión</a>
-                                <a href="#" class="btn btn-danger me-2 mt-3" th:href="@{/perfil/eliminar-reserva/{id}(id=${detallesReserva.getId()})}">Cancelar Reserva</a>
-
-                                <a href="#" th:if="${detallesReserva.pagado == false}" class="btn btn-dark mt-3" th:href="@{/perfil/mis-reservas/pago}">Pagar Ahora</a>
-                                <a href="#" th:unless="${detallesReserva.pagado == false}" class="btn btn-dark disabled mt-3" th:href="@{/perfil/mis-reservas/pago}">Pagar Ahora</a>
+                                <a href="#" class="btn btn-danger me-2 mt-5" th:href="@{/perfil/eliminar-reserva/{id}(id=${detallesReserva.getId()})}">Cancelar Reserva</a>
+                                <a class="btn btn-danger me-2 mt-3" th:href="@{/perfil/exportarPDF/{id}(id=${detallesReserva.getId()})}">Descargar Factura</a>
+                                <a href="#" th:if="${detallesReserva.pagado == false}" class="btn btn-dark mt-5" th:href="@{/perfil/mis-reservas/pago}">Pagar Ahora</a>
+                                <a href="#" th:unless="${detallesReserva.pagado == false}" class="btn btn-dark disabled mt-5" type="button"  data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Ya has pagado esta Reserva">Pagar Ahora</a>
 
                             </div>
 
