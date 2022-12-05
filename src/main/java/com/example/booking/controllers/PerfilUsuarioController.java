@@ -248,9 +248,9 @@ public class PerfilUsuarioController {
 
         model.addAttribute("metodoPago", pago);
 
-        if (reserva.getPagado() == true) {
-            redirectAttributes.addFlashAttribute("pagado", "La Reserva se ha pagado con éxito");
-        }
+
+        redirectAttributes.addFlashAttribute("success", "La Reserva se ha pagado con éxito");
+
 
         return "redirect:/perfil/mis-reservas";
     }
