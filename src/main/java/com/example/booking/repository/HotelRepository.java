@@ -40,6 +40,9 @@ public interface HotelRepository extends JpaRepository<Hotel,Integer> {
 
     List<Hotel> buscadortest(String ciudad, Date fecha_inicio, Date fecha_fin, Integer capacidad);
 
+    @Query(value = "select * from Hotel h", nativeQuery = true)
+    List<Hotel> obtenertodoshoteles();
+
 
 
 

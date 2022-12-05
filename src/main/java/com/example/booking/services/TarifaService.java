@@ -2,6 +2,7 @@ package com.example.booking.services;
 
 import com.example.booking.models.PensionHotel;
 import com.example.booking.models.Tarifa;
+import com.example.booking.models.Temporada;
 import com.example.booking.models.TemporadaHotel;
 import com.example.booking.repository.TarifaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,8 @@ public class TarifaService {
     public TemporadaHotel verTemporada (Integer id_tarifa){
         return tarifaRepository.listarTemporada(id_tarifa);
     }
+
+    public Tarifa guardar(Tarifa tarifa){ return tarifaRepository.save(tarifa);}
 
 
 }

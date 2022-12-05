@@ -229,7 +229,7 @@ import java.util.concurrent.TimeUnit;
         public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
         hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
         if(hotel.getEstrellas() == null){
-            hotel.setEstrellas(1);
+            hotel.setEstrellas(3);
         }
             if(imagen.isEmpty()){
                 hotel.setImagen("https://t3.ftcdn.net/jpg/01/06/85/86/360_F_106858608_EuOWeiATyMOD6b9cXNzcJDSZufLbojQs.jpg");
@@ -258,7 +258,6 @@ import java.util.concurrent.TimeUnit;
         @GetMapping("/hoteles/editar/{id}")
         public String mostrarFormrHotelEditar(@PathVariable int id, Model model){
         model.addAttribute("hotel", hotelService.hotelID(id));
-
         return "hotelEditar";
         }
 
@@ -276,7 +275,7 @@ import java.util.concurrent.TimeUnit;
             hotelEditar.setCif(hotel.getCif());
             hotelEditar.setComentario(hotel.getComentario());
             if(hotel.getEstrellas() == null){
-                hotel.setEstrellas(1);
+                hotel.setEstrellas(hotelEditar.getEstrellas());
             }
             hotelEditar.setEstrellas(hotel.getEstrellas());
 

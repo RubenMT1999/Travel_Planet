@@ -234,12 +234,12 @@ public class TarifaController {
 
     //Faker para generar tarifas aleatorios.
 
-   /* @GetMapping("/generar")
+    @GetMapping("/generar")
     public void generarhabitacionesAleatorio() {
 
         Faker faker = new Faker();
 
-        for (Hotel h : hotelRepository.obtenerTodoshoteles()) {
+        for (Hotel h : hotelRepository.obtenertodoshoteles()) {
             Tarifa tarifa = new Tarifa();
                 tarifa.setPrecioWifi(faker.number().randomDouble(1, 5, 20));
                 tarifa.setPrecioCajaFuerte(faker.number().randomDouble(1, 5, 20));
@@ -251,20 +251,18 @@ public class TarifaController {
             tarifa.setHotel(h);
             tarifaService.guardar(tarifa);
 }
-
-
     }
-    /*
-    //Faker para generar estrella en hoteles
-   @GetMapping("/generarusuario")
-   public void generarhabitacionesAleatorio() {
-       Faker faker = new Faker();
-       for (Hotel h : hotelRepository.obtenerTodoshoteles()) {
-           h.setPuntuacion(faker.number().numberBetween(1,6));
-           hotelRepository.save(h);
-       }
-   }
 
-    */
+    //Faker para generar estrella en hoteles
+//   @GetMapping("/generarusuario")
+//   public void generarhabitacionesAleatorio() {
+//       Faker faker = new Faker();
+//       for (Hotel h : hotelRepository.obtenerTodoshoteles()) {
+//           h.setPuntuacion(faker.number().numberBetween(1,6));
+//           hotelRepository.save(h);
+//       }
+//   }
+//
+//
 
 }

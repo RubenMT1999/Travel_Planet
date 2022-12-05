@@ -14,9 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -195,9 +197,12 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/mis-reservas/pago")
-    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario,Model model, Authentication authentication, Pago pago){
+    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario, Model model, Authentication authentication, Pago pago, Principal principal, RedirectAttributes flash){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
+        if(pago != null){
+            flash.addAttribute("succes","Ha pagado con exito");
+        }
 
         pago.setId_usuario(nombreUsuario);
         Reserva reserva = reservaUsuario;
