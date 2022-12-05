@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
+    <title th:text="${titulo}"></title>
     <title>Listado de Hoteles</title>
     <style>
         .estre{ color:grey; width: 20px}
@@ -26,6 +27,18 @@
             <h1 class="text-center mt-2">Registro de Hotel</h1>
                 <div class="card-body">
                   <form th:action="@{/hoteles/nuevo}" th:object="${hotel}" method="POST", enctype="multipart/form-data">
+
+                      <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('lugar')}" th:errors="*{lugar}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{habitaciones}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('cif')}" th:errors="*{cif}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('comentario')}" th:errors="*{comentario}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('estrellas')}" th:errors="*{estrellas}" class="alert alert-danger"></div>
+                      <div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}" class="alert alert-danger"></div>
+
                       <div class="form-group">
                           <label th:text="#{text.hotel.nombre}">Nombre: </label>
                           <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Ponga aquí el nombre"  required>
@@ -49,7 +62,7 @@
                           <input type="number" name="habitacion" th:field="*{numero_habitaciones}" class="form-control" placeholder="Ponga aquí el numero de habitaciones" required>
                           <br>
                           <label th:text="#{text.hotel.precio}">Precio: </label>
-                          <input type="text" name="precio" th:field="*{precio}" class="form-control" placeholder="Ponga aquí el precio de una noche" required>
+                          <input type="number" name="precio" th:field="*{precio}" class="form-control" placeholder="Ponga aquí el precio de una noche" required>
                           <br>
                           <label th:text="#{text.hotel.telefono}">Teléfono: </label>
                           <input type="text" name="telefono" th:field="*{telefono}" class="form-control" placeholder="Ponga aquí el teléfono" required>

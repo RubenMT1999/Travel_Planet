@@ -2,9 +2,11 @@ package com.example.booking.controllers;
 
 import com.example.booking.models.*;
 import com.example.booking.repository.AuthoritiesRepository;
+import com.example.booking.repository.ReservaRepository;
 import com.example.booking.repository.UserAuthRepository;
 import com.example.booking.repository.UsuarioRepository;
 import com.example.booking.services.*;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,10 +17,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import viewPdf.reservaExporterPdf;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
-import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -76,7 +83,6 @@ public class PerfilUsuarioController {
 
         }
 
-
         model.addAttribute("getAdmin", userAdmin);
         return "redirect:/perfil/datos";
     }
@@ -98,13 +104,20 @@ public class PerfilUsuarioController {
         Usuario editarPerfilUsuario = usuarioService.datosUsuario(auth.getName());
         usuario.setId(editarPerfilUsuario.getId());
 
-        if (usuario.getContrasenia() == null){
-            usuario.setContrasenia(editarPerfilUsuario.getContrasenia());
-        }
+        if (usuario.getContrasenia().isBlank()){usuario.setContrasenia(editarPerfilUsuario.getContrasenia());}
+        if (usuario.getNombre().isBlank()){usuario.setNombre(editarPerfilUsuario.getNombre());}
+        if (usuario.getApellidos().isBlank()){ usuario.setApellidos(editarPerfilUsuario.getApellidos()); }
+        if (usuario.getFechaNacimiento() == null){ usuario.setFechaNacimiento(editarPerfilUsuario.getFechaNacimiento());}
+        if (usuario.getDni().isBlank()){usuario.setDni(editarPerfilUsuario.getDni());}
+        if (usuario.getTelefono().isBlank()){usuario.setTelefono(editarPerfilUsuario.getTelefono());}
+        if (usuario.getNacionalidad().isBlank()){usuario.setNacionalidad(editarPerfilUsuario.getNacionalidad());}
+
         String bcryptPassword = passwordEncoder.encode(usuario.getContrasenia());
         usuario.setContrasenia(bcryptPassword);
+
         usuarioService.editarUsuario(usuario.getNombre(),usuario.getApellidos(),usuario.getContrasenia(),
                 usuario.getFechaNacimiento(),usuario.getDni(),usuario.getNacionalidad(),usuario.getTelefono(), usuario.getId());
+
         return "redirect:/perfil/datos";
     }
 
@@ -133,6 +146,29 @@ public class PerfilUsuarioController {
         model.addAttribute("nombreUsuarioReserva", nombreUsuario);
 
         return "reservaPerfilUsuario";
+    }
+
+    @GetMapping("/exportarPDF/{id}")
+    public  void exportarFacturaPdf(HttpServletResponse response, @PathVariable Integer id) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+
+        Reserva reserva = reservaService.obtenerDetallesReserva(id);
+
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaInicio = dateFormatter.format(reserva.getFechaInicio());
+        String nombre = reserva.getUsuario().getNombre();
+        String apellido = reserva.getUsuario().getApellidos();
+        String cabecera = "Content-Disposition";
+        String valor = "attachment; filename= Factura_" + fechaInicio + "_" + nombre + "_" + apellido + ".pdf";
+
+        response.setHeader(cabecera, valor);
+
+
+
+        reservaExporterPdf exporter = new reservaExporterPdf(reserva);
+        exporter.exportar(response);
+
+
     }
 
     @GetMapping("/mis-reservas/{id}")
@@ -197,12 +233,10 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/mis-reservas/pago")
-    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario, Model model, Authentication authentication, Pago pago, Principal principal, RedirectAttributes flash){
+    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario, Model model,
+                               Authentication authentication, Pago pago, RedirectAttributes redirectAttributes) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
-        if(pago != null){
-            flash.addAttribute("succes","Ha pagado con exito");
-        }
 
         pago.setId_usuario(nombreUsuario);
         Reserva reserva = reservaUsuario;
@@ -213,6 +247,10 @@ public class PerfilUsuarioController {
         reservaService.editarPagado(true, habitacion.getId());
 
         model.addAttribute("metodoPago", pago);
+
+        if (reserva.getPagado() == true) {
+            redirectAttributes.addFlashAttribute("pagado", "La Reserva se ha pagado con éxito");
+        }
 
         return "redirect:/perfil/mis-reservas";
     }

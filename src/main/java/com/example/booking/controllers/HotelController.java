@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -221,12 +222,19 @@ import java.util.concurrent.TimeUnit;
         public String mostrarHotelNuevo(Model model){
         Hotel hotel = new Hotel();
         model.addAttribute("hotel",hotel);
+        model.addAttribute("titulo","Nuevo Hotel");
             return "hotelNuevo";
 
         }
 
         @PostMapping("/hoteles/nuevo")
-        public String hotelNuevo(@ModelAttribute("hotel") Hotel hotel, Authentication auth, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
+        public String hotelNuevo(@Valid @ModelAttribute("hotel") Hotel hotel,BindingResult result,Model model, Authentication auth, @RequestParam(value = "file")MultipartFile imagen, RedirectAttributes flash){
+
+            if (result.hasErrors()) {
+                model.addAttribute("titulo", "Ha habido algún error");
+                return "/hoteles/nuevo";
+            }
+
         hotel.setUsuario(usuarioService.buscarPorMail(auth.getName()));
         if(hotel.getEstrellas() == null){
             hotel.setEstrellas(3);
@@ -437,6 +445,27 @@ import java.util.concurrent.TimeUnit;
            session.setAttribute("precioPension",precioPension);
 
             return "redirect:/reserva/crear/"+idHabitacion;
+        }
+
+        //Tarea automatizada con Scheduled. Cuando la fecha fin de reserva de una habitación
+        //sobrepase la fecha actual, la habitación debe pasar a estar libre.
+        //Se ejecuta a las 10:15 AM cada día.
+        @Scheduled(cron = "0 15 10 ? * *")
+        public void cambiarEstadoHabitacion(){
+            List<Reserva> totalReservas = reservaService.listar();
+            Date date = java.sql.Date.valueOf(LocalDate.now());
+
+            for (Reserva reserva:totalReservas) {
+                if (reserva.getFechaFin().before(date) && !reserva.getHabitacion().getDisponibilidad()){
+                    reserva.getHabitacion().setDisponibilidad(true);
+                    habitacionService.editarDisponibilidad(true,reserva.getHabitacion().getId());
+                    System.out.println(reserva);
+
+                }
+            }
+
+
+
         }
 
 

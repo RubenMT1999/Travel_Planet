@@ -68,8 +68,6 @@ public interface HabitacionRepository extends JpaRepository<Habitacion,Integer> 
     List<Integer> totalIdHotelesHabitacion ();
 
 
-
-
     @Query(value = "SELECT h.id from Habitacion h where h.numeroHabitacion = ?1 and h.hotel.id = ?2")
     Integer comprobarNumHab(Integer numHab,Integer numHotel);
 

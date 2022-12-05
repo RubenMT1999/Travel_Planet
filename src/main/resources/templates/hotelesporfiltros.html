@@ -111,6 +111,9 @@
             </div>
         </div>
         <div class="col-9 mt-5">
+            <div th:if="${#lists.isEmpty(hotel)}" class="alert alert-danger">
+                <p>Lo sentimos, no existe ningún hotel que cumpla con los requisitos de su búsqueda.</p>
+            </div>
             <div class="card mb-5 text-bg-dark" th:each="hoteles: ${hotel}">
 
                 <div class="card-header text-center">

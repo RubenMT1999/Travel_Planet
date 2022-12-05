@@ -12,8 +12,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
-                <div class="sticky-top mt-3">
-                    <div class="card mb-3 border border-dark " style="max-width: 100%; --bs-border-opacity: .5;" >
+                <div class="sticky-top mt-3" style="top: 30px">
+                    <div class="card mb-3 border border-dark" style="max-width: 100%;--bs-border-opacity: .5;" >
                         <form action="#" th:action="@{/hoteles/listarfiltro}" th:object="${habitacion}" method="get">
                             <div class="card text-center">
                                 <div class="card-body">
@@ -97,11 +97,15 @@
                                         <div class="col-md-0 mt-sm-0 mt-md-3">
                                             <input type="submit" value="Buscar"  class="btn btn-primary btn-block text-white col-20">
                                         </div>
+
                                 </div>
                                 </form>
+
                                 </form>
                             </div>
                         </form>
+
+
                         </form>
                     </div>
                 </div>
@@ -132,10 +136,8 @@
                             <h5 th:if="${hoteles.estrellas == 4}" class="card-title"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐</span> </h5>
                             <h5 th:if="${hoteles.estrellas == 5}" class="card-title"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐⭐</span> </h5>
 
-
-
                             <p class="card-text "><span th:text="${hoteles.ciudad}"></span>, <span th:text="${hoteles.lugar}"></span></p>
-                            <p class="card-text "><span th:text="${hoteles.precio} + '€'"></span></p>
+                            <p class="card-text "><span th:text="${hoteles.precio}"></span></p>
                             <div class="card-body">
                                 <a th:href="@{'/hoteles/habitacion/' + ${hoteles.id}}" class="btn btn-primary">Ver disponibilidad</a>
                             </div>
@@ -148,9 +150,7 @@
         </div>
     </div>
 
-
-
-
 </div>
+    <footer th:replace="footer/footer :: footer"></footer>
 </body>
 </html>

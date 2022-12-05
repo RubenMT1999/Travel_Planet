@@ -12,10 +12,10 @@
     <div class="container-fluid p-5">
         <form th:action="@{/tarifa/nuevo}" th:object="${tarifa}" method="POST" enctype="multipart/form-data">
 
-            <div class="row bg-light justify-content-evenly">
+            <div class="row bg-light justify-content-evenly shadow-lg">
 
                 <form class="form-group">
-                    <div class="col-md-4 col card">
+                    <div class="col-md-4 col card border border-dark p-2" style="--bs-border-opacity: .5;">
                         <h1 class="text-center fs-4 mt-4">Precio de los extras</h1>
                         <div class="card-body">
 
@@ -23,69 +23,69 @@
                             <label for="wifi">Wifi: </label>
                             <input type="number" id="wifi" name="precio_wifi" th:field="*{precioWifi}" class="form-control" placeholder="Ponga aquí precio por tener wifi" required>
 
-                            <label for="caja-fuerte" class="mt-2">Caja Fuerte: </label>
+                            <label for="caja-fuerte" class="mt-4">Caja Fuerte: </label>
                             <input type="number" id="caja-fuerte" name="precio_caja_fuerte" th:field="*{precioCajaFuerte}" class="form-control" placeholder="Ponga aquí precio por tener caja fuerte" required>
 
-                            <label for="cocina" class="mt-2">Cocina: </label>
+                            <label for="cocina" class="mt-4">Cocina: </label>
                             <input type="number" id="cocina" name="precio_cocina" th:field="*{precioCocina}" class="form-control" placeholder="Ponga aquí precio por tener cocina" required>
 
                             <label for="aire" class="mt-2">Aire Acondicionado: </label>
                             <input type="number" id="aire" name="precio_aire" th:field="*{precioAire}" class="form-control" placeholder="Ponga aquí precio por tener aire acondicionado" required>
 
-                            <label for="tv" class="mt-2">Televisión: </label>
+                            <label for="tv" class="mt-4">Televisión: </label>
                             <input type="number" id="tv" name="preciotv" th:field="*{precioTV}" class="form-control" placeholder="Ponga aquí precio por tener televisión" required>
 
-                            <label for="terraza" class="mt-2">Terraza: </label>
+                            <label for="terraza" class="mt-4">Terraza: </label>
                             <input type="number" id="terraza" name="precio_terraza" th:field="*{precioTerraza}" class="form-control" placeholder="Ponga aquí precio por tener terraza" required>
 
-                            <label for="wc" class="mt-2">Baño: </label>
+                            <label for="wc" class="mt-4">Baño: </label>
                             <input type="number" id="wc" name="precio_banio" th:field="*{precioBanio}" class="form-control" placeholder="Ponga aquí precio por tener baño privado" required>
 
                         </div>
                     </div>
-                    <div class="col-md-4 col card">
+                    <div class="col-md-4 col card  border border-dark p-2"  style="--bs-border-opacity: .5;">
                         <h1 class="text-center mt-4 fs-4">Precio de las pensiones</h1>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
                                     <label for="desayuno" class="mt-2">Alojamiento y Desayuno</label>
-                                    <input type="number" id="desayuno" name="precio_completa"  class="form-control" placeholder="Ponga aquí precio" >
+                                    <input type="number" id="desayuno" name="precio_completa"  class="form-control" placeholder="Ponga aquí precio" required>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col">
                                     <label for="media-pension" class="mt-2">Media Pensión</label>
-                                    <input type="number" id="media-pension" name="precio_media_pension"  class="form-control" placeholder="Ponga aquí precio" >
+                                    <input type="number" id="media-pension" name="precio_media_pension"  class="form-control" placeholder="Ponga aquí precio" required>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col">
                                     <label for="pension-completa" class="mt-2">Pensión Completa</label>
-                                    <input type="number" id="pension-completa" name="precio_desayuno"  class="form-control" placeholder="Ponga aquí precio" >
+                                    <input type="number" id="pension-completa" name="precio_desayuno"  class="form-control" placeholder="Ponga aquí precio" required>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col">
                                     <label for="todo-incluido" class="mt-2">Todo Incluido</label>
-                                    <input type="number" id="todo-incluido" name="precio_ninguna"  class="form-control" placeholder="Ponga aquí precio" >
+                                    <input type="number" id="todo-incluido" name="precio_ninguna"  class="form-control" placeholder="Ponga aquí precio" required>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col card">
+                    <div class="col-md-4 col card  border border-dark p-2" style="--bs-border-opacity: .5;">
                         <h1 class="text-center fs-4 mt-4">Precio de las temporadas</h1>
                         <div class="card-body">
                             <div class="row mt-2">
                                 <p class="fs-6 fw-semibold">Alta</p>
                                 <div class="col-6">
                                     <label for="alta-inicio" class="">Inicio</label>
-                                    <input type="Date" id="alta-inicio" name="fecha_inicio_alta"  class="form-control" >
+                                    <input type="Date" id="alta-inicio" name="fecha_inicio_alta"  class="form-control" required>
                                     <label for="alta-fin">Fin</label>
-                                    <input type="Date" id="alta-fin" name="fecha_fin_alta"  class="form-control" >
+                                    <input type="Date" id="alta-fin" name="fecha_fin_alta"  class="form-control" required>
                                 </div>
                                 <div class="col-6">
                                     <label for="precio-alta">Precio</label>
-                                    <input type="number" id="precio-alta" name="precio_temporada_alta"  class="form-control" placeholder="Ponga aquí precio" >
+                                    <input type="number" id="precio-alta" name="precio_temporada_alta"  class="form-control" placeholder="Ponga aquí precio" required>
                                 </div>
                             </div>
 
@@ -93,13 +93,13 @@
                                 <p class="fs-6 fw-semibold">Media</p>
                                 <div class="col-6">
                                     <label for="media-inicio">Inicio</label>
-                                    <input type="Date" id="media-inicio" name="fecha_inicio_media"  class="form-control"  >
+                                    <input type="Date" id="media-inicio" name="fecha_inicio_media"  class="form-control"  required>
                                     <label for="media-fin">Fin</label>
-                                    <input type="Date" id="media-fin" name="fecha_fin_media"  class="form-control" >
+                                    <input type="Date" id="media-fin" name="fecha_fin_media"  class="form-control" required>
                                 </div>
                                 <div class="col-6">
                                     <label for="precio-media">Precio</label>
-                                    <input type="number" id="precio-media" name="precio_temporada_media"  class="form-control" placeholder="Ponga aquí precio" >
+                                    <input type="number" id="precio-media" name="precio_temporada_media"  class="form-control" placeholder="Ponga aquí precio" required>
                                 </div>
                             </div>
 
@@ -107,13 +107,13 @@
                                 <p class="fs-5 fw-semibold">Baja</p>
                                 <div class="col-6">
                                     <label for="baja-inicio">Inicio</label>
-                                    <input type="Date" id="baja-inicio" name="fecha_inicio_baja"  class="form-control"  >
+                                    <input type="Date" id="baja-inicio" name="fecha_inicio_baja"  class="form-control"  required>
                                     <label for="baja-fin">Fin</label>
-                                    <input type="Date" id="baja-fin" name="fecha_fin_baja"  class="form-control" >
+                                    <input type="Date" id="baja-fin" name="fecha_fin_baja"  class="form-control" required>
                                 </div>
                                 <div class="col-6">
                                     <label for="precio-baja">Precio</label>
-                                    <input type="number" id="precio-baja" name="precio_temporada_baja"  class="form-control" placeholder="Ponga aquí precio" >
+                                    <input type="number" id="precio-baja" name="precio_temporada_baja"  class="form-control" placeholder="Ponga aquí precio" required>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
 
                 <div class="row mt-4">
                     <div class="col-4">
-                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="submit" class="btn btn-dark">Guardar</button>
                     </div>
                 </div>
 

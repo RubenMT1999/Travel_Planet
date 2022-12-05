@@ -67,8 +67,13 @@ public class UsuarioController {
             return "registro";
         }
 
+        if (usuario.getContrasenia().length()>20){
+            model.addAttribute("errorContrasenia","La contraseña no puede tener más de 20 caracteres");
+            return "registro";
+        }
+
         if (usuarioService.validarEmail(usuario.getEmail()) != null){
-            model.addAttribute("error","El correo electrónico ya está en uso.");
+            model.addAttribute("errorCorreo","El correo electrónico ya está en uso.");
             return "registro";
         }
 
@@ -83,7 +88,7 @@ public class UsuarioController {
 
         Authorities authorities = new Authorities();
 
-        if(usuario.getEsHotelero() == true){
+        if(usuario.getEsHotelero()){
             authorities.setAuthority(ERoles.ROLE_ADMIN.toString());
         }else {
             authorities.setAuthority(ERoles.ROLE_USER.toString());
