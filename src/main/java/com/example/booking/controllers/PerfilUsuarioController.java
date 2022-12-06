@@ -225,6 +225,7 @@ public class PerfilUsuarioController {
         pago.setId_reserva(reservaUsuario);
         pago.setId_usuario(nombreUsuario);
 
+        model.addAttribute("titulo","Pago de Reserva");
         model.addAttribute("metodoPago", pago);
         model.addAttribute("datosReservaHotel", hotel);
         model.addAttribute("nombreUsuarioPago", nombreUsuario);
@@ -233,8 +234,14 @@ public class PerfilUsuarioController {
     }
 
     @PostMapping("/mis-reservas/pago")
-    public String efectuarPago(@ModelAttribute("reservaUsuario") Reserva reservaUsuario, Model model,
+    public String efectuarPago(@Valid @ModelAttribute("reservaUsuario") Reserva reservaUsuario ,BindingResult result, Model model,
                                Authentication authentication, Pago pago, RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()){
+            model.addAttribute("titulo", "Ha habido algún error");
+            return "perfil/mis-reservas/pago";
+        }
+
         authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario nombreUsuario = usuarioService.datosUsuario(authentication.getName());
 
