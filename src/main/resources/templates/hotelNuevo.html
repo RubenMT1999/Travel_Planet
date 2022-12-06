@@ -24,7 +24,7 @@
     <div class="container p-5">
         <div class="row">
             <div class="col-lg-6 bg-light cl-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center mt-2">Registro de Hotel</h1>
+            <h1 class="text-center mt-2" th:text="#{text.hotel.registro}">Registro de Hotel</h1>
                 <div class="card-body">
                   <form th:action="@{/hoteles/nuevo}" th:object="${hotel}" method="POST", enctype="multipart/form-data">
 
@@ -97,7 +97,7 @@
                       </div>
                       <br>
                       <div class="box-footer">
-                          <button class="btn btn-success">Crear</button>
+                          <button class="btn btn-success" th:text="#{text.hotel.guardar}">Crear</button>
                       </div>
                   </form>
                 </div>

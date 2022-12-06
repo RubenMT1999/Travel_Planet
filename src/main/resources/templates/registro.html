@@ -18,8 +18,8 @@
     <div class="form-holder">
       <div class="form-content">
         <div class="form-items">
-          <h3>Registro de Usuario</h3>
-          <p>Rellena los datos de abajo.</p>
+          <h3 th:text="#{text.regis.usu}">Registro de Usuario</h3>
+          <p th:text="#{text.regis.datos}">Rellena los datos de abajo.</p>
           <form th:action="@{/registrar}" th:object="${usuario}" method="post">
 
             <div th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="alert alert-danger"></div>
@@ -37,13 +37,13 @@
 
             <div class="row">
               <div class="col-md-6 mt-2">
-                <label for="nombre-usuario">Nombre</label>
+                <label for="nombre-usuario" th:text="#{text.hotel.nombre}">Nombre</label>
                 <input type="text" class="form-control" th:field="*{nombre}" id="nombre-usuario" required>
               </div>
 
 
               <div class="col-md-6 mt-2">
-                <label for="apellido-usuario">Apellidos</label>
+                <label for="apellido-usuario" th:text="#{text.regis.apellidos}">Apellidos</label>
                 <input type="text" class="form-control"  th:field="*{apellidos}" id="apellido-usuario" required>
               </div>
             </div>
@@ -56,19 +56,19 @@
 
             <div class="row">
               <div class="col-md-6 mt-2">
-                <label for="fecha-usuario">Fecha de Nacimiento</label>
+                <label for="fecha-usuario" th:text="#{text.regis.nacimiento}">Fecha de Nacimiento</label>
                 <input type="date" class="form-control" th:field="*{fechaNacimiento}" th:max="${maximo}" id="fecha-usuario" required>
               </div>
 
               <div class="col-md-6 mt-2">
-                <label for="nacionalidad-usuario">Nacionalidad</label>
+                <label for="nacionalidad-usuario" th:text="#{text.regis.nacionalidad}">Nacionalidad</label>
                 <input type="text" class="form-control" th:field="*{nacionalidad}" id="nacionalidad-usuario" required>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-6 mt-2">
-                <label for="telefono-usuario">Número de Teléfono</label>
+                <label for="telefono-usuario" th:text="#{text.hotel.telefono}">Número de Teléfono</label>
                 <input type="text" class="form-control" th:field="*{telefono}" id="telefono-usuario" required>
               </div>
               <div class="col-md-6 mt-2">
@@ -78,17 +78,17 @@
             </div>
 
             <div class="col-md-12 mt-2">
-              <label for="contrasenia-usuario">Contraseña</label>
+              <label for="contrasenia-usuario" th:text="#{text.login.pass}">Contraseña</label>
               <input type="password" class="form-control" th:field="*{contrasenia}" id="contrasenia-usuario" required>
             </div>
 
             <div class="form-check mt-3">
               <input class="form-check-input" id="exampleCheck1" type="checkbox" value="" th:field="*{esHotelero}">
-              <label class="form-check-label" for="exampleCheck1">Quiero registrar mi Hotel</label>
+              <label class="form-check-label" for="exampleCheck1" th:text="#{text.regis.hotelero}">Quiero registrar mi Hotel</label>
             </div>
 
             <div class="form-button mt-3">
-              <button id="submit" type="submit" class="btn btn-primary mt-2">Registrarme</button>
+              <button id="submit" type="submit" class="btn btn-primary mt-2" th:text="#{text.regis.registrarme}">Registrarme</button>
             </div>
           </form>
         </div>

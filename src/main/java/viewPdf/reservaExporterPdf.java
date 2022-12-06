@@ -71,7 +71,7 @@ public class reservaExporterPdf {
     private void escribirTablaReserva(PdfPTable tabla){
         tabla.addCell(String.valueOf("Fecha de inicio:" + " " + reserva.getFechaInicio()));
         tabla.addCell(String.valueOf("Fecha de final:" + " " + reserva.getFechaFin()));
-        tabla.addCell(String.valueOf("Capacidad de la habitacion:" + " " + reserva.getHabitacion().getCapacidad()));
+        tabla.addCell(String.valueOf("Capacidad de la habitación:" + " " + reserva.getHabitacion().getCapacidad()));
         tabla.addCell(String.valueOf("Total a pagar:" + " " + reserva.getPrecio_total() + " " + "€"));
 
 
@@ -80,7 +80,7 @@ public class reservaExporterPdf {
     private void escribirTablaCliente(PdfPTable tabla){
         tabla.addCell(String.valueOf("Nombre del Cliente:" + " " + reserva.getUsuario().getNombre() + " " + reserva.getUsuario().getApellidos()));
         tabla.addCell(String.valueOf("Dni:" + " " + reserva.getUsuario().getDni()));
-        tabla.addCell(String.valueOf("Telefono del cliente:" + " " + reserva.getUsuario().getTelefono()));
+        tabla.addCell(String.valueOf("Teléfono del cliente:" + " " + reserva.getUsuario().getTelefono()));
         tabla.addCell(String.valueOf("Email de contacto:" + " " + reserva.getUsuario().getEmail()));
 
     }
@@ -91,7 +91,7 @@ public class reservaExporterPdf {
         tabla.addCell(String.valueOf("Nombre del hotel:" + " " + reserva.getHabitacion().getHotel().getNombre()));
         tabla.addCell(String.valueOf("Ciudad donde se ubica:" + " " + reserva.getHabitacion().getHotel().getCiudad()));
         tabla.addCell(String.valueOf("Cif del hotel:" + " " + reserva.getHabitacion().getHotel().getCif()));
-        tabla.addCell(String.valueOf("Telefono de contacto:" + " " + reserva.getHabitacion().getHotel().getTelefono()));
+        tabla.addCell(String.valueOf("Teléfono de contacto:" + " " + reserva.getHabitacion().getHotel().getTelefono()));
 
     }
 
