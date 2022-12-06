@@ -26,7 +26,7 @@
             <div class="card mb-3 w-100 border border-dark p-2" style="--bs-border-opacity: .5;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img th:if="${#strings.length(habitacion.imagen)>0} and ${!habitacion.imagen.contains('https')}" class="img-thumbnail float-end " th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
+                        <img th:if="${#strings.length(habitacion.imagen)>0} and ${!habitacion.imagen.contains('https')}" class="img-thumbnail float-end w-100 h-100" th:src="@{'/uploads/' + ${habitacion.imagen}}" th:alt="${habitacion.imagen}"/>
                         <img th:if="${habitacion.imagen.contains('https')}" th:src="${habitacion.imagen}" class="card-img-top" alt="..." >
                     </div>
                     <div class="col-md-8">
