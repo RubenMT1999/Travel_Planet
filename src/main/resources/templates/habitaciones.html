@@ -34,9 +34,18 @@
                             <h5 class="card-title" th:text=" 'Número de habitación : ' + ${habitacion.numeroHabitacion}"></h5>
                             <p class="card-text" th:text="${habitacion.descripcion}"></p>
                             <p class="card-text fw-semibold fs-6">Capacidad : <small th:text="${habitacion.capacidad}"></small></p>
-                            <p class="card-text fw-semibold fs-6">Precio : <small th:text="${habitacion.precioBase} + '€'"></small></p>
-                            <a th:href="@{/habitaciones/editar/{id}(id=${habitacion.getId()})}" class="btn btn-primary">Editar</a>
-                            <a th:href="@{/habitaciones/borrar/{id}(id=${habitacion.getId()})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a>
+                            <div class="mt-2">
+                                <span class="badge text-bg-primary"  th:if="${habitacion.wifi}">Wifi</span>
+                                <span class="badge text-bg-primary"  th:if="${habitacion.tv}">TV</span>
+                                <span class="badge text-bg-primary"  th:if="${habitacion.terraza}">Terraza</span>
+                                <span class="badge text-bg-primary"  th:if="${habitacion.cocina}">Cocina</span>
+                                <span class="badge text-bg-primary"  th:if="${habitacion.banioPrivado}">Baño</span>
+                                <span class="badge text-bg-primary"  th:if="${habitacion.aireAcondicionado}">Aire Acondicionado</span>
+                                <span class="badge text-bg-primary"  th:if="${habitacion.cajaFuerte}">Caja Fuerte</span>
+                            </div>
+                            <p class="card-text fw-semibold fs-6 mt-2">Precio : <small th:text="${habitacion.precioBase} + '€'"></small></p>
+                            <a th:href="@{/habitaciones/editar/{id}(id=${habitacion.getId()})}" class="btn btn-primary mt-2">Editar</a>
+                            <a th:href="@{/habitaciones/borrar/{id}(id=${habitacion.getId()})}" class="btn btn-danger mt-2" onclick="return confirm('¿Estás seguro que quieres eliminar?')">Eliminar</a>
                         </div>
                     </div>
                 </div>
