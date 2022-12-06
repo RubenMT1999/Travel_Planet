@@ -53,6 +53,27 @@ import java.util.concurrent.TimeUnit;
     @Autowired
     private PensionService pensionService;
 
+
+    /**
+     * Este método maneja una solicitud GET a la ruta /hoteles/listar. Procesa una búsqueda de hoteles
+     * utilizando los parámetros proporcionados en la solicitud HTTP GET. Primero, convierte las fechas
+     * de inicio y fin proporcionadas en el formato adecuado. Luego, comprueba si la fecha de fin es
+     * anterior a la fecha de inicio o si excede el límite de 30 días. Si se cumple alguna de estas
+     * condiciones, agrega un mensaje de error al modelo y redirige a la página de inicio.
+     *
+     * Si la fecha de fin es válida, busca hoteles que cumplan con los criterios de búsqueda y calcula
+     * el precio mínimo de las habitaciones disponibles en cada hotel. Finalmente, agrega los resultados
+     * de la búsqueda al modelo y redirige a la página de búsqueda de hoteles.
+     *
+     * @param ciudades La ciudad donde se realiza la búsqueda
+     * @param flash El objeto RedirectAttributes utilizado para agregar atributos flash al modelo
+     * @param fecha_inicio La fecha de inicio de la reserva
+     * @param fecha_fin La fecha de fin de la reserva
+     * @param capacidad La capacidad máxima requerida para la reserva
+     * @param model El objeto Spring Model utilizado para almacenar atributos del modelo
+     * @param session El objeto HttpSession utilizado para almacenar atributos de sesión
+     * @return La ruta a la que se redirige después de procesar la búsqueda de hoteles
+     **/
     @GetMapping("/hoteles/listar")
     public String procesarBusqueda(@RequestParam(name = "ciudad") String ciudades,
                                    RedirectAttributes flash,
@@ -124,6 +145,18 @@ import java.util.concurrent.TimeUnit;
         session.setAttribute("ff", fecha_Fin);
         return "busquedahoteles";
     }
+
+        /**
+         * Este método procesa una búsqueda de hoteles en base a los filtros especificados.
+         *
+         * @param ciudad Un objeto {@link Hotel} que contiene información sobre la ciudad donde se encuentra el hotel.
+         * @param capacidad Un objeto {@link Habitacion} que contiene información sobre la capacidad de las habitaciones que se desean buscar.
+         * @param fecha Un objeto {@link Reserva} que contiene información sobre las fechas de inicio y fin de la reserva.
+         * @param habitacion Un objeto {@link Habitacion} que contiene información adicional sobre las características de las habitaciones que se desean buscar (por ejemplo, si tienen WiFi, terraza, aire acondicionado, etc.).
+         * @param puntuacion Un objeto {@link Hotel} que contiene información sobre la puntuación que se desea buscar.
+         * @param model El objeto {@link Model} que se utiliza para agregar atributos que se utilizarán en la vista para mostrar los resultados de la búsqueda.
+         * @return El nombre de la vista que mostrará los resultados de la búsqueda.
+         */
         @GetMapping("/hoteles/listarfiltro")
         public String procesarBusqueda(@ModelAttribute("hoteles") Hotel ciudad,
                                        @ModelAttribute( "habitacion") Habitacion capacidad,
@@ -155,16 +188,32 @@ import java.util.concurrent.TimeUnit;
         }
 
 
-
+        /**
+         * Este método muestra los detalles de un hotel específico y permite a los usuarios buscar habitaciones disponibles.
+         *
+         * @param id El ID del hotel del que se desean ver los detalles.
+         * @param capacidad Un objeto {@link Habitacion} que contiene información sobre la capacidad de las habitaciones que se desean buscar.
+         * @param fecha Un objeto {@link Reserva} que contiene información sobre las fechas de inicio y fin de la reserva.
+         * @param model El objeto {@link Model} que se utiliza para agregar atributos que se utilizarán en la vista para mostrar los detalles del hotel y los resultados de la búsqueda.
+         * @param page La página actual de los resultados de la búsqueda (se utiliza para la paginación).
+         * @return El nombre de la vista que mostrará los detalles del hotel y los resultados de la búsqueda.
+         */
     @GetMapping("/hoteles/habitacion/{id}")
     public String hotelid(@PathVariable(name = "id") Integer id,
                           @ModelAttribute("habitacion") Habitacion capacidad,
                           @ModelAttribute("reserva") Reserva fecha, Model model,
                           @RequestParam(name="page", defaultValue = "0") int page) {
+
+        //Configuración de la paginación
         Pageable pageRequest = PageRequest.of(page, 5);
+
         model.addAttribute("titulo", "Buscar - Travel Planet");
+
+        //Buscar habitaciones que cumplan con los filtros.
         Page<Habitacion> habitacions = habitacionService.buscarHabitacionesPages(id, capacidad.getCapacidad(), fecha.getFechaInicio(), fecha.getFechaFin(),pageRequest);
         PageRender<Habitacion> pageRender = new PageRender<>("/hoteles/habitacion/"+id,habitacions);
+
+
         Hotel hotel = hotelService.hotelID(id);
         model.addAttribute("page",pageRender);
         model.addAttribute("hotel", hotel);
