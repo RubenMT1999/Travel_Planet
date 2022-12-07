@@ -10,3 +10,12 @@
 .navbar.transparent.navbar-inverse .navbar-inner {
     background: rgba(0,0,0,0.4);
 }
+
+
+.fondoBody {
+    background-color: red;
+    /*background-image: url('https://img.freepik.com/fotos-premium/fondo-gris-texturizado_120523-2046.jpg?w=740');*/
+    width: 100%;
+    height: 100%;
+}
+
