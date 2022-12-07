@@ -50,6 +50,7 @@
                     </div>
                 </div>
             </div>
+            <nav th:if="habitaciones != null" class="mt-5" th:replace="paginator-nav :: paginator"></nav>
         </div>
     </div>
 
@@ -60,7 +61,7 @@
 
 
 
-    <nav class="mt-5" th:replace="paginator-nav :: paginator"></nav>
+
 </div>
 
 
