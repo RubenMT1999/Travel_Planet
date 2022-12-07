@@ -99,13 +99,13 @@ import java.util.concurrent.TimeUnit;
         //Errores de buscador por la fecha.
         if(diferencia < 0){
             flash
-                    .addFlashAttribute("mensaje", "La fecha fin es anterior a la fecha inicial")
-                    .addFlashAttribute("clase", "success");
+                    .addFlashAttribute("error", "La fecha fin es anterior a la fecha inicial");
+//                    .addFlashAttribute("clase", "success");
             return "redirect:/";
         } else if (diferencia > 30) {
             flash
-                    .addFlashAttribute("mensaje", "La fecha fin excede los 30 días")
-                    .addFlashAttribute("clase", "success");
+                    .addFlashAttribute("error", "La fecha fin excede los 30 días");
+//                    .addFlashAttribute("clase", "success");
             return "redirect:/";
         }
 
