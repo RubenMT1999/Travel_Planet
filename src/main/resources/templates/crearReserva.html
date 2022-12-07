@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <title th:text="${titulo}"></title>
 </head>
-<body>
+<body style="font-family: 'ui-sans-serif'">
 
 <header th:replace="header/header :: header"></header>
 
@@ -54,7 +54,7 @@
               </div>
 
               <div class="col mt-2">
-                <p class="list-group-item fw-semibold fs-6" th:text="'Número de noches : '+${dias}"></p>
+                <p class="list-group-item fw-semibold fs-6" th:text="'Número de días : '+${dias}"></p>
               </div>
               <div class="col mt-4">
                 <p class="fw-semibold fs-6">Seleciona la pensión</p>
@@ -64,7 +64,7 @@
                 </select>
                 <input type="submit" value="Calcular Precio" class="btn btn-block btn-primary btn-sm mx-3">
               </div>
-
+              <p sec:authorize="!isAuthenticated()" class="text-danger mt-5">Por favor, inicie sesión para completar la reserva.</p>
 
             </div>
           </div>
@@ -75,7 +75,11 @@
   </form>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5" style="margin-right: 460px">
     <form class="me-md-end" th:action="@{/reserva/nuevo/{id}(id=${habitacion.getId()})}" th:object="${reserva}"  method="post">
-      <button href="#" class="btn btn-success">Reservar</button>
+      <button sec:authorize="isAuthenticated()" class="btn btn-success">Reservar</button>
+      <div sec:authorize="!isAuthenticated()" class="ml-5">
+        <button  class="btn btn-success" disabled>Reservar</button>
+      </div>
+
     </form>
     <div class="">
       <a class="btn btn-danger" th:href="@{/}">Cancelar</a>
