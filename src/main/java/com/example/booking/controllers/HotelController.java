@@ -2,11 +2,8 @@ package com.example.booking.controllers;
 
 import Paginador.PageRender;
 import com.example.booking.models.*;
-import com.example.booking.services.HabitacionService;
-import com.example.booking.services.HotelService;
-import com.example.booking.services.PensionService;
-import com.example.booking.services.ReservaService;
-import com.example.booking.services.UsuarioService;
+import com.example.booking.repository.TarifaRepository;
+import com.example.booking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,6 +49,9 @@ import java.util.concurrent.TimeUnit;
 
     @Autowired
     private PensionService pensionService;
+
+    @Autowired
+    private TarifaService tarifaService;
 
 
     /**
@@ -428,6 +428,8 @@ import java.util.concurrent.TimeUnit;
 
 
             PensionHotel pensionHotel = new PensionHotel();
+
+
             //pensionHotel.setTarifa(habitacion.getHotel().getTarifa());
 
             Tarifa miTarifa = habitacion.getHotel().getTarifa();
@@ -458,9 +460,17 @@ import java.util.concurrent.TimeUnit;
             if ((miTarifa.getPrecioTV() != 0 || miTarifa.getPrecioTV() != null ) && habitacion.isTv() == true ){ p6 = miTarifa.getPrecioTV() * diasBuscados;}
             if ((miTarifa.getPrecioWifi() != 0 || miTarifa.getPrecioWifi() != null) && habitacion.isWifi() == true ){ p7 = miTarifa.getPrecioWifi() * diasBuscados;}
 
-            Double precio_p = pensionService.precioPension(pensionHotel.getPension(),miTarifa);
+            List<PensionHotel> pension = pensionService.listarPensiones(miTarifa.getId());
 
-            habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7 );
+            if (precioPension == null){
+                precioPension = pension.get(0).getPrecio();
+            }
+
+            Double penspre = precioPension + diasBuscados;
+
+
+
+            habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7 + penspre);
 
             Double precio = habitacion.getPrecioBase();
 
