@@ -462,7 +462,9 @@ import java.util.concurrent.TimeUnit;
 
 
 
-            habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7);
+Double precio_p = pensionService.precioPension(pensionHotel.getPension(),miTarifa);
+
+            habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7 );
 
             Double precio = habitacion.getPrecioBase();
 

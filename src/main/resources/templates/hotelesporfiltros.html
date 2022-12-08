@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title th:text="${titulo}"></title>
@@ -9,15 +9,15 @@
 <body>
 
 <header th:replace="header/header :: header"></header>
-<div class="container-fluid">
+<div class="container-fluid mb-3">
     <div class="row">
         <div class="col-3">
-            <div class="sticky-top mt-3">
-                <div class="card mb-3" style="max-width: 100%;" >
+            <div class="sticky-top mt-3" style="top: 30px">
+                <div class="card mb-3 border border-dark" style="max-width: 100%;--bs-border-opacity: .5;" >
                     <form action="#" th:action="@{/hoteles/listarfiltro}" th:object="${habitacion}" method="get">
                         <div class="card text-center">
                             <div class="card-body">
-                                <p class="fw-bolder">Tu presupuesto: </p>
+                                <p class="fw-bolder" th:text="#{text.filtro.presupuesto}">Tu presupuesto: </p>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" th:field="*{precioBase}" th:value=0>
                                     <label class="form-check-label" for="inlineRadio1"> 0€ - 50€</label>
@@ -41,14 +41,14 @@
                             </div>
                             <form action="#" th:action="@{/hoteles/listarfiltro}" th:object="${hoteles}" method="get">
                                 <div class="card-body">
-                                    <p class="fw-bolder">Puntuación: </p>
+                                    <p class="fw-bolder" th:text="#{text.filtro.puntuacion}">Puntuación: </p>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion1" th:field="*{estrellas}" th:value=1>
                                         <label class="form-check-label" for="inlineRadio3">Normal: 1</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion2" th:field="*{estrellas}" th:value=2>
-                                        <label class="form-check-label" for="inlineRadio3">Agradable: 2</label>
+                                        <label class="form-check-label" for="inlineRadio3" th:text="#{text.flitro.agradable}">Agradable: 2</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="puntuacion" id="puntuacion4" th:field="*{estrellas}" th:value=3>
@@ -111,13 +111,15 @@
             </div>
         </div>
         <div class="col-9 mt-5">
+
             <div th:if="${#lists.isEmpty(hotel)}" class="alert alert-danger">
                 <p>Lo sentimos, no existe ningún hotel que cumpla con los requisitos de su búsqueda.</p>
             </div>
+
             <div class="card mb-5 text-bg-dark" th:each="hoteles: ${hotel}">
 
                 <div class="card-header text-center">
-                    <span th:text="${hoteles.nombre}"> </span>
+                    <span th:text="${hoteles.nombre}" class="fs-5 fw-bold"> </span>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-5 mx-3 mt-3 ">
@@ -128,17 +130,18 @@
                     </div>
                     <div class="col-md-6 ">
                         <div class="card-body">
-                            <h5 th:if="${hoteles.estrellas == 1}" class="card-title"><span class="fw-semibold">Estrellas: ⭐</span> </h5>
-                            <h5 th:if="${hoteles.estrellas == 2}" class="card-title"><span class="fw-semibold">Estrellas: ⭐⭐</span> </h5>
-                            <h5 th:if="${hoteles.estrellas == 3}" class="card-title"><span class="fw-semibold">Estrellas: ⭐⭐⭐</span> </h5>
-                            <h5 th:if="${hoteles.estrellas == 4}" class="card-title"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐</span> </h5>
-                            <h5 th:if="${hoteles.estrellas == 5}" class="card-title"><span class="fw-semibold">Estrellas: ⭐⭐⭐⭐⭐</span> </h5>
+                            <h5 th:if="${hoteles.estrellas == 1}" class="card-title"><span>Estrellas: ⭐</span> </h5>
+                            <h5 th:if="${hoteles.estrellas == 2}" class="card-title"><span>Estrellas: ⭐⭐</span> </h5>
+                            <h5 th:if="${hoteles.estrellas == 3}" class="card-title"><span>Estrellas: ⭐⭐⭐</span> </h5>
+                            <h5 th:if="${hoteles.estrellas == 4}" class="card-title"><span>Estrellas: ⭐⭐⭐⭐</span> </h5>
+                            <h5 th:if="${hoteles.estrellas == 5}" class="card-title"><span>Estrellas: ⭐⭐⭐⭐⭐</span> </h5>
 
-                            <p class="card-text "><span th:text="${hoteles.ciudad}"></span>, <span th:text="${hoteles.lugar}"></span></p>
-                            <p class="card-text "><span th:text="${hoteles.precio} + '€'"></span></p>
-                            <div class="card-body">
-                                <a th:href="@{'/hoteles/habitacionfiltro/' + ${hoteles.id}}" class="btn btn-primary">Ver disponibilidad</a>
-                            </div>
+                            <p class="card-text fs-6 fw-semibold"><span th:text="${hoteles.ciudad}"></span>, <span th:text="${hoteles.lugar}"></span></p>
+                            <p class="card-text mt-2" th:text="${hoteles.comentario}"></p>
+                            <p class="card-text fs-6 mt-2"><span th:text="'Precio medio : ' + ${hoteles.precio} + '€'"></span></p>
+
+                            <a th:href="@{'/hoteles/habitacion/' + ${hoteles.id}}" class="btn btn-primary mt-5">Ver disponibilidad</a>
+
 
                         </div>
                     </div>
@@ -148,9 +151,7 @@
         </div>
     </div>
 
-
-
-
 </div>
+<footer th:replace="footer/footer :: footer"></footer>
 </body>
 </html>
