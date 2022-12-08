@@ -458,7 +458,9 @@ import java.util.concurrent.TimeUnit;
             if ((miTarifa.getPrecioTV() != 0 || miTarifa.getPrecioTV() != null ) && habitacion.isTv() == true ){ p6 = miTarifa.getPrecioTV() * diasBuscados;}
             if ((miTarifa.getPrecioWifi() != 0 || miTarifa.getPrecioWifi() != null) && habitacion.isWifi() == true ){ p7 = miTarifa.getPrecioWifi() * diasBuscados;}
 
-            habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7);
+            Double precio_p = pensionService.precioPension(pensionHotel.getPension(),miTarifa);
+
+            habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7 );
 
             Double precio = habitacion.getPrecioBase();
 
