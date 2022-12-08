@@ -450,17 +450,13 @@ import java.util.concurrent.TimeUnit;
             Double p6 = Double.valueOf(0);
             Double p7 = Double.valueOf(0);
 
-
-
-
-
-            if ((miTarifa.getPrecioAire() != 0 || miTarifa.getPrecioAire() != null) && habitacion.isAireAcondicionado() == true ){ p1 = miTarifa.getPrecioAire();}
-            if ((miTarifa.getPrecioBanio() != 0 || miTarifa.getPrecioBanio() != null ) && habitacion.isBanioPrivado() == true ){ p2 = miTarifa.getPrecioBanio();}
-            if ((miTarifa.getPrecioCajaFuerte() != 0 || miTarifa.getPrecioCajaFuerte() != null) && habitacion.isCajaFuerte() == true ){ p3 = miTarifa.getPrecioCajaFuerte();}
-            if ((miTarifa.getPrecioCocina() != 0 || miTarifa.getPrecioCocina() != null ) && habitacion.isCocina() == true ){ p4 = miTarifa.getPrecioCocina();}
+            if ((miTarifa.getPrecioAire() != 0 || miTarifa.getPrecioAire() != null) && habitacion.isAireAcondicionado() == true ){ p1 = miTarifa.getPrecioAire() * diasBuscados;}
+            if ((miTarifa.getPrecioBanio() != 0 || miTarifa.getPrecioBanio() != null ) && habitacion.isBanioPrivado() == true ){ p2 = miTarifa.getPrecioBanio() * diasBuscados;}
+            if ((miTarifa.getPrecioCajaFuerte() != 0 || miTarifa.getPrecioCajaFuerte() != null) && habitacion.isCajaFuerte() == true ){ p3 = miTarifa.getPrecioCajaFuerte() * diasBuscados;}
+            if ((miTarifa.getPrecioCocina() != 0 || miTarifa.getPrecioCocina() != null ) && habitacion.isCocina() == true ){ p4 = miTarifa.getPrecioCocina() * diasBuscados;}
             if ((miTarifa.getPrecioTerraza() != 0 || miTarifa.getPrecioTerraza() != null ) && habitacion.isTerraza() == true ){ p5 = miTarifa.getPrecioTerraza();}
-            if ((miTarifa.getPrecioTV() != 0 || miTarifa.getPrecioTV() != null ) && habitacion.isTv() == true ){ p6 = miTarifa.getPrecioTV();}
-            if ((miTarifa.getPrecioWifi() != 0 || miTarifa.getPrecioWifi() != null) && habitacion.isWifi() == true ){ p7 = miTarifa.getPrecioWifi();}
+            if ((miTarifa.getPrecioTV() != 0 || miTarifa.getPrecioTV() != null ) && habitacion.isTv() == true ){ p6 = miTarifa.getPrecioTV() * diasBuscados;}
+            if ((miTarifa.getPrecioWifi() != 0 || miTarifa.getPrecioWifi() != null) && habitacion.isWifi() == true ){ p7 = miTarifa.getPrecioWifi() * diasBuscados;}
 
             habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7);
 
