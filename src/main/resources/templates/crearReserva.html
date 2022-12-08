@@ -37,7 +37,7 @@
                 <p class="fw-semibold fs-6" th:text="'Capacidad : '+${habitacion.getCapacidad()}"></p>
               </div>
               <div class="col">
-                <p class="list-group-item fw-semibold fs-6" th:if="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() + dias + precioPension} + '€'"></p>
+                <p class="list-group-item fw-semibold fs-6"  th:if="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() + dias + precioPension} + '€'"></p>
               </div>
               <div class="col">
                 <p class="list-group-item fw-semibold fs-6" th:unless="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase()} + '€'" ></p>
@@ -54,7 +54,7 @@
               </div>
 
               <div class="col mt-2">
-                <p class="list-group-item fw-semibold fs-6" th:text="'Número de noches : '+${dias}"></p>
+                <p class="list-group-item fw-semibold fs-6" th:text="'Número de días : '+${dias}"></p>
               </div>
               <div class="col mt-4">
                 <p class="fw-semibold fs-6">Seleciona la pensión</p>

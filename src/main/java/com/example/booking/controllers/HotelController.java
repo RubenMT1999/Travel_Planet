@@ -458,6 +458,10 @@ import java.util.concurrent.TimeUnit;
             if ((miTarifa.getPrecioTV() != 0 || miTarifa.getPrecioTV() != null ) && habitacion.isTv() == true ){ p6 = miTarifa.getPrecioTV() * diasBuscados;}
             if ((miTarifa.getPrecioWifi() != 0 || miTarifa.getPrecioWifi() != null) && habitacion.isWifi() == true ){ p7 = miTarifa.getPrecioWifi() * diasBuscados;}
 
+
+
+
+
             habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7);
 
             Double precio = habitacion.getPrecioBase();
@@ -477,7 +481,7 @@ import java.util.concurrent.TimeUnit;
         public String guardarReserva( Model model,@PathVariable Integer id, Authentication authentication,
                                       @ModelAttribute("reserva") Reserva fecha, @ModelAttribute("precio") Double precio, HttpSession session) throws ParseException {
 
-            authentication= SecurityContextHolder.getContext().getAuthentication();
+
             Reserva reserva = new Reserva();
             reserva.setPrecio_total(precio);
             Habitacion habitacion = habitacionService.findById(id);
@@ -485,7 +489,7 @@ import java.util.concurrent.TimeUnit;
             reserva.setHabitacion(habitacion);
             Usuario usuario = usuarioService.datosUsuario(authentication.getName());
             reserva.setUsuario(usuario);
-            habitacion.getPrecioBase();
+
             reserva.setPagado(false);
             habitacionService.editarDisponibilidad(false, habitacion.getId());
 
