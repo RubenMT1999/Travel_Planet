@@ -37,10 +37,10 @@
                 <p class="fw-semibold fs-6" th:text="'Capacidad : '+${habitacion.getCapacidad()}"></p>
               </div>
               <div class="col">
-                <p class="list-group-item fw-semibold fs-6" th:if="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() * dias + precioPension} + '€'"></p>
+                <p class="list-group-item fw-semibold fs-6" th:if="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() + dias + precioPension} + '€'"></p>
               </div>
               <div class="col">
-                <p class="list-group-item fw-semibold fs-6" th:unless="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase() * dias} + '€'" ></p>
+                <p class="list-group-item fw-semibold fs-6" th:unless="${precioPension}" th:text="'Precio total : '+${habitacion.getPrecioBase()} + '€'" ></p>
               </div>
               <div>
                 <span class="fw-semibold fs-6">Dispone de : </span>

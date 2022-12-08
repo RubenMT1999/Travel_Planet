@@ -439,9 +439,32 @@ import java.util.concurrent.TimeUnit;
             }
             Double precioTemporada = pensionService.precioTemporada(temporadaHotel.getTemporada(),miTarifa);
 
-            habitacion.setPrecioBase((precioTemporada * diasBuscados) + habitacion.getPrecioBase());
+            Double precioSumarTem =  precioTemporada * diasBuscados;
+            Double precioBaseDias = habitacion.getPrecioBase() * diasBuscados;
 
-            model.addAttribute("precio", habitacion);
+            Double p1 = Double.valueOf(0);
+            Double p2 = Double.valueOf(0);
+            Double p3 = Double.valueOf(0);
+            Double p4 = Double.valueOf(0);
+            Double p5 = Double.valueOf(0);
+            Double p6 = Double.valueOf(0);
+            Double p7 = Double.valueOf(0);
+
+            if ((miTarifa.getPrecioAire() != 0 || miTarifa.getPrecioAire() != null) && habitacion.isAireAcondicionado() == true ){ p1 = miTarifa.getPrecioAire() * diasBuscados;}
+            if ((miTarifa.getPrecioBanio() != 0 || miTarifa.getPrecioBanio() != null ) && habitacion.isBanioPrivado() == true ){ p2 = miTarifa.getPrecioBanio() * diasBuscados;}
+            if ((miTarifa.getPrecioCajaFuerte() != 0 || miTarifa.getPrecioCajaFuerte() != null) && habitacion.isCajaFuerte() == true ){ p3 = miTarifa.getPrecioCajaFuerte() * diasBuscados;}
+            if ((miTarifa.getPrecioCocina() != 0 || miTarifa.getPrecioCocina() != null ) && habitacion.isCocina() == true ){ p4 = miTarifa.getPrecioCocina() * diasBuscados;}
+            if ((miTarifa.getPrecioTerraza() != 0 || miTarifa.getPrecioTerraza() != null ) && habitacion.isTerraza() == true ){ p5 = miTarifa.getPrecioTerraza();}
+            if ((miTarifa.getPrecioTV() != 0 || miTarifa.getPrecioTV() != null ) && habitacion.isTv() == true ){ p6 = miTarifa.getPrecioTV() * diasBuscados;}
+            if ((miTarifa.getPrecioWifi() != 0 || miTarifa.getPrecioWifi() != null) && habitacion.isWifi() == true ){ p7 = miTarifa.getPrecioWifi() * diasBuscados;}
+
+            Double precio_p = pensionService.precioPension(pensionHotel.getPension(),miTarifa);
+
+            habitacion.setPrecioBase(precioBaseDias + precioSumarTem + p1 + p2 + p3 + p4 + p5 + p6 + p7 );
+
+            Double precio = habitacion.getPrecioBase();
+
+            model.addAttribute("precio", precio);
             model.addAttribute("titulo","Crear Reserva");
             model.addAttribute("reserva",reserva);
             model.addAttribute("habitacion",habitacion);
@@ -454,11 +477,11 @@ import java.util.concurrent.TimeUnit;
 
         @PostMapping("/reserva/nuevo/{id}")
         public String guardarReserva( Model model,@PathVariable Integer id, Authentication authentication,
-                                      @ModelAttribute("reserva") Reserva fecha, @ModelAttribute("precio") Habitacion precio, HttpSession session) throws ParseException {
+                                      @ModelAttribute("reserva") Reserva fecha, @ModelAttribute("precio") Double precio, HttpSession session) throws ParseException {
 
             authentication= SecurityContextHolder.getContext().getAuthentication();
             Reserva reserva = new Reserva();
-            reserva.setPrecio_total(precio.getPrecioBase());
+            reserva.setPrecio_total(precio);
             Habitacion habitacion = habitacionService.findById(id);
 
             reserva.setHabitacion(habitacion);
