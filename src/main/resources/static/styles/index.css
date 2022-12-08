@@ -4,6 +4,7 @@
     height: 100vh;
     background-size: 100% 100%;
     position: relative;
+    font-family: "ui-sans-serif";
 
 }
 
@@ -16,4 +17,5 @@
     left: 50%;
     margin: -25px 0 0 -400px; /* aplicar a top y al margen izquierdo un valor negativo para completar el centrado del elemento hijo */
     border-radius: 20px;
+    font-family: "ui-sans-serif";
 }
